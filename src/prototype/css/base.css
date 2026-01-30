@@ -1,0 +1,138 @@
+/* src/prototype/css/base.css */
+
+/* --- 1. SETTINGS & VARS --- */
+:root {
+    /* Palette: The "IDE Night" Theme */
+    --color-void:   #0F0F1A;       /* Уровень 1: Тьма вокруг (Void) */
+    --color-frame:  #1E1E2F;       /* Уровень 2: Рамка (Header/Footer) - Space Navy */
+    --color-canvas: #242436;       /* Уровень 3: Рабочая область (чуть светлее) */
+
+    --color-ivory:  #FAF9F6;       /* Основной текст */
+    --color-ghost:  rgba(255, 255, 255, 0.6); /* Вторичный текст */
+
+    --color-gold:   #FFD43B;       /* Python Gold */
+    --color-blue:   #306998;       /* Python Blue */
+
+    /* Dimensions */
+    --max-width:    1440px;        /* Максимальная ширина контента */
+    --header-h:     80px;          /* Высота хедера */
+    --footer-h:     64px;          /* Высота футера (в закрытом виде) */
+}
+
+/* --- 2. RESET & BASE --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-void); /* Тьма за пределами */
+    color: var(--color-ivory);
+    font-family: 'Inter', sans-serif;
+    /* Центровка "листа" */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Шрифты */
+h1, h2, h3 { font-weight: 700; line-height: 1.1; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+a { text-decoration: none; color: inherit; transition: opacity 0.2s; }
+a:hover { opacity: 0.8; }
+
+/* --- 3. LAYOUT STRUCTURE (The Sandwich) --- */
+
+/* LEVEL 1: HEADER (Fixed Frame) */
+.layout-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-h);
+    background-color: var(--color-frame);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    z-index: 100;
+
+    /* Центрируем контент внутри полосы */
+    display: flex;
+    justify-content: center;
+}
+
+.header-inner {
+    width: 100%;
+    max-width: var(--max-width);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px; /* Отступы по бокам */
+}
+
+/* LEVEL 2: MAIN CANVAS (The Page) */
+.layout-main {
+    margin-top: var(--header-h);       /* Отступ сверху под хедер */
+    padding-bottom: var(--footer-h);   /* Отступ снизу под футер */
+
+    width: 100%;
+    max-width: var(--max-width);
+
+    min-height: calc(100vh - var(--header-h)); /* Растягиваем на весь экран */
+    background-color: var(--color-canvas);     /* Цвет листа */
+
+    box-shadow: 0 0 100px rgba(0,0,0,0.5);     /* Тень, отделяющая лист от Void */
+    border-left: 1px solid rgba(255,255,255,0.03);
+    border-right: 1px solid rgba(255,255,255,0.03);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Центрируем контент по вертикали (для Hero) */
+    padding: 60px;
+}
+
+/* LEVEL 3: FOOTER (Fixed Trigger) */
+.layout-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--footer-h);
+    background-color: var(--color-frame);
+    border-top: 2px solid var(--color-gold); /* Акцентная линия */
+    z-index: 200;
+
+    display: flex;
+    justify-content: center;
+    cursor: pointer; /* Указываем, что можно нажать */
+}
+
+.footer-inner {
+    width: 100%;
+    max-width: var(--max-width);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+
+/* --- 4. UTILITY CLASSES (Minimal) --- */
+.text-gold { color: var(--color-gold); }
+.text-blue { color: var(--color-blue); }
+.text-ghost { color: var(--color-ghost); }
+
+.hero-title {
+    font-size: 4rem; /* Крупный текст (~64px) */
+    margin-bottom: 2rem;
+}
+
+.hero-desc {
+    font-size: 1.2rem;
+    border-left: 2px solid var(--color-blue);
+    padding-left: 1.5rem;
+    color: var(--color-ghost);
+    font-family: 'JetBrains Mono', monospace;
+}

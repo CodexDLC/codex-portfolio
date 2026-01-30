@@ -1,90 +1,38 @@
 <!DOCTYPE html>
-<html lang="ru" class="dark scroll-smooth">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        spaceNavy: '#1E1E2F',
-                        pythonGold: '#FFD43B',
-                        pythonBlue: '#306998',
-                        ivory: '#FAF9F6',
-                        ghostGray: 'rgba(255, 255, 255, 0.6)',
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="css/global.css">
     <title>CodexDLC | Contact</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
 </head>
-<body class="antialiased">
+<body>
 
-    <header class="sticky top-0 w-full z-50 backdrop-blur-md bg-spaceNavy/80 border-b border-white/5 h-20 px-8 flex items-center justify-between transition-all duration-300">
-        <a href="../../index.html" class="font-mono text-2xl font-bold text-pythonGold">CodexDLC</a>
-        <nav class="hidden md:flex gap-8 font-mono text-xs uppercase tracking-widest">
-            <a href="projects.html" class="hover:text-pythonGold">// PROJECTS</a>
-            <a href="experience.html" class="hover:text-pythonGold">// EXPERIENCE</a>
-            <a href="contact.html" class="text-pythonGold">// CONTACT</a>
-        </nav>
-        <div class="md:hidden text-[10px] font-mono text-pythonGold uppercase tracking-widest">Connect_Station</div>
+    <header class="layout-header">
+        <div class="header-inner">
+            <a href="../../index.html" class="font-mono" style="font-size: 1.5rem; font-weight: bold; color: var(--color-gold);">CodexDLC</a>
+            <nav class="font-mono text-ghost" style="font-size: 0.8rem; text-transform: uppercase;">
+                <a href="projects.html" style="margin-left: 30px;">// Projects</a>
+                <a href="experience.html" style="margin-left: 30px;">// Experience</a>
+                <a href="contact.html" class="text-gold" style="margin-left: 30px;">// Contact</a>
+            </nav>
+        </div>
     </header>
 
-    <main class="flex-grow p-4 md:p-16 flex flex-col justify-center">
-
-        <section class="mb-16">
-            <h1 class="text-5xl md:text-7xl font-bold text-ivory tracking-tighter mb-4">
-                Let's Build the <span class="text-pythonGold">Lifecycle.</span>
-            </h1>
-            <p class="text-ghostGray font-mono text-sm border-l-2 border-pythonBlue pl-6 max-w-lg">
-                Открыт для обсуждения архитектурных решений, аудита кода и долгосрочного сотрудничества.
-            </p>
-        </section>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-            <div class="contact-card md:col-span-1 flex flex-col justify-between border-l-2 border-l-pythonGold">
-                <span class="text-[10px] font-mono text-pythonGold uppercase tracking-[0.2em] mb-8">// CURRENT_STATUS</span>
-                <div>
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                        <span class="text-ivory font-bold uppercase text-lg">Available</span>
-                    </div>
-                    <p class="text-ghostGray text-xs font-mono">Q1-Q2 // 2026 Projects</p>
-                </div>
-            </div>
-
-            <a href="https://t.me/yourusername" class="contact-card group">
-                <span class="text-[10px] font-mono text-pythonBlue uppercase tracking-[0.2em] mb-8 block">// TELEGRAM</span>
-                <h3 class="text-2xl font-bold text-ivory group-hover:text-pythonGold transition-colors">Direct_Message</h3>
-                <p class="text-ghostGray text-xs mt-2">Fast response // Technical info</p>
-            </a>
-
-            <a href="https://wa.me/yournumber" class="contact-card group">
-                <span class="text-[10px] font-mono text-pythonBlue uppercase tracking-[0.2em] mb-8 block">// WHATSAPP</span>
-                <h3 class="text-2xl font-bold text-ivory group-hover:text-pythonGold transition-colors">Chat_Station</h3>
-                <p class="text-ghostGray text-xs mt-2">Voice & Video calls // Coordination</p>
-            </a>
-
-        </div>
-
-        <div class="mt-12 p-8 border border-dashed border-white/10 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="text-center md:text-left">
-                <span class="text-[10px] font-mono text-ghostGray uppercase mb-1 block">Official_Correspondence</span>
-                <span class="text-xl md:text-2xl font-bold text-ivory">hello@codexdlc.de</span>
-            </div>
-            <button class="px-8 py-4 bg-pythonGold text-spaceNavy font-bold rounded-xl hover:scale-105 transition-transform">
-                COPY EMAIL
-            </button>
-        </div>
-
+    <main class="layout-main">
+        <h1 class="hero-title">Contact <span class="text-gold">Station</span></h1>
+        <p class="font-mono text-ghost">
+            [WORK_IN_PROGRESS] <br>
+            Контент для страницы контактов будет спроектирован позже.
+        </p>
     </main>
 
-    <script src="js/main.js"></script>
+    <footer class="layout-footer">
+        <div class="footer-inner">
+            <span class="font-mono text-gold" style="font-size: 0.75rem;">// NAVIGATION_NODE</span>
+        </div>
+    </footer>
+
 </body>
 </html>
