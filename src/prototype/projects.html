@@ -1,38 +1,261 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodexDLC | Projects</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <title>Projects // CodexDLC</title>
+
     <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/projects.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
+    <div class="layout-topbar">
+        <span class="text-gold">📞 +49 000 0000000</span>
+        <span>✉ info@codexdlc.dev</span>
+    </div>
+
     <header class="layout-header">
         <div class="header-inner">
-            <a href="../../index.html" class="font-mono" style="font-size: 1.5rem; font-weight: bold; color: var(--color-gold);">CodexDLC</a>
-            <nav class="font-mono text-ghost" style="font-size: 0.8rem; text-transform: uppercase;">
-                <a href="projects.html" class="text-gold" style="margin-left: 30px;">// Projects</a>
-                <a href="experience.html" style="margin-left: 30px;">// Experience</a>
-                <a href="contact.html" style="margin-left: 30px;">// Contact</a>
+            <div class="brand">
+                <a href="../../index.html" style="text-decoration: none;">
+                    <span id="brand-text" class="font-mono typing-cursor" style="font-size: 1.5rem; font-weight: bold; color: var(--color-gold);">CodexDLC</span>
+                </a>
+            </div>
+            <nav class="header-nav">
+                <a href="../../index.html" class="nav-item">
+                    <span style="color: #E34C26; margin-right: 8px; font-weight: bold; font-size: 1.1em;">&lt;&gt;</span>
+                    index.html
+                </a>
+                <a href="projects.html" class="nav-item active">
+                     <span style="color: #3572A5; margin-right: 8px; font-weight: bold; font-size: 1.1em;">{}</span>
+                    projects.py
+                </a>
+                <a href="experience.html" class="nav-item">
+                    <span style="color: #F1E05A; margin-right: 8px; font-weight: bold; font-size: 1.1em;">≡</span>
+                    experience.log
+                </a>
+                <a href="contact.html" class="nav-btn">
+                    <span style="color: var(--color-gold); margin-right: 8px; font-weight: bold; font-size: 1.1em;">$</span>
+                    run_contact()
+                </a>
             </nav>
         </div>
     </header>
 
     <main class="layout-main">
-        <h1 class="hero-title">Projects <span class="text-gold">Page</span></h1>
-        <p class="font-mono text-ghost">
-            [WORK_IN_PROGRESS] <br>
-            Контент для страницы проектов будет спроектирован позже.
-        </p>
+
+        <div style="margin-bottom: 60px;">
+            <h1 style="font-size: 3rem; margin-bottom: 10px;">Project Archipelago</h1>
+            <p class="text-ghost font-mono">> Selected Works (Filter: All Categories)</p>
+        </div>
+
+        <div class="projects-wrapper">
+
+            <div class="island-section" data-type="business">
+
+                <div class="island-header" onclick="toggleIsland(this)">
+                    <span class="island-title">01 // CLIENT SOLUTIONS</span>
+                    <span class="island-counter">3 ORDERS</span>
+                </div>
+
+                <div class="island-content">
+                    <div class="island-grid">
+
+                        <a href="#" class="project-card col-span-8 dna-business">
+                            <span class="font-mono text-gold text-xs mb-2">CLIENT_CASE_01</span>
+                            <h3 class="text-ivory text-xl mb-2">Industrial ERP</h3>
+                            <p class="text-ghost text-sm mb-4">Система управления производством (Заказчик: Завод X).</p>
+                            <div style="margin-top:auto; height: 180px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid rgba(255,215,0,0.1); display: flex; align-items: center; justify-content: center;">
+                                <span class="font-mono text-xs text-gold">DASHBOARD_PREVIEW</span>
+                            </div>
+                        </a>
+
+                        <div class="stack-column">
+                            <a href="#" class="project-card dna-business">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <h4 class="text-ivory mb-1">Sneaker Shop</h4>
+                                    <span class="font-mono text-xs text-gold">€€€</span>
+                                </div>
+                                <p class="text-ghost text-xs">Django E-commerce</p>
+                            </a>
+                            <a href="#" class="project-card dna-business">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <h4 class="text-ivory mb-1">Real Estate Bot</h4>
+                                    <span class="font-mono text-xs text-gold">BOT</span>
+                                </div>
+                                <p class="text-ghost text-xs">Aiogram / Parsing</p>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="island-footer">
+                        <a href="#" class="view-all-btn">View Order History <span class="text-gold">→</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="island-section" data-type="eco">
+                <div class="island-header" onclick="toggleIsland(this)">
+                    <span class="island-title">02 // MY PRODUCTS (PET)</span>
+                    <span class="island-counter">3 APPS</span>
+                </div>
+
+                <div class="island-content">
+                    <div class="island-grid">
+
+                        <div class="stack-column">
+                            <a href="#" class="project-card dna-eco">
+                                <h4 class="text-ivory mb-1">Codex Portfolio</h4>
+                                <span class="font-mono text-xs text-blue">THIS_SITE</span>
+                            </a>
+                            <a href="#" class="project-card dna-eco">
+                                <h4 class="text-ivory mb-1">Task Tracker</h4>
+                                <span class="font-mono text-xs text-blue">SaaS MVP</span>
+                            </a>
+                        </div>
+
+                        <a href="#" class="project-card col-span-8 dna-eco">
+                            <span class="font-mono text-blue text-xs mb-2">COMMUNITY TOOL</span>
+                            <h3 class="text-ivory text-xl mb-2">Telegram Bot Hub</h3>
+                            <p class="text-ghost text-sm mb-4">Моя платформа для управления ботами.</p>
+                            <div style="margin-top:auto; height: 180px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px dashed rgba(97, 175, 254, 0.3); display: flex; align-items: center; justify-content: center;">
+                                <span class="font-mono text-xs text-blue">BOT_HUB_UI</span>
+                            </div>
+                        </a>
+
+                    </div>
+                    <div class="island-footer">
+                        <a href="#" class="view-all-btn">View My Garage <span class="text-blue">→</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="island-section" data-type="rnd">
+                <div class="island-header" onclick="toggleIsland(this)">
+                    <span class="island-title">03 // OPEN SOURCE & LIBS</span>
+                    <span class="island-counter">GITHUB</span>
+                </div>
+
+                <div class="island-content">
+                    <div class="island-grid">
+
+                        <a href="#" class="project-card col-span-4 dna-rnd">
+                            <span class="font-mono text-xs text-ghost mb-2">TEMPLATE</span>
+                            <h4 class="text-ivory">Django Starter Kit</h4>
+                            <p class="text-ghost text-xs mt-2">Мой шаблон для быстрого старта.</p>
+                        </a>
+
+                        <a href="#" class="project-card col-span-4 dna-rnd">
+                            <span class="font-mono text-xs text-ghost mb-2">LIBRARY</span>
+                            <h4 class="text-ivory">Async Parser Lib</h4>
+                            <p class="text-ghost text-xs mt-2">Обертка над aiohttp.</p>
+                        </a>
+
+                        <a href="#" class="project-card col-span-4 dna-rnd">
+                            <span class="font-mono text-xs text-ghost mb-2">CONFIG</span>
+                            <h4 class="text-ivory">Nginx/Docker Configs</h4>
+                            <p class="text-ghost text-xs mt-2">Готовые конфиги для деплоя.</p>
+                        </a>
+
+                    </div>
+                    <div class="island-footer">
+                        <a href="https://github.com/yourusername" target="_blank" class="view-all-btn">Git Repositories <span class="text-ghost">→</span></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </main>
 
+    <div id="app-drawer" class="layout-drawer">
+        <div id="drawer-nav" class="drawer-section">
+            <div class="nav-grid">
+                <div class="nav-col">
+                    <h4>// CORE</h4>
+                    <a href="../../index.html" class="nav-link">Home</a>
+                    <a href="projects.html" class="nav-link">Projects</a>
+                    <a href="experience.html" class="nav-link">Experience</a>
+                </div>
+                <div class="nav-col">
+                    <h4>// RESOURCES</h4>
+                    <a href="#" class="nav-link">Tech Stack</a>
+                    <a href="#" class="nav-link">Architecture Guidelines</a>
+                </div>
+                <div class="nav-col">
+                    <h4>// LEGAL</h4>
+                    <a href="#" class="nav-link">Impressum</a>
+                    <a href="#" class="nav-link">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="drawer-contact" class="drawer-section">
+            <div class="contact-grid">
+                <a href="https://t.me/yourname" target="_blank" class="contact-card">
+                    <span style="font-size: 2rem; margin-bottom: 10px;">✈️</span>
+                    <span class="font-mono">Telegram</span>
+                </a>
+                <a href="mailto:primecodex@gmail.com" class="contact-card">
+                    <span style="font-size: 2rem; margin-bottom: 10px;">✉️</span>
+                    <span class="font-mono">Email</span>
+                </a>
+                <a href="#" class="contact-card">
+                    <span style="font-size: 2rem; margin-bottom: 10px;">🐙</span>
+                    <span class="font-mono">GitHub</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <footer class="layout-footer">
-        <div class="footer-inner">
-            <span class="font-mono text-gold" style="font-size: 0.75rem;">// NAVIGATION_NODE</span>
+        <div class="sys-group">
+            <div class="sys-item" style="cursor: default; color: var(--color-blue);">
+                <span class="sys-icon">📄</span><span>projects.html</span>
+            </div>
+        </div>
+
+        <div class="sys-group" style="position: absolute; left: 50%; transform: translateX(-50%);">
+            <div class="sys-item" onclick="toggleDrawer('drawer-nav', this)">
+                <span class="sys-icon">☰</span>
+                <span>NAVIGATION</span>
+            </div>
+            <div class="sys-item" onclick="toggleDrawer('drawer-contact', this)">
+                <span class="sys-icon">✉</span>
+                <span>CONTACTS</span>
+            </div>
+        </div>
+
+        <div class="sys-group">
+            <div class="sys-item">UTF-8</div>
+            <div class="sys-item" onclick="toggleLanguage(this)">
+                <div class="lang-container">
+                    <a href="#" class="text-gold">RU</a>
+                    <span>|</span>
+                    <a href="#" class="text-gold">DE</a>
+                </div>
+                <span class="text-blue font-bold">EN</span>
+            </div>
         </div>
     </footer>
 
+    <script src="js/main.js"></script>
+    <script>
+        function toggleIsland(header) {
+            if (window.innerWidth > 768) return;
+            const section = header.closest('.island-section');
+            const isActive = section.classList.contains('active');
+            document.querySelectorAll('.island-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            if (!isActive) {
+                section.classList.add('active');
+            }
+        }
+    </script>
 </body>
 </html>

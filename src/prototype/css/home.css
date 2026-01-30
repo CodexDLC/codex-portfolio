@@ -1,0 +1,417 @@
+/* src/prototype/css/home.css */
+
+/* --- HERO SECTION (KINETIC SLICE) --- */
+
+.hero-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-bottom: 80px;
+    /* Важно для позиционирования фона */
+    isolation: isolate;
+}
+
+/* Фоновый Треугольник (The Slash) */
+.hero-diagonal-bg {
+    position: absolute;
+    top: -60px; /* Вылезаем за пределы main padding */
+    right: -60px;
+    bottom: -60px;
+    width: 55%; /* Занимает правую часть */
+
+    /* Магия косого среза */
+    background: linear-gradient(135deg, rgba(48, 105, 152, 0.05) 0%, rgba(30, 30, 47, 0) 100%);
+    clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+
+    z-index: -1; /* На задний план */
+    border-left: 1px solid rgba(255, 255, 255, 0.05); /* Подчеркнуть линию среза */
+}
+
+/* --- FIX: Делаем схему жидкой --- */
+.hero-visual svg {
+    width: 100%;       /* Занимай ширину контейнера */
+    height: auto;      /* Сохраняй пропорции */
+    max-width: 400px;  /* Но не больше оригинала */
+    display: block;    /* Убираем отступы снизу */
+}
+
+/* --- ТЕПЕРЬ ДЕРЖИМ ГОРИЗОНТАЛЬ ДО 850px --- */
+@media (min-width: 850px) {
+    .hero-section {
+        flex-direction: row !important; /* Всегда в ряд */
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .hero-text {
+        flex: 1;
+        max-width: 55%;
+        text-align: left; /* Текст всегда слева */
+    }
+
+    .hero-visual {
+        flex: 0 0 40%; /* Схема забирает 40% ширины */
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+/* --- СПЕЦИАЛЬНЫЙ РЕЖИМ ДЛЯ ПЛАНШЕТОВ (850px - 1100px) --- */
+@media (min-width: 850px) and (max-width: 1100px) {
+    .hero-title {
+        /* Сильно жмем шрифт, чтобы "Reality" не вылетала */
+        font-size: clamp(2.2rem, 4vw, 2.8rem) !important;
+    }
+
+    .hero-visual svg {
+        /* Уменьшаем масштаб схемы, чтобы она не толкала текст */
+        transform: scale(0.85);
+        transform-origin: right center;
+    }
+}
+
+/* --- TABLET PORTRAIT & MOBILE (< 850px) --- */
+@media (max-width: 850px) {
+
+    /* 1. HERO: ТОЛЬКО ТЕКСТ */
+    .hero-section {
+        display: block !important; /* Уходим от flex, чтобы текст шел потоком */
+        padding-top: 40px;
+        padding-bottom: 20px;
+    }
+
+    .hero-visual {
+        display: none !important; /* ПОЛНОСТЬЮ УБИРАЕМ АНИМАЦИЮ */
+    }
+
+    .hero-text {
+        width: 100%;
+        max-width: 100%;
+        text-align: left;
+    }
+
+    .hero-title {
+        /* Делаем заголовок максимально крупным, чтобы "занять пространство" */
+        font-size: clamp(2.5rem, 12vw, 4.5rem) !important;
+        line-height: 1.05;
+        margin-bottom: 30px;
+    }
+
+    .hero-desc {
+        border-left: 3px solid var(--color-blue);
+        padding-left: 20px;
+        max-width: 100%;
+    }
+
+    .hero-desc p {
+        font-size: 1.1rem;
+        white-space: normal; /* Разрешаем перенос строк, так как места много */
+        margin-top: 12px;
+    }
+
+    /* 2. BENTO: СЕТКА 2 x N */
+    .desktop-bento-mix {
+        display: grid !important; /* Показываем десктопную сетку */
+        grid-template-columns: repeat(2, 1fr) !important; /* Строго 2 колонки */
+        gap: 16px; /* Чуть меньше зазор для компактности */
+    }
+
+    /* Сбрасываем все спаны, чтобы карточки стали ОДИНАКОВОГО размера */
+    .col-span-8, .col-span-4, .col-span-6, .col-span-12, .row-span-2 {
+        grid-column: span 1 !important;
+        grid-row: span 1 !important;
+    }
+
+    .bento-item {
+        min-height: 220px; /* Фиксированная высота для плиток */
+        padding: 24px;
+        aspect-ratio: 1 / 1; /* Можно сделать их квадратными */
+    }
+
+    /* Скрываем иконки, если они мешают тексту */
+    .bento-item i, .bento-item .icon {
+        display: none;
+    }
+}
+
+/* Совсем для узких телефонов (< 480px) можно уйти в 1 колонку, если 2 будет тесно */
+@media (max-width: 480px) {
+    .desktop-bento-mix {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ... (Код анимаций оставляем тот же, что был в прошлом шаге) ... */
+.diagram-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawLine 1.5s ease-out forwards; }
+.diagram-node { opacity: 0; transform: translateY(10px); animation: fadeInNode 0.8s ease-out forwards; }
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+@keyframes fadeInNode { to { opacity: 1; transform: translateY(0); } }
+
+/* Тайминги */
+.node-arch { animation-delay: 0.2s; }
+.path-down { animation-delay: 0.8s; }
+.node-code { animation-delay: 1.4s; }
+.node-db   { animation-delay: 1.6s; }
+.path-merge { animation-delay: 2.2s; }
+.node-ci { animation-delay: 2.8s; }
+.path-final { animation-delay: 3.4s; }
+.node-product { animation-delay: 3.8s; }
+.diagram-group { animation: floatSystem 8s ease-in-out infinite 5s; }
+
+@keyframes floatSystem {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* --- BENTO GRID SYSTEM --- */
+/* Логика адаптации: Mobile -> Tablet -> Desktop */
+
+/* По умолчанию (Mobile) - Сетка скрыта, так как мы показываем Mobile Hub */
+.bento-grid {
+    display: none;
+    gap: 24px;
+    padding-bottom: 80px;
+}
+
+/* 1. MOBILE (320px – 767px) */
+/* Если вдруг мы захотим включить её на мобильных принудительно */
+/* .bento-grid.force-mobile { display: grid; grid-template-columns: 1fr; } */
+
+
+/* 2. TABLET PORTRAIT (768px – 1023px) */
+/* ВКЛЮЧАЕМ СЕТКУ */
+@media (min-width: 768px) {
+    .bento-grid {
+        display: grid; /* Возвращаем grid вместо none */
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Базовая карточка занимает 1 ячейку (50%) */
+    .tablet-full { grid-column: span 2; }
+}
+
+/* 3. TABLET LANDSCAPE (1024px – 1279px) */
+/* 2 колонки, но шире */
+
+/* 4. DESKTOP SMALL (1280px – 1439px) */
+/* Полноценная десктоп-сетка. */
+@media (min-width: 1280px) {
+    .bento-grid {
+        grid-template-columns: repeat(12, 1fr);
+        gap: 32px;
+    }
+
+    /* Настройка спанов */
+    .col-span-4 { grid-column: span 4; }
+    .col-span-8 { grid-column: span 8; }
+    .col-span-6 { grid-column: span 6; }
+    .col-span-12 { grid-column: span 12; }
+    .row-span-2 { grid-row: span 2; }
+}
+
+/* 5. DESKTOP STANDARD (1440px+) */
+
+/* --- СТИЛИ КАРТОЧЕК (Визуал) --- */
+.bento-item {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 32px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    transition: all 0.3s ease;
+    min-height: 280px;
+}
+
+@media (min-width: 1280px) {
+    .bento-item:hover {
+        border-color: var(--color-gold);
+        transform: translateY(-4px);
+        background-color: rgba(255, 255, 255, 0.05);
+        cursor: pointer;
+    }
+}
+
+/* --- MOBILE CATEGORY HUB (< 768px) --- */
+
+.mobile-hub {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 80px;
+}
+
+.hub-card {
+    display: block;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.hub-card:active {
+    transform: scale(0.98);
+    border-color: var(--color-gold);
+}
+
+.hub-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 24px;
+    background: linear-gradient(to top, rgba(15,15,26, 0.9), transparent);
+}
+
+.hub-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-ivory);
+    margin-bottom: 8px;
+}
+
+.hub-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--color-gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.bg-business { background: radial-gradient(circle at center, #306998 0%, transparent 70%); }
+.bg-pet      { background: radial-gradient(circle at center, #FFD43B 0%, transparent 70%); }
+.bg-info     { background: radial-gradient(circle at center, #FAF9F6 0%, transparent 70%); }
+
+/* --- BENTO CARD VISUAL DNA (Фоны и стили) --- */
+
+/* База для карточки проекта */
+.project-card {
+    text-decoration: none !important;
+    color: var(--color-ivory) !important;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background-color: #151520; /* Базовый темный */
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+/* ДНК 1: BUSINESS (Gold / Structure) */
+.dna-business {
+    border-color: rgba(255, 215, 0, 0.3); /* Золотая рамка */
+    /* Имитация золотого свечения снизу */
+    background: linear-gradient(to top, rgba(255, 215, 0, 0.05), transparent 60%), #151520;
+}
+.dna-business:hover {
+    border-color: var(--color-gold);
+    box-shadow: 0 10px 40px rgba(255, 215, 0, 0.1);
+}
+
+/* ДНК 2: ECOSYSTEM (Blue / Network) */
+.dna-eco {
+    border-color: rgba(97, 175, 254, 0.3); /* Синяя рамка */
+    /* Имитация синего потока */
+    background: linear-gradient(45deg, rgba(97, 175, 254, 0.05), transparent 60%), #151520;
+}
+.dna-eco:hover {
+    border-color: var(--color-blue);
+    box-shadow: 0 10px 40px rgba(97, 175, 254, 0.1);
+}
+
+/* ДНК 3: R&D (Ghost / Terminal) */
+.dna-rnd {
+    border-color: rgba(255, 255, 255, 0.1);
+    border-style: dashed;
+    background: #151520;
+}
+.dna-rnd:hover {
+    border-color: var(--color-ghost);
+    background: rgba(255,255,255,0.02);
+}
+.dna-rnd::before {
+    /* Имитация сканлайна терминала */
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+        transparent 0px,
+        transparent 2px,
+        rgba(0,0,0,0.3) 3px,
+        rgba(0,0,0,0.3) 4px
+    );
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+
+/* --- MOBILE PORTALS (Три Входа) --- */
+/* По умолчанию порталы скрыты */
+.mobile-portals-stack {
+    display: none;
+}
+
+@media (max-width: 500px) {
+    /* Скрываем нафиг бенто */
+    .desktop-only-bento, .bento-grid {
+        display: none !important;
+    }
+
+    /* Показываем порталы */
+    .mobile-portals-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        padding-bottom: 40px;
+    }
+
+    .portal-card {
+        position: relative;
+        width: 100%;
+        min-height: 140px;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-decoration: none;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        /* Резервный градиент, если картинок нет */
+        background: linear-gradient(135deg, rgba(30, 30, 47, 0.8) 0%, rgba(15, 15, 26, 1) 100%);
+    }
+
+    .portal-card span {
+        font-family: 'JetBrains Mono', monospace;
+        color: var(--color-gold);
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+
+    .portal-card h2 {
+        color: white;
+        font-size: 1.5rem;
+        margin: 0;
+    }
+
+    /* Индивидуальные акценты для карточек */
+    .p-biz { border-left: 4px solid var(--color-gold); }
+    .p-eco { border-left: 4px solid var(--color-blue); }
+    .p-rnd { border-left: 4px solid var(--color-ghost); }
+}
