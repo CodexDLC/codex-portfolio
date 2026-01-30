@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodexDLC | Home</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="src/prototype/js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="src/prototype/css/global.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+</head>
+<body class="antialiased">
+
+    <header class="sticky top-0 w-full z-50 backdrop-blur-md bg-spaceNavy/80 border-b border-white/5 h-20 px-8 flex items-center justify-between transition-all duration-300">
+        <div class="flex flex-col">
+            <span class="font-mono text-2xl font-bold text-pythonGold leading-none">CodexDLC</span>
+            <span class="font-mono text-[10px] text-ghostGray uppercase tracking-widest mt-1 hidden md:block">[ Developer’s Life Cycle ]</span>
+        </div>
+
+        <nav class="hidden md:flex gap-8 font-mono text-xs">
+            <a href="src/prototype/projects.html" class="hover:text-pythonGold transition-colors">// PROJECTS</a>
+            <a href="src/prototype/experience.html" class="hover:text-pythonBlue transition-colors">// EXPERIENCE</a>
+            <a href="src/prototype/contact.html" class="hover:text-white transition-colors">// CONTACT</a>
+        </nav>
+
+        <div class="flex md:hidden gap-4">
+            <a href="https://wa.me/#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">WA</a>
+            <a href="https://t.me/#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">TG</a>
+        </div>
+    </header>
+
+    <main class="flex-grow p-8 md:p-16">
+        <section class="min-h-[50vh] md:min-h-[60vh] flex flex-col justify-center mb-16">
+            <h1 class="text-5xl md:text-8xl font-bold mb-6 tracking-tight text-ivory">
+                Architecting <span class="text-pythonGold">Logic.</span><br>
+                Deploying <span class="text-pythonBlue">Reality.</span>
+            </h1>
+            <p class="text-ghostGray max-w-xl font-mono text-sm border-l-2 border-pythonBlue pl-6">
+                Системный подход к разработке на Python. <br class="hidden md:block">
+                Проектирование архитектуры от идеи до деплоя.
+            </p>
+        </section>
+
+        <div class="hidden md:grid grid-cols-1 lg:grid-cols-12 gap-8 auto-rows-[minmax(250px,auto)]">
+            <div class="lg:col-span-8 lg:row-span-2 md:col-span-full bento-item flex flex-col justify-end group">
+                <span class="text-[10px] text-pythonGold font-mono mb-auto border border-pythonGold/30 w-fit px-2 py-1 rounded">FEATURED BUSINESS</span>
+                <h3 class="text-3xl font-bold text-ivory group-hover:text-pythonGold transition-colors">Industrial ERP</h3>
+            </div>
+            <div class="lg:col-span-4 lg:row-span-1 md:col-span-1 bento-item">
+                <h3 class="text-xl font-bold text-ivory mt-auto">Architecture Docs</h3>
+            </div>
+            <div class="lg:col-span-4 lg:row-span-1 md:col-span-1 bento-item border-dashed">
+                <h3 class="text-xl font-bold text-ivory mt-auto">AI Observer</h3>
+            </div>
+        </div>
+    </main>
+
+    <script src="src/prototype/js/main.js"></script>
+</body>
+</html>
