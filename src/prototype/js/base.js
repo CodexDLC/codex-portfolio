@@ -11,25 +11,38 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* --- HEADER: LOGO ANIMATION --- */
+let sloganAnimationStarted = false;
+
 function typeSlogan() {
+    // Защита от повторного вызова
+    if (sloganAnimationStarted) return;
+    sloganAnimationStarted = true;
+
     const sloganEl = document.getElementById('brand-slogan');
-    const brandText = document.getElementById('brand-text');
+    // FIX: Changed ID from brand-text to brand-logo
+    const brandText = document.getElementById('brand-logo');
 
     if (!sloganEl || !brandText) return;
 
+    const isMobile = window.innerWidth <= 767;
+
+    // Таймауты: на мобилке быстрее
+    const initialDelay = isMobile ? 1500 : 3000;
+    const charSpeed = isMobile ? 30 : 50;
+
     // 1. Ждем немного, потом скрываем логотип
     setTimeout(() => {
-        brandText.style.opacity = '0'; // Плавное исчезновение
+        brandText.style.opacity = '0';
         brandText.style.transition = 'opacity 0.5s';
 
         setTimeout(() => {
-            brandText.style.display = 'none'; // Убираем из потока
-            sloganEl.style.display = 'inline-block'; // Показываем контейнер слогана
+            brandText.style.display = 'none';
+            sloganEl.style.display = 'inline-block';
 
             // 2. Печатаем слоган
             startTyping();
         }, 500);
-    }, 3000); // Задержка перед началом замены
+    }, initialDelay);
 
     const parts = [
         { text: "[ ", color: "var(--color-ghost)" },
@@ -62,7 +75,7 @@ function typeSlogan() {
                     partIndex++;
                     typeNextPart();
                 }
-            }, 50);
+            }, charSpeed);
         }
         typeNextPart();
     }
@@ -93,6 +106,14 @@ function initMobileMenu() {
     }
 }
 
+/* --- MOBILE MENU: Folder Toggle --- */
+function toggleNavFolder(element) {
+    const folderGroup = element.closest('.nav-folder-group');
+    if (folderGroup) {
+        folderGroup.classList.toggle('open');
+    }
+}
+
 /* --- FOOTER: LANGUAGE SLIDER --- */
 function toggleLangSlider(element) {
     element.classList.toggle('expanded');
@@ -109,30 +130,54 @@ document.addEventListener('click', function(event) {
 /* --- FOOTER: DRAWERS (Navigation & Contacts) --- */
 
 function toggleNavDrawer() {
-    const navDrawer = document.getElementById('nav-drawer');
-    const contactDrawer = document.getElementById('contact-drawer');
+    const isMobile = window.innerWidth <= 767;
 
-    if (!navDrawer) return;
+    if (isMobile) {
+        // Mobile: используем bottom-drawer с классом active
+        const navDrawer = document.getElementById('nav-drawer');
+        const contactDrawer = document.getElementById('contact-drawer');
 
-    // Если открыты контакты - закрываем их
-    if (contactDrawer && contactDrawer.classList.contains('active')) {
-        contactDrawer.classList.remove('active');
+        if (!navDrawer) return;
+
+        // Если открыты контакты - закрываем их
+        if (contactDrawer && contactDrawer.classList.contains('active')) {
+            contactDrawer.classList.remove('active');
+        }
+
+        navDrawer.classList.toggle('active');
+    } else {
+        // Desktop: используем layout-drawer с классом open
+        const drawerNav = document.getElementById('drawer-nav');
+
+        if (!drawerNav) return;
+
+        drawerNav.classList.toggle('open');
     }
-
-    // Переключаем сам Хаб
-    navDrawer.classList.toggle('active');
 }
 
 function toggleContactDrawer() {
-    const contactDrawer = document.getElementById('contact-drawer');
-    const navDrawer = document.getElementById('nav-drawer');
+    const isMobile = window.innerWidth <= 767;
 
-    if (!contactDrawer) return;
+    if (isMobile) {
+        // Mobile: используем bottom-drawer
+        const contactDrawer = document.getElementById('contact-drawer');
+        const navDrawer = document.getElementById('nav-drawer');
 
-    // Если открыт Хаб - закрываем его
-    if (navDrawer && navDrawer.classList.contains('active')) {
-        navDrawer.classList.remove('active');
+        if (!contactDrawer) return;
+
+        // Если открыт Хаб - закрываем его
+        if (navDrawer && navDrawer.classList.contains('active')) {
+            navDrawer.classList.remove('active');
+        }
+
+        contactDrawer.classList.toggle('active');
+    } else {
+        // Desktop: пока открываем тот же drawer-nav (можно сделать отдельный позже)
+        // Или показываем контакты в том же drawer
+        const drawerNav = document.getElementById('drawer-nav');
+
+        if (!drawerNav) return;
+
+        drawerNav.classList.toggle('open');
     }
-
-    contactDrawer.classList.toggle('active');
 }

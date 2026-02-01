@@ -1,5 +1,6 @@
 /* src/prototype/css/base.css */
 /* ARCHITECTURE: THE MONOLITH (Classic Sheet) */
+/* BASE STYLES (Desktop Default > 1920px) */
 
 /* --- 1. SETTINGS & VARS --- */
 :root {
@@ -18,10 +19,12 @@
     --tab-bg-inactive: #151520;
 
     /* Геометрия */
-    --max-width:    1440px;
-    --topbar-h:     30px;
-    --header-h:     80px;
-    --footer-h:     60px;
+    /* Default max-width for 2K+ screens */
+    --max-width:    1600px;
+    /* FIX: Header is now 10vh total */
+    --header-total-h: 10vh;
+    /* FIX: Footer is 50% of Header (5vh) */
+    --footer-h:     5vh;
 
     /* Цвета Python (для удобства) */
     --py-blue: #306998;
@@ -36,7 +39,9 @@
 }
 
 html {
-    overflow-y: scroll;
+    /* Scroll handled by JS slide system in main.css */
+    overflow: hidden;
+    height: 100%;
 }
 
 body {
@@ -46,11 +51,11 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
     padding: 0;
     margin: 0;
     background-image: none !important;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 /* Шрифты */
@@ -63,55 +68,55 @@ a:hover { opacity: 0.8; }
 /* --- 3. LAYOUT STRUCTURE (THE SHEET) --- */
 
 /* ОБЩАЯ ГЕОМЕТРИЯ ЛИСТА */
-.layout-topbar,
 .layout-header,
 .layout-footer,
 .layout-drawer {
-    /* Фиксированные элементы центрируем через transform */
     position: fixed;
     left: 50% !important;
     transform: translateX(-50%) !important;
     width: 100% !important;
     max-width: var(--max-width);
-    /* Сбрасываем margin, так как центрируем через transform */
     margin: 0 !important;
     background-color: var(--color-monolith);
     border-left: var(--border-line);
     border-right: var(--border-line);
 }
 
-/* LEVEL 0: TOP BAR */
-.layout-topbar {
+/* LEVEL 1: HEADER (Unified Container) */
+.layout-header {
     top: 0;
-    height: var(--topbar-h);
+    height: var(--header-total-h); /* 10vh */
+    /* FIX: Increased min-height to 100px */
+    min-height: 100px;
+    z-index: 150;
+    display: flex;
+    flex-direction: column; /* Stack TopBar and NavBar */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Floor 1: Top Bar (Inside Header) */
+.layout-header-top {
+    /* FIX: Adaptive height (25% of header) */
+    height: 25%;
+    /* FIX: Reduced min-height to 20px */
+    min-height: 20px;
+    flex-shrink: 0; /* Don't shrink */
     background-color: #151520;
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    z-index: 150;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 40px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
+    /* FIX: Reduced font size by ~20% */
+    font-size: clamp(9px, 1.2vh, 12px);
     color: var(--color-ghost);
 }
 
-/* LEVEL 1: HEADER */
-.layout-header {
-    top: var(--topbar-h);
-    height: var(--header-h);
-    background-color: var(--color-monolith);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-}
-
+/* Floor 2: Main Nav (Inside Header) */
 .header-inner {
+    flex-grow: 1; /* Take remaining space */
     width: 100%;
-    height: 100%;
-    max-width: 100%;
-    margin: 0 auto;
     padding: 0 20px;
     display: grid;
     grid-template-columns: max-content 1fr;
@@ -130,15 +135,18 @@ a:hover { opacity: 0.8; }
     white-space: nowrap;
 }
 
-#brand-text {
-    font-size: 1.6rem;
+/* FIX: Renamed from #brand-text to #brand-logo */
+#brand-logo {
+    /* FIX: Increased font size for large screens */
+    font-size: 2.2rem;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
     color: var(--color-ivory);
 }
 
 #brand-slogan {
-    font-size: 0.9rem;
+    /* FIX: Increased font size for large screens */
+    font-size: 1.4rem;
     margin-left: 15px;
     font-family: 'JetBrains Mono', monospace;
     display: inline-block;
@@ -153,6 +161,11 @@ a:hover { opacity: 0.8; }
     justify-content: flex-end;
     padding-right: 0;
     gap: 2px;
+}
+
+/* FIX: Hide mobile burger on desktop by default */
+.mobile-burger-btn {
+    display: none;
 }
 
 .nav-link {
@@ -197,6 +210,11 @@ a:hover { opacity: 0.8; }
 /* FIX: Делаем синий светлее, чтобы он не казался тонким на темном фоне */
 .code-icon.blue { color: #61AFEF; }
 .code-icon.yellow { color: var(--color-gold); }
+.code-icon.green { color: var(--color-green); }
+.code-icon.folder {
+    font-style: normal;
+    filter: saturate(1.2);
+}
 
 
 .tab-close {
@@ -222,20 +240,17 @@ a:hover { opacity: 0.8; }
 .nav-visible { opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease; pointer-events: auto; }
 
 
-/* LEVEL 2: MAIN BODY (SCROLLABLE SHEET) */
+/* LEVEL 2: MAIN BODY (Contains Slides) */
 .layout-main {
-    position: relative; /* Скроллится */
-    display: block !important;
+    position: fixed;
 
-    /* Отступы под фиксированные бары */
-    margin-top: calc(var(--topbar-h) + var(--header-h) + 20px) !important;
-    margin-bottom: calc(var(--footer-h) + 20px) !important;
+    /* Position between header and footer */
+    top: var(--header-total-h);
+    bottom: var(--footer-h);
+    left: 50%;
+    transform: translateX(-50%);
 
-    /* Центрирование через margin auto */
-    margin-left: auto !important;
-    margin-right: auto !important;
-
-    width: 100% !important;
+    width: 100%;
     max-width: var(--max-width);
 
     /* Визуал листа */
@@ -244,7 +259,8 @@ a:hover { opacity: 0.8; }
     border-right: var(--border-line);
     box-shadow: 0 0 50px rgba(0,0,0,0.5);
 
-    min-height: calc(100vh - 200px);
+    /* No scroll - slides are controlled by JS */
+    overflow: hidden;
     padding: 0;
 }
 
@@ -252,6 +268,8 @@ a:hover { opacity: 0.8; }
 .layout-footer {
     bottom: 0;
     height: var(--footer-h);
+    /* FIX: Safety minimum height */
+    min-height: 50px;
     background-color: #1E1E2F;
     border-top: 1px solid var(--color-gold);
     z-index: 200;
@@ -352,13 +370,8 @@ a:hover { opacity: 0.8; }
 .text-ivory { color: var(--color-ivory); }
 
 /* VISIBILITY UTILITIES */
-.desktop-only { display: none !important; }
-.mobile-only { display: block !important; }
-
-@media (min-width: 768px) {
-    .desktop-only { display: block !important; }
-    .mobile-only { display: none !important; }
-}
+.desktop-only { display: block !important; } /* Default for Desktop */
+.mobile-only { display: none !important; }
 
 /* APP DRAWER (Desktop) */
 .layout-drawer {
@@ -409,7 +422,6 @@ a:hover { opacity: 0.8; }
     color: var(--color-blue);
 }
 
-/* --- ЗАЩИТА: Скрываем мобильные шторки на Планшете и Десктопе --- */
-@media (min-width: 768px) {
-    .bottom-drawer { display: none !important; }
-}
+/* FIX: Removed all @media queries. They are now in base-adaptive.css */
+/* Default state for Desktop: Mobile drawers are hidden */
+.bottom-drawer { display: none !important; }

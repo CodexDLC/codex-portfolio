@@ -5,42 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects // CodexDLC</title>
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Styles (Relative paths) -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="css/projects.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="layout-topbar">
-        <span class="text-gold">📞 +49 000 0000000</span>
-        <span>✉ info@codexdlc.dev</span>
+        <div class="sys-info">
+            <span class="text-gold">root@codex</span>:<span class="text-blue">~</span>$ ./list_projects.py
+        </div>
+        <div class="sys-status desktop-only">
+            <span>RAM: 64GB</span>
+            <span class="text-ghost">|</span>
+            <span>UPTIME: 99.9%</span>
+        </div>
     </div>
 
     <header class="layout-header">
         <div class="header-inner">
-            <div class="brand">
-                <a href="../../index.html" style="text-decoration: none;">
-                    <span id="brand-text" class="font-mono typing-cursor" style="font-size: 1.5rem; font-weight: bold; color: var(--color-gold);">CodexDLC</span>
-                </a>
+            <a href="../../index.html" class="brand">
+                <span id="brand-text" class="font-mono">Codex<span class="text-gold">D</span><span class="text-ivory">L</span><span class="text-blue">C</span></span>
+                <span id="brand-slogan"></span>
+            </a>
+
+            <!-- Mobile Burger Button (Opens Overlay) -->
+            <div class="mobile-burger-btn" onclick="toggleMainMenu()">
+                ☰
             </div>
+
             <nav class="header-nav">
-                <a href="../../index.html" class="nav-item">
-                    <span style="color: #E34C26; margin-right: 8px; font-weight: bold; font-size: 1.1em;">&lt;&gt;</span>
-                    index.html
+                <a href="../../index.html" class="nav-link">
+                    <span class="code-icon blue">PY</span>
+                    <span class="file-name">main.py</span>
+                    <span class="tab-close">&times;</span>
                 </a>
-                <a href="projects.html" class="nav-item active">
-                     <span style="color: #3572A5; margin-right: 8px; font-weight: bold; font-size: 1.1em;">{}</span>
-                    projects.py
+                <a href="#" class="nav-link nav-folder active">
+                    <span class="code-icon folder">📁</span>
+                    <span class="file-name">portfolio/</span>
+                    <span class="tab-close">&times;</span>
                 </a>
-                <a href="experience.html" class="nav-item">
-                    <span style="color: #F1E05A; margin-right: 8px; font-weight: bold; font-size: 1.1em;">≡</span>
-                    experience.log
+                <a href="experience.html" class="nav-link">
+                    <span class="code-icon yellow">LOG</span>
+                    <span class="file-name">experience.log</span>
+                    <span class="tab-close">&times;</span>
                 </a>
-                <a href="contact.html" class="nav-btn">
-                    <span style="color: var(--color-gold); margin-right: 8px; font-weight: bold; font-size: 1.1em;">$</span>
-                    run_contact()
+                <a href="contact.html" class="nav-link">
+                    <span class="code-icon green">SH</span>
+                    <span class="file-name">contact.sh</span>
+                    <span class="tab-close">&times;</span>
                 </a>
             </nav>
         </div>
@@ -53,9 +73,25 @@
             <p class="text-ghost font-mono">> Selected Works (Filter: All Categories)</p>
         </div>
 
+        <!-- MOBILE PORTALS (Navigation) -->
+        <div class="mobile-portals-stack show-buttons" style="margin-bottom: 40px;">
+            <a href="#business" class="portal-card p-biz">
+                <span>01 // BUSINESS</span>
+                <h2>Client Solutions</h2>
+            </a>
+            <a href="#eco" class="portal-card p-eco">
+                <span>02 // ECOSYSTEM</span>
+                <h2>My Products</h2>
+            </a>
+            <a href="#rnd" class="portal-card p-rnd">
+                <span>03 // R&D LAB</span>
+                <h2>Open Source</h2>
+            </a>
+        </div>
+
         <div class="projects-wrapper">
 
-            <div class="island-section" data-type="business">
+            <div class="island-section" data-type="business" id="business">
 
                 <div class="island-header" onclick="toggleIsland(this)">
                     <span class="island-title">01 // CLIENT SOLUTIONS</span>
@@ -98,7 +134,7 @@
                 </div>
             </div>
 
-            <div class="island-section" data-type="eco">
+            <div class="island-section" data-type="eco" id="eco">
                 <div class="island-header" onclick="toggleIsland(this)">
                     <span class="island-title">02 // MY PRODUCTS (PET)</span>
                     <span class="island-counter">3 APPS</span>
@@ -134,7 +170,7 @@
                 </div>
             </div>
 
-            <div class="island-section" data-type="rnd">
+            <div class="island-section" data-type="rnd" id="rnd">
                 <div class="island-header" onclick="toggleIsland(this)">
                     <span class="island-title">03 // OPEN SOURCE & LIBS</span>
                     <span class="island-counter">GITHUB</span>
@@ -172,79 +208,176 @@
 
     </main>
 
-    <div id="app-drawer" class="layout-drawer">
-        <div id="drawer-nav" class="drawer-section">
+    <!-- LEVEL 3: FOOTER (Status Bar) -->
+    <footer class="layout-footer">
+        <div class="footer-left">
+            <span class="copyright-text"><span class="file-icon">📄</span> portfolio.py</span>
+        </div>
+
+        <div class="footer-right">
+            <div class="control-btn" onclick="toggleNavDrawer()">
+                <span class="btn-icon">☰</span>
+                <span class="btn-label desktop-only">HUB</span>
+            </div>
+
+            <div class="control-btn" onclick="toggleContactDrawer()">
+                <span class="btn-icon">✉</span>
+                <span class="btn-label desktop-only">CONTACTS</span>
+            </div>
+
+            <div class="sys-item desktop-only text-ghost">UTF-8</div>
+
+            <div id="lang-slider" class="control-btn lang-slider" onclick="toggleLangSlider(this)">
+                <div class="lang-visible">EN</div>
+                <div class="lang-hidden">
+                    <span data-lang="ru">RU</span>
+                    <span class="separator">/</span>
+                    <span data-lang="de">DE</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CONTACT DRAWER (Bottom Sheet) -->
+    <div id="contact-drawer" class="bottom-drawer">
+        <div class="drawer-header">
+            <span>// CONTACT_UPLINK</span>
+            <div class="drawer-close" onclick="toggleContactDrawer()">×</div>
+        </div>
+        <div class="drawer-grid">
+            <a href="#" class="social-card telegram">
+                <span class="icon">✈</span>
+                <span>Telegram</span>
+            </a>
+            <a href="#" class="social-card whatsapp">
+                <span class="icon">💬</span>
+                <span>WhatsApp</span>
+            </a>
+            <a href="#" class="social-card email">
+                <span class="icon">@</span>
+                <span>Email</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- NAV DRAWER (System Hub) -->
+    <div id="nav-drawer" class="bottom-drawer nav-drawer-style">
+
+        <div class="drawer-header">
+            <span>// SYSTEM_HUB</span>
+            <div class="drawer-close" onclick="toggleNavDrawer()">×</div>
+        </div>
+
+        <div class="nav-hub-grid">
+
+            <div class="nav-group">
+                <h3 class="group-title">// DIRECTORY</h3>
+                <div class="group-list">
+                    <a href="#business">Business Sol.</a>
+                    <a href="#eco">Ecosystems</a>
+                    <a href="#rnd">R&D Lab</a>
+                </div>
+            </div>
+
+            <div class="nav-group">
+                <h3 class="group-title">// RESOURCES</h3>
+                <div class="group-list">
+                    <a href="#">Tech Stack</a>
+                    <a href="#">Architecture</a>
+                    <a href="#">Changelog</a>
+                </div>
+            </div>
+
+            <div class="nav-group full-width">
+                <h3 class="group-title">// SYSTEM</h3>
+                <div class="group-list horizontal">
+                    <a href="#">GitHub</a>
+                    <a href="#">Legal</a>
+                    <a href="#">v.1.0.2</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- APP DRAWER (Hidden Panel - Desktop) -->
+    <div id="drawer-nav" class="layout-drawer">
+        <div class="drawer-section active">
             <div class="nav-grid">
                 <div class="nav-col">
-                    <h4>// CORE</h4>
+                    <h4>// NAVIGATION</h4>
                     <a href="../../index.html" class="nav-link">Home</a>
                     <a href="projects.html" class="nav-link">Projects</a>
                     <a href="experience.html" class="nav-link">Experience</a>
                 </div>
                 <div class="nav-col">
-                    <h4>// RESOURCES</h4>
-                    <a href="#" class="nav-link">Tech Stack</a>
-                    <a href="#" class="nav-link">Architecture Guidelines</a>
+                    <h4>// SOCIALS</h4>
+                    <a href="#" class="nav-link">GitHub</a>
+                    <a href="#" class="nav-link">LinkedIn</a>
+                    <a href="#" class="nav-link">Twitter</a>
                 </div>
                 <div class="nav-col">
-                    <h4>// LEGAL</h4>
-                    <a href="#" class="nav-link">Impressum</a>
-                    <a href="#" class="nav-link">Privacy Policy</a>
+                    <h4>// CONTACT</h4>
+                    <a href="mailto:info@codexdlc.dev" class="nav-link">info@codexdlc.dev</a>
+                    <p class="text-ghost text-sm mt-2">Open for opportunities</p>
                 </div>
-            </div>
-        </div>
-
-        <div id="drawer-contact" class="drawer-section">
-            <div class="contact-grid">
-                <a href="https://t.me/yourname" target="_blank" class="contact-card">
-                    <span style="font-size: 2rem; margin-bottom: 10px;">✈️</span>
-                    <span class="font-mono">Telegram</span>
-                </a>
-                <a href="mailto:primecodex@gmail.com" class="contact-card">
-                    <span style="font-size: 2rem; margin-bottom: 10px;">✉️</span>
-                    <span class="font-mono">Email</span>
-                </a>
-                <a href="#" class="contact-card">
-                    <span style="font-size: 2rem; margin-bottom: 10px;">🐙</span>
-                    <span class="font-mono">GitHub</span>
-                </a>
             </div>
         </div>
     </div>
 
-    <footer class="layout-footer">
-        <div class="sys-group">
-            <div class="sys-item" style="cursor: default; color: var(--color-blue);">
-                <span class="sys-icon">📄</span><span>projects.html</span>
-            </div>
-        </div>
+    <!-- MAIN MENU OVERLAY (Mobile) -->
+    <div id="main-menu-overlay" class="glass-overlay">
+        <div class="overlay-content">
+            <div class="overlay-close" onclick="toggleMainMenu()">×</div>
 
-        <div class="sys-group" style="position: absolute; left: 50%; transform: translateX(-50%);">
-            <div class="sys-item" onclick="toggleDrawer('drawer-nav', this)">
-                <span class="sys-icon">☰</span>
-                <span>NAVIGATION</span>
-            </div>
-            <div class="sys-item" onclick="toggleDrawer('drawer-contact', this)">
-                <span class="sys-icon">✉</span>
-                <span>CONTACTS</span>
-            </div>
-        </div>
-
-        <div class="sys-group">
-            <div class="sys-item">UTF-8</div>
-            <div class="sys-item" onclick="toggleLanguage(this)">
-                <div class="lang-container">
-                    <a href="#" class="text-gold">RU</a>
-                    <span>|</span>
-                    <a href="#" class="text-gold">DE</a>
+            <nav class="overlay-nav ide-tree">
+                <!-- Папка portfolio (раскрывается) -->
+                <div class="nav-folder-group open">
+                    <div class="overlay-folder" onclick="toggleNavFolder(this)">
+                        <span class="folder-icon">📁</span>
+                        <span class="folder-name">portfolio/</span>
+                        <span class="folder-arrow">▶</span>
+                    </div>
+                    <div class="folder-children">
+                        <a href="projects.html#business" class="overlay-file">
+                            <span class="file-icon gold">PY</span>
+                            <span class="file-name">clients.py</span>
+                        </a>
+                        <a href="projects.html#eco" class="overlay-file">
+                            <span class="file-icon blue">PY</span>
+                            <span class="file-name">products.py</span>
+                        </a>
+                        <a href="projects.html#rnd" class="overlay-file">
+                            <span class="file-icon ghost">PY</span>
+                            <span class="file-name">opensource.py</span>
+                        </a>
+                    </div>
                 </div>
-                <span class="text-blue font-bold">EN</span>
-            </div>
-        </div>
-    </footer>
 
+                <!-- Файлы -->
+                <a href="../../index.html" class="overlay-file">
+                    <span class="file-icon blue">PY</span>
+                    <span class="file-name">main.py</span>
+                </a>
+
+                <a href="experience.html" class="overlay-file">
+                    <span class="file-icon gold">LOG</span>
+                    <span class="file-name">experience.log</span>
+                </a>
+
+                <a href="contact.html" class="overlay-file">
+                    <span class="file-icon green">SH</span>
+                    <span class="file-name">contact.sh</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Scripts (Relative paths) -->
+    <script src="js/base.js"></script>
     <script src="js/main.js"></script>
     <script>
+        // Local script for Island toggling (Mobile Accordion)
         function toggleIsland(header) {
             if (window.innerWidth > 768) return;
             const section = header.closest('.island-section');
