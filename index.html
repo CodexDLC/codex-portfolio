@@ -147,9 +147,59 @@
                     </div>
                 </div>
 
-                <!-- MOBILE: Картинка под терминалом во время загрузки -->
-                <div class="mobile-loading-visual">
-                    <img src="src/prototype/8.png" alt="System Tree" class="loading-tree-img">
+                <!-- MOBILE: Simplified Pipeline Animation -->
+                <div class="mobile-init-screen">
+                    <svg class="mobile-pipeline-svg" viewBox="0 0 300 480" preserveAspectRatio="xMidYMid meet">
+                        <!-- TOP: Architecture Wide Block -->
+                        <g class="mp-node mp-arch">
+                            <rect x="30" y="20" width="240" height="45" rx="6" class="mp-rect-main"/>
+                            <text x="150" y="48" class="mp-text-main">ARCHITECTURE</text>
+                        </g>
+
+                        <!-- Lines from Architecture to 3 icons -->
+                        <path class="mp-line mp-line-1a" d="M 60,65 L 60,100"/>
+                        <path class="mp-line mp-line-1b" d="M 150,65 L 150,100"/>
+                        <path class="mp-line mp-line-1c" d="M 240,65 L 240,100"/>
+
+                        <!-- 3 Icons Row -->
+                        <g class="mp-node mp-icon-1">
+                            <rect x="30" y="100" width="60" height="60" rx="8" class="mp-rect-icon gold"/>
+                            <text x="60" y="135" class="mp-text-icon">UI</text>
+                        </g>
+                        <g class="mp-node mp-icon-2">
+                            <rect x="120" y="100" width="60" height="60" rx="8" class="mp-rect-icon blue"/>
+                            <text x="150" y="135" class="mp-text-icon">API</text>
+                        </g>
+                        <g class="mp-node mp-icon-3">
+                            <rect x="210" y="100" width="60" height="60" rx="8" class="mp-rect-icon green"/>
+                            <text x="240" y="135" class="mp-text-icon">DB</text>
+                        </g>
+
+                        <!-- Lines from icons converging to TOP of diamond -->
+                        <path class="mp-line mp-line-2" d="M 60,160 L 60,200 L 150,240"/>
+                        <path class="mp-line mp-line-3" d="M 150,160 L 150,240"/>
+                        <path class="mp-line mp-line-4" d="M 240,160 L 240,200 L 150,240"/>
+
+                        <!-- CI/CD Diamond -->
+                        <g class="mp-node mp-merge">
+                            <polygon points="150,240 185,280 150,320 115,280" class="mp-diamond"/>
+                            <text x="150" y="285" class="mp-text-icon">CI/CD</text>
+                        </g>
+
+                        <!-- Line from diamond to Product -->
+                        <path class="mp-line mp-line-5" d="M 150,320 L 150,360"/>
+
+                        <!-- Final Product Block -->
+                        <g class="mp-node mp-product">
+                            <rect x="50" y="360" width="200" height="50" rx="6" class="mp-rect-product"/>
+                            <text x="150" y="390" class="mp-text-main">PRODUCT</text>
+                        </g>
+                    </svg>
+
+                    <!-- Loading indicator at bottom -->
+                    <div class="mobile-init-loading">
+                        <span class="loading-text">// INITIALIZING<span class="dots"></span></span>
+                    </div>
                 </div>
 
                 <!-- SCENE 2: FINAL (Text + Logo) -->
@@ -182,19 +232,41 @@
                     <div class="separator-line"></div>
                 </div>
 
-                    <!-- MOBILE PORTALS (3 кнопки навигации - только мобилка) -->
-                    <div class="mobile-portals-stack">
-                        <a href="src/prototype/portfolio.html#business" class="portal-card p-biz">
-                            <span>01 // BUSINESS</span>
-                            <h2>Client Solutions</h2>
+                    <!-- MOBILE: Windows 8 Style Tiles Grid -->
+                    <div class="mobile-tiles-grid">
+                        <!-- Wide tile: Clients (gold) -->
+                        <a href="src/prototype/portfolio.html#business" class="mobile-tile tile-wide tile-gold">
+                            <span class="tile-label">01 // CLIENTS</span>
+                            <h2 class="tile-title">Client Solutions</h2>
+                            <span class="tile-icon">PY</span>
                         </a>
-                        <a href="src/prototype/portfolio.html#eco" class="portal-card p-eco">
-                            <span>02 // ECOSYSTEM</span>
-                            <h2>My Products</h2>
+
+                        <!-- Wide tile: Products (blue) -->
+                        <a href="src/prototype/portfolio.html#eco" class="mobile-tile tile-wide tile-blue">
+                            <span class="tile-label">02 // PRODUCTS</span>
+                            <h2 class="tile-title">My Products</h2>
+                            <span class="tile-icon">PY</span>
                         </a>
-                        <a href="src/prototype/portfolio.html#rnd" class="portal-card p-rnd">
-                            <span>03 // R&D LAB</span>
-                            <h2>Open Source</h2>
+
+                        <!-- Square tile: Open Source (green) -->
+                        <a href="src/prototype/portfolio.html#rnd" class="mobile-tile tile-square tile-green">
+                            <span class="tile-label">03 // OSS</span>
+                            <h2 class="tile-title">Open Source</h2>
+                            <span class="tile-icon">GIT</span>
+                        </a>
+
+                        <!-- Square tile: Prototypes (purple) -->
+                        <a href="src/prototype/portfolio.html#prototypes" class="mobile-tile tile-square tile-purple">
+                            <span class="tile-label">04 // LAB</span>
+                            <h2 class="tile-title">Prototypes</h2>
+                            <span class="tile-icon">EXP</span>
+                        </a>
+
+                        <!-- Wide tile: Configs (ghost) -->
+                        <a href="src/prototype/portfolio.html#configs" class="mobile-tile tile-wide tile-ghost">
+                            <span class="tile-label">05 // TOOLKIT</span>
+                            <h2 class="tile-title">Configs & Setup</h2>
+                            <span class="tile-icon">YML</span>
                         </a>
                     </div>
 

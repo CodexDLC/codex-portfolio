@@ -196,12 +196,18 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const showAllContentImmediately = () => {
+        const isMobile = window.innerWidth <= 767;
+
         // Скрываем экран загрузки
         if (initScreen) initScreen.style.display = 'none';
 
+        // Скрываем мобильный init screen
+        const mobileInitScreen = document.querySelector('.mobile-init-screen');
+        if (mobileInitScreen) mobileInitScreen.style.display = 'none';
+
         // Показываем финал
         if (finalScreen) {
-            finalScreen.style.display = 'grid';
+            finalScreen.style.display = isMobile ? 'block' : 'grid';
             finalScreen.style.opacity = '1';
         }
 
@@ -231,8 +237,16 @@ document.addEventListener("DOMContentLoaded", () => {
         // Показываем мобильный separator сразу с READY статусом
         showMobileSeparator();
 
-        // Показываем мобильные порталы
-        showMobilePortals();
+        // На мобильных показываем tiles grid
+        if (isMobile) {
+            const mobileTilesGrid = document.querySelector('.mobile-tiles-grid');
+            if (mobileTilesGrid) {
+                mobileTilesGrid.classList.add('show-tiles');
+            }
+        } else {
+            // Показываем мобильные порталы (для совместимости)
+            showMobilePortals();
+        }
 
         // Запускаем анимацию логотипа (функция из base.js)
         if (typeof typeSlogan === 'function') {
@@ -244,6 +258,73 @@ document.addEventListener("DOMContentLoaded", () => {
     // (Дублируем здесь или используем из base.js, но лучше вызывать из base.js)
     // В base.js функция глобальная, так что просто вызываем её.
 
+    // --- MOBILE PIPELINE ANIMATION ---
+    const runMobilePipelineAnimation = () => {
+        const mobileInitScreen = document.querySelector('.mobile-init-screen');
+        const mobileTilesGrid = document.querySelector('.mobile-tiles-grid');
+        const mpNodes = document.querySelectorAll('.mp-node');
+        const mpLines = document.querySelectorAll('.mp-line');
+
+        if (!mobileInitScreen) return;
+
+        // Animation sequence timing (ms)
+        const sequence = [
+            { delay: 300, action: () => document.querySelector('.mp-arch')?.classList.add('visible') },
+            { delay: 600, action: () => document.querySelector('.mp-line-1')?.classList.add('drawn') },
+            { delay: 900, action: () => document.querySelector('.mp-icon-1')?.classList.add('visible') },
+            { delay: 1100, action: () => document.querySelector('.mp-icon-2')?.classList.add('visible') },
+            { delay: 1300, action: () => document.querySelector('.mp-icon-3')?.classList.add('visible') },
+            { delay: 1600, action: () => {
+                document.querySelector('.mp-line-2')?.classList.add('drawn');
+                document.querySelector('.mp-line-3')?.classList.add('drawn');
+                document.querySelector('.mp-line-4')?.classList.add('drawn');
+            }},
+            { delay: 2200, action: () => document.querySelector('.mp-merge')?.classList.add('visible') },
+            { delay: 2600, action: () => document.querySelector('.mp-line-5')?.classList.add('drawn') },
+            { delay: 3000, action: () => document.querySelector('.mp-product')?.classList.add('visible') },
+        ];
+
+        // Run animation sequence
+        sequence.forEach(({ delay, action }) => {
+            setTimeout(action, delay);
+        });
+
+        // Transition to final screen
+        setTimeout(() => {
+            // Fade out init screen
+            mobileInitScreen.classList.add('fade-out');
+
+            setTimeout(() => {
+                mobileInitScreen.classList.add('hidden');
+
+                // Show final screen (hero + tiles)
+                if (finalScreen) {
+                    finalScreen.style.setProperty('display', 'block', 'important');
+                    finalScreen.style.opacity = "1";
+                }
+
+                // Show tiles grid
+                if (mobileTilesGrid) {
+                    mobileTilesGrid.classList.add('show-tiles');
+                }
+
+                // Show separator
+                showMobileSeparator();
+
+                // Update status after delay
+                setTimeout(() => {
+                    updateSeparatorStatus();
+                    updateModulesStatus();
+                }, 500);
+
+                // Start logo animation
+                if (typeof typeSlogan === 'function') {
+                    typeSlogan();
+                }
+            }, 800);
+        }, 3800);
+    };
+
     const runBootSequence = () => {
         // Скрываем контент для анимации
         bentoItems.forEach(item => item.classList.add('bento-hidden'));
@@ -251,19 +332,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const isMobile = window.innerWidth <= 767;
 
-        // Маппинг логов - на мобилке быстрее (шаг ~500ms вместо ~1500ms)
-        // triggerTab - показывает таб в hero-modules-bar
+        // На мобильных запускаем новую анимацию pipeline
+        if (isMobile) {
+            runMobilePipelineAnimation();
+            return;
+        }
+
+        // Desktop animation (original)
+        // Маппинг логов - triggerTab показывает таб в hero-modules-bar
         const messages = [
-            { t: 500,  tMobile: 300,  m: "> Initializing Request...", triggerNav: 0, triggerTab: 0 },
-            { t: 1200, tMobile: 800,  m: "> R&D Process started...", c: "text-ghost", triggerBento: 1, triggerNav: 1, triggerTab: 1 },
-            { t: 2200, tMobile: 1300, m: "> Architecture defined.", c: "text-blue", triggerBento: 2, triggerNav: 2, triggerTab: 2 },
-            { t: 3200, tMobile: 1800, m: "> CORE: Python Engine Ready.", c: "text-gold", triggerBento: 0, triggerNav: 3, triggerTab: 3 },
-            { t: 4500, tMobile: 2800, m: "> CI/CD Pipeline active.", c: "text-gold" },
-            { t: 6000, tMobile: 3300, m: "> DEPLOYED TO PRODUCT.", c: "text-gold", triggerBento: 3 }
+            { t: 500, m: "> Initializing Request...", triggerNav: 0, triggerTab: 0 },
+            { t: 1200, m: "> R&D Process started...", c: "text-ghost", triggerBento: 1, triggerNav: 1, triggerTab: 1 },
+            { t: 2200, m: "> Architecture defined.", c: "text-blue", triggerBento: 2, triggerNav: 2, triggerTab: 2 },
+            { t: 3200, m: "> CORE: Python Engine Ready.", c: "text-gold", triggerBento: 0, triggerNav: 3, triggerTab: 3 },
+            { t: 4500, m: "> CI/CD Pipeline active.", c: "text-gold" },
+            { t: 6000, m: "> DEPLOYED TO PRODUCT.", c: "text-gold", triggerBento: 3 }
         ];
 
         messages.forEach((item) => {
-            const delay = isMobile ? item.tMobile : item.t;
             setTimeout(() => {
                 const line = document.createElement('div');
                 line.className = item.c ? item.c : '';
@@ -277,12 +363,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (item.triggerNav !== undefined) showNavLink(item.triggerNav);
                 if (item.triggerTab !== undefined) showModuleTab(item.triggerTab);
 
-            }, delay);
+            }, item.t);
         });
 
-        // Переход в финал - на мобилке быстрее
-        const finalDelay = isMobile ? 4500 : 7500;
-        const transitionDuration = isMobile ? 0.5 : 0.8;
+        // Переход в финал
+        const finalDelay = 7500;
+        const transitionDuration = 0.8;
 
         setTimeout(() => {
             if (initScreen) {
@@ -298,25 +384,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 // FIX: Используем setProperty с !important чтобы перебить CSS
                 if (initScreen) initScreen.style.setProperty('display', 'none', 'important');
 
-                // На мобилке используем block вместо grid
                 if (finalScreen) {
-                    finalScreen.style.setProperty('display', isMobile ? 'block' : 'grid', 'important');
+                    finalScreen.style.setProperty('display', 'grid', 'important');
                     setTimeout(() => {
                         finalScreen.style.opacity = "1";
 
                         // Показываем мобильный separator (LOADING)
                         showMobileSeparator();
 
-                        // Через 500ms показываем порталы с анимацией (на мобилке 300ms)
+                        // Через 500ms показываем порталы с анимацией
                         setTimeout(() => {
                             showMobilePortals();
 
-                            // Через 1 сек меняем статус на READY (на мобилке 500ms)
+                            // Через 1 сек меняем статус на READY
                             setTimeout(() => {
                                 updateSeparatorStatus();
                                 updateModulesStatus(); // Update hero modules bar
-                            }, isMobile ? 500 : 1000);
-                        }, isMobile ? 300 : 500);
+                            }, 1000);
+                        }, 500);
 
                         // Запускаем анимацию логотипа
                         if (typeof typeSlogan === 'function') {
@@ -332,17 +417,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ПРОВЕРКА: Если мы на главной странице (есть терминал)
     if (logs && initScreen) {
-        // Проверяем sessionStorage (живет пока открыта вкладка)
-        const introShown = sessionStorage.getItem(SESSION_KEY);
+        // DEBUG: Временно отключена проверка sessionStorage - всегда показываем анимацию
+        // const introShown = sessionStorage.getItem(SESSION_KEY);
+        // if (introShown) {
+        //     showAllContentImmediately();
+        // } else {
+        //     sessionStorage.setItem(SESSION_KEY, 'true');
+        //     runBootSequence();
+        // }
 
-        if (introShown) {
-            // Если уже видели в этой сессии -> ПРОПУСКАЕМ
-            showAllContentImmediately();
-        } else {
-            // Если новая вкладка -> ЗАПУСКАЕМ и запоминаем
-            sessionStorage.setItem(SESSION_KEY, 'true');
-            runBootSequence();
-        }
+        // Всегда запускаем анимацию (для тестирования)
+        runBootSequence();
     } else {
         // Если мы на внутренней странице (нет терминала), показываем всё сразу
         showAllContentImmediately();
