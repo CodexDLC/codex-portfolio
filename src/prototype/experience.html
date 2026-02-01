@@ -17,21 +17,25 @@
 </head>
 <body>
 
-    <div class="layout-topbar">
-        <div class="sys-info">
-            <span class="text-gold">root@codex</span>:<span class="text-blue">~</span>$ tail -f experience.log
-        </div>
-        <div class="sys-status desktop-only">
-            <span>RAM: 64GB</span>
-            <span class="text-ghost">|</span>
-            <span>UPTIME: 99.9%</span>
-        </div>
-    </div>
-
+    <!-- UNIFIED HEADER (Top Bar + Main Nav) -->
     <header class="layout-header">
+
+        <!-- Floor 1: Top Bar -->
+        <div class="layout-header-top">
+            <div class="sys-info">
+                <span class="text-gold">root@codex</span>:<span class="text-blue">~</span>$ tail -f experience.log
+            </div>
+            <div class="sys-status desktop-only">
+                <span>RAM: 64GB</span>
+                <span class="text-ghost">|</span>
+                <span>UPTIME: 99.9%</span>
+            </div>
+        </div>
+
+        <!-- Floor 2: Main Nav -->
         <div class="header-inner">
             <a href="../../index.html" class="brand">
-                <span id="brand-text" class="font-mono">Codex<span class="text-gold">D</span><span class="text-ivory">L</span><span class="text-blue">C</span></span>
+                <span id="brand-logo" class="font-mono">Codex<span class="text-gold">D</span><span class="text-ivory">L</span><span class="text-blue">C</span></span>
                 <span id="brand-slogan"></span>
             </a>
 
