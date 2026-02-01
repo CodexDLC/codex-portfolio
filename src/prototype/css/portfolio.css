@@ -1,0 +1,690 @@
+/* src/prototype/css/portfolio.css */
+/* PORTFOLIO STYLES (Full Set: Tabs + Animations + Cards + Patterns) */
+
+/* --- 1. FOLDER TABS BAR (Sub-Header) --- */
+.folder-tabs-bar {
+    width: 100%;
+    height: 45px;
+    background-color: rgba(26, 26, 34, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+    /* Sticky inside layout-main */
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    backdrop-filter: blur(10px);
+    margin-bottom: 20px;
+
+    display: flex;
+    justify-content: flex-start;
+}
+
+.tabs-inner-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 20px;
+}
+
+/* Path Indicator */
+.folder-path {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--color-ghost);
+    margin-right: 10px;
+    padding-right: 15px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.folder-path .icon { font-size: 1rem; }
+
+/* File Tabs */
+.file-tab {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--color-ghost);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    opacity: 0.7;
+    border: 1px solid transparent;
+}
+
+.file-tab:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-ivory);
+    opacity: 1;
+}
+
+.file-tab.active {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-ivory);
+    opacity: 1;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.file-tab .icon.gold { color: var(--color-gold); }
+.file-tab .icon.blue { color: var(--color-blue); }
+.file-tab .icon.green { color: var(--color-green); }
+.file-tab .icon.purple { color: #c678dd; }
+.file-tab .icon.ghost { color: var(--color-ghost); }
+
+
+/* --- 2. CONTENT ANIMATIONS (UNIFIED FADE) --- */
+.portfolio-container {
+    position: relative;
+    min-height: 60vh;
+    overflow: hidden;
+    padding-bottom: 60px; /* Отступ снизу */
+}
+
+/* FIX: Wrapper for sections to prevent overlap with title */
+.islands-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 400px; /* Ensure height for absolute children */
+}
+
+.island-section {
+    display: none;
+    width: 100%;
+    /* Unified transition for all devices */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px); /* Start down */
+}
+
+.island-section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation States */
+.island-section.fade-out {
+    opacity: 0;
+    transform: translateY(20px); /* Move DOWN when leaving */
+}
+
+.island-section.fade-in {
+    opacity: 0;
+    transform: translateY(20px); /* Start DOWN when entering */
+}
+
+
+/* --- 3. ISLANDS & CARDS (Polished Styles) --- */
+
+.island-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.island-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ivory);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.island-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--color-ghost);
+    background: rgba(255,255,255,0.05);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* Grid */
+.island-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Card */
+.project-card {
+    position: relative;
+    background: rgba(30, 30, 47, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+    min-height: 280px;
+    z-index: 1; /* Чтобы контент был выше фона */
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    background: rgba(30, 30, 47, 0.7);
+    /* Используем переменную темы, заданную в секции */
+    border-color: var(--theme-color, var(--color-blue));
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* --- CARD BACKGROUND PATTERNS --- */
+.card-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1; /* Под контентом */
+    opacity: 0.05; /* Едва заметно */
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.project-card:hover .card-bg {
+    opacity: 0.1; /* Чуть ярче при ховере */
+}
+
+/* Pattern 1: Grid (E-Commerce, SaaS) */
+.bg-grid {
+    background-image:
+        linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Pattern 2: Dots (AI, Bots) */
+.bg-dots {
+    background-image: radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
+    background-size: 15px 15px;
+}
+
+/* Pattern 3: Circuit / Lines (DevOps, Config) */
+.bg-lines {
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255,255,255,0.1) 10px,
+        rgba(255,255,255,0.1) 11px
+    );
+}
+
+/* Pattern 4: Code / Hex (Core, Libs) */
+.bg-code {
+    /* Имитация строк кода */
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 19px,
+        rgba(255,255,255,0.05) 20px
+    );
+}
+
+
+/* Card Header */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.card-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--color-ghost);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+/* При ховере на карточку тип подсвечивается цветом темы */
+.project-card:hover .card-type {
+    color: var(--theme-color, var(--color-blue));
+    text-shadow: 0 0 8px rgba(255,255,255,0.1);
+}
+
+.card-status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-ghost);
+    box-shadow: 0 0 5px rgba(255,255,255,0.2);
+}
+
+/* Card Content */
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-ivory);
+    margin-bottom: 10px;
+    line-height: 1.2;
+    transition: color 0.3s;
+}
+
+/* При ховере заголовок становится чуть ярче */
+.project-card:hover .card-title {
+    color: #ffffff;
+}
+
+.card-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #A0A0B0; /* Чуть светлее ghost */
+    line-height: 1.5;
+    margin-bottom: 25px;
+    flex-grow: 1;
+}
+
+/* Card Footer (Tags) */
+.card-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tech-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--color-ghost);
+    background: rgba(255,255,255,0.05);
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.2s;
+}
+
+/* Hover Effect for Tags */
+.tech-tag:hover {
+    background: rgba(255,255,255,0.1);
+    color: var(--color-ivory);
+    /* Теперь цвет берется из родительской секции */
+    border-color: var(--theme-color, var(--color-ghost));
+    transform: translateY(-1px);
+}
+
+/* Theme Accents (Setting Variables) */
+.text-purple { color: #c678dd; }
+.text-green { color: var(--color-green); }
+
+/* Business (Gold) */
+.theme-gold { --theme-color: var(--color-gold); }
+.theme-gold .island-title { color: var(--theme-color); }
+.theme-gold .card-status.active { background-color: var(--theme-color); box-shadow: 0 0 8px rgba(255, 215, 0, 0.4); }
+
+/* Ecosystem (Blue) */
+.theme-blue { --theme-color: var(--color-blue); }
+.theme-blue .island-title { color: var(--theme-color); }
+.theme-blue .card-status.active { background-color: var(--theme-color); box-shadow: 0 0 8px rgba(97, 175, 239, 0.4); }
+
+/* R&D (Green) */
+.theme-rnd { --theme-color: var(--color-green); }
+.theme-rnd .island-title { color: var(--theme-color); }
+.theme-rnd .card-status.active { background-color: var(--theme-color); box-shadow: 0 0 8px rgba(152, 195, 121, 0.4); }
+
+/* Prototypes (Purple) */
+.theme-proto { --theme-color: #c678dd; }
+.theme-proto .island-title { color: var(--theme-color); }
+.theme-proto .card-status.active { background-color: var(--theme-color); box-shadow: 0 0 8px rgba(198, 120, 221, 0.4); }
+
+/* Configs (Ghost) */
+.theme-config { --theme-color: var(--color-ghost); }
+.theme-config .island-title { color: var(--theme-color); }
+.theme-config .card-status.active { background-color: var(--theme-color); box-shadow: 0 0 8px rgba(255, 255, 255, 0.3); }
+
+
+/* --- 4. EMPTY STATE --- */
+.empty-state {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-ghost);
+    font-family: 'JetBrains Mono', monospace;
+    text-align: center;
+}
+.empty-icon { font-size: 3rem; margin-bottom: 20px; opacity: 0.3; }
+
+/* --- 5. LOAD MORE BUTTON (Hidden by default) --- */
+.load-more-btn {
+    display: none; /* JS will show it */
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px dashed rgba(255,255,255,0.1);
+    color: var(--color-ghost);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.load-more-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: var(--color-ivory);
+    border-color: var(--color-gold);
+}
+
+
+/* --- 6. RESPONSIVE --- */
+
+/* TABLET LANDSCAPE (1024px - 1279px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .island-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    h1 {
+        font-size: 2.2rem !important;
+    }
+
+    /* FIX: Compact Tabs & Cards for Landscape Tablet */
+    .folder-tabs-bar {
+        height: 35px !important; /* Thinner */
+        padding: 0 15px !important;
+    }
+
+    .file-tab {
+        padding: 4px 10px !important;
+        font-size: 0.75rem !important;
+    }
+
+    .project-card {
+        min-height: 200px !important; /* Shorter */
+        padding: 15px !important;
+    }
+
+    .card-title {
+        font-size: 1.1rem !important;
+    }
+
+    .card-desc {
+        font-size: 0.8rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    /* Ensure content scrolls */
+    .portfolio-container {
+        overflow-y: auto !important;
+        height: calc(100vh - 60px - 35px) !important; /* Header 60px + Tabs 35px */
+        padding-bottom: 60px !important;
+    }
+}
+
+/* DESKTOP ANIMATIONS (Slide Left/Right) */
+@media (min-width: 1024px) {
+    .island-section.slide-out-left {
+        display: block;
+        position: absolute;
+        top: 0; left: 0;
+        opacity: 0;
+        transform: translateX(-50px);
+        pointer-events: none;
+    }
+
+    .island-section.slide-out-right {
+        display: block;
+        position: absolute;
+        top: 0; left: 0;
+        opacity: 0;
+        transform: translateX(50px);
+        pointer-events: none;
+    }
+
+    .island-section.slide-in-right {
+        display: block;
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    .island-section.slide-in-left {
+        display: block;
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+}
+
+/* MOBILE & TABLET PORTRAIT (< 1023px) */
+@media (max-width: 1023px) {
+    /* --- VERTICAL TABS LAYOUT --- */
+
+    /* 1. Main Layout: Grid (Content | Tabs) */
+    .layout-main {
+        display: grid !important;
+        grid-template-columns: 1fr 50px !important; /* Content | Tabs */
+        gap: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important; /* Prevent body scroll */
+
+        /* FIX: Force position under header */
+        top: 50px !important;
+        margin-top: 0 !important;
+        height: calc(100vh - 50px) !important;
+    }
+
+    /* 2. Tabs Bar: Vertical, Right Side */
+    .folder-tabs-bar {
+        grid-column: 2;
+        grid-row: 1;
+        width: 50px !important;
+        height: 100% !important;
+        position: sticky !important;
+        top: 0 !important;
+        right: 0 !important;
+
+        flex-direction: column !important;
+        justify-content: center !important;
+        padding: 10px 0 !important;
+
+        background-color: #1A1A22 !important;
+        border-bottom: none !important;
+        border-left: 1px solid rgba(255, 255, 255, 0.05) !important;
+
+        overflow: hidden !important;
+    }
+
+    .tabs-inner-container {
+        flex-direction: column !important;
+        width: 100% !important;
+        height: auto !important;
+        padding: 0 !important;
+        gap: 15px !important;
+    }
+
+    /* Hide Path & Text */
+    .folder-path { display: none !important; }
+    .file-tab span:last-child { display: none !important; } /* Hide text label */
+
+    /* Tab Icons */
+    .file-tab {
+        width: 36px !important;
+        height: 36px !important;
+        padding: 0 !important;
+        justify-content: center !important;
+        border-radius: 6px !important;
+        background: transparent !important;
+    }
+
+    .file-tab .icon {
+        font-size: 1.1rem !important;
+        margin: 0 !important;
+    }
+
+    .file-tab.active {
+        background: rgba(255,255,255,0.08) !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+    }
+
+    /* 3. Content Area: Left Side */
+    .portfolio-container {
+        grid-column: 1;
+        grid-row: 1;
+        padding: 15px !important;
+        overflow-y: auto !important; /* Scroll content independently */
+        height: 100% !important;
+        padding-bottom: 80px !important; /* Space for footer */
+        padding-top: 20px !important;
+    }
+
+    /* Adjust Page Title */
+    .portfolio-container > div:first-child {
+        margin-top: 0 !important;
+        margin-bottom: 15px !important;
+    }
+
+    h1 {
+        font-size: 1.6rem !important;
+        margin-bottom: 5px !important;
+    }
+
+    .text-ghost.font-mono {
+        font-size: 0.75rem !important;
+    }
+
+    /* Cards Default (1 Column) */
+    .island-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+
+    .project-card {
+        min-height: auto !important;
+        padding: 15px !important;
+    }
+
+    .card-header {
+        margin-bottom: 10px !important;
+    }
+
+    .card-title {
+        font-size: 1.1rem !important;
+        margin-bottom: 8px !important;
+    }
+
+    .card-desc {
+        font-size: 0.8rem !important;
+        margin-bottom: 12px !important;
+        line-height: 1.4 !important;
+    }
+
+    .tech-tag {
+        font-size: 0.65rem !important;
+        padding: 3px 6px !important;
+    }
+
+    /* Animation Reset for Mobile */
+    .island-section {
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .island-section.mobile-fade-in {
+        animation: fadeIn 0.4s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .island-section.active,
+    .island-section.mobile-fade-in {
+        transform: none !important;
+    }
+}
+
+/* --- TABLET PORTRAIT SPECIFIC (768px - 1023px) --- */
+@media (min-width: 768px) and (max-width: 1023px) {
+    /* Adjust Layout Main for 80px Header */
+    .layout-main {
+        top: 80px !important;
+        height: calc(100vh - 80px) !important;
+    }
+
+    /* 2 Columns for Tablet */
+    .island-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+    }
+
+    .project-card {
+        padding: 20px !important;
+    }
+
+    /* FIX: Reduce H1 size for tablet portrait */
+    h1 {
+        font-size: 2rem !important;
+    }
+}
+
+/* --- HEIGHT ADAPTATION (Mobile Vertical) --- */
+
+/* Short Phones (< 740px) */
+@media (max-height: 740px) and (max-width: 767px) {
+    .project-card {
+        padding: 12px !important;
+    }
+
+    .card-desc {
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Limit text lines */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .folder-tabs-bar {
+        gap: 10px !important; /* Tighter tabs */
+    }
+
+    /* Hide cards > 3 (Logic handled by JS, but CSS helper) */
+    .project-card.hidden-mobile {
+        display: none !important;
+    }
+}
+
+/* Tall Phones (> 840px) */
+@media (min-height: 841px) and (max-width: 767px) {
+    .project-card {
+        padding: 20px !important;
+    }
+
+    .card-desc {
+        -webkit-line-clamp: 4; /* More text */
+    }
+}
+
+/* --- NARROW PHONES (< 400px) --- */
+@media (max-width: 400px) {
+    .card-title {
+        font-size: 1rem !important;
+    }
+
+    .card-type {
+        font-size: 0.6rem !important;
+    }
+
+    .tech-tag {
+        font-size: 0.6rem !important;
+        padding: 2px 5px !important;
+    }
+
+    .card-header {
+        flex-wrap: wrap;
+    }
+}

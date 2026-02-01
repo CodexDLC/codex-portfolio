@@ -305,7 +305,7 @@
         </div>
 
         <div class="footer-right">
-            <div class="control-btn" onclick="toggleNavDrawer()">
+            <div class="control-btn" onclick="toggleSystemHub()">
                 <span class="btn-icon">☰</span>
                 <span class="btn-label desktop-only">HUB</span>
             </div>
@@ -328,89 +328,191 @@
         </div>
     </footer>
 
-    <!-- CONTACT DRAWER (Bottom Sheet) -->
-    <div id="contact-drawer" class="bottom-drawer">
+    <!-- SYSTEM HUB (DESKTOP) -->
+    <div id="hub-desktop" class="layout-drawer desktop-only">
+        <div class="drawer-section active">
+            <div class="hub-grid">
+                <!-- COL 1: MAIN NAVIGATION -->
+                <div class="hub-col">
+                    <h4 class="hub-col-title">01 // NAVIGATION</h4>
+                    <a href="#" class="hub-link main-link active">MAIN.PY</a>
+                    <a href="src/prototype/portfolio.html" class="hub-link main-link">PORTFOLIO/</a>
+                    <a href="src/prototype/experience.html" class="hub-link main-link">EXPERIENCE.LOG</a>
+                    <a href="src/prototype/contact.html" class="hub-link main-link">CONTACT.SH</a>
+                </div>
+
+                <!-- COL 2: PORTFOLIO INDEX -->
+                <div class="hub-col">
+                    <h4 class="hub-col-title">02 // PORTFOLIO INDEX</h4>
+                    <a href="src/prototype/portfolio.html#clients" class="hub-link sub-link"><span class="dot gold"></span> Clients</a>
+                    <a href="src/prototype/portfolio.html#products" class="hub-link sub-link"><span class="dot blue"></span> Products</a>
+                    <a href="src/prototype/portfolio.html#opensource" class="hub-link sub-link"><span class="dot green"></span> Open Source</a>
+                    <a href="src/prototype/portfolio.html#prototypes" class="hub-link sub-link"><span class="dot purple"></span> Prototypes</a>
+                    <a href="src/prototype/portfolio.html#configs" class="hub-link sub-link"><span class="dot ghost"></span> Configs</a>
+                </div>
+
+                <!-- COL 3: SYSTEM & META -->
+                <div class="hub-col">
+                    <h4 class="hub-col-title">03 // SYSTEM</h4>
+                    <a href="#" class="hub-link meta-link">Architecture.md</a>
+                    <a href="#" class="hub-link meta-link">Changelog.md</a>
+                    <a href="#" class="hub-link meta-link">Legal / Privacy</a>
+
+                    <div class="hub-footer-meta">
+                        <span>v.1.0.2</span>
+                        <span>© 2026 CodexDLC</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SYSTEM HUB (MOBILE) -->
+    <div id="hub-mobile" class="bottom-drawer mobile-only">
+        <div class="hub-header">
+            <span class="hub-title">// SYSTEM_MAP</span>
+            <div class="hub-close" onclick="toggleSystemHub()">×</div>
+        </div>
+
+        <div class="hub-grid">
+            <!-- COL 1: MAIN NAVIGATION -->
+            <div class="hub-col">
+                <h4 class="hub-col-title">01 // NAVIGATION</h4>
+                <a href="#" class="hub-link main-link active">MAIN.PY</a>
+                <a href="src/prototype/portfolio.html" class="hub-link main-link">PORTFOLIO/</a>
+                <a href="src/prototype/experience.html" class="hub-link main-link">EXPERIENCE.LOG</a>
+                <a href="src/prototype/contact.html" class="hub-link main-link">CONTACT.SH</a>
+            </div>
+
+            <!-- COL 2: PORTFOLIO INDEX -->
+            <div class="hub-col">
+                <h4 class="hub-col-title">02 // PORTFOLIO INDEX</h4>
+                <a href="src/prototype/portfolio.html#clients" class="hub-link sub-link"><span class="dot gold"></span> Clients</a>
+                <a href="src/prototype/portfolio.html#products" class="hub-link sub-link"><span class="dot blue"></span> Products</a>
+                <a href="src/prototype/portfolio.html#opensource" class="hub-link sub-link"><span class="dot green"></span> Open Source</a>
+                <a href="src/prototype/portfolio.html#prototypes" class="hub-link sub-link"><span class="dot purple"></span> Prototypes</a>
+                <a href="src/prototype/portfolio.html#configs" class="hub-link sub-link"><span class="dot ghost"></span> Configs</a>
+            </div>
+
+            <!-- COL 3: SYSTEM & META -->
+            <div class="hub-col">
+                <h4 class="hub-col-title">03 // SYSTEM</h4>
+                <a href="#" class="hub-link meta-link">Architecture.md</a>
+                <a href="#" class="hub-link meta-link">Changelog.md</a>
+                <a href="#" class="hub-link meta-link">Legal / Privacy</a>
+
+                <div class="hub-footer-meta">
+                    <span>v.1.0.2</span>
+                    <span>© 2026 CodexDLC</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT DRAWER (DESKTOP) -->
+    <div id="contact-desktop" class="layout-drawer desktop-only">
+        <div class="drawer-section active">
+            <div class="drawer-header">
+                <span>// CONTACT_UPLINK</span>
+                <div class="drawer-close" onclick="toggleContactDrawer()">×</div>
+            </div>
+
+            <div class="contact-card-layout">
+                <!-- PROFILE SECTION -->
+                <div class="contact-profile">
+                    <div class="profile-avatar">
+                        <span class="avatar-placeholder">CD</span>
+                    </div>
+                    <div class="profile-info">
+                        <h3 class="profile-name">CodexDLC</h3>
+                        <p class="profile-role">System Architect / Python Dev</p>
+                        <div class="profile-status">
+                            <span class="status-dot online"></span>
+                            <span>Open for opportunities</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LINKS GRID -->
+                <div class="contact-links-grid">
+                    <a href="mailto:info@codexdlc.dev" class="contact-btn email">
+                        <span class="icon">@</span>
+                        <span class="label">Email</span>
+                        <span class="value">info@codexdlc.dev</span>
+                    </a>
+                    <a href="#" class="contact-btn telegram">
+                        <span class="icon">✈</span>
+                        <span class="label">Telegram</span>
+                        <span class="value">@codexdlc</span>
+                    </a>
+                    <a href="#" class="contact-btn github">
+                        <span class="icon">🐙</span>
+                        <span class="label">GitHub</span>
+                        <span class="value">/codexdlc</span>
+                    </a>
+                    <a href="#" class="contact-btn linkedin">
+                        <span class="icon">💼</span>
+                        <span class="label">LinkedIn</span>
+                        <span class="value">/in/codexdlc</span>
+                    </a>
+                </div>
+
+                <!-- QR CODE (Placeholder) -->
+                <div class="contact-qr">
+                    <div class="qr-box">
+                        <span class="qr-text">SCAN_ME</span>
+                    </div>
+                    <span class="qr-label">vCard / Contact</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT DRAWER (MOBILE) -->
+    <div id="contact-mobile" class="bottom-drawer mobile-only">
         <div class="drawer-header">
             <span>// CONTACT_UPLINK</span>
             <div class="drawer-close" onclick="toggleContactDrawer()">×</div>
         </div>
-        <div class="drawer-grid">
-            <a href="#" class="social-card telegram">
-                <span class="icon">✈</span>
-                <span>Telegram</span>
-            </a>
-            <a href="#" class="social-card whatsapp">
-                <span class="icon">💬</span>
-                <span>WhatsApp</span>
-            </a>
-            <a href="#" class="social-card email">
-                <span class="icon">@</span>
-                <span>Email</span>
-            </a>
-        </div>
-    </div>
 
-    <!-- NAV DRAWER (System Hub) -->
-    <div id="nav-drawer" class="bottom-drawer nav-drawer-style">
-
-        <div class="drawer-header">
-            <span>// SYSTEM_HUB</span>
-            <div class="drawer-close" onclick="toggleNavDrawer()">×</div>
-        </div>
-
-        <div class="nav-hub-grid">
-
-            <div class="nav-group">
-                <h3 class="group-title">// DIRECTORY</h3>
-                <div class="group-list">
-                    <a href="src/prototype/portfolio.html#business">Business Sol.</a>
-                    <a href="src/prototype/portfolio.html#eco">Ecosystems</a>
-                    <a href="src/prototype/portfolio.html#rnd">R&D Lab</a>
+        <div class="contact-card-layout">
+            <!-- PROFILE SECTION -->
+            <div class="contact-profile">
+                <div class="profile-avatar">
+                    <span class="avatar-placeholder">CD</span>
+                </div>
+                <div class="profile-info">
+                    <h3 class="profile-name">CodexDLC</h3>
+                    <p class="profile-role">System Architect / Python Dev</p>
+                    <div class="profile-status">
+                        <span class="status-dot online"></span>
+                        <span>Open for opportunities</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="nav-group">
-                <h3 class="group-title">// RESOURCES</h3>
-                <div class="group-list">
-                    <a href="#">Tech Stack</a>
-                    <a href="#">Architecture</a>
-                    <a href="#">Changelog</a>
-                </div>
-            </div>
-
-            <div class="nav-group full-width">
-                <h3 class="group-title">// SYSTEM</h3>
-                <div class="group-list horizontal">
-                    <a href="#">GitHub</a>
-                    <a href="#">Legal</a>
-                    <a href="#">v.1.0.2</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- APP DRAWER (Hidden Panel - Desktop) -->
-    <div id="drawer-nav" class="layout-drawer">
-        <div class="drawer-section active">
-            <div class="nav-grid">
-                <div class="nav-col">
-                    <h4>// NAVIGATION</h4>
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="src/prototype/portfolio.html" class="nav-link">Projects</a>
-                    <a href="src/prototype/experience.html" class="nav-link">Experience</a>
-                </div>
-                <div class="nav-col">
-                    <h4>// SOCIALS</h4>
-                    <a href="#" class="nav-link">GitHub</a>
-                    <a href="#" class="nav-link">LinkedIn</a>
-                    <a href="#" class="nav-link">Twitter</a>
-                </div>
-                <div class="nav-col">
-                    <h4>// CONTACT</h4>
-                    <a href="mailto:info@codexdlc.dev" class="nav-link">info@codexdlc.dev</a>
-                    <p class="text-ghost text-sm mt-2">Open for opportunities</p>
-                </div>
+            <!-- LINKS GRID -->
+            <div class="contact-links-grid">
+                <a href="mailto:info@codexdlc.dev" class="contact-btn email">
+                    <span class="icon">@</span>
+                    <span class="label">Email</span>
+                    <span class="value">info@codexdlc.dev</span>
+                </a>
+                <a href="#" class="contact-btn telegram">
+                    <span class="icon">✈</span>
+                    <span class="label">Telegram</span>
+                    <span class="value">@codexdlc</span>
+                </a>
+                <a href="#" class="contact-btn github">
+                    <span class="icon">🐙</span>
+                    <span class="label">GitHub</span>
+                    <span class="value">/codexdlc</span>
+                </a>
+                <a href="#" class="contact-btn linkedin">
+                    <span class="icon">💼</span>
+                    <span class="label">LinkedIn</span>
+                    <span class="value">/in/codexdlc</span>
+                </a>
             </div>
         </div>
     </div>
@@ -441,11 +543,19 @@
                             <span class="file-icon ghost">PY</span>
                             <span class="file-name">opensource.py</span>
                         </a>
+                        <a href="src/prototype/portfolio.html#prototypes" class="overlay-file">
+                            <span class="file-icon purple">PY</span>
+                            <span class="file-name">prototypes.py</span>
+                        </a>
+                        <a href="src/prototype/portfolio.html#configs" class="overlay-file">
+                            <span class="file-icon ghost">YML</span>
+                            <span class="file-name">config.yaml</span>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Файлы -->
-                <a href="index.html" class="overlay-file active">
+                <a href="#" class="overlay-file active">
                     <span class="file-icon blue">PY</span>
                     <span class="file-name">main.py</span>
                 </a>

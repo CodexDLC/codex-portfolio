@@ -5,8 +5,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log("CodexDLC Base: Initialized");
-
-    // Инициализация мобильного меню (если есть)
     initMobileMenu();
 });
 
@@ -14,23 +12,18 @@ document.addEventListener('DOMContentLoaded', () => {
 let sloganAnimationStarted = false;
 
 function typeSlogan() {
-    // Защита от повторного вызова
     if (sloganAnimationStarted) return;
     sloganAnimationStarted = true;
 
     const sloganEl = document.getElementById('brand-slogan');
-    // FIX: Changed ID from brand-text to brand-logo
     const brandText = document.getElementById('brand-logo');
 
     if (!sloganEl || !brandText) return;
 
     const isMobile = window.innerWidth <= 767;
-
-    // Таймауты: на мобилке быстрее
     const initialDelay = isMobile ? 1500 : 3000;
     const charSpeed = isMobile ? 30 : 50;
 
-    // 1. Ждем немного, потом скрываем логотип
     setTimeout(() => {
         brandText.style.opacity = '0';
         brandText.style.transition = 'opacity 0.5s';
@@ -38,8 +31,6 @@ function typeSlogan() {
         setTimeout(() => {
             brandText.style.display = 'none';
             sloganEl.style.display = 'inline-block';
-
-            // 2. Печатаем слоган
             startTyping();
         }, 500);
     }, initialDelay);
@@ -85,17 +76,10 @@ function typeSlogan() {
 function toggleMainMenu() {
     const overlay = document.getElementById('main-menu-overlay');
     if (!overlay) return;
-
-    const isActive = overlay.classList.contains('active');
-    if (isActive) {
-        overlay.classList.remove('active');
-    } else {
-        overlay.classList.add('active');
-    }
+    overlay.classList.toggle('active');
 }
 
 function initMobileMenu() {
-    // Закрытие меню при клике на ссылку
     const overlay = document.getElementById('main-menu-overlay');
     if (overlay) {
         overlay.addEventListener('click', (e) => {
@@ -106,7 +90,6 @@ function initMobileMenu() {
     }
 }
 
-/* --- MOBILE MENU: Folder Toggle --- */
 function toggleNavFolder(element) {
     const folderGroup = element.closest('.nav-folder-group');
     if (folderGroup) {
@@ -119,7 +102,6 @@ function toggleLangSlider(element) {
     element.classList.toggle('expanded');
 }
 
-// Закрываем слайдер, если кликнули мимо
 document.addEventListener('click', function(event) {
     const slider = document.getElementById('lang-slider');
     if (slider && !slider.contains(event.target)) {
@@ -127,57 +109,73 @@ document.addEventListener('click', function(event) {
     }
 });
 
-/* --- FOOTER: DRAWERS (Navigation & Contacts) --- */
+/* --- FOOTER: SYSTEM HUB & CONTACTS --- */
 
-function toggleNavDrawer() {
+// Unified Toggle for System Hub (Desktop & Mobile)
+function toggleSystemHub() {
     const isMobile = window.innerWidth <= 767;
 
-    if (isMobile) {
-        // Mobile: используем bottom-drawer с классом active
-        const navDrawer = document.getElementById('nav-drawer');
-        const contactDrawer = document.getElementById('contact-drawer');
+    // Determine which hub to toggle
+    const hub = isMobile
+        ? document.getElementById('hub-mobile')
+        : document.getElementById('hub-desktop');
 
-        if (!navDrawer) return;
+    // Determine which contacts to close
+    const contacts = isMobile
+        ? document.getElementById('contact-mobile')
+        : document.getElementById('contact-desktop');
 
-        // Если открыты контакты - закрываем их
-        if (contactDrawer && contactDrawer.classList.contains('active')) {
-            contactDrawer.classList.remove('active');
+    if (!hub) return;
+
+    // Close contacts if open
+    if (contacts) {
+        if (isMobile && contacts.classList.contains('active')) {
+            contacts.classList.remove('active');
+        } else if (!isMobile && contacts.classList.contains('open')) {
+            contacts.classList.remove('open');
         }
+    }
 
-        navDrawer.classList.toggle('active');
+    // Toggle class based on type
+    if (isMobile) {
+        hub.classList.toggle('active');
     } else {
-        // Desktop: используем layout-drawer с классом open
-        const drawerNav = document.getElementById('drawer-nav');
-
-        if (!drawerNav) return;
-
-        drawerNav.classList.toggle('open');
+        hub.classList.toggle('open');
     }
 }
 
+// Unified Toggle for Contacts (Desktop & Mobile)
 function toggleContactDrawer() {
     const isMobile = window.innerWidth <= 767;
 
-    if (isMobile) {
-        // Mobile: используем bottom-drawer
-        const contactDrawer = document.getElementById('contact-drawer');
-        const navDrawer = document.getElementById('nav-drawer');
+    // Determine which contacts to toggle
+    const contacts = isMobile
+        ? document.getElementById('contact-mobile')
+        : document.getElementById('contact-desktop');
 
-        if (!contactDrawer) return;
+    // Determine which hub to close
+    const hub = isMobile
+        ? document.getElementById('hub-mobile')
+        : document.getElementById('hub-desktop');
 
-        // Если открыт Хаб - закрываем его
-        if (navDrawer && navDrawer.classList.contains('active')) {
-            navDrawer.classList.remove('active');
+    if (!contacts) return;
+
+    // Close hub if open
+    if (hub) {
+        if (isMobile && hub.classList.contains('active')) {
+            hub.classList.remove('active');
+        } else if (!isMobile && hub.classList.contains('open')) {
+            hub.classList.remove('open');
         }
+    }
 
-        contactDrawer.classList.toggle('active');
+    // Toggle class based on type
+    if (isMobile) {
+        contacts.classList.toggle('active');
     } else {
-        // Desktop: пока открываем тот же drawer-nav (можно сделать отдельный позже)
-        // Или показываем контакты в том же drawer
-        const drawerNav = document.getElementById('drawer-nav');
-
-        if (!drawerNav) return;
-
-        drawerNav.classList.toggle('open');
+        contacts.classList.toggle('open');
     }
 }
+
+// Deprecated functions (kept for compatibility if needed, but redirected)
+function toggleNavDrawer() { toggleSystemHub(); }

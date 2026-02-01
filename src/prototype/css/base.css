@@ -70,7 +70,8 @@ a:hover { opacity: 0.8; }
 /* ОБЩАЯ ГЕОМЕТРИЯ ЛИСТА */
 .layout-header,
 .layout-footer,
-.layout-drawer {
+.layout-drawer,
+.bottom-drawer {
     position: fixed;
     left: 50% !important;
     transform: translateX(-50%) !important;
@@ -373,9 +374,11 @@ a:hover { opacity: 0.8; }
 .desktop-only { display: block !important; } /* Default for Desktop */
 .mobile-only { display: none !important; }
 
-/* APP DRAWER (Desktop) */
+/* --- SYSTEM HUB & BOTTOM DRAWERS --- */
+
+/* 1. DESKTOP DRAWER (Layout Drawer) */
 .layout-drawer {
-    bottom: var(--footer-h);
+    bottom: var(--footer-h); /* Над футером */
     height: 0;
     overflow: hidden;
     background-color: #151520;
@@ -393,35 +396,292 @@ a:hover { opacity: 0.8; }
     padding: 40px;
     opacity: 0;
     transition: opacity 0.2s;
+    /* FIX: Stack content vertically */
+    flex-direction: column;
 }
 
 .drawer-section.active { display: flex; opacity: 1; }
 
-.nav-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    width: 100%;
-    gap: 40px;
-}
-.nav-col h4 {
-    color: var(--color-gold);
-    margin-bottom: 20px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-}
-.nav-link-drawer {
-    display: block;
-    color: var(--color-ivory);
-    margin-bottom: 12px;
-    font-size: 1.1rem;
-    transition: transform 0.2s;
-    text-decoration: none;
-}
-.nav-link-drawer:hover {
-    transform: translateX(5px);
-    color: var(--color-blue);
+/* 2. MOBILE DRAWER (Bottom Drawer) */
+.bottom-drawer {
+    position: fixed;
+    bottom: -100%; /* Hidden by default */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100% !important;
+    max-width: var(--max-width);
+    background-color: #151520;
+    border-top: 2px solid var(--color-gold);
+    z-index: 1000; /* Поверх всего */
+    transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 30px 40px;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
-/* FIX: Removed all @media queries. They are now in base-adaptive.css */
-/* Default state for Desktop: Mobile drawers are hidden */
-.bottom-drawer { display: none !important; }
+.bottom-drawer.active {
+    bottom: 0; /* Выезжает снизу */
+}
+
+/* Hub Header */
+.hub-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 15px;
+}
+
+.hub-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: var(--color-gold);
+    letter-spacing: 1px;
+}
+
+.hub-close, .drawer-close {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--color-ghost);
+    transition: color 0.2s;
+}
+.hub-close:hover, .drawer-close:hover { color: var(--color-ivory); }
+
+/* Hub Grid */
+.hub-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    width: 100%;
+}
+
+.hub-col {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.hub-col-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--color-ghost);
+    margin-bottom: 10px;
+    opacity: 0.7;
+}
+
+/* Hub Links */
+.hub-link {
+    text-decoration: none;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hub-link.main-link {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-ivory);
+    font-family: 'Inter', sans-serif;
+}
+.hub-link.main-link:hover { color: var(--color-blue); transform: translateX(5px); }
+.hub-link.main-link.active { color: var(--color-blue); }
+
+.hub-link.sub-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--color-ghost);
+}
+.hub-link.sub-link:hover { color: var(--color-ivory); }
+
+.hub-link.meta-link {
+    font-size: 0.85rem;
+    color: #666;
+}
+.hub-link.meta-link:hover { color: var(--color-ghost); }
+
+/* Dots */
+.dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+.dot.gold { background: var(--color-gold); }
+.dot.blue { background: var(--color-blue); }
+.dot.green { background: var(--color-green); }
+.dot.purple { background: #c678dd; }
+.dot.ghost { background: var(--color-ghost); }
+
+/* Hub Footer Meta */
+.hub-footer-meta {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #555;
+}
+
+/* --- CONTACT DRAWER STYLES (Business Card) --- */
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: 'JetBrains Mono';
+    color: var(--color-ghost);
+    width: 100%; /* Ensure full width */
+}
+
+.contact-card-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* Avatar | Links | QR */
+    gap: 30px;
+    align-items: center;
+    padding: 10px 0;
+    width: 100%; /* Ensure full width */
+}
+
+/* Profile */
+.contact-profile {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-placeholder {
+    font-family: 'JetBrains Mono';
+    font-size: 1.5rem;
+    color: var(--color-gold);
+    font-weight: bold;
+}
+
+.profile-info h3 {
+    font-size: 1.2rem;
+    color: var(--color-ivory);
+    margin-bottom: 5px;
+}
+
+.profile-role {
+    font-family: 'JetBrains Mono';
+    font-size: 0.8rem;
+    color: var(--color-blue);
+    margin-bottom: 10px;
+}
+
+.profile-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    color: var(--color-ghost);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-green);
+    box-shadow: 0 0 5px rgba(39, 201, 63, 0.5);
+}
+
+/* Links Grid */
+.contact-links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.contact-btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: var(--color-gold);
+    transform: translateY(-2px);
+}
+
+.contact-btn .icon {
+    font-size: 1.2rem;
+    color: var(--color-ghost);
+}
+
+.contact-btn .label {
+    font-family: 'JetBrains Mono';
+    font-size: 0.7rem;
+    color: var(--color-ghost);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.contact-btn .value {
+    font-size: 0.9rem;
+    color: var(--color-ivory);
+    font-weight: 500;
+}
+
+/* QR Code */
+.contact-qr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.qr-box {
+    width: 100px;
+    height: 100px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-text {
+    font-family: 'JetBrains Mono';
+    font-size: 0.6rem;
+    color: black;
+    font-weight: bold;
+}
+
+.qr-label {
+    font-family: 'JetBrains Mono';
+    font-size: 0.7rem;
+    color: var(--color-ghost);
+}
+
+/* Mobile Adaptation for Contact Card */
+@media (max-width: 768px) {
+    .contact-card-layout {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .contact-qr { display: none; } /* Hide QR on mobile */
+
+    .contact-links-grid {
+        grid-template-columns: 1fr;
+    }
+}

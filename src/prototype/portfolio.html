@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/base-adaptive.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/portfolio.css">
 </head>
 <body>
 
@@ -71,140 +72,310 @@
 
     <main class="layout-main">
 
-        <div style="margin-bottom: 60px;">
-            <h1 style="font-size: 3rem; margin-bottom: 10px;">Project Archipelago</h1>
-            <p class="text-ghost font-mono">> Selected Works (Filter: All Categories)</p>
-        </div>
-
-        <!-- MOBILE PORTALS (Navigation) -->
-        <div class="mobile-portals-stack show-buttons" style="margin-bottom: 40px;">
-            <a href="#business" class="portal-card p-biz">
-                <span>01 // BUSINESS</span>
-                <h2>Client Solutions</h2>
-            </a>
-            <a href="#eco" class="portal-card p-eco">
-                <span>02 // ECOSYSTEM</span>
-                <h2>My Products</h2>
-            </a>
-            <a href="#rnd" class="portal-card p-rnd">
-                <span>03 // R&D LAB</span>
-                <h2>Open Source</h2>
-            </a>
-        </div>
-
-        <div class="projects-wrapper">
-
-            <div class="island-section" data-type="business" id="business">
-
-                <div class="island-header" onclick="toggleIsland(this)">
-                    <span class="island-title">01 // CLIENT SOLUTIONS</span>
-                    <span class="island-counter">3 ORDERS</span>
+        <!-- FOLDER TABS BAR (Sub-Navigation) -->
+        <div class="folder-tabs-bar">
+            <div class="tabs-inner-container">
+                <div class="folder-path">
+                    <span class="icon">📁</span>
+                    <span>~/portfolio/</span>
                 </div>
 
-                <div class="island-content">
-                    <div class="island-grid">
+                <!-- Tab 1: Business -->
+                <a href="#clients" class="file-tab active">
+                    <span class="icon gold">PY</span>
+                    <span>clients.py</span>
+                </a>
 
-                        <a href="#" class="project-card col-span-8 dna-business">
-                            <span class="font-mono text-gold text-xs mb-2">CLIENT_CASE_01</span>
-                            <h3 class="text-ivory text-xl mb-2">Industrial ERP</h3>
-                            <p class="text-ghost text-sm mb-4">Система управления производством (Заказчик: Завод X).</p>
-                            <div style="margin-top:auto; height: 180px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid rgba(255,215,0,0.1); display: flex; align-items: center; justify-content: center;">
-                                <span class="font-mono text-xs text-gold">DASHBOARD_PREVIEW</span>
+                <!-- Tab 2: Products -->
+                <a href="#products" class="file-tab">
+                    <span class="icon blue">PY</span>
+                    <span>products.py</span>
+                </a>
+
+                <!-- Tab 3: Open Source -->
+                <a href="#opensource" class="file-tab">
+                    <span class="icon green">PY</span>
+                    <span>opensource.py</span>
+                </a>
+
+                <!-- Tab 4: Prototypes (New) -->
+                <a href="#prototypes" class="file-tab">
+                    <span class="icon purple">PY</span>
+                    <span>prototypes.py</span>
+                </a>
+
+                <!-- Tab 5: Configs -->
+                <a href="#configs" class="file-tab">
+                    <span class="icon ghost">YML</span>
+                    <span>config.yaml</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="portfolio-container" style="padding: 0 20px;">
+
+            <!-- Page Title -->
+            <div style="margin-bottom: 40px;">
+                <h1 style="font-size: 3rem; margin-bottom: 10px;">System <span class="text-blue">Registry</span></h1>
+                <p class="text-ghost font-mono">> Accessing project database...</p>
+            </div>
+
+            <!-- ISLANDS WRAPPER (For Animation Isolation) -->
+            <div class="islands-wrapper">
+
+                <!-- ISLAND 1: BUSINESS (Gold) -->
+                <section class="island-section theme-gold" id="business">
+                    <div class="island-header">
+                        <span class="island-title"><span class="text-gold">01 //</span> CLIENT SOLUTIONS</span>
+                        <span class="island-counter">3 MODULES</span>
+                    </div>
+
+                    <div class="island-grid">
+                        <!-- Card 1 -->
+                        <a href="#" class="project-card">
+                            <div class="card-bg bg-grid"></div>
+                            <div class="card-header">
+                                <span class="card-type">ERP SYSTEM</span>
+                                <span class="card-status active"></span>
+                            </div>
+                            <h3 class="card-title">Industrial Core</h3>
+                            <p class="card-desc">High-load production management system for a manufacturing plant.</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Django</span>
+                                <span class="tech-tag">PostgreSQL</span>
                             </div>
                         </a>
 
-                        <div class="stack-column">
-                            <a href="#" class="project-card dna-business">
-                                <div style="display: flex; justify-content: space-between;">
-                                    <h4 class="text-ivory mb-1">Sneaker Shop</h4>
-                                    <span class="font-mono text-xs text-gold">€€€</span>
-                                </div>
-                                <p class="text-ghost text-xs">Django E-commerce</p>
-                            </a>
-                            <a href="#" class="project-card dna-business">
-                                <div style="display: flex; justify-content: space-between;">
-                                    <h4 class="text-ivory mb-1">Real Estate Bot</h4>
-                                    <span class="font-mono text-xs text-gold">BOT</span>
-                                </div>
-                                <p class="text-ghost text-xs">Aiogram / Parsing</p>
-                            </a>
-                        </div>
-
-                    </div>
-                    <div class="island-footer">
-                        <a href="#" class="view-all-btn">View Order History <span class="text-gold">→</span></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="island-section" data-type="eco" id="eco">
-                <div class="island-header" onclick="toggleIsland(this)">
-                    <span class="island-title">02 // MY PRODUCTS (PET)</span>
-                    <span class="island-counter">3 APPS</span>
-                </div>
-
-                <div class="island-content">
-                    <div class="island-grid">
-
-                        <div class="stack-column">
-                            <a href="#" class="project-card dna-eco">
-                                <h4 class="text-ivory mb-1">Codex Portfolio</h4>
-                                <span class="font-mono text-xs text-blue">THIS_SITE</span>
-                            </a>
-                            <a href="#" class="project-card dna-eco">
-                                <h4 class="text-ivory mb-1">Task Tracker</h4>
-                                <span class="font-mono text-xs text-blue">SaaS MVP</span>
-                            </a>
-                        </div>
-
-                        <a href="#" class="project-card col-span-8 dna-eco">
-                            <span class="font-mono text-blue text-xs mb-2">COMMUNITY TOOL</span>
-                            <h3 class="text-ivory text-xl mb-2">Telegram Bot Hub</h3>
-                            <p class="text-ghost text-sm mb-4">Моя платформа для управления ботами.</p>
-                            <div style="margin-top:auto; height: 180px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px dashed rgba(97, 175, 254, 0.3); display: flex; align-items: center; justify-content: center;">
-                                <span class="font-mono text-xs text-blue">BOT_HUB_UI</span>
+                        <!-- Card 2 -->
+                        <a href="#" class="project-card">
+                            <div class="card-bg bg-grid"></div>
+                            <div class="card-header">
+                                <span class="card-type">E-COMMERCE</span>
+                                <span class="card-status active"></span>
+                            </div>
+                            <h3 class="card-title">Sneaker Vault</h3>
+                            <p class="card-desc">Exclusive sneaker marketplace with real-time bidding.</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">FastAPI</span>
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">Redis</span>
                             </div>
                         </a>
 
+                        <!-- Card 3 -->
+                        <a href="#" class="project-card">
+                            <div class="card-bg bg-dots"></div>
+                            <div class="card-header">
+                                <span class="card-type">BOT</span>
+                                <span class="card-status active"></span>
+                            </div>
+                            <h3 class="card-title">Real Estate AI</h3>
+                            <p class="card-desc">Automated property parser and notification bot.</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">Aiogram</span>
+                                <span class="tech-tag">Selenium</span>
+                            </div>
+                        </a>
                     </div>
-                    <div class="island-footer">
-                        <a href="#" class="view-all-btn">View My Garage <span class="text-blue">→</span></a>
+                </section>
+
+                <!-- ISLAND 2: ECOSYSTEM (Blue) -->
+                <section class="island-section theme-blue" id="eco" style="display: none;">
+                    <div class="island-header">
+                        <span class="island-title"><span class="text-blue">02 //</span> MY PRODUCTS</span>
+                        <span class="island-counter">2 APPS</span>
                     </div>
-                </div>
-            </div>
 
-            <div class="island-section" data-type="rnd" id="rnd">
-                <div class="island-header" onclick="toggleIsland(this)">
-                    <span class="island-title">03 // OPEN SOURCE & LIBS</span>
-                    <span class="island-counter">GITHUB</span>
-                </div>
-
-                <div class="island-content">
                     <div class="island-grid">
-
-                        <a href="#" class="project-card col-span-4 dna-rnd">
-                            <span class="font-mono text-xs text-ghost mb-2">TEMPLATE</span>
-                            <h4 class="text-ivory">Django Starter Kit</h4>
-                            <p class="text-ghost text-xs mt-2">Мой шаблон для быстрого старта.</p>
+                        <!-- Card 1 -->
+                        <a href="#" class="project-card">
+                            <div class="card-bg bg-grid"></div>
+                            <div class="card-header">
+                                <span class="card-type">FULLSTACK</span>
+                                <span class="card-status active"></span>
+                            </div>
+                            <h3 class="card-title">Codex Portfolio</h3>
+                            <p class="card-desc">This website. Designed as a system interface.</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">HTML5</span>
+                                <span class="tech-tag">CSS3</span>
+                                <span class="tech-tag">JS</span>
+                            </div>
                         </a>
 
-                        <a href="#" class="project-card col-span-4 dna-rnd">
-                            <span class="font-mono text-xs text-ghost mb-2">LIBRARY</span>
-                            <h4 class="text-ivory">Async Parser Lib</h4>
-                            <p class="text-ghost text-xs mt-2">Обертка над aiohttp.</p>
+                        <!-- Card 2 -->
+                        <a href="#" class="project-card">
+                            <div class="card-bg bg-grid"></div>
+                            <div class="card-header">
+                                <span class="card-type">SAAS</span>
+                                <span class="card-status"></span>
+                            </div>
+                            <h3 class="card-title">Task Flow</h3>
+                            <p class="card-desc">Minimalistic task tracker for developers.</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">Vue.js</span>
+                                <span class="tech-tag">Firebase</span>
+                            </div>
                         </a>
-
-                        <a href="#" class="project-card col-span-4 dna-rnd">
-                            <span class="font-mono text-xs text-ghost mb-2">CONFIG</span>
-                            <h4 class="text-ivory">Nginx/Docker Configs</h4>
-                            <p class="text-ghost text-xs mt-2">Готовые конфиги для деплоя.</p>
-                        </a>
-
                     </div>
-                    <div class="island-footer">
-                        <a href="https://github.com/yourusername" target="_blank" class="view-all-btn">Git Repositories <span class="text-ghost">→</span></a>
+                </section>
+
+                <!-- ISLAND 3: R&D (Green) -->
+                <section class="island-section theme-rnd" id="rnd" style="display: none;">
+                    <div class="island-header">
+                        <span class="island-title"><span class="text-green">03 //</span> OPEN SOURCE</span>
+                        <span class="island-counter">GITHUB</span>
                     </div>
-                </div>
+
+                    <div class="island-grid">
+                        <!-- Card 1 -->
+                        <a href="#" class="project-card">
+                            <div class="card-bg bg-code"></div>
+                            <div class="card-header">
+                                <span class="card-type">TEMPLATE</span>
+                                <span class="card-status active"></span>
+                            </div>
+                            <h3 class="card-title">Django Starter</h3>
+                            <p class="card-desc">Production-ready Django template with Docker & CI/CD.</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">Cookiecutter</span>
+                            </div>
+                        </a>
+
+                        <!-- Card 2 -->
+                        <a href="#" class="project-card">
+                            <div class="card-bg bg-code"></div>
+                            <div class="card-header">
+                                <span class="card-type">LIBRARY</span>
+                                <span class="card-status active"></span>
+                            </div>
+                            <h3 class="card-title">Async Parser</h3>
+                            <p class="card-desc">High-performance async wrapper for aiohttp.</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">AsyncIO</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- ISLAND 4: PROTOTYPES (Purple) -->
+                <section class="island-section theme-proto" id="prototypes" style="display: none;">
+                    <div class="island-header">
+                        <span class="island-title"><span class="text-purple">04 //</span> LAB & PROTOTYPES</span>
+                        <span class="island-counter">EXPERIMENTAL</span>
+                    </div>
+
+                    <div class="island-grid">
+                        <!-- Card 1 -->
+                        <a href="#" class="project-card">
+                            <div class="card-bg bg-dots"></div>
+                            <div class="card-header">
+                                <span class="card-type">AI LAB</span>
+                                <span class="card-status"></span>
+                            </div>
+                            <h3 class="card-title">Neural Chat</h3>
+                            <p class="card-desc">Testing local LLM integration with Telegram.</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">Llama</span>
+                                <span class="tech-tag">Python</span>
+                            </div>
+                        </a>
+
+                        <!-- Card 2 -->
+                        <a href="#" class="project-card">
+                            <div class="card-bg bg-dots"></div>
+                            <div class="card-header">
+                                <span class="card-type">GAME DEV</span>
+                                <span class="card-status"></span>
+                            </div>
+                            <h3 class="card-title">Space Shooter</h3>
+                            <p class="card-desc">Simple 2D game engine written in Python.</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">PyGame</span>
+                            </div>
+                        </a>
+
+                        <!-- Card 3 -->
+                        <a href="#" class="project-card">
+                            <div class="card-bg bg-dots"></div>
+                            <div class="card-header">
+                                <span class="card-type">POC</span>
+                                <span class="card-status"></span>
+                            </div>
+                            <h3 class="card-title">Blockchain Vote</h3>
+                            <p class="card-desc">Proof of concept for decentralized voting system.</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">Solidity</span>
+                                <span class="tech-tag">Web3</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- ISLAND 5: CONFIGS (Ghost/Grey) -->
+                <section class="island-section theme-config" id="configs" style="display: none;">
+                    <div class="island-header">
+                        <span class="island-title"><span class="text-ghost">05 //</span> TOOLKIT & CONFIGS</span>
+                        <span class="island-counter">SETUP</span>
+                    </div>
+
+                    <div class="island-grid">
+                        <!-- Card 1 -->
+                        <a href="#" class="project-card">
+                            <div class="card-bg bg-lines"></div>
+                            <div class="card-header">
+                                <span class="card-type">CONFIG</span>
+                                <span class="card-status active"></span>
+                            </div>
+                            <h3 class="card-title">Nginx Hardened</h3>
+                            <p class="card-desc">Secure Nginx configuration boilerplate with SSL/TLS tuning.</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">Nginx</span>
+                                <span class="tech-tag">Security</span>
+                            </div>
+                        </a>
+
+                        <!-- Card 2 -->
+                        <a href="#" class="project-card">
+                            <div class="card-bg bg-lines"></div>
+                            <div class="card-header">
+                                <span class="card-type">DOTFILES</span>
+                                <span class="card-status active"></span>
+                            </div>
+                            <h3 class="card-title">My ZSH Setup</h3>
+                            <p class="card-desc">Custom Oh-My-Zsh theme and plugins for productivity.</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">Bash</span>
+                                <span class="tech-tag">Shell</span>
+                            </div>
+                        </a>
+
+                        <!-- Card 3 -->
+                        <a href="#" class="project-card">
+                            <div class="card-bg bg-lines"></div>
+                            <div class="card-header">
+                                <span class="card-type">DEVOPS</span>
+                                <span class="card-status active"></span>
+                            </div>
+                            <h3 class="card-title">Docker Base</h3>
+                            <p class="card-desc">Optimized Dockerfiles for Python/Node apps.</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">Docker</span>
+                                <span class="tech-tag">Alpine</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+            </div><!-- /islands-wrapper -->
+
+            <!-- EMPTY STATE (Hidden by default) -->
+            <div class="empty-state" style="display: none;">
+                <div class="empty-icon">⚡</div>
+                <h2>Select a file to view code</h2>
+                <p>// Waiting for user input...</p>
             </div>
 
         </div>
@@ -214,11 +385,11 @@
     <!-- LEVEL 3: FOOTER (Status Bar) -->
     <footer class="layout-footer">
         <div class="footer-left">
-            <span class="copyright-text"><span class="file-icon">📄</span> portfolio.py</span>
+            <span class="copyright-text"><span class="file-icon">📄</span> clients.py</span>
         </div>
 
         <div class="footer-right">
-            <div class="control-btn" onclick="toggleNavDrawer()">
+            <div class="control-btn" onclick="toggleSystemHub()">
                 <span class="btn-icon">☰</span>
                 <span class="btn-label desktop-only">HUB</span>
             </div>
@@ -241,89 +412,191 @@
         </div>
     </footer>
 
-    <!-- CONTACT DRAWER (Bottom Sheet) -->
-    <div id="contact-drawer" class="bottom-drawer">
+    <!-- SYSTEM HUB (DESKTOP) -->
+    <div id="hub-desktop" class="layout-drawer desktop-only">
+        <div class="drawer-section active">
+            <div class="hub-grid">
+                <!-- COL 1: MAIN NAVIGATION -->
+                <div class="hub-col">
+                    <h4 class="hub-col-title">01 // NAVIGATION</h4>
+                    <a href="../../index.html" class="hub-link main-link">MAIN.PY</a>
+                    <a href="portfolio.html" class="hub-link main-link active">PORTFOLIO/</a>
+                    <a href="experience.html" class="hub-link main-link">EXPERIENCE.LOG</a>
+                    <a href="contact.html" class="hub-link main-link">CONTACT.SH</a>
+                </div>
+
+                <!-- COL 2: PORTFOLIO INDEX -->
+                <div class="hub-col">
+                    <h4 class="hub-col-title">02 // PORTFOLIO INDEX</h4>
+                    <a href="portfolio.html#clients" class="hub-link sub-link"><span class="dot gold"></span> Clients</a>
+                    <a href="portfolio.html#products" class="hub-link sub-link"><span class="dot blue"></span> Products</a>
+                    <a href="portfolio.html#opensource" class="hub-link sub-link"><span class="dot green"></span> Open Source</a>
+                    <a href="portfolio.html#prototypes" class="hub-link sub-link"><span class="dot purple"></span> Prototypes</a>
+                    <a href="portfolio.html#configs" class="hub-link sub-link"><span class="dot ghost"></span> Configs</a>
+                </div>
+
+                <!-- COL 3: SYSTEM & META -->
+                <div class="hub-col">
+                    <h4 class="hub-col-title">03 // SYSTEM</h4>
+                    <a href="#" class="hub-link meta-link">Architecture.md</a>
+                    <a href="#" class="hub-link meta-link">Changelog.md</a>
+                    <a href="#" class="hub-link meta-link">Legal / Privacy</a>
+
+                    <div class="hub-footer-meta">
+                        <span>v.1.0.2</span>
+                        <span>© 2026 CodexDLC</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SYSTEM HUB (MOBILE) -->
+    <div id="hub-mobile" class="bottom-drawer mobile-only">
+        <div class="hub-header">
+            <span class="hub-title">// SYSTEM_MAP</span>
+            <div class="hub-close" onclick="toggleSystemHub()">×</div>
+        </div>
+
+        <div class="hub-grid">
+            <!-- COL 1: MAIN NAVIGATION -->
+            <div class="hub-col">
+                <h4 class="hub-col-title">01 // NAVIGATION</h4>
+                <a href="../../index.html" class="hub-link main-link">MAIN.PY</a>
+                <a href="portfolio.html" class="hub-link main-link active">PORTFOLIO/</a>
+                <a href="experience.html" class="hub-link main-link">EXPERIENCE.LOG</a>
+                <a href="contact.html" class="hub-link main-link">CONTACT.SH</a>
+            </div>
+
+            <!-- COL 2: PORTFOLIO INDEX -->
+            <div class="hub-col">
+                <h4 class="hub-col-title">02 // PORTFOLIO INDEX</h4>
+                <a href="portfolio.html#clients" class="hub-link sub-link"><span class="dot gold"></span> Clients</a>
+                <a href="portfolio.html#products" class="hub-link sub-link"><span class="dot blue"></span> Products</a>
+                <a href="portfolio.html#opensource" class="hub-link sub-link"><span class="dot green"></span> Open Source</a>
+                <a href="portfolio.html#prototypes" class="hub-link sub-link"><span class="dot purple"></span> Prototypes</a>
+                <a href="portfolio.html#configs" class="hub-link sub-link"><span class="dot ghost"></span> Configs</a>
+            </div>
+
+            <!-- COL 3: SYSTEM & META -->
+            <div class="hub-col">
+                <h4 class="hub-col-title">03 // SYSTEM</h4>
+                <a href="#" class="hub-link meta-link">Architecture.md</a>
+                <a href="#" class="hub-link meta-link">Changelog.md</a>
+                <a href="#" class="hub-link meta-link">Legal / Privacy</a>
+
+                <div class="hub-footer-meta">
+                    <span>v.1.0.2</span>
+                    <span>© 2026 CodexDLC</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT DRAWER (DESKTOP) -->
+    <div id="contact-desktop" class="layout-drawer desktop-only">
+        <div class="drawer-section active">
+            <div class="drawer-header">
+                <span>// CONTACT_UPLINK</span>
+                <div class="drawer-close" onclick="toggleContactDrawer()">×</div>
+            </div>
+
+            <div class="contact-card-layout">
+                <!-- PROFILE SECTION -->
+                <div class="contact-profile">
+                    <div class="profile-avatar">
+                        <span class="avatar-placeholder">CD</span>
+                    </div>
+                    <div class="profile-info">
+                        <h3 class="profile-name">CodexDLC</h3>
+                        <p class="profile-role">System Architect / Python Dev</p>
+                        <div class="profile-status">
+                            <span class="status-dot online"></span>
+                            <span>Open for opportunities</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LINKS GRID -->
+                <div class="contact-links-grid">
+                    <a href="mailto:info@codexdlc.dev" class="contact-btn email">
+                        <span class="icon">@</span>
+                        <span class="label">Email</span>
+                        <span class="value">info@codexdlc.dev</span>
+                    </a>
+                    <a href="#" class="contact-btn telegram">
+                        <span class="icon">✈</span>
+                        <span class="label">Telegram</span>
+                        <span class="value">@codexdlc</span>
+                    </a>
+                    <a href="#" class="contact-btn github">
+                        <span class="icon">🐙</span>
+                        <span class="label">GitHub</span>
+                        <span class="value">/codexdlc</span>
+                    </a>
+                    <a href="#" class="contact-btn linkedin">
+                        <span class="icon">💼</span>
+                        <span class="label">LinkedIn</span>
+                        <span class="value">/in/codexdlc</span>
+                    </a>
+                </div>
+
+                <!-- QR CODE (Placeholder) -->
+                <div class="contact-qr">
+                    <div class="qr-box">
+                        <span class="qr-text">SCAN_ME</span>
+                    </div>
+                    <span class="qr-label">vCard / Contact</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT DRAWER (MOBILE) -->
+    <div id="contact-mobile" class="bottom-drawer mobile-only">
         <div class="drawer-header">
             <span>// CONTACT_UPLINK</span>
             <div class="drawer-close" onclick="toggleContactDrawer()">×</div>
         </div>
-        <div class="drawer-grid">
-            <a href="#" class="social-card telegram">
-                <span class="icon">✈</span>
-                <span>Telegram</span>
-            </a>
-            <a href="#" class="social-card whatsapp">
-                <span class="icon">💬</span>
-                <span>WhatsApp</span>
-            </a>
-            <a href="#" class="social-card email">
-                <span class="icon">@</span>
-                <span>Email</span>
-            </a>
-        </div>
-    </div>
 
-    <!-- NAV DRAWER (System Hub) -->
-    <div id="nav-drawer" class="bottom-drawer nav-drawer-style">
-
-        <div class="drawer-header">
-            <span>// SYSTEM_HUB</span>
-            <div class="drawer-close" onclick="toggleNavDrawer()">×</div>
-        </div>
-
-        <div class="nav-hub-grid">
-
-            <div class="nav-group">
-                <h3 class="group-title">// DIRECTORY</h3>
-                <div class="group-list">
-                    <a href="#business">Business Sol.</a>
-                    <a href="#eco">Ecosystems</a>
-                    <a href="#rnd">R&D Lab</a>
+        <div class="contact-card-layout">
+            <!-- PROFILE SECTION -->
+            <div class="contact-profile">
+                <div class="profile-avatar">
+                    <span class="avatar-placeholder">CD</span>
+                </div>
+                <div class="profile-info">
+                    <h3 class="profile-name">CodexDLC</h3>
+                    <p class="profile-role">System Architect / Python Dev</p>
+                    <div class="profile-status">
+                        <span class="status-dot online"></span>
+                        <span>Open for opportunities</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="nav-group">
-                <h3 class="group-title">// RESOURCES</h3>
-                <div class="group-list">
-                    <a href="#">Tech Stack</a>
-                    <a href="#">Architecture</a>
-                    <a href="#">Changelog</a>
-                </div>
-            </div>
-
-            <div class="nav-group full-width">
-                <h3 class="group-title">// SYSTEM</h3>
-                <div class="group-list horizontal">
-                    <a href="#">GitHub</a>
-                    <a href="#">Legal</a>
-                    <a href="#">v.1.0.2</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- APP DRAWER (Hidden Panel - Desktop) -->
-    <div id="drawer-nav" class="layout-drawer">
-        <div class="drawer-section active">
-            <div class="nav-grid">
-                <div class="nav-col">
-                    <h4>// NAVIGATION</h4>
-                    <a href="../../index.html" class="nav-link">Home</a>
-                    <a href="portfolio.html" class="nav-link">Projects</a>
-                    <a href="experience.html" class="nav-link">Experience</a>
-                </div>
-                <div class="nav-col">
-                    <h4>// SOCIALS</h4>
-                    <a href="#" class="nav-link">GitHub</a>
-                    <a href="#" class="nav-link">LinkedIn</a>
-                    <a href="#" class="nav-link">Twitter</a>
-                </div>
-                <div class="nav-col">
-                    <h4>// CONTACT</h4>
-                    <a href="mailto:info@codexdlc.dev" class="nav-link">info@codexdlc.dev</a>
-                    <p class="text-ghost text-sm mt-2">Open for opportunities</p>
-                </div>
+            <!-- LINKS GRID -->
+            <div class="contact-links-grid">
+                <a href="mailto:info@codexdlc.dev" class="contact-btn email">
+                    <span class="icon">@</span>
+                    <span class="label">Email</span>
+                    <span class="value">info@codexdlc.dev</span>
+                </a>
+                <a href="#" class="contact-btn telegram">
+                    <span class="icon">✈</span>
+                    <span class="label">Telegram</span>
+                    <span class="value">@codexdlc</span>
+                </a>
+                <a href="#" class="contact-btn github">
+                    <span class="icon">🐙</span>
+                    <span class="label">GitHub</span>
+                    <span class="value">/codexdlc</span>
+                </a>
+                <a href="#" class="contact-btn linkedin">
+                    <span class="icon">💼</span>
+                    <span class="label">LinkedIn</span>
+                    <span class="value">/in/codexdlc</span>
+                </a>
             </div>
         </div>
     </div>
@@ -354,6 +627,14 @@
                             <span class="file-icon ghost">PY</span>
                             <span class="file-name">opensource.py</span>
                         </a>
+                        <a href="portfolio.html#prototypes" class="overlay-file">
+                            <span class="file-icon purple">PY</span>
+                            <span class="file-name">prototypes.py</span>
+                        </a>
+                        <a href="portfolio.html#configs" class="overlay-file">
+                            <span class="file-icon ghost">YML</span>
+                            <span class="file-name">config.yaml</span>
+                        </a>
                     </div>
                 </div>
 
@@ -379,19 +660,6 @@
     <!-- Scripts (Relative paths) -->
     <script src="js/base.js"></script>
     <script src="js/main.js"></script>
-    <script>
-        // Local script for Island toggling (Mobile Accordion)
-        function toggleIsland(header) {
-            if (window.innerWidth > 768) return;
-            const section = header.closest('.island-section');
-            const isActive = section.classList.contains('active');
-            document.querySelectorAll('.island-section').forEach(sec => {
-                sec.classList.remove('active');
-            });
-            if (!isActive) {
-                section.classList.add('active');
-            }
-        }
-    </script>
+    <script src="js/portfolio.js"></script>
 </body>
 </html>

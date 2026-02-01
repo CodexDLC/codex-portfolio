@@ -14,8 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const modulesLine = document.querySelector('.modules-line');
 
     // --- CONFIG ---
-    const ANIMATION_TTL = 30 * 60 * 1000; // 30 минут
-    const STORAGE_KEY = 'codex_last_visit';
+    const SESSION_KEY = 'codex_intro_shown'; // Ключ для sessionStorage
     const SLIDE_COOLDOWN = 800; // ms between slide switches
 
     // --- SLIDE SYSTEM ---
@@ -330,13 +329,20 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // --- MAIN LOGIC ---
-    const now = Date.now();
-    const lastVisit = localStorage.getItem(STORAGE_KEY);
 
-    // ПРОВЕРКА: Если мы на главной странице (есть терминал), запускаем анимацию
+    // ПРОВЕРКА: Если мы на главной странице (есть терминал)
     if (logs && initScreen) {
-        localStorage.setItem(STORAGE_KEY, now);
-        runBootSequence();
+        // Проверяем sessionStorage (живет пока открыта вкладка)
+        const introShown = sessionStorage.getItem(SESSION_KEY);
+
+        if (introShown) {
+            // Если уже видели в этой сессии -> ПРОПУСКАЕМ
+            showAllContentImmediately();
+        } else {
+            // Если новая вкладка -> ЗАПУСКАЕМ и запоминаем
+            sessionStorage.setItem(SESSION_KEY, 'true');
+            runBootSequence();
+        }
     } else {
         // Если мы на внутренней странице (нет терминала), показываем всё сразу
         showAllContentImmediately();
