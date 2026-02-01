@@ -1,196 +1,221 @@
 /**
- * CodexDLC Prototype Logic
- * System: Vanilla JS (No Frameworks)
+ * CodexDLC Main Page Logic
+ * Handles Boot Sequence, Hero Animation, and Bento Grid
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("CodexDLC System: Initialized");
+document.addEventListener("DOMContentLoaded", () => {
+    const logs = document.getElementById('terminal-logs');
+    const initScreen = document.getElementById('init-screen');
+    const finalScreen = document.getElementById('final-screen');
+    const bentoItems = document.querySelectorAll('.bento-item');
+    const navLinks = document.querySelectorAll('.header-nav .nav-link');
 
-    // Запускаем улучшенный декодер с цветами
-    initBrandDecoder();
+    // --- CONFIG ---
+    const ANIMATION_TTL = 30 * 60 * 1000; // 30 минут
+    const STORAGE_KEY = 'codex_last_visit';
 
-    // --- MOBILE TABS LOGIC ---
-    const navContainer = document.querySelector('.header-nav');
+    // --- FUNCTIONS ---
 
-    if (navContainer) {
-        // Делегирование клика
-        navContainer.addEventListener('click', (e) => {
-            // Проверяем, мобилка ли это (по ширине экрана)
-            if (window.innerWidth <= 1024) {
-                // Если меню закрыто -> открываем
-                if (!navContainer.classList.contains('expanded')) {
-                    navContainer.classList.add('expanded');
-                    e.preventDefault(); // Предотвращаем переход по ссылке при первом клике (открытии)
-                }
-                // Если меню открыто -> даем клику пройти (переход по ссылке)
-                // и закрываем меню через мгновение (визуальный эффект)
-                else {
+    const showBentoItem = (index) => {
+        if (bentoItems[index]) {
+            bentoItems[index].classList.remove('bento-hidden');
+            bentoItems[index].classList.add('bento-visible');
+        }
+    };
+
+    const showNavLink = (index) => {
+        if (navLinks[index]) {
+            navLinks[index].classList.remove('nav-hidden');
+            navLinks[index].classList.add('nav-visible');
+        }
+    };
+
+    const updateSeparatorStatus = () => {
+        // Desktop: bento-separator
+        const separator = document.querySelector('.bento-separator');
+        if (separator) {
+            const textSpan = separator.querySelector('span');
+            textSpan.innerHTML = '// SYSTEM_READY';
+            separator.classList.add('separator-success');
+        }
+
+        // Mobile: mobile-separator
+        const mobileSep = document.querySelector('.mobile-separator');
+        if (mobileSep) {
+            const sepText = mobileSep.querySelector('.separator-text');
+            if (sepText) {
+                sepText.innerHTML = '// SYSTEM_READY';
+            }
+            mobileSep.classList.add('separator-ready');
+        }
+    };
+
+    // Показать мобильный separator
+    const showMobileSeparator = () => {
+        const mobileSep = document.querySelector('.mobile-separator');
+        if (mobileSep) {
+            mobileSep.classList.add('show-separator');
+        }
+    };
+
+    // Показать картинку загрузки (мобилка)
+    const showLoadingVisual = () => {
+        const visual = document.querySelector('.mobile-loading-visual');
+        if (visual) {
+            visual.classList.add('show-visual');
+        }
+    };
+
+    // Скрыть картинку загрузки (мобилка)
+    const hideLoadingVisual = () => {
+        const visual = document.querySelector('.mobile-loading-visual');
+        if (visual) {
+            visual.classList.add('fade-out');
+            setTimeout(() => {
+                visual.classList.add('hidden');
+            }, 800);
+        }
+    };
+
+    const showMobilePortals = () => {
+        const portals = document.querySelector('.mobile-portals-stack');
+        if (portals) {
+            portals.classList.add('show-buttons');
+        }
+    };
+
+    // Показать отдельную портальную карточку по индексу (для мобилки)
+    const showPortalCard = (index) => {
+        const portalCards = document.querySelectorAll('.mobile-portals-stack .portal-card');
+        if (portalCards[index]) {
+            portalCards[index].classList.add('portal-visible');
+        }
+    };
+
+    const showAllContentImmediately = () => {
+        // Скрываем экран загрузки
+        if (initScreen) initScreen.style.display = 'none';
+
+        // Показываем финал
+        if (finalScreen) {
+            finalScreen.style.display = 'grid';
+            finalScreen.style.opacity = '1';
+        }
+
+        // Показываем все Bento карточки
+        bentoItems.forEach(item => {
+            item.classList.remove('bento-hidden');
+            item.classList.add('bento-visible');
+        });
+
+        // Показываем все ссылки навигации
+        navLinks.forEach(link => {
+            link.classList.remove('nav-hidden');
+            link.classList.add('nav-visible');
+        });
+
+        // Обновляем статус разделителя
+        updateSeparatorStatus();
+        const separator = document.querySelector('.bento-separator');
+        if (separator) separator.style.opacity = '1';
+
+        // Показываем мобильный separator сразу с READY статусом
+        showMobileSeparator();
+
+        // Показываем мобильные порталы
+        showMobilePortals();
+
+        // Запускаем анимацию логотипа (функция из base.js)
+        if (typeof typeSlogan === 'function') {
+            typeSlogan();
+        }
+    };
+
+    // --- TYPEWRITER FOR SLOGAN (REPLACEMENT LOGIC) ---
+    // (Дублируем здесь или используем из base.js, но лучше вызывать из base.js)
+    // В base.js функция глобальная, так что просто вызываем её.
+
+    const runBootSequence = () => {
+        // Скрываем контент для анимации
+        bentoItems.forEach(item => item.classList.add('bento-hidden'));
+        navLinks.forEach(link => link.classList.add('nav-hidden'));
+
+        // Маппинг логов
+        const messages = [
+            { t: 500,  m: "> Initializing Request...", triggerNav: 0 },
+            { t: 1500, m: "> R&D Process started...", c: "text-ghost", triggerBento: 1, triggerNav: 1 },
+            { t: 3000, m: "> Architecture defined.", c: "text-blue", triggerBento: 2, triggerNav: 2 },
+            { t: 4500, m: "> CORE: Python Engine Ready.", c: "text-gold" },
+            { t: 6000, m: "> Clusters live.", c: "text-gold", triggerBento: 0 },
+            { t: 7500, m: "> CI/CD Pipeline active." },
+            { t: 9000, m: "> DEPLOYED TO PRODUCT.", c: "text-gold", triggerBento: 3 }
+        ];
+
+        messages.forEach((item) => {
+            setTimeout(() => {
+                const line = document.createElement('div');
+                line.className = item.c ? item.c : '';
+                line.textContent = item.m;
+                logs.appendChild(line);
+                logs.scrollTop = logs.scrollHeight;
+
+                if (item.triggerBento !== undefined) showBentoItem(item.triggerBento);
+                if (item.triggerNav !== undefined) showNavLink(item.triggerNav);
+
+            }, item.time || item.t);
+        });
+
+        // Переход в финал
+        setTimeout(() => {
+            initScreen.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+            initScreen.style.opacity = "0";
+            initScreen.style.transform = "scale(0.98)";
+
+            // Скрываем картинку загрузки
+            hideLoadingVisual();
+
+            setTimeout(() => {
+                // FIX: Используем setProperty с !important чтобы перебить CSS
+                initScreen.style.setProperty('display', 'none', 'important');
+
+                // На мобилке используем block вместо grid
+                const isMobile = window.innerWidth <= 767;
+                finalScreen.style.setProperty('display', isMobile ? 'block' : 'grid', 'important');
+                setTimeout(() => {
+                    finalScreen.style.opacity = "1";
+
+                    // Показываем мобильный separator (LOADING)
+                    showMobileSeparator();
+
+                    // Через 500ms показываем порталы с анимацией
                     setTimeout(() => {
-                        navContainer.classList.remove('expanded');
-                    }, 200);
-                }
-            }
-        });
+                        showMobilePortals();
 
-        // Закрываем меню, если кликнули вне его
-        document.addEventListener('click', (e) => {
-            if (!navContainer.contains(e.target)) {
-                navContainer.classList.remove('expanded');
-            }
-        });
-    }
-});
+                        // Через 1 сек меняем статус на READY
+                        setTimeout(() => {
+                            updateSeparatorStatus();
+                        }, 1000);
+                    }, 500);
 
-function initBrandDecoder() {
-    const el = document.getElementById('brand-text');
-    if (!el) return;
+                    // Запускаем анимацию логотипа
+                    if (typeof typeSlogan === 'function') {
+                        typeSlogan();
+                    }
+                }, 50);
+            }, 800);
+        }, 10500);
+    };
 
-    // Начальное состояние
-    const brandName = "CodexDLC";
+    // --- MAIN LOGIC ---
+    const now = Date.now();
+    const lastVisit = localStorage.getItem(STORAGE_KEY);
+    // const isMobile = window.innerWidth <= 768;
 
-    // Настройки
-    const initialDelay = 2000; // Пауза перед стартом (2 сек)
-    const deleteSpeed = 30;    // Скорость стирания
-    const typeSpeed = 40;      // Скорость печати
-    const pauseBeforeLoop = 5000; // Если захотим зациклить (пока не используется)
-
-    // Цветовая схема для расшифровки (HTML-структура)
-    // Используем CSS-переменные из base.css
-    const parts = [
-        { text: "[ ", color: "var(--color-ghost)" },
-        { text: "Developer's", color: "var(--color-gold)" }, // Gold (Ты)
-        { text: " ", color: "transparent" },
-        { text: "Life", color: "var(--color-ivory)" },      // Life (Процесс)
-        { text: " ", color: "transparent" },
-        { text: "Cycle", color: "var(--color-blue)" },      // Cycle (Технология)
-        { text: " ]", color: "var(--color-ghost)" }
-    ];
-
-    // Сценарий
-    setTimeout(() => {
-        // 1. Стираем "CodexDLC"
-        deleteText(el, () => {
-            // 2. Подготавливаем стили для новой фразы
-            el.style.fontSize = "0.9rem"; // Чуть меньше, чтобы влезло
-            el.style.letterSpacing = "1px";
-            el.classList.remove('typing-cursor'); // Убираем курсор на секунду, чтобы сбросить стиль
-            void el.offsetWidth; // Триггер рефлоу
-            el.classList.add('typing-cursor');  // Возвращаем курсор
-
-            // 3. Печатаем по кусочкам (цветная печать)
-            typeColoredText(el, parts, 0, () => {
-                console.log("Decoder sequence complete");
-                // Анимация завершена. Курсор останется мигать в конце.
-            });
-        });
-    }, initialDelay);
-}
-
-// Утилита: Стирание текста
-function deleteText(element, callback) {
-    let text = element.textContent;
-    const interval = setInterval(() => {
-        if (text.length > 0) {
-            text = text.slice(0, -1);
-            element.textContent = text;
-        } else {
-            clearInterval(interval);
-            if (callback) callback();
-        }
-    }, 30);
-}
-
-// Утилита: Цветная печать
-// Рекурсивно проходит по массиву частей (parts) и печатает их
-function typeColoredText(container, parts, partIndex, callback) {
-    if (partIndex >= parts.length) {
-        if (callback) callback();
-        return;
-    }
-
-    const part = parts[partIndex];
-
-    // Создаем span для текущего цвета
-    const span = document.createElement('span');
-    span.style.color = part.color;
-    container.appendChild(span);
-
-    let charIndex = 0;
-    const interval = setInterval(() => {
-        if (charIndex < part.text.length) {
-            span.textContent += part.text.charAt(charIndex);
-            charIndex++;
-        } else {
-            clearInterval(interval);
-            // Переходим к следующему цветному куску
-            typeColoredText(container, parts, partIndex + 1, callback);
-        }
-    }, 40); // Скорость печати
-}
-
-/* --- LANGUAGE TOGGLE --- */
-function toggleLanguage(element) {
-    // Добавляем/убираем класс 'active'
-    element.classList.toggle('active');
-}
-
-/* --- DRAWER SYSTEM --- */
-function toggleDrawer(sectionId, triggerBtn) {
-    const drawer = document.getElementById('app-drawer');
-    const sections = document.querySelectorAll('.drawer-section');
-    const buttons = document.querySelectorAll('.sys-item'); // Все кнопки футера
-
-    // 1. Если кликнули по уже активной кнопке -> ЗАКРЫВАЕМ
-    if (triggerBtn.classList.contains('active-tab')) {
-        drawer.classList.remove('open');
-        triggerBtn.classList.remove('active-tab');
-        return;
-    }
-
-    // 2. Сброс всех кнопок
-    buttons.forEach(btn => btn.classList.remove('active-tab'));
-
-    // 3. Скрываем все секции
-    sections.forEach(sec => sec.classList.remove('active'));
-
-    // 4. Активируем нужную
-    const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.classList.add('active');
-        drawer.classList.add('open'); // Открываем ящик
-        triggerBtn.classList.add('active-tab'); // Подсвечиваем кнопку
-    }
-}
-
-// --- HANDEDNESS SWITCHER (Mobile Box Logic) ---
-
-document.addEventListener('DOMContentLoaded', () => {
-    const handBtn = document.getElementById('hand-switch-btn');
-    const handText = document.getElementById('hand-text');
-    const body = document.body;
-
-    // Состояния: 0 = Center, 1 = Left, 2 = Right
-    let currentMode = 0;
-    const modes = ['Center', 'Left Mode', 'Right Mode'];
-    const classes = ['', 'mode-left', 'mode-right'];
-
-    if (handBtn) {
-        handBtn.addEventListener('click', () => {
-            // 1. Удаляем старый класс
-            if (classes[currentMode]) {
-                body.classList.remove(classes[currentMode]);
-            }
-
-            // 2. Переключаем счетчик (0 -> 1 -> 2 -> 0)
-            currentMode = (currentMode + 1) % 3;
-
-            // 3. Добавляем новый класс
-            if (classes[currentMode]) {
-                body.classList.add(classes[currentMode]);
-            }
-
-            // 4. Меняем текст кнопки
-            handText.textContent = modes[currentMode];
-        });
-    }
+    // FIX: Анимация работает на всех устройствах (включая мобилку)
+    // if (!lastVisit || (now - parseInt(lastVisit) > ANIMATION_TTL)) {
+        localStorage.setItem(STORAGE_KEY, now);
+        runBootSequence();
+    // } else {
+    //     showAllContentImmediately();
+    // }
 });

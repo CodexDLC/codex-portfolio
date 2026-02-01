@@ -1,250 +1,395 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodexDLC | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <title>CodexDLC // System Architect Prototype</title>
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Styles (Paths from root) -->
     <link rel="stylesheet" href="src/prototype/css/base.css">
     <link rel="stylesheet" href="src/prototype/css/home.css">
+    <link rel="stylesheet" href="src/prototype/css/mobile.css">
 </head>
 <body>
 
     <div class="layout-topbar">
-        <span class="text-gold">📞 +49 000 0000000</span>
-        <span>✉ info@codexdlc.dev</span>
+        <div class="sys-info">
+            <span class="text-gold">root@codex</span>:<span class="text-blue">~</span>$ ./init_cicd_pipeline.sh
+        </div>
+        <div class="sys-status desktop-only">
+            <span>RAM: 64GB</span>
+            <span class="text-ghost">|</span>
+            <span>UPTIME: 99.9%</span>
+        </div>
     </div>
 
     <header class="layout-header">
         <div class="header-inner">
+            <a href="#" class="brand">
+                <span id="brand-text" class="font-mono">Codex<span class="text-gold">D</span><span class="text-ivory">L</span><span class="text-blue">C</span></span>
+                <span id="brand-slogan"></span>
+            </a>
 
-            <div class="brand">
-                <a href="index.html" style="text-decoration: none;">
-                    <span id="brand-text" class="font-mono typing-cursor" style="font-size: 1.5rem; font-weight: bold; color: var(--color-gold);">
-                        CodexDLC
-                    </span>
-                </a>
+            <!-- Mobile Burger Button (Opens Overlay) -->
+            <div class="mobile-burger-btn" onclick="toggleMainMenu()">
+                ☰
             </div>
 
             <nav class="header-nav">
-
-                <a href="index.html" class="nav-item active"> <span style="color: #E34C26; margin-right: 8px; font-weight: bold; font-size: 1.1em;">&lt;&gt;</span>
-                    index.html
+                <a href="#" class="nav-link active">
+                    <span class="code-icon blue">PY</span>
+                    <span class="file-name">main.py</span>
+                    <span class="tab-close">&times;</span>
                 </a>
-
-                <a href="src/prototype/projects.html" class="nav-item">
-                     <span style="color: #3572A5; margin-right: 8px; font-weight: bold; font-size: 1.1em;">{}</span>
-                    projects.py
+                <a href="src/prototype/projects.html" class="nav-link">
+                    <span class="code-icon blue">PY</span>
+                    <span class="file-name">portfolio.py</span>
+                    <span class="tab-close">&times;</span>
                 </a>
-
-                <a href="src/prototype/experience.html" class="nav-item">
-                    <span style="color: #F1E05A; margin-right: 8px; font-weight: bold; font-size: 1.1em;">≡</span>
-                    experience.log
+                <a href="src/prototype/experience.html" class="nav-link">
+                    <span class="code-icon yellow">LOG</span>
+                    <span class="file-name">experience.log</span>
+                    <span class="tab-close">&times;</span>
                 </a>
-
-                <a href="src/prototype/contact.html" class="nav-btn">
-                    <span style="color: var(--color-gold); margin-right: 8px; font-weight: bold; font-size: 1.1em;">$</span>
-                    run_contact()
-                </a>
-
             </nav>
         </div>
     </header>
 
     <main class="layout-main">
-
-        <section class="hero-section">
-
-            <div class="hero-diagonal-bg desktop-only"></div>
-
-            <div class="hero-text">
-
-                <div class="hero-text-group">
-
-                    <h1 class="hero-title">
-                        Architecting <span class="text-gold">Logic.</span><br>
-                        Deploying <span class="text-blue">Reality.</span>
-                    </h1>
-
-                    <div class="hero-desc">
-                        <p>> Системный подход к разработке на Python.</p>
-                        <p>> Проектирование архитектуры.</p>
-                        <p>> От идеи до деплоя.</p>
-                    </div>
-
+        <!-- SCENE 1: INITIALIZATION (Logs + Diagram) -->
+        <section id="init-screen" class="init-layout-fixed">
+            <div class="terminal-col">
+                <!-- WINDOW CONTROLS (Mac Style) -->
+                <div class="window-controls">
+                    <span class="win-btn red"></span>
+                    <span class="win-btn yellow"></span>
+                    <span class="win-btn green"></span>
                 </div>
 
+                <div id="terminal-logs" class="log-stream"></div>
             </div>
 
-            <div class="hero-visual desktop-only">
-                <svg width="400" height="340" viewBox="0 0 400 340" fill="none" xmlns="http://www.w3.org/2000/svg" class="diagram-group">
-                    <path class="diagram-path path-down" d="M200 60 V 80 H 120 V 100" stroke="#306998" stroke-width="2" />
-                    <path class="diagram-path path-down" d="M200 60 V 80 H 280 V 100" stroke="#306998" stroke-width="2" />
-                    <path class="diagram-path path-merge" d="M120 160 V 180 H 200 V 200" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-dasharray="4 4"/>
-                    <path class="diagram-path path-merge" d="M280 160 V 180 H 200 V 200" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-dasharray="4 4"/>
-                    <path class="diagram-path path-final" d="M200 240 V 270" stroke="#FFD43B" stroke-width="2"/>
+            <div class="pipeline-col">
+                <div id="diagram-container" class="pipeline-wrapper">
+                    <svg viewBox="0 40 1050 520" preserveAspectRatio="xMidYMid meet">
+                        <g class="lines-layer">
+                            <path class="diagram-path delay-0" d="M 50,300 L 120,300" />
+                            <path class="diagram-path delay-1" d="M 170,270 V 200 H 220" />
+                            <path class="diagram-path delay-1" d="M 170,330 V 400 H 220" />
+                            <path class="diagram-path delay-2" d="M 320,200 H 360 V 300 H 400" />
+                            <path class="diagram-path delay-2" d="M 320,400 H 360 V 300 H 400" />
 
-                    <g class="diagram-node node-arch">
-                        <rect x="100" y="20" width="200" height="40" rx="8" fill="rgba(48, 105, 152, 0.15)" stroke="#306998" stroke-width="2"/>
-                        <text x="200" y="45" fill="#306998" font-family="JetBrains Mono" font-size="11" font-weight="bold" text-anchor="middle">ARCHITECTURE</text>
-                    </g>
+                            <path class="diagram-path delay-3" d="M 460,260 V 180 H 520" /> <path class="diagram-path delay-3" d="M 460,180 V 100 H 380" /> <path class="diagram-path delay-3" d="M 460,100 H 540" />       <path class="diagram-path delay-3" d="M 460,340 V 420 H 520" /> <path class="diagram-path delay-3" d="M 460,420 V 500 H 380" /> <path class="diagram-path delay-3" d="M 460,500 H 540" />       <path class="diagram-path delay-4" d="M 620,180 H 720 V 270" /> <path class="diagram-path delay-4" d="M 620,420 H 720 V 330" /> <path class="diagram-path delay-5" d="M 770,300 H 850" />
+                        </g>
 
-                    <g class="diagram-node node-code">
-                        <rect x="80" y="100" width="80" height="60" rx="8" fill="#1E1E2F" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
-                        <text x="120" y="135" fill="white" font-family="JetBrains Mono" font-size="10" text-anchor="middle">&lt;CODE/&gt;</text>
-                    </g>
+                        <g class="nodes-layer">
+                            <g class="diagram-node delay-0"><circle cx="50" cy="300" r="25" class="shape-circle"/><text x="50" y="305">REQ</text></g>
+                            <g class="diagram-node delay-1"><polygon points="170,270 210,300 170,330 130,300" class="shape-rhombus"/><text x="170" y="305" font-size="9">R&D</text></g>
 
-                    <g class="diagram-node node-db">
-                        <rect x="240" y="100" width="80" height="60" rx="8" fill="#1E1E2F" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
-                        <path d="M265 125 C265 120 295 120 295 125 C295 130 265 130 265 125 Z M265 125 V 140 C265 145 295 145 295 140 V 125" stroke="white" stroke-width="1.5" fill="none"/>
-                    </g>
+                            <g class="diagram-node delay-2"><rect x="220" y="180" width="100" height="40" class="shape-rect"/><text x="270" y="205">DOCS</text></g>
+                            <g class="diagram-node delay-2"><rect x="220" y="380" width="100" height="40" class="shape-rect"/><text x="270" y="405">SYS</text></g>
 
-                    <g class="diagram-node node-ci">
-                        <circle cx="200" cy="220" r="25" fill="#1E1E2F" stroke="#FFD43B" stroke-width="2"/>
-                        <text x="200" y="224" fill="#FFD43B" font-family="JetBrains Mono" font-size="9" font-weight="bold" text-anchor="middle">CI/CD</text>
-                    </g>
+                            <g class="diagram-node delay-3">
+                                <rect x="400" y="260" width="120" height="80" class="shape-core"/>
+                                <g transform="translate(440, 280) scale(0.8)" fill="none" stroke-width="2">
+                                    <path d="M10,0 C5,0 0,2 0,7 L0,15 L10,15 L10,17 L-5,17 C-10,17 -15,20 -15,25 L-15,35 C-15,40 -10,42 -5,42 L0,42 L0,35 C0,30 5,28 10,28 L20,28 C25,28 30,25 30,20 L30,7 C30,2 25,0 20,0 L10,0 Z" stroke="var(--color-blue)" />
+                                    <path d="M20,50 C25,50 30,48 30,43 L30,35 L20,35 L20,33 L35,33 C40,33 45,30 45,25 L45,15 C45,10 40,8 35,8 L30,8 L30,15 C30,20 25,22 20,22 L10,22 C5,22 0,25 0,30 L0,43 C0,48 5,50 10,50 L20,50 Z" stroke="var(--color-gold)" />
+                                </g>
+                            </g>
 
-                    <g class="diagram-node node-product">
-                        <rect x="160" y="270" width="80" height="50" rx="8" fill="rgba(255, 212, 59, 0.15)" stroke="#FFD43B" stroke-width="2"/>
-                         <text x="200" y="300" fill="#FFD43B" font-family="JetBrains Mono" font-size="12" font-weight="bold" text-anchor="middle">PRODUCT</text>
-                    </g>
-                </svg>
+                            <g class="diagram-node delay-3"><rect x="520" y="160" width="100" height="40" class="shape-rect fill-blue"/><text x="570" y="185">FRONT</text></g>
+                            <g class="diagram-node delay-3"><rect x="280" y="80" width="100" height="40" class="shape-rect stroke-gold"/><text x="330" y="105">UI</text></g>
+                            <g class="diagram-node delay-3"><rect x="540" y="80" width="100" height="40" class="shape-rect stroke-gold"/><text x="590" y="105">LOGIC</text></g>
+
+                            <g class="diagram-node delay-3"><rect x="520" y="400" width="100" height="40" class="shape-rect fill-blue"/><text x="570" y="425">BACK</text></g>
+                            <g class="diagram-node delay-3">
+                                <rect x="280" y="480" width="100" height="40" rx="15" class="shape-rect stroke-gold"/>
+                                <text x="330" y="505">DB</text>
+                            </g>
+                            <g class="diagram-node delay-3"><rect x="540" y="480" width="100" height="40" class="shape-rect stroke-gold"/><text x="590" y="505">API</text></g>
+
+                            <g class="diagram-node delay-4">
+                                <polygon points="720,270 770,300 720,330 670,300" class="shape-rhombus stroke-gold"/>
+                                <text x="720" y="305" font-size="9">CI/CD</text>
+                            </g>
+
+                            <g class="diagram-node delay-5"><rect x="850" y="260" width="80" height="80" class="shape-product"/><text x="890" y="305" fill="#151520">PROD</text></g>
+                        </g>
+                    </svg>
+                </div>
             </div>
         </section>
 
-        <div class="bento-grid bento-desktop-tablet">
-
-            <a href="src/prototype/projects.html#business" class="bento-item col-span-8 row-span-2 project-card dna-business">
-                <div style="position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column;">
-                    <span class="font-mono text-gold text-xs">// FLAGSHIP_CASE</span>
-                    <h3 style="font-size: 2.5rem; margin-top: 10px; line-height: 1;">Industrial ERP</h3>
-                    <p class="font-mono text-ghost" style="margin-top: 15px; font-size: 0.9rem;">
-                        High-load system for automation. Python / Django.
-                    </p>
-                    <div style="position: absolute; right: -20px; bottom: -20px; opacity: 0.1; font-size: 8rem; font-weight: bold; color: var(--color-gold);">🏗️</div>
-                </div>
-            </a>
-
-            <a href="src/prototype/projects.html#eco" class="bento-item col-span-4 project-card dna-eco">
-                <span class="font-mono text-blue text-xs">// ECOSYSTEM</span>
-                <h3 style="font-size: 1.5rem; margin-top: auto;">Telegram Bot Hub</h3>
-                <div class="font-mono text-ghost text-xs" style="margin-top: 10px;">> Aiogram / Redis / Async</div>
-            </a>
-
-            <a href="src/prototype/projects.html#business" class="bento-item col-span-4 project-card dna-business" style="background: #1E1E2F;">
-                 <span class="font-mono text-gold text-xs">// BUSINESS</span>
-                 <h3 style="font-size: 1.5rem; margin-top: auto;">Corporate Portal</h3>
-                 <div class="font-mono text-ghost text-xs" style="margin-top: 10px;">> Django CMS / PostgreSQL</div>
-            </a>
-
-             <a href="src/prototype/projects.html#rnd" class="bento-item col-span-8 project-card dna-rnd" style="align-items: center; justify-content: flex-start; flex-direction: row; gap: 30px; padding: 0 40px;">
-                <div>
-                    <span class="font-mono text-ghost text-xs">// R&D_LAB</span>
-                    <h3 style="font-size: 1.5rem;">Universal Data Scraper</h3>
-                </div>
-                <div class="font-mono text-ghost text-xs">> Requests / BS4 / NoSQL</div>
-                <span class="text-ghost" style="margin-left: auto; font-size: 1.5rem;">→</span>
-            </a>
-
+        <!-- MOBILE: Картинка под терминалом во время загрузки -->
+        <div class="mobile-loading-visual">
+            <img src="src/prototype/8.png" alt="System Tree" class="loading-tree-img">
         </div>
 
+        <!-- SCENE 2: FINAL (Text + Logo) -->
+        <section id="final-screen" class="final-hero-layout" style="display: none;">
+            <div class="hero-diagonal-bg"></div>
+            <div class="final-text-side">
+                <div class="hero-title-group">
+                    <h1 class="hero-line line-1"><span class="highlight-white">Architecting</span> <span class="highlight-gold">Logic.</span></h1>
+                    <h1 class="hero-line line-2"><span class="highlight-white">Deploying</span> <span class="highlight-blue">Reality.</span></h1>
+                </div>
+
+                <!-- FIX: Правильный текст "Лесенка вниз" -->
+                <div class="hero-desc-group">
+                    <p class="hero-desc-p">Analyzing complex enterprise business requirements.</p>
+                    <p class="hero-desc-p text-blue">Designing scalable distributed architecture.</p>
+                    <p class="hero-desc-p text-blue">Optimizing high-performance Python core.</p>
+                    <p class="hero-desc-p text-gold">Automating seamless CI/CD pipelines.</p>
+                    <p class="hero-desc-p text-gold">Delivering production value.</p>
+                </div>
+            </div>
+            <div class="final-visual-side">
+                <div id="python-wireframe">
+                    <!-- FIX: Используем 8.png (дерево/схема) -->
+                    <img src="src/prototype/8.png" alt="System Tree" class="floating-python-logo">
+                </div>
+            </div>
+        </section>
+
+        <!-- MOBILE SEPARATOR (Loading → Ready) -->
+        <div class="mobile-separator">
+            <span class="separator-text">// LOADING_MODULES<span class="dots"></span></span>
+            <div class="separator-line"></div>
+        </div>
+
+        <!-- MOBILE PORTALS (3 кнопки навигации - только мобилка) -->
         <div class="mobile-portals-stack">
             <a href="src/prototype/projects.html#business" class="portal-card p-biz">
-                <span>// BUSINESS</span>
-                <h2>Business Solutions</h2>
+                <span>01 // BUSINESS</span>
+                <h2>Client Solutions</h2>
             </a>
             <a href="src/prototype/projects.html#eco" class="portal-card p-eco">
-                <span>// ECOSYSTEMS</span>
-                <h2>Ecosystems</h2>
+                <span>02 // ECOSYSTEM</span>
+                <h2>My Products</h2>
             </a>
             <a href="src/prototype/projects.html#rnd" class="portal-card p-rnd">
-                <span>// R&D LAB</span>
-                <h2>R&D Lab</h2>
+                <span>03 // R&D LAB</span>
+                <h2>Open Source</h2>
             </a>
         </div>
 
+        <!-- BENTO SEPARATOR (LOADING) -->
+        <div class="bento-separator">
+            <span>// LOADING_MODULES<span class="dots"></span></span>
+            <div class="line"></div>
+        </div>
+
+        <!-- BENTO GRID: Projects & Skills -->
+        <section class="bento-grid">
+            <!-- Item 1: Featured Project (Large) -->
+            <div class="bento-item col-span-8 row-span-2 dna-business">
+                <div class="bento-header">
+                    <span class="font-mono text-gold text-sm">01 // FEATURED</span>
+                    <h3 class="text-xl mt-2">Enterprise CRM Core</h3>
+                </div>
+                <div class="bento-content mt-4">
+                    <p class="text-ghost text-sm">
+                        High-load architecture for fintech sector.
+                        Microservices, Kafka, React.
+                    </p>
+                </div>
+                <div class="bento-footer mt-auto pt-4 flex gap-2">
+                    <span class="badge">Python</span>
+                    <span class="badge">Docker</span>
+                </div>
+            </div>
+
+            <!-- Item 2: Stack (Small) -->
+            <div class="bento-item col-span-4 dna-rnd">
+                <div class="bento-header">
+                    <span class="font-mono text-blue text-sm">02 // STACK</span>
+                </div>
+                <div class="tech-stack-grid mt-4">
+                    <div class="tech-icon">PY</div>
+                    <div class="tech-icon">JS</div>
+                    <div class="tech-icon">GO</div>
+                    <div class="tech-icon">K8S</div>
+                </div>
+            </div>
+
+            <!-- Item 3: Philosophy (Medium) -->
+            <div class="bento-item col-span-4 dna-eco">
+                <div class="bento-header">
+                    <span class="font-mono text-ghost text-sm">03 // METHOD</span>
+                    <h3 class="text-lg mt-2">Clean Architecture</h3>
+                </div>
+                <p class="text-ghost text-sm mt-2">
+                    Code is read more often than it is written.
+                </p>
+            </div>
+
+            <!-- Item 4: Contact Call (Medium) -->
+            <a href="src/prototype/contact.html" class="bento-item col-span-8 bg-gradient-blue">
+                <div class="flex items-center justify-between w-full h-full">
+                    <div>
+                        <span class="font-mono text-ivory text-sm">04 // HIRE ME</span>
+                        <h3 class="text-2xl mt-2">Let's Build Together -></h3>
+                    </div>
+                </div>
+            </a>
+        </section>
     </main>
 
-    <div id="app-drawer" class="layout-drawer">
+    <!-- LEVEL 3: FOOTER (Status Bar) -->
+    <footer class="layout-footer">
+        <div class="footer-left">
+            <span class="copyright-text"><span class="file-icon">📄</span> home.html</span>
+        </div>
 
-        <div id="drawer-nav" class="drawer-section">
+        <div class="footer-right">
+            <div class="control-btn" onclick="toggleNavDrawer()">
+                <span class="btn-icon">☰</span>
+                <span class="btn-label desktop-only">NAVIGATION</span>
+            </div>
+
+            <div class="control-btn" onclick="toggleContactDrawer()">
+                <span class="btn-icon">✉</span>
+                <span class="btn-label desktop-only">CONTACTS</span>
+            </div>
+
+            <div class="sys-item desktop-only text-ghost">UTF-8</div>
+
+            <div id="lang-slider" class="control-btn lang-slider" onclick="toggleLangSlider(this)">
+                <div class="lang-visible">EN</div>
+                <div class="lang-hidden">
+                    <span data-lang="ru">RU</span>
+                    <span class="separator">/</span>
+                    <span data-lang="de">DE</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CONTACT DRAWER (Bottom Sheet) -->
+    <div id="contact-drawer" class="bottom-drawer">
+        <div class="drawer-header">
+            <span>// CONTACT_UPLINK</span>
+            <div class="drawer-close" onclick="toggleContactDrawer()">×</div>
+        </div>
+        <div class="drawer-grid">
+            <a href="#" class="social-card telegram">
+                <span class="icon">✈</span>
+                <span>Telegram</span>
+            </a>
+            <a href="#" class="social-card whatsapp">
+                <span class="icon">💬</span>
+                <span>WhatsApp</span>
+            </a>
+            <a href="#" class="social-card email">
+                <span class="icon">@</span>
+                <span>Email</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- NAV DRAWER (System Hub) -->
+    <div id="nav-drawer" class="bottom-drawer nav-drawer-style">
+
+        <div class="drawer-header">
+            <span>// SYSTEM_HUB</span>
+            <div class="drawer-close" onclick="toggleNavDrawer()">×</div>
+        </div>
+
+        <div class="nav-hub-grid">
+
+            <div class="nav-group">
+                <h3 class="group-title">// DIRECTORY</h3>
+                <div class="group-list">
+                    <a href="src/prototype/projects.html#business">Business Sol.</a>
+                    <a href="src/prototype/projects.html#eco">Ecosystems</a>
+                    <a href="src/prototype/projects.html#rnd">R&D Lab</a>
+                </div>
+            </div>
+
+            <div class="nav-group">
+                <h3 class="group-title">// RESOURCES</h3>
+                <div class="group-list">
+                    <a href="#">Tech Stack</a>
+                    <a href="#">Architecture</a>
+                    <a href="#">Changelog</a>
+                </div>
+            </div>
+
+            <div class="nav-group full-width">
+                <h3 class="group-title">// SYSTEM</h3>
+                <div class="group-list horizontal">
+                    <a href="#">GitHub</a>
+                    <a href="#">Legal</a>
+                    <a href="#">v.1.0.2</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- APP DRAWER (Hidden Panel - Desktop) -->
+    <div id="drawer-nav" class="layout-drawer">
+        <div class="drawer-section active">
             <div class="nav-grid">
                 <div class="nav-col">
-                    <h4>// CORE</h4>
+                    <h4>// NAVIGATION</h4>
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="src/prototype/projects.html" class="nav-link">Projects</a>
                     <a href="src/prototype/experience.html" class="nav-link">Experience</a>
                 </div>
                 <div class="nav-col">
-                    <h4>// RESOURCES</h4>
-                    <a href="#" class="nav-link">Tech Stack</a>
-                    <a href="#" class="nav-link">Architecture Guidelines</a>
+                    <h4>// SOCIALS</h4>
+                    <a href="#" class="nav-link">GitHub</a>
+                    <a href="#" class="nav-link">LinkedIn</a>
+                    <a href="#" class="nav-link">Twitter</a>
                 </div>
                 <div class="nav-col">
-                    <h4>// LEGAL</h4>
-                    <a href="#" class="nav-link">Impressum</a>
-                    <a href="#" class="nav-link">Privacy Policy</a>
+                    <h4>// CONTACT</h4>
+                    <a href="mailto:info@codexdlc.dev" class="nav-link">info@codexdlc.dev</a>
+                    <p class="text-ghost text-sm mt-2">Open for opportunities</p>
                 </div>
             </div>
         </div>
-
-        <div id="drawer-contact" class="drawer-section">
-            <div class="contact-grid">
-                <a href="https://t.me/yourname" target="_blank" class="contact-card">
-                    <span style="font-size: 2rem; margin-bottom: 10px;">✈️</span>
-                    <span class="font-mono">Telegram</span>
-                </a>
-                <a href="mailto:primecodex@gmail.com" class="contact-card">
-                    <span style="font-size: 2rem; margin-bottom: 10px;">✉️</span>
-                    <span class="font-mono">Email</span>
-                </a>
-                <a href="#" class="contact-card">
-                    <span style="font-size: 2rem; margin-bottom: 10px;">🐙</span>
-                    <span class="font-mono">GitHub</span>
-                </a>
-            </div>
-        </div>
-
     </div>
 
-    <footer class="layout-footer">
+    <!-- MAIN MENU OVERLAY (Mobile) -->
+    <div id="main-menu-overlay" class="glass-overlay">
+        <div class="overlay-content">
+            <div class="overlay-close" onclick="toggleMainMenu()">×</div>
 
-        <div class="sys-group">
-            <div class="sys-item" style="cursor: default; color: var(--color-blue);">
-                <span class="sys-icon">📄</span>
-                <span>home.html</span> </div>
+            <nav class="overlay-nav">
+
+                <a href="index.html" class="overlay-btn">
+                    <span class="sym red">&lt;&gt;</span>
+                    <span class="txt">HOME</span>
+                </a>
+
+                <a href="src/prototype/projects.html" class="overlay-btn">
+                    <span class="sym gold">{}</span>
+                    <span class="txt">PROJECTS</span>
+                </a>
+
+                <a href="src/prototype/experience.html" class="overlay-btn">
+                    <span class="sym blue">≡</span>
+                    <span class="txt">EXPERIENCE</span>
+                </a>
+
+                <a href="src/prototype/contact.html" class="overlay-btn">
+                    <span class="sym green">$</span>
+                    <span class="txt">CONTACT</span>
+                </a>
+
+            </nav>
         </div>
+    </div>
 
-        <div class="sys-group" style="position: absolute; left: 50%; transform: translateX(-50%);">
-
-            <div class="sys-item" onclick="toggleDrawer('drawer-nav', this)">
-                <span class="sys-icon">☰</span>
-                <span>NAVIGATION</span>
-            </div>
-
-            <div class="sys-item" onclick="toggleDrawer('drawer-contact', this)">
-                <span class="sys-icon">✉</span>
-                <span>CONTACTS</span>
-            </div>
-
-        </div>
-
-        <div class="sys-group">
-            <div class="sys-item">UTF-8</div>
-
-            <div class="sys-item" onclick="toggleLanguage(this)">
-                <div class="lang-container">
-                    <a href="#" class="text-gold">RU</a>
-                    <span>|</span>
-                    <a href="#" class="text-gold">DE</a>
-                </div>
-                <span class="text-blue font-bold">EN</span>
-            </div>
-        </div>
-
-    </footer>
-
+    <!-- Scripts (Paths from root) -->
+    <script src="src/prototype/js/base.js"></script>
     <script src="src/prototype/js/main.js"></script>
 </body>
 </html>

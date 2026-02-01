@@ -1,7 +1,7 @@
 /* src/prototype/css/base.css */
-/* ARCHITECTURE: THE MONOLITH (Вариант 2: Лист в пустоте) */
+/* ARCHITECTURE: THE MONOLITH (Classic Sheet) */
 
-/* --- 1. SETTINGS & VARS (Обновляем высоты) --- */
+/* --- 1. SETTINGS & VARS --- */
 :root {
     /* Цветовая палитра "IDE Night" */
     --color-void:   #0F0F1A;
@@ -10,14 +10,22 @@
     --color-ghost:  rgba(255, 255, 255, 0.6);
     --color-gold:   #FFD43B;
     --color-blue:   #306998;
+    --color-green:  #27C93F;
     --border-line:  1px solid rgba(255, 255, 255, 0.08);
+
+    /* Цвета вкладок */
+    --tab-bg-active: #1E1E2F;
+    --tab-bg-inactive: #151520;
 
     /* Геометрия */
     --max-width:    1440px;
-    --topbar-h:     30px;   /* НОВАЯ ПОЛОСКА СВЕРХУ */
+    --topbar-h:     30px;
     --header-h:     80px;
-    --footer-h:     40px;   /* Делаем футер тоньше, как в IDE (было 64px) */
-    --sheet-margin: 20px;   /* Размер рамки по краям */
+    --footer-h:     60px;
+
+    /* Цвета Python (для удобства) */
+    --py-blue: #306998;
+    --py-gold: #FFD43B;
 }
 
 /* --- 2. RESET & BASE --- */
@@ -41,6 +49,8 @@ body {
     min-height: 100vh;
     padding: 0;
     margin: 0;
+    background-image: none !important;
+    overflow-x: hidden;
 }
 
 /* Шрифты */
@@ -55,75 +65,58 @@ a:hover { opacity: 0.8; }
 /* ОБЩАЯ ГЕОМЕТРИЯ ЛИСТА */
 .layout-topbar,
 .layout-header,
-.layout-main,
 .layout-footer,
 .layout-drawer {
-    /* 1. ОТКАЗ ОТ АБСОЛЮТОВ (Убираем то, что ломает центр) */
+    /* Фиксированные элементы центрируем через transform */
     position: fixed;
-    left: 0 !important;
-    right: 0 !important;
-    transform: none !important; /* Удаляем сдвиг, который выкидывал контент */
-
-    /* 2. ГЕОМЕТРИЯ ЛИСТА */
-    /* Ширина всегда 100% минус 40px (по 20px с каждой стороны) */
-    width: calc(100% - 40px) !important;
-    max-width: var(--max-width); /* Не шире 1440px */
-
-    /* 3. ЦЕНТРОВКА */
-    margin-left: auto !important;
-    margin-right: auto !important;
-
-    /* Визуал */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100% !important;
+    max-width: var(--max-width);
+    /* Сбрасываем margin, так как центрируем через transform */
+    margin: 0 !important;
     background-color: var(--color-monolith);
     border-left: var(--border-line);
     border-right: var(--border-line);
 }
 
-/* LEVEL 0: TOP BAR (Адрес/Инфо) */
+/* LEVEL 0: TOP BAR */
 .layout-topbar {
     top: 0;
     height: var(--topbar-h);
-
-    background-color: #151520; /* Чуть темнее основного фона */
+    background-color: #151520;
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    z-index: 150; /* Выше хедера */
-
+    z-index: 150;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* РАЗНОСИМ ПО КРАЯМ */
+    justify-content: space-between;
     padding: 0 40px;
-
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
     color: var(--color-ghost);
 }
 
-/* LEVEL 1: HEADER (Теперь отступает сверху) */
+/* LEVEL 1: HEADER */
 .layout-header {
-    top: var(--topbar-h); /* СДВИГАЕМ ВНИЗ НА 30px */
+    top: var(--topbar-h);
     height: var(--header-h);
-
     background-color: var(--color-monolith);
-    border-bottom: var(--border-line);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     z-index: 100;
     display: flex;
     justify-content: center;
 }
 
-/* ХЕДЕР (Настройка сетки внутри листа) */
 .header-inner {
     width: 100%;
     height: 100%;
     max-width: 100%;
     margin: 0 auto;
     padding: 0 20px;
-
-    /* СЕТКА: Логотип (сколько надо) | Вкладки (остальное) */
     display: grid;
     grid-template-columns: max-content 1fr;
-
     align-items: center;
-    gap: 40px; /* Безопасный зазор */
+    gap: 40px;
 }
 
 /* ЗОНА ЛОГОТИПА */
@@ -131,192 +124,234 @@ a:hover { opacity: 0.8; }
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center; /* Логотип по центру высоты */
+    align-items: center;
     padding-left: 20px;
-
-    /* На всякий случай, если текст супер-длинный - обрезаем, а не налезаем */
     overflow: hidden;
     white-space: nowrap;
 }
 
-/* Адаптивный шрифт логотипа (ID Selector) */
 #brand-text {
-    /* СИНТАКСИС: clamp(МИНИМУМ, ДИНАМИКА, МАКСИМУМ) */
-    font-size: clamp(0.9rem, 2.5vw, 1.5rem) !important;
-    white-space: nowrap;
-    transition: font-size 0.1s linear;
+    font-size: 1.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--color-ivory);
 }
 
-/* ЗОНА ВКЛАДОК */
+#brand-slogan {
+    font-size: 0.9rem;
+    margin-left: 15px;
+    font-family: 'JetBrains Mono', monospace;
+    display: inline-block;
+}
+
+/* ЗОНА ВКЛАДОК (IDE STYLE) */
 .header-nav {
     width: 100%;
     height: 100%;
-
     display: flex;
-    align-items: flex-end; /* Прижимаем к полу */
-    justify-content: flex-end; /* Прижимаем вправо */
-
-    padding-right: 0; /* Прижимаем вплотную к краю контейнера */
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-right: 0;
+    gap: 2px;
 }
 
-/* --- STABLE TABS (Фикс "жирных" кнопок на 4K) --- */
-
-.nav-item, .nav-btn {
+.nav-link {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px; /* Фиксированный зазор между иконкой и текстом */
-
-    height: 50%;
-    margin-bottom: 0;
-
-    /* Жесткие пиксели. Вкладка всегда одного размера. */
-    padding: 0 25px;
-
-    background-color: transparent;
-    border-right: 1px solid rgba(255,255,255,0.05);
-    border-top: 1px solid rgba(255,255,255,0.05);
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-
-    /* Фиксированный читаемый шрифт */
-    font-size: 0.85rem;
-
-    white-space: nowrap;
-    color: rgba(255, 255, 255, 0.5);
+    gap: 8px;
+    padding: 8px 15px;
+    background: var(--tab-bg-inactive);
+    color: var(--color-ghost);
     text-decoration: none;
-    transition: all 0.2s ease;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    border-radius: 5px 5px 0 0;
+    border-top: 2px solid transparent;
+    transition: background 0.2s, color 0.2s;
+    position: relative;
+}
+
+.nav-link:hover {
+    background: #252530;
+    color: var(--color-ivory);
+}
+
+.nav-link.active {
+    background: var(--tab-bg-active);
+    color: var(--color-ivory);
+    border-top: 2px solid var(--color-blue);
+    z-index: 2;
+}
+
+.file-icon { font-size: 1rem; }
+
+/* CODE ICONS IN TABS */
+.code-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700; /* Жирный шрифт */
+    font-size: 0.85rem;
+    margin-right: 4px;
+    letter-spacing: 0.5px; /* Чуть шире */
+}
+
+/* FIX: Делаем синий светлее, чтобы он не казался тонким на темном фоне */
+.code-icon.blue { color: #61AFEF; }
+.code-icon.yellow { color: var(--color-gold); }
+
+
+.tab-close {
+    margin-left: 8px;
+    font-size: 1.1rem;
+    opacity: 0;
+    transition: opacity 0.2s;
     cursor: pointer;
 }
 
-/* На планшетах (если вдруг вкладки еще видны до 1024px) чуть уменьшим */
-@media (max-width: 1200px) {
-    .nav-item, .nav-btn {
-        padding: 0 15px; /* Чуть компактнее на ноутбуках */
-        font-size: 0.8rem;
-    }
+.nav-link:hover .tab-close,
+.nav-link.active .tab-close {
+    opacity: 0.6;
 }
 
-/* Активная вкладка (Синяя шапка) */
-.nav-item.active, .nav-btn.active {
-    background-color: #1E1E2F;
-    color: var(--color-ivory);
-    border-top: 2px solid var(--color-blue);
-    height: calc(50% + 2px); /* Чуть выше, чтобы перекрыть линию */
-    z-index: 5;
+.tab-close:hover {
+    opacity: 1 !important;
+    color: #FF5F56;
 }
 
-/* БЛОКИРОВКА ДВОЙНОГО ТЕКСТА */
-.nav-item::before, .nav-btn::before {
-    content: none !important;
-    display: none !important;
-}
+/* Анимация вкладок */
+.nav-hidden { opacity: 0; transform: translateY(10px); pointer-events: none; }
+.nav-visible { opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease; pointer-events: auto; }
 
-/* LEVEL 2: MAIN BODY */
+
+/* LEVEL 2: MAIN BODY (SCROLLABLE SHEET) */
 .layout-main {
-    position: relative; /* Возвращаем в поток */
-    margin-top: calc(var(--topbar-h) + var(--header-h) + 20px); /* Отступ сверху */
-    margin-bottom: calc(var(--footer-h) + 20px); /* Отступ снизу */
-    min-height: calc(100vh - 200px);
+    position: relative; /* Скроллится */
+    display: block !important;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 60px;
+    /* Отступы под фиксированные бары */
+    margin-top: calc(var(--topbar-h) + var(--header-h) + 20px) !important;
+    margin-bottom: calc(var(--footer-h) + 20px) !important;
+
+    /* Центрирование через margin auto */
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    width: 100% !important;
+    max-width: var(--max-width);
+
+    /* Визуал листа */
+    background-color: var(--color-monolith);
+    border-left: var(--border-line);
+    border-right: var(--border-line);
     box-shadow: 0 0 50px rgba(0,0,0,0.5);
+
+    min-height: calc(100vh - 200px);
+    padding: 0;
 }
 
-/* LEVEL 3: FOOTER (IDE STATUS BAR) */
+/* LEVEL 3: FOOTER */
 .layout-footer {
-    position: fixed;
     bottom: 0;
     height: var(--footer-h);
-
-    background-color: #1E1E2F; /* Цвет Монолита, чтобы перекрыть дровер снизу */
-    border-top: 1px solid var(--color-gold); /* Тонкая золотая линия */
+    background-color: #1E1E2F;
+    border-top: 1px solid var(--color-gold);
     z-index: 200;
     display: flex;
-    justify-content: space-between; /* Разносим контент по краям */
+    justify-content: space-between;
     align-items: center;
-    padding: 0 20px; /* Отступы внутри строки */
-
+    padding: 0 20px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
 }
 
-/* Стили для элементов внутри футера (из прошлого шага, адаптированные) */
-.sys-group {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    height: 100%;
-}
-
-.sys-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.footer-left .copyright-text {
+    font-family: 'JetBrains Mono', monospace;
     color: var(--color-ghost);
-    height: 100%;
-    padding: 0 10px;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+    font-size: 0.8rem;
 }
 
-.sys-item:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+.footer-right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.control-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-ivory);
+    cursor: pointer;
+    gap: 8px;
+}
+
+.btn-icon { font-size: 1.4rem; }
+
+.btn-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--color-ghost);
+    letter-spacing: 1px;
+}
+.control-btn:hover .btn-label { color: var(--color-gold); }
+
+/* Lang Slider */
+.lang-slider {
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    width: 40px;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.lang-slider.expanded {
+    width: 140px;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-gold);
+    justify-content: space-between;
+}
+
+.lang-visible {
+    font-family: 'JetBrains Mono';
+    font-weight: bold;
     color: var(--color-ivory);
 }
 
-/* Активная кнопка в футере подсвечивается */
-.sys-item.active-tab {
-    background-color: var(--color-gold);
-    color: #000; /* Черный текст на золотом */
-}
-
-/* Языковой виджет внутри футера */
-.lang-container {
+.lang-hidden {
     display: flex;
-    gap: 10px;
-    margin-right: 10px;
-
-    /* Скрываем по умолчанию (выезжает) */
-    width: 0;
+    align-items: center;
+    gap: 5px;
     opacity: 0;
-    overflow: hidden;
-    transition: all 0.3s ease;
+    width: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
 }
 
-.sys-item.active .lang-container {
-    width: auto;
+.lang-slider.expanded .lang-hidden {
     opacity: 1;
+    width: auto;
+    pointer-events: auto;
+    margin-right: 10px;
+    order: -1;
 }
 
-.sys-icon {
-    font-size: 1rem;
-    line-height: 0;
-    margin-bottom: 2px;
-}
+.lang-hidden span { cursor: pointer; color: var(--color-ghost); }
+.lang-hidden span:hover { color: var(--color-gold); }
 
-/* --- 4. UTILITY HELPERS --- */
+
+/* UTILITY HELPERS */
 .text-gold { color: var(--color-gold); }
 .text-blue { color: var(--color-blue); }
 .text-ghost { color: var(--color-ghost); }
+.text-ivory { color: var(--color-ivory); }
 
-/* Typography Scale */
-.hero-title {
-    font-size: 4rem;
-    margin-bottom: 2rem;
-}
-.hero-desc {
-    font-size: 1.2rem;
-    border-left: 2px solid var(--color-blue);
-    padding-left: 1.5rem;
-    color: var(--color-ghost);
-    font-family: 'JetBrains Mono', monospace;
-}
-
-/* --- VISIBILITY UTILITIES (Dual Interface) --- */
+/* VISIBILITY UTILITIES */
 .desktop-only { display: none !important; }
 .mobile-only { display: block !important; }
 
@@ -325,64 +360,30 @@ a:hover { opacity: 0.8; }
     .mobile-only { display: none !important; }
 }
 
-/* --- ANIMATION UTILITIES --- */
-.typing-cursor::after {
-    content: '|';
-    animation: blink 1s step-end infinite;
-    color: var(--color-gold);
-    margin-left: 2px;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-/* --- APP DRAWER (Выдвижная панель) --- */
+/* APP DRAWER (Desktop) */
 .layout-drawer {
-    position: fixed;
-    bottom: var(--footer-h); /* Начинается сразу НАД футером */
-    left: 50%;
-    transform: translateX(-50%);
-
-    width: 100%;
-    max-width: var(--max-width);
-
-    /* По умолчанию скрыт */
+    bottom: var(--footer-h);
     height: 0;
     overflow: hidden;
-
-    background-color: #151520; /* Чуть темнее фона, чтобы выделиться */
-    border-top: 1px solid var(--color-gold); /* Золотая крышка */
-    border-left: var(--border-line);
-    border-right: var(--border-line);
-
+    background-color: #151520;
+    border-top: 1px solid var(--color-gold);
     transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 190; /* Под футером (200), но над контентом */
-
-    /* Тени внутри, чтобы казалось углублением */
+    z-index: 190;
     box-shadow: inset 0 10px 30px rgba(0,0,0,0.5);
 }
 
-.layout-drawer.open {
-    height: 320px; /* Высота открытия */
-}
+.layout-drawer.open { height: 320px; }
 
-/* Секции внутри Дровера */
 .drawer-section {
-    display: none; /* Скрыты по умолчанию */
+    display: none;
     height: 100%;
     padding: 40px;
     opacity: 0;
     transition: opacity 0.2s;
 }
 
-.drawer-section.active {
-    display: flex; /* Или grid, зависит от контента */
-    opacity: 1;
-}
+.drawer-section.active { display: flex; opacity: 1; }
 
-/* --- КОНТЕНТ ДРОВЕРА: NAVIGATION (3 колонки) --- */
 .nav-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -395,195 +396,20 @@ a:hover { opacity: 0.8; }
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.9rem;
 }
-.nav-link {
+.nav-link-drawer {
     display: block;
     color: var(--color-ivory);
     margin-bottom: 12px;
     font-size: 1.1rem;
     transition: transform 0.2s;
+    text-decoration: none;
 }
-.nav-link:hover {
+.nav-link-drawer:hover {
     transform: translateX(5px);
     color: var(--color-blue);
 }
 
-/* --- КОНТЕНТ ДРОВЕРА: CONTACTS (Карточки) --- */
-.contact-grid {
-    display: flex;
-    gap: 20px;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-}
-.contact-card {
-    flex: 1;
-    max-width: 300px;
-    height: 160px;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    background: rgba(255,255,255,0.03);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s;
-}
-.contact-card:hover {
-    background: rgba(48, 105, 152, 0.2);
-    border-color: var(--color-blue);
-    transform: translateY(-5px);
-}
-
-/* ========================================= */
-/* === HYBRID MOBILE ARCHITECTURE        === */
-/* ========================================= */
-
-/* 1. РЕЖИМ "КОРОБКА" (Планшеты и большие телефоны: 501px - 850px) */
-@media (min-width: 501px) and (max-width: 850px) {
-
-    /* Фон-рамка */
-    body {
-        background-color: #0d0d12;
-        overflow-x: hidden;
-    }
-
-    /* Превращаем блоки в карточки */
-    .header-inner,
-    .hero-section,
-    .bento-grid,
-    .footer-inner {
-        max-width: 600px !important;
-        width: 90% !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-
-        background-color: #1E1E2F;
-        box-shadow: 0 0 40px rgba(0,0,0,0.5);
-    }
-
-    /* Скругления */
-    .header-inner {
-        margin-top: 20px;
-        border-radius: 16px 16px 0 0;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    .footer-inner {
-        margin-bottom: 20px;
-        border-radius: 0 0 16px 16px;
-    }
-
-    /* ЛОГИКА ЛЕВША/ПРАВША (Только для этого режима) */
-    .hand-switch-btn { display: flex !important; }
-
-    body.mode-left .header-inner,
-    body.mode-left .hero-section,
-    body.mode-left .bento-grid,
-    body.mode-left .footer-inner {
-        margin-left: 0 !important;
-        margin-right: 15% !important; /* Сдвиг вправо */
-        border-left: 4px solid var(--color-gold);
-    }
-
-    body.mode-right .header-inner,
-    body.mode-right .hero-section,
-    body.mode-right .bento-grid,
-    body.mode-right .footer-inner {
-        margin-left: 15% !important; /* Сдвиг влево */
-        margin-right: 0 !important;
-        border-right: 4px solid var(--color-blue);
-    }
-
-    /* 1. ХЕДЕР: Двухэтажный центрированный режим */
-    .layout-header {
-        height: auto !important; /* Даем хедеру расти под два этажа */
-        padding: 20px 0 !important;
-    }
-
-    .header-inner {
-        display: flex !important;
-        flex-direction: column !important; /* Лого над навигацией */
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 20px !important;
-    }
-
-    /* ЛОГОТИП ПО ЦЕНТРУ */
-    .brand {
-        width: 100% !important;
-        justify-content: center !important;
-        padding: 0 !important;
-        text-align: center;
-    }
-
-    #brand-text {
-        font-size: 1.4rem !important; /* Увеличиваем, раз он один в строке */
-    }
-
-    /* НАВИГАЦИЯ ПО ЦЕНТРУ ПОД ЛОГОТИПОМ */
-    .header-nav {
-        display: flex !important; /* Показываем все вкладки */
-        flex-direction: row !important;
-        justify-content: center !important;
-        align-items: center !important;
-        width: 100% !important;
-        position: static !important;
-        gap: 10px !important;
-    }
-
-    /* Компактные вкладки для планшета */
-    .nav-item, .nav-btn {
-        display: flex !important;
-        height: 40px !important;
-        padding: 0 15px !important;
-        font-size: 0.8rem !important;
-        border: 1px solid rgba(255,255,255,0.05);
-        border-radius: 6px !important;
-    }
-}
-
-/* 2. РЕЖИМ "ФУЛЛСКРИН" (Телефоны: < 500px) */
-@media (max-width: 500px) {
-    body {
-        background-color: #1E1E2F; /* Фон совпадает с контентом */
-    }
-
-    .header-inner, .hero-section, .bento-grid, .footer-inner {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        background-color: transparent;
-    }
-
-    .layout-main { padding: 20px; } /* Уменьшаем отступы внутри */
-
-    .hand-switch-btn { display: none !important; } /* На узком телефоне сдвигать некуда */
-
-    /* 1. Прячем текст вкладок, оставляем только иконки-символы */
-    .nav-item, .nav-btn {
-        padding: 0 12px !important;
-        font-size: 0; /* Прячем основной текст файла */
-        width: auto !important;
-        min-width: 45px;
-    }
-
-    /* 2. Оставляем видимым только <span> с иконкой */
-    .nav-item span, .nav-btn span {
-        font-size: 1.2rem !important; /* Увеличиваем саму иконку для пальца */
-        margin-right: 0 !important;   /* Убираем отступ, так как текста нет */
-    }
-
-    /* 3. Опционально: Прячем ту, на которой находимся */
-    .nav-item.active {
-        display: none !important;
-    }
-
-    /* 4. Чтобы хедер не рос в высоту, если что-то пойдет не так */
-    .header-nav {
-        flex-wrap: nowrap !important; /* ЗАПРЕЩАЕМ ПЕРЕНОС НА ВТОРУЮ СТРОКУ */
-        justify-content: space-around !important;
-        width: 100% !important;
-        gap: 5px !important;
-    }
+/* --- ЗАЩИТА: Скрываем мобильные шторки на Планшете и Десктопе --- */
+@media (min-width: 768px) {
+    .bottom-drawer { display: none !important; }
 }

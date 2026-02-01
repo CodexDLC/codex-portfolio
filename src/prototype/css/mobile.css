@@ -1,0 +1,804 @@
+/* src/prototype/css/mobile.css */
+/* === FINAL MOBILE ARCHITECTURE (< 767px) === */
+/* Изолированная мобильная верстка */
+
+/* MOBILE-ONLY ELEMENTS: Скрыты на десктопе по умолчанию */
+.mobile-separator,
+.mobile-portals-stack {
+    display: none;
+}
+
+.mobile-loading-visual {
+    display: none;
+}
+
+
+/* 1. БУРГЕР В ХЕДЕРЕ (Скрыт на десктопе) */
+.mobile-burger-btn {
+    display: none; /* По умолчанию скрыт */
+}
+
+/* 2. СТЕКЛЯННОЕ МЕНЮ (Overlay) */
+.glass-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(15, 15, 26, 0.6); /* Полупрозрачный фон */
+    backdrop-filter: blur(15px); /* Эффект стекла */
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.glass-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.overlay-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    font-size: 2rem;
+    color: var(--color-gold);
+    cursor: pointer;
+}
+
+/* --- СТИЛИ ДЛЯ МЕНЮ (DESKTOP LOOK) --- */
+.overlay-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Выравнивание по левому краю (как код) */
+    gap: 25px;
+    padding-left: 20px; /* Небольшой отступ слева */
+}
+
+.overlay-btn {
+    font-family: 'JetBrains Mono', monospace; /* Шрифт IDE */
+    font-size: 2rem; /* Крупно для пальца */
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--color-ivory);
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Отступ между значком и текстом */
+    transition: transform 0.2s;
+}
+
+.overlay-btn:active {
+    transform: scale(0.95); /* Эффект нажатия */
+}
+
+/* Цвета скобочек (Как в IDE) */
+.overlay-btn .sym { font-weight: normal; opacity: 0.9; }
+.overlay-btn .sym.red   { color: #ff5f56; } /* Красный */
+.overlay-btn .sym.gold  { color: var(--color-gold); } /* Желтый */
+.overlay-btn .sym.blue  { color: var(--color-blue); } /* Синий */
+.overlay-btn .sym.green { color: #2ecc71; } /* Зеленый */
+
+.overlay-btn .txt {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- ШТОРКА КОНТАКТОВ И НАВИГАЦИИ (Bottom Drawer) --- */
+.bottom-drawer {
+    position: fixed;
+    bottom: -100%; /* Спрятана внизу */
+    left: 0;
+    width: 100%;
+    background: #151520;
+    border-top: 2px solid var(--color-gold);
+    padding: 20px;
+    z-index: 1000;
+    transition: bottom 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+}
+
+.bottom-drawer.active {
+    bottom: 0; /* Выезжает */
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: 'JetBrains Mono';
+    color: var(--color-ghost);
+}
+
+.drawer-close {
+    font-size: 1.5rem;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.drawer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.social-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--color-ivory);
+    border-radius: 8px;
+}
+
+.social-card .icon { font-size: 1.5rem; }
+.social-card:hover { background: rgba(255,255,255,0.1); border-color: var(--color-gold); }
+
+/* 3. МОБИЛЬНАЯ ВЕРСТКА (< 767px) */
+@media (max-width: 767px) {
+
+    /* А. ГЕОМЕТРИЯ СТРАНИЦЫ */
+    body {
+        background-color: #1E1E2F; /* Базовый цвет */
+        background-image: none !important;
+        overflow-x: hidden; /* Блокируем горизонтальный скролл */
+    }
+
+    .layout-topbar { display: none !important; } /* Скрываем верхнюю полоску */
+
+    /* Скрываем слоган на мобилке */
+    #brand-slogan { display: none !important; }
+
+    /* INIT SCREEN: Только терминал, pipeline скрыт */
+    .init-layout-fixed {
+        display: block !important;
+        grid-template-columns: unset !important;
+        height: 280px !important;
+        min-height: 280px !important;
+        max-height: 280px !important;
+        padding: 15px !important;
+        margin: 10px auto !important;
+        width: calc(100% - 20px) !important;
+        background: var(--color-monolith) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+    }
+
+    .terminal-col {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        width: 100% !important;
+        height: 100% !important;
+        border: none !important;
+    }
+
+    .log-stream {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-end !important;
+        flex-grow: 1 !important;
+        overflow: hidden !important;
+    }
+
+    /* Картинка ПОД терминалом во время загрузки */
+    .mobile-loading-visual {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        flex-grow: 1;
+        transition: opacity 0.5s ease;
+    }
+
+    .mobile-loading-visual .loading-tree-img {
+        width: 100%;
+        height: auto;
+        opacity: 0.7;
+        filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
+        animation: floatTree 3s ease-in-out infinite;
+    }
+
+    @keyframes floatTree {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+    }
+
+    /* Скрытие картинки когда появляется hero */
+    .mobile-loading-visual.hidden {
+        display: none !important;
+    }
+
+    .pipeline-col {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        visibility: hidden !important;
+        position: absolute !important;
+        left: -9999px !important;
+    }
+
+    /* FINAL SCREEN: Только текст */
+    .final-hero-layout {
+        display: block !important;
+        grid-template-columns: unset !important;
+    }
+
+    .final-visual-side {
+        display: none !important;
+        position: absolute !important;
+        left: -9999px !important;
+    }
+
+    /* Сброс рамок десктопа, НО ВОЗВРАЩАЕМ ФИКСАЦИЮ */
+    .layout-header, .layout-footer {
+        width: 100% !important;
+        max-width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        transform: none !important; /* FIX: Сброс translateX(-50%) с десктопа */
+        border-radius: 0 !important;
+        border: none !important;
+        margin: 0 !important;
+        position: fixed !important;
+        z-index: 500 !important;
+    }
+
+    .layout-header { top: 0; }
+    .layout-footer { bottom: 0; }
+
+    .layout-main {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        /* Отступы под фиксированные хедер и футер */
+        margin-top: 60px !important;
+        margin-bottom: 60px !important;
+        padding: 20px !important;
+        min-height: auto;
+    }
+
+    /* Б. ХЕДЕР (Лого + Бургер) */
+    .layout-header {
+        height: 50px !important;
+        min-height: 50px !important;
+        max-height: 50px !important;
+        padding: 0 15px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background-color: #1E1E2F !important;
+        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    }
+
+    .header-inner {
+        display: flex !important;
+        width: 100% !important;
+        height: 100% !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0 !important;
+        gap: 0 !important;
+        grid-template-columns: unset !important;
+    }
+
+    .header-nav { display: none !important; } /* Скрываем десктопное меню */
+
+    .mobile-burger-btn {
+        display: block !important;
+        font-size: 1.8rem;
+        color: var(--color-gold);
+        cursor: pointer;
+        /* Убрали margin-left: auto, так как space-between сделает это сам */
+    }
+
+    .brand { padding: 0 !important; width: auto !important; }
+    #brand-text { font-size: 1.2rem !important; }
+
+    /* Скрываем desktop drawer на мобилке */
+    .layout-drawer {
+        display: none !important;
+    }
+
+    /* Г. ФУТЕР (Пульт) */
+    .layout-footer {
+        height: 60px !important;
+        padding: 0 20px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        background-color: #151520 !important;
+        border: none !important;
+        border-top: 2px solid var(--color-gold) !important;
+    }
+
+    /* Стили элементов футера */
+    .footer-left .copyright-text {
+        font-family: 'JetBrains Mono', monospace;
+        color: var(--color-ghost);
+        font-size: 0.7rem;
+    }
+
+    /* Скрываем иконку файла, показываем копирайт */
+    .footer-left .copyright-text .file-icon { display: none; }
+    .footer-left .copyright-text::before {
+        content: "© 2026 CodexDLC";
+    }
+    /* Скрываем оригинальный текст "home.html" */
+    .footer-left .copyright-text {
+        font-size: 0;
+    }
+    .footer-left .copyright-text::before {
+        font-size: 0.7rem;
+    }
+
+    .footer-right {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .control-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-ivory);
+        cursor: pointer;
+    }
+
+    /* Скрываем текст кнопок (NAVIGATION, CONTACTS), оставляем иконки */
+    .btn-label { display: none !important; }
+    .btn-icon { font-size: 1.4rem; }
+
+    /* --- ЛОГИКА СЛАЙДЕРА ЯЗЫКА --- */
+    .lang-slider {
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        padding: 5px 10px;
+        display: flex;
+        align-items: center;
+        /* Начальная ширина под текст "EN" */
+        width: 40px;
+        justify-content: center;
+        white-space: nowrap;
+    }
+
+    .lang-slider.expanded {
+        /* Ширина раскрытого состояния */
+        width: 140px;
+        background: rgba(255, 255, 255, 0.1);
+        border-color: var(--color-gold);
+        justify-content: space-between; /* Распределяем RU / DE / EN */
+    }
+
+    .lang-visible {
+        font-family: 'JetBrains Mono';
+        font-weight: bold;
+        color: var(--color-ivory);
+    }
+
+    /* Скрытая часть (RU / DE) */
+    .lang-hidden {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        opacity: 0;
+        width: 0;
+        transition: opacity 0.2s;
+        pointer-events: none; /* Чтобы не кликать, пока закрыто */
+    }
+
+    .lang-slider.expanded .lang-hidden {
+        opacity: 1;
+        width: auto;
+        pointer-events: auto;
+        margin-right: 10px; /* Отступ от EN */
+        order: -1; /* Ставим перед EN */
+    }
+
+    .lang-hidden span { cursor: pointer; color: var(--color-ghost); }
+    .lang-hidden span:hover { color: var(--color-gold); }
+
+    /* СТИЛИ SYSTEM HUB (Нижняя шторка) */
+
+    /* Сетка Хаба */
+    .nav-hub-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Две колонки */
+        gap: 25px;
+        padding-bottom: 20px;
+    }
+
+    /* Группа, которая занимает всю ширину (System) */
+    .nav-group.full-width {
+        grid-column: span 2;
+        border-top: 1px dashed rgba(255,255,255,0.1); /* Разделитель */
+        padding-top: 15px;
+    }
+
+    /* Заголовки групп (Желтые) */
+    .group-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.8rem;
+        color: var(--color-gold);
+        margin-bottom: 10px;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Список ссылок */
+    .group-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* Горизонтальный список (для System внизу) */
+    .group-list.horizontal {
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    /* Сами ссылки (Серые -> Белые) */
+    .group-list a {
+        text-decoration: none;
+        color: var(--color-ghost); /* Спокойный серый */
+        font-size: 0.95rem;
+        transition: all 0.2s;
+        font-family: 'Inter', sans-serif; /* Для читаемости */
+    }
+
+    .group-list a:hover {
+        color: #ffffff;
+        transform: translateX(5px); /* Сдвиг при нажатии */
+    }
+
+    /* --- HERO SECTION FIXES (Fluid Dynamics) --- */
+    .hero-section {
+        display: flex !important;
+        flex-direction: column !important;
+        /* Вычисляем высоту, чтобы влезли кнопки снизу */
+        /* 100vh - хедер(60) - футер(60) - отступы */
+        min-height: calc(100vh - 170px);
+        /* Убираем justify-content: center, так как теперь центрует сам текст */
+        margin: 0 !important;
+        padding-bottom: 20px !important;
+    }
+
+    /* --- INTRO ANIMATION STYLES --- */
+
+    /* 1. SVG (Visual) - Виден по умолчанию, потом исчезает */
+    .hero-visual.mobile-intro-view {
+        display: flex !important; /* Показываем на мобилке */
+        justify-content: center;
+        align-items: center;
+        flex: 1; /* Занимает все место */
+        opacity: 1;
+        transition: opacity 1.5s ease-out; /* Медленное затухание */
+    }
+
+    /* Класс для скрытия SVG */
+    .hero-visual.fade-out {
+        opacity: 0;
+        pointer-events: none;
+        /* position: absolute; <--- УБРАЛИ, ЧТОБЫ НЕ ПРЫГАЛО */
+    }
+
+    /* Класс для полного удаления из потока (добавляется JS после анимации) */
+    .hero-visual.hidden-flow {
+        display: none !important;
+    }
+
+    /* 2. TEXT - Скрыт по умолчанию, потом появляется */
+    .hero-text.mobile-hidden-start {
+        opacity: 0;
+        /* Убираем transform, чтобы не было скачка при смене display */
+        /* transform: translateY(20px) scale(0.95); */
+        transition: opacity 0.8s ease;
+        display: none !important; /* Скрываем из потока, чтобы SVG был по центру */
+    }
+
+    /* Класс для показа Текста */
+    .hero-text.fade-in {
+        display: flex !important; /* Возвращаем в поток */
+        opacity: 1;
+        /* transform: translateY(0) scale(1); */
+
+        /* Стили центрирования */
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: auto;
+        margin-bottom: auto;
+        align-items: var(--hero-align, flex-start);
+        text-align: var(--hero-align-text, left);
+
+        /* Анимация появления */
+        animation: fadeInUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-title {
+        /* [MAGIC] Шрифт растет сам от 1.8rem до 2.5rem в зависимости от ширины */
+        font-size: clamp(1.8rem, 5vw + 1rem, 2.8rem) !important;
+        line-height: 1.1 !important;
+        margin-bottom: 25px !important;
+    }
+
+    .hero-desc {
+        /* Тоже растет */
+        font-size: clamp(0.9rem, 2vw + 0.5rem, 1.1rem) !important;
+        border-left: 2px solid var(--color-blue);
+        padding-left: 15px;
+
+        /* [NEW] Скрываем описание по умолчанию для анимации */
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+
+    /* Класс для показа описания */
+    .hero-desc.show-desc {
+        opacity: 1;
+    }
+
+    /* MOBILE SEPARATOR (между Hero и порталами) */
+    .mobile-separator {
+        display: flex !important;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 0;
+        margin: 10px 0;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .mobile-separator.show-separator {
+        opacity: 1;
+    }
+
+    .mobile-separator .separator-text {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        color: var(--color-ghost);
+        white-space: nowrap;
+        transition: color 0.3s ease;
+    }
+
+    .mobile-separator .separator-line {
+        flex-grow: 1;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+    }
+
+    /* Анимация точек загрузки */
+    .mobile-separator .dots::after {
+        content: '';
+        animation: loadingDots 1.5s infinite;
+    }
+
+    @keyframes loadingDots {
+        0% { content: ''; }
+        25% { content: '.'; }
+        50% { content: '..'; }
+        75% { content: '...'; }
+        100% { content: ''; }
+    }
+
+    /* Класс для статуса READY */
+    .mobile-separator.separator-ready .separator-text {
+        color: var(--color-gold);
+    }
+
+    /* 3. BUTTONS - Скрыты по умолчанию */
+    .mobile-portals-stack {
+        display: none !important; /* Скрыты */
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+        width: 100%;
+        flex-shrink: 0;
+    }
+
+    /* Класс для показа кнопок */
+    .mobile-portals-stack.show-buttons {
+        display: flex !important;
+    }
+
+    /* Анимации вылета кнопок */
+    .portal-card {
+        opacity: 0; /* Скрыты до анимации */
+    }
+
+    .mobile-portals-stack.show-buttons .portal-card {
+        animation-duration: 0.6s;
+        animation-fill-mode: forwards;
+        animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* 1. Business (Слева) */
+    .mobile-portals-stack.show-buttons .p-biz {
+        animation-name: slideInLeft;
+        animation-delay: 0.1s;
+    }
+
+    /* 2. Eco (Снизу) */
+    .mobile-portals-stack.show-buttons .p-eco {
+        animation-name: slideInBottom;
+        animation-delay: 0.3s;
+    }
+
+    /* 3. R&D (Справа) */
+    .mobile-portals-stack.show-buttons .p-rnd {
+        animation-name: slideInRight;
+        animation-delay: 0.5s;
+    }
+
+    @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-50px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(50px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInBottom {
+        from { opacity: 0; transform: translateY(50px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Скрываем Bento сетку */
+    .bento-grid { display: none !important; }
+
+    /* СТИЛИ ДЛЯ КАРТОЧЕК ПОРТАЛОВ */
+    .portal-card {
+        position: relative;
+        width: 100%;
+        min-height: 70px; /* Уменьшенная высота */
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-decoration: none;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: linear-gradient(135deg, rgba(30, 30, 47, 0.8) 0%, rgba(15, 15, 26, 1) 100%);
+    }
+
+    .portal-card span {
+        font-family: 'JetBrains Mono', monospace;
+        color: var(--color-gold);
+        font-size: 0.6rem;
+        letter-spacing: 2px;
+        margin-bottom: 3px;
+    }
+
+    .portal-card h2 {
+        color: white;
+        font-size: 1.2rem;
+        margin: 0;
+    }
+
+    /* Индивидуальные акценты для карточек */
+    .p-biz { border-left: 4px solid var(--color-gold); }
+    .p-eco { border-left: 4px solid var(--color-blue); }
+    .p-rnd { border-left: 4px solid var(--color-ghost); }
+}
+
+/* --- СПЕЦИАЛЬНО ДЛЯ ШИРОКИХ МОБИЛОК (480px - 767px) --- */
+@media (min-width: 480px) and (max-width: 767px) {
+    .hero-section {
+        /* Центруем контент по вертикали, если места много */
+        justify-content: center !important;
+        padding-top: 40px; /* Чуть воздуха сверху */
+    }
+
+    .hero-text.fade-in {
+        /* Переключаем на центр */
+        --hero-align: center;
+        --hero-align-text: center;
+        margin-bottom: 40px; /* Больше воздуха до кнопок */
+    }
+
+    .hero-desc {
+        /* Возвращаем полоску слева */
+        border-left: 2px solid var(--color-blue) !important;
+        border-bottom: none !important;
+        padding-left: 15px !important;
+        padding-bottom: 0 !important;
+        max-width: 80%; /* Чтобы текст не размазывался в одну строку */
+    }
+
+    /* Делаем кнопки порталов чуть "жирнее" */
+    .mobile-portals-stack {
+        width: 80%; /* Не во всю ширь, а аккуратно по центру */
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* --- СРЕДНИЕ ТЕЛЕФОНЫ (740px - 844px) --- */
+@media (max-height: 844px) and (max-width: 767px) {
+    .portal-card {
+        min-height: 100px !important; /* Средняя высота */
+        padding: 15px !important;
+    }
+
+    .portal-card h2 {
+        font-size: 1.3rem !important;
+        margin-bottom: 0;
+    }
+
+    .portal-card span {
+        font-size: 0.65rem !important;
+        margin-bottom: 2px !important;
+    }
+}
+
+/* --- КОРОТКИЕ ТЕЛЕФОНЫ (< 740px) --- */
+@media (max-height: 740px) and (max-width: 767px) {
+    .portal-card {
+        min-height: 80px !important; /* Супер-компакт */
+        padding: 12px !important;
+    }
+
+    .portal-card h2 {
+        font-size: 1.1rem !important; /* Мелкий шрифт */
+    }
+
+    /* Уменьшаем отступы layout-main, чтобы влезло */
+    .layout-main {
+        margin-top: 50px !important;
+        margin-bottom: 50px !important;
+        padding: 10px !important;
+    }
+
+    /* Уменьшаем хедер и футер */
+    .layout-header, .layout-footer {
+        height: 50px !important;
+    }
+
+    /* Уменьшаем отступы в Hero */
+    .hero-section {
+        min-height: calc(100vh - 100px) !important;
+        padding-bottom: 10px !important;
+    }
+
+    .hero-title {
+        font-size: 1.8rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    .hero-desc {
+        font-size: 0.85rem !important;
+    }
+}
+
+/* --- УЗКИЕ ТЕЛЕФОНЫ (< 400px) --- */
+@media (max-width: 400px) {
+    #brand-text {
+        font-size: 1rem !important; /* Уменьшаем логотип */
+    }
+}
