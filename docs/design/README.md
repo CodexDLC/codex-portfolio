@@ -15,6 +15,7 @@
 * [**03_ui_components.md**](./03_ui_components.md) — UI-кит: кнопки, карточки, слайды и декоративные элементы.
 * [**04_page_flow.md**](./04_page_flow.md) — Логика переходов, анимации и поведение на мобильных устройствах.
 * [**05_content_map.md**](./05_content_map.md) — Контент-стратегия, локализация (i18n) и юридические требования.
+* [**Experience_Page_Evolution.md**](./Experience_Page_Evolution.md) — Концепция страницы "О себе" (System Evolution & Heritage).
 
 ---
 

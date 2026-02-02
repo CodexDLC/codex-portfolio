@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/portfolio.css">
 </head>
-<body>
+<body class="page-portfolio">
 
     <!-- UNIFIED HEADER (Top Bar + Main Nav) -->
     <header class="layout-header">
@@ -73,40 +73,45 @@
 
     <main class="layout-main">
 
-        <!-- FOLDER TABS BAR (Sub-Navigation) -->
-        <div class="folder-tabs-bar">
+        <!-- FOLDER TABS BAR (Sub-Navigation) - Enhanced UI -->
+        <div class="folder-tabs-bar" data-active-dna="business">
             <div class="tabs-inner-container">
+                <!-- Breadcrumb Path Indicator -->
                 <div class="folder-path">
                     <span class="icon">📁</span>
-                    <span>~/portfolio/</span>
+                    <span>SYSTEM_ROOT</span>
+                    <span class="path-sep">></span>
+                    <span>PORTFOLIO</span>
+                    <span class="path-sep">></span>
+                    <span class="path-active" id="breadcrumb-category">CLIENTS</span>
                 </div>
 
-                <!-- Tab 1: Business -->
-                <a href="#clients" class="file-tab active">
+                <!-- Tab 1: Business (Clients) -->
+                <a href="#business" class="file-tab active" data-dna="business" data-category="CLIENTS">
                     <span class="icon gold">PY</span>
                     <span>clients.py</span>
                 </a>
 
-                <!-- Tab 2: Products -->
-                <a href="#products" class="file-tab">
+                <!-- Tab 2: Products (Ecosystem) -->
+                <a href="#eco" class="file-tab" data-dna="ecosystem" data-category="PRODUCTS">
                     <span class="icon blue">PY</span>
                     <span>products.py</span>
                 </a>
 
-                <!-- Tab 3: Open Source -->
-                <a href="#opensource" class="file-tab">
+                <!-- Tab 3: Open Source (R&D) -->
+                <a href="#rnd" class="file-tab" data-dna="rnd" data-category="OPENSOURCE">
                     <span class="icon green">PY</span>
                     <span>opensource.py</span>
                 </a>
 
-                <!-- Tab 4: Prototypes (New) -->
-                <a href="#prototypes" class="file-tab">
+                <!-- Tab 4: Prototypes (R&D) -->
+                <a href="#prototypes" class="file-tab" data-dna="rnd" data-category="PROTOTYPES">
                     <span class="icon purple">PY</span>
                     <span>prototypes.py</span>
                 </a>
 
-                <!-- Tab 5: Configs -->
-                <a href="#configs" class="file-tab">
+                <!-- Tab 5: Configs (R&D) -->
+                <a href="#configs" class="file-tab" data-dna="rnd" data-category="CONFIGS">
                     <span class="icon ghost">YML</span>
                     <span>config.yaml</span>
                 </a>
@@ -125,7 +130,7 @@
             <div class="islands-wrapper">
 
                 <!-- ISLAND 1: BUSINESS (Gold) -->
-                <section class="island-section theme-gold" id="business">
+                <section class="island-section theme-gold" id="business" data-dna="business">
                     <div class="island-header">
                         <span class="island-title"><span class="text-gold">01 //</span> CLIENT SOLUTIONS</span>
                         <span class="island-counter">3 MODULES</span>
@@ -133,14 +138,18 @@
 
                     <div class="island-grid">
                         <!-- Card 1 -->
-                        <a href="#" class="project-card">
-                            <div class="card-bg bg-grid"></div>
+                        <a href="#" class="project-card" data-dna="business">
+                            <div class="card-bg bg-pattern-grid"></div>
                             <div class="card-header">
                                 <span class="card-type">ERP SYSTEM</span>
                                 <span class="card-status active"></span>
                             </div>
                             <h3 class="card-title">Industrial Core</h3>
                             <p class="card-desc">High-load production management system for a manufacturing plant.</p>
+                            <div class="card-meta">
+                                <span class="card-meta-item">Role: Backend Lead</span>
+                                <span class="card-meta-item">2024</span>
+                            </div>
                             <div class="card-tags">
                                 <span class="tech-tag">Python</span>
                                 <span class="tech-tag">Django</span>
@@ -149,14 +158,18 @@
                         </a>
 
                         <!-- Card 2 -->
-                        <a href="#" class="project-card">
-                            <div class="card-bg bg-grid"></div>
+                        <a href="#" class="project-card" data-dna="business">
+                            <div class="card-bg bg-pattern-grid"></div>
                             <div class="card-header">
                                 <span class="card-type">E-COMMERCE</span>
                                 <span class="card-status active"></span>
                             </div>
                             <h3 class="card-title">Sneaker Vault</h3>
                             <p class="card-desc">Exclusive sneaker marketplace with real-time bidding.</p>
+                            <div class="card-meta">
+                                <span class="card-meta-item">Role: Full Stack</span>
+                                <span class="card-meta-item">2023</span>
+                            </div>
                             <div class="card-tags">
                                 <span class="tech-tag">FastAPI</span>
                                 <span class="tech-tag">React</span>
@@ -165,14 +178,18 @@
                         </a>
 
                         <!-- Card 3 -->
-                        <a href="#" class="project-card">
-                            <div class="card-bg bg-dots"></div>
+                        <a href="#" class="project-card" data-dna="business">
+                            <div class="card-bg bg-pattern-dots"></div>
                             <div class="card-header">
                                 <span class="card-type">BOT</span>
                                 <span class="card-status active"></span>
                             </div>
                             <h3 class="card-title">Real Estate AI</h3>
                             <p class="card-desc">Automated property parser and notification bot.</p>
+                            <div class="card-meta">
+                                <span class="card-meta-item">Role: Developer</span>
+                                <span class="card-meta-item">2023</span>
+                            </div>
                             <div class="card-tags">
                                 <span class="tech-tag">Aiogram</span>
                                 <span class="tech-tag">Selenium</span>
@@ -182,7 +199,7 @@
                 </section>
 
                 <!-- ISLAND 2: ECOSYSTEM (Blue) -->
-                <section class="island-section theme-blue" id="eco" style="display: none;">
+                <section class="island-section theme-blue" id="eco" style="display: none;" data-dna="ecosystem">
                     <div class="island-header">
                         <span class="island-title"><span class="text-blue">02 //</span> MY PRODUCTS</span>
                         <span class="island-counter">2 APPS</span>
@@ -190,14 +207,18 @@
 
                     <div class="island-grid">
                         <!-- Card 1 -->
-                        <a href="#" class="project-card">
-                            <div class="card-bg bg-grid"></div>
+                        <a href="#" class="project-card" data-dna="ecosystem">
+                            <div class="card-bg bg-pattern-grid"></div>
                             <div class="card-header">
                                 <span class="card-type">FULLSTACK</span>
                                 <span class="card-status active"></span>
                             </div>
                             <h3 class="card-title">Codex Portfolio</h3>
                             <p class="card-desc">This website. Designed as a system interface.</p>
+                            <div class="card-meta">
+                                <span class="card-meta-item">Role: Creator</span>
+                                <span class="card-meta-item">2024</span>
+                            </div>
                             <div class="card-tags">
                                 <span class="tech-tag">HTML5</span>
                                 <span class="tech-tag">CSS3</span>
@@ -206,14 +227,18 @@
                         </a>
 
                         <!-- Card 2 -->
-                        <a href="#" class="project-card">
-                            <div class="card-bg bg-grid"></div>
+                        <a href="#" class="project-card" data-dna="ecosystem">
+                            <div class="card-bg bg-pattern-grid"></div>
                             <div class="card-header">
                                 <span class="card-type">SAAS</span>
                                 <span class="card-status"></span>
                             </div>
                             <h3 class="card-title">Task Flow</h3>
                             <p class="card-desc">Minimalistic task tracker for developers.</p>
+                            <div class="card-meta">
+                                <span class="card-meta-item">Role: Founder</span>
+                                <span class="card-meta-item">In Progress</span>
+                            </div>
                             <div class="card-tags">
                                 <span class="tech-tag">Vue.js</span>
                                 <span class="tech-tag">Firebase</span>
@@ -223,7 +248,7 @@
                 </section>
 
                 <!-- ISLAND 3: R&D (Green) -->
-                <section class="island-section theme-rnd" id="rnd" style="display: none;">
+                <section class="island-section theme-rnd" id="rnd" style="display: none;" data-dna="rnd">
                     <div class="island-header">
                         <span class="island-title"><span class="text-green">03 //</span> OPEN SOURCE</span>
                         <span class="island-counter">GITHUB</span>
@@ -231,28 +256,36 @@
 
                     <div class="island-grid">
                         <!-- Card 1 -->
-                        <a href="#" class="project-card">
-                            <div class="card-bg bg-code"></div>
+                        <a href="#" class="project-card" data-dna="rnd">
+                            <div class="card-bg bg-pattern-code"></div>
                             <div class="card-header">
                                 <span class="card-type">TEMPLATE</span>
                                 <span class="card-status active"></span>
                             </div>
                             <h3 class="card-title">Django Starter</h3>
                             <p class="card-desc">Production-ready Django template with Docker & CI/CD.</p>
+                            <div class="card-meta">
+                                <span class="card-meta-item">Stars: 142</span>
+                                <span class="card-meta-item">MIT License</span>
+                            </div>
                             <div class="card-tags">
                                 <span class="tech-tag">Cookiecutter</span>
                             </div>
                         </a>
 
                         <!-- Card 2 -->
-                        <a href="#" class="project-card">
-                            <div class="card-bg bg-code"></div>
+                        <a href="#" class="project-card" data-dna="rnd">
+                            <div class="card-bg bg-pattern-code"></div>
                             <div class="card-header">
                                 <span class="card-type">LIBRARY</span>
                                 <span class="card-status active"></span>
                             </div>
                             <h3 class="card-title">Async Parser</h3>
                             <p class="card-desc">High-performance async wrapper for aiohttp.</p>
+                            <div class="card-meta">
+                                <span class="card-meta-item">Stars: 89</span>
+                                <span class="card-meta-item">Apache 2.0</span>
+                            </div>
                             <div class="card-tags">
                                 <span class="tech-tag">Python</span>
                                 <span class="tech-tag">AsyncIO</span>
@@ -262,7 +295,7 @@
                 </section>
 
                 <!-- ISLAND 4: PROTOTYPES (Purple) -->
-                <section class="island-section theme-proto" id="prototypes" style="display: none;">
+                <section class="island-section theme-proto" id="prototypes" style="display: none;" data-dna="rnd">
                     <div class="island-header">
                         <span class="island-title"><span class="text-purple">04 //</span> LAB & PROTOTYPES</span>
                         <span class="island-counter">EXPERIMENTAL</span>
@@ -270,14 +303,17 @@
 
                     <div class="island-grid">
                         <!-- Card 1 -->
-                        <a href="#" class="project-card">
-                            <div class="card-bg bg-dots"></div>
+                        <a href="#" class="project-card" data-dna="rnd">
+                            <div class="card-bg bg-pattern-dots"></div>
                             <div class="card-header">
                                 <span class="card-type">AI LAB</span>
                                 <span class="card-status"></span>
                             </div>
                             <h3 class="card-title">Neural Chat</h3>
                             <p class="card-desc">Testing local LLM integration with Telegram.</p>
+                            <div class="card-meta">
+                                <span class="card-meta-item">Status: WIP</span>
+                            </div>
                             <div class="card-tags">
                                 <span class="tech-tag">Llama</span>
                                 <span class="tech-tag">Python</span>
@@ -285,28 +321,34 @@
                         </a>
 
                         <!-- Card 2 -->
-                        <a href="#" class="project-card">
-                            <div class="card-bg bg-dots"></div>
+                        <a href="#" class="project-card" data-dna="rnd">
+                            <div class="card-bg bg-pattern-dots"></div>
                             <div class="card-header">
                                 <span class="card-type">GAME DEV</span>
                                 <span class="card-status"></span>
                             </div>
                             <h3 class="card-title">Space Shooter</h3>
                             <p class="card-desc">Simple 2D game engine written in Python.</p>
+                            <div class="card-meta">
+                                <span class="card-meta-item">Status: Archived</span>
+                            </div>
                             <div class="card-tags">
                                 <span class="tech-tag">PyGame</span>
                             </div>
                         </a>
 
                         <!-- Card 3 -->
-                        <a href="#" class="project-card">
-                            <div class="card-bg bg-dots"></div>
+                        <a href="#" class="project-card" data-dna="rnd">
+                            <div class="card-bg bg-pattern-dots"></div>
                             <div class="card-header">
                                 <span class="card-type">POC</span>
                                 <span class="card-status"></span>
                             </div>
                             <h3 class="card-title">Blockchain Vote</h3>
                             <p class="card-desc">Proof of concept for decentralized voting system.</p>
+                            <div class="card-meta">
+                                <span class="card-meta-item">Status: POC</span>
+                            </div>
                             <div class="card-tags">
                                 <span class="tech-tag">Solidity</span>
                                 <span class="tech-tag">Web3</span>
@@ -316,7 +358,7 @@
                 </section>
 
                 <!-- ISLAND 5: CONFIGS (Ghost/Grey) -->
-                <section class="island-section theme-config" id="configs" style="display: none;">
+                <section class="island-section theme-config" id="configs" style="display: none;" data-dna="rnd">
                     <div class="island-header">
                         <span class="island-title"><span class="text-ghost">05 //</span> TOOLKIT & CONFIGS</span>
                         <span class="island-counter">SETUP</span>
@@ -324,14 +366,17 @@
 
                     <div class="island-grid">
                         <!-- Card 1 -->
-                        <a href="#" class="project-card">
-                            <div class="card-bg bg-lines"></div>
+                        <a href="#" class="project-card" data-dna="rnd">
+                            <div class="card-bg bg-pattern-lines"></div>
                             <div class="card-header">
                                 <span class="card-type">CONFIG</span>
                                 <span class="card-status active"></span>
                             </div>
                             <h3 class="card-title">Nginx Hardened</h3>
                             <p class="card-desc">Secure Nginx configuration boilerplate with SSL/TLS tuning.</p>
+                            <div class="card-meta">
+                                <span class="card-meta-item">Updated: 2024</span>
+                            </div>
                             <div class="card-tags">
                                 <span class="tech-tag">Nginx</span>
                                 <span class="tech-tag">Security</span>
@@ -339,14 +384,17 @@
                         </a>
 
                         <!-- Card 2 -->
-                        <a href="#" class="project-card">
-                            <div class="card-bg bg-lines"></div>
+                        <a href="#" class="project-card" data-dna="rnd">
+                            <div class="card-bg bg-pattern-lines"></div>
                             <div class="card-header">
                                 <span class="card-type">DOTFILES</span>
                                 <span class="card-status active"></span>
                             </div>
                             <h3 class="card-title">My ZSH Setup</h3>
                             <p class="card-desc">Custom Oh-My-Zsh theme and plugins for productivity.</p>
+                            <div class="card-meta">
+                                <span class="card-meta-item">Updated: 2024</span>
+                            </div>
                             <div class="card-tags">
                                 <span class="tech-tag">Bash</span>
                                 <span class="tech-tag">Shell</span>
@@ -354,14 +402,17 @@
                         </a>
 
                         <!-- Card 3 -->
-                        <a href="#" class="project-card">
-                            <div class="card-bg bg-lines"></div>
+                        <a href="#" class="project-card" data-dna="rnd">
+                            <div class="card-bg bg-pattern-lines"></div>
                             <div class="card-header">
                                 <span class="card-type">DEVOPS</span>
                                 <span class="card-status active"></span>
                             </div>
                             <h3 class="card-title">Docker Base</h3>
                             <p class="card-desc">Optimized Dockerfiles for Python/Node apps.</p>
+                            <div class="card-meta">
+                                <span class="card-meta-item">Updated: 2024</span>
+                            </div>
                             <div class="card-tags">
                                 <span class="tech-tag">Docker</span>
                                 <span class="tech-tag">Alpine</span>

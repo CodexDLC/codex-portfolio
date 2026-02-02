@@ -1,6 +1,7 @@
 /**
  * CodexDLC Portfolio Logic
  * Handles File Tabs switching with Slide Animation
+ * Visual DNA system integration
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const emptyState = document.querySelector('.empty-state');
     const footerFile = document.querySelector('.footer-left .copyright-text');
     const tabsBar = document.querySelector('.folder-tabs-bar');
+    const breadcrumbCategory = document.getElementById('breadcrumb-category');
 
     // --- 1. INTRO ANIMATION ---
     setTimeout(() => {
@@ -18,14 +20,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 100);
 
 
-    // --- 2. TABS LOGIC ---
+    // --- 2. TABS LOGIC (Updated for new href structure) ---
     const tabMap = {
-        '#clients': { id: 'business', index: 0 },
-        '#products': { id: 'eco', index: 1 },
-        '#opensource': { id: 'rnd', index: 2 },
-        '#prototypes': { id: 'prototypes', index: 3 },
-        '#configs': { id: 'configs', index: 4 }
+        '#business': { id: 'business', index: 0, dna: 'business', category: 'CLIENTS' },
+        '#eco': { id: 'eco', index: 1, dna: 'ecosystem', category: 'PRODUCTS' },
+        '#rnd': { id: 'rnd', index: 2, dna: 'rnd', category: 'OPENSOURCE' },
+        '#prototypes': { id: 'prototypes', index: 3, dna: 'rnd', category: 'PROTOTYPES' },
+        '#configs': { id: 'configs', index: 4, dna: 'rnd', category: 'CONFIGS' }
     };
+
+    // --- 2.1 DNA & BREADCRUMB UPDATE ---
+    function updateDNAAndBreadcrumb(targetId) {
+        const data = tabMap[targetId];
+        if (!data) return;
+
+        // Update tabs bar DNA attribute
+        if (tabsBar) {
+            tabsBar.setAttribute('data-active-dna', data.dna);
+        }
+
+        // Update breadcrumb category
+        if (breadcrumbCategory) {
+            breadcrumbCategory.textContent = data.category;
+        }
+    }
 
     let currentIndex = 0;
     let isAnimating = false;
@@ -55,6 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 tab.classList.remove('active');
             }
         });
+
+        // Update DNA styling and breadcrumb
+        updateDNAAndBreadcrumb(targetId);
 
         // Animation Logic
         const currentSection = document.querySelector('.island-section.active');
@@ -217,9 +238,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
+        // Initialize DNA and breadcrumb for initial state
+        updateDNAAndBreadcrumb(hash);
+
         if (emptyState) emptyState.style.display = 'none';
 
     } else {
-        switchTab('#clients');
+        // Default to business/clients tab
+        switchTab('#business');
     }
 });

@@ -1,30 +1,77 @@
 /* src/prototype/css/portfolio.css */
-/* PORTFOLIO STYLES (Full Set: Tabs + Animations + Cards + Patterns) */
+/* PORTFOLIO STYLES - Bento Grid Evolution */
+/* Visual DNA driven, Container Query enabled */
 
-/* --- 1. FOLDER TABS BAR (Sub-Header) --- */
+/* ============================================
+   1. FOLDER NAVIGATION PANEL (Enhanced UI)
+   Higher brightness, depth, glassmorphism
+   ============================================ */
 .folder-tabs-bar {
+    --panel-bg: rgba(40, 40, 55, 0.85);
+    --panel-border: rgba(255, 255, 255, 0.08);
+    --panel-glow: var(--color-gold);
+
     width: 100%;
-    height: 45px;
-    background-color: rgba(26, 26, 34, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    height: 55px;
+
+    /* Lighter background for depth hierarchy */
+    background: var(--panel-bg);
+    border-bottom: 2px solid var(--panel-glow);
+
+    /* Glassmorphism effect */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    /* Subtle glow effect */
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.3),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset,
+        0 0 30px rgba(212, 175, 55, 0.05);
 
     /* Sticky inside layout-main */
     position: sticky;
     top: 0;
     z-index: 300;
-    backdrop-filter: blur(10px);
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 
     display: flex;
     justify-content: flex-start;
+    align-items: center;
 
     /* Animation Init State (Desktop: Slide Down) */
     transform: translateY(-100%);
-    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1),
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
 }
 
 .folder-tabs-bar.slide-down {
     transform: translateY(0);
+}
+
+/* DNA-driven panel accent colors */
+.folder-tabs-bar[data-active-dna="business"] {
+    --panel-glow: var(--color-gold);
+    border-bottom-color: var(--color-gold);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(212, 175, 55, 0.08);
+}
+
+.folder-tabs-bar[data-active-dna="ecosystem"] {
+    --panel-glow: var(--color-blue);
+    border-bottom-color: var(--color-blue);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(48, 105, 152, 0.1);
+}
+
+.folder-tabs-bar[data-active-dna="rnd"] {
+    --panel-glow: var(--color-green);
+    border-bottom-color: var(--color-green);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(39, 201, 63, 0.08);
 }
 
 .tabs-inner-container {
@@ -32,25 +79,48 @@
     height: 100%;
     display: flex;
     align-items: center;
-    padding: 0 20px;
-    gap: 20px;
+    padding: 0 25px;
+    gap: 15px;
 }
 
-/* Path Indicator */
+/* ============================================
+   1.1 BREADCRUMB PATH INDICATOR
+   SYSTEM_ROOT > PORTFOLIO > [CATEGORY]
+   ============================================ */
 .folder-path {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--color-ghost);
-    margin-right: 10px;
-    padding-right: 15px;
+    margin-right: 15px;
+    padding-right: 20px;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    white-space: nowrap;
 }
-.folder-path .icon { font-size: 1rem; }
 
-/* File Tabs */
+.folder-path .icon {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+/* Breadcrumb separator */
+.folder-path .path-sep {
+    color: var(--color-ghost);
+    opacity: 0.5;
+    margin: 0 2px;
+}
+
+/* Active category in breadcrumb */
+.folder-path .path-active {
+    color: var(--panel-glow, var(--color-gold));
+    font-weight: 700;
+}
+
+/* ============================================
+   1.2 FILE TABS (Enhanced)
+   ============================================ */
 .file-tab {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.8rem;
@@ -59,24 +129,38 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 12px;
-    border-radius: 4px;
-    transition: all 0.2s;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
     opacity: 0.7;
     border: 1px solid transparent;
+    position: relative;
 }
 
 .file-tab:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.08);
     color: var(--color-ivory);
     opacity: 1;
 }
 
 .file-tab.active {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1);
     color: var(--color-ivory);
     opacity: 1;
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Active indicator line */
+.file-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: var(--panel-glow, var(--color-gold));
+    border-radius: 1px;
 }
 
 .file-tab .icon.gold { color: var(--color-gold); }
@@ -86,28 +170,41 @@
 .file-tab .icon.ghost { color: var(--color-ghost); }
 
 
-/* --- 2. CONTENT ANIMATIONS (UNIFIED FADE) --- */
+/* ============================================
+   2. CONTENT CONTAINER & ANIMATIONS
+   ============================================ */
+/* Visual Cleanup: Remove side borders from layout-main on portfolio page */
+/* This overrides base.css border-left/right on .layout-main */
+.page-portfolio .layout-main {
+    border-left: none;
+    border-right: none;
+}
+
 .portfolio-container {
     position: relative;
     min-height: 60vh;
-    overflow: hidden;
-    padding-bottom: 60px; /* Отступ снизу */
+    overflow: visible;
+    padding-bottom: 80px;
 }
 
-/* FIX: Wrapper for sections to prevent overlap with title */
+/* Wrapper for sections */
 .islands-wrapper {
     position: relative;
     width: 100%;
-    min-height: 400px; /* Ensure height for absolute children */
+    min-height: 400px;
 }
 
 .island-section {
     display: none;
     width: 100%;
-    /* Unified transition for all devices */
     transition: opacity 0.3s ease, transform 0.3s ease;
     opacity: 0;
-    transform: translateY(20px); /* Start down */
+    transform: translateY(20px);
+
+    /* CRITICAL: Override DNA borders for sections (Visual Cleanup) */
+    border: none !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
 }
 
 .island-section.active {
@@ -119,29 +216,33 @@
 /* Animation States */
 .island-section.fade-out {
     opacity: 0;
-    transform: translateY(20px); /* Move DOWN when leaving */
+    transform: translateY(20px);
 }
 
 .island-section.fade-in {
     opacity: 0;
-    transform: translateY(20px); /* Start DOWN when entering */
+    transform: translateY(20px);
 }
 
 
-/* --- 3. ISLANDS & CARDS (Polished Styles) --- */
+/* ============================================
+   3. BENTO GRID SYSTEM FOR PORTFOLIO
+   Unlimited vertical expansion, container-query cards
+   ============================================ */
 
 .island-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding-bottom: 15px;
-    margin-bottom: 30px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 25px;
+    /* Visual Cleanup: Removed border-bottom for seamless look */
+    border-bottom: none;
 }
 
 .island-title {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--color-ivory);
@@ -152,66 +253,116 @@
 
 .island-counter {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--color-ghost);
-    background: rgba(255,255,255,0.05);
-    padding: 4px 8px;
+    background: rgba(255,255,255,0.04);
+    padding: 5px 10px;
     border-radius: 4px;
+    /* Visual Cleanup: Removed border for seamless look */
+    border: none;
 }
 
-/* Grid */
+/* ============================================
+   3.1 BENTO GRID (Portfolio Version)
+   12-column grid, unlimited rows
+   ============================================ */
 .island-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    /* 12-column base grid for flexibility */
+    grid-template-columns: repeat(12, 1fr);
+    /* Auto rows - unlimited vertical expansion */
+    grid-auto-rows: minmax(180px, auto);
+    /* Fluid gap */
+    gap: clamp(15px, 2vw, 25px);
+    width: 100%;
 }
 
-/* Card */
+/* Default card span: 4 columns (3 cards per row) */
+.island-grid .project-card {
+    grid-column: span 4;
+}
+
+/* Featured/first card can span more */
+.island-grid .project-card:first-child {
+    grid-column: span 6;
+    grid-row: span 2;
+}
+
+/* Alternate layout: every 4th card spans 6 */
+.island-grid .project-card:nth-child(4n) {
+    grid-column: span 6;
+}
+
+/* ============================================
+   3.2 PROJECT CARD (Bento-Enhanced)
+   Container Query enabled, visual cleanup
+   ============================================ */
 .project-card {
     position: relative;
-    background: rgba(30, 30, 47, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    padding: 25px;
+    /* Cleaner, lighter background */
+    background: rgba(35, 35, 50, 0.5);
+    /* Subtle border - not heavy */
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+    padding: clamp(18px, 2.5vw, 28px);
     display: flex;
     flex-direction: column;
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     overflow: hidden;
-    min-height: 280px;
-    z-index: 1; /* Чтобы контент был выше фона */
+    min-height: 0; /* Allow natural height */
+    z-index: 1;
+
+    /* Container Query: Enable for adaptive content */
+    container-type: inline-size;
+    container-name: card;
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    background: rgba(30, 30, 47, 0.7);
-    /* Используем переменную темы, заданную в секции */
-    border-color: var(--theme-color, var(--color-blue));
-    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    transform: translateY(-4px);
+    background: rgba(40, 40, 55, 0.7);
+    border-color: var(--theme-color, rgba(255, 255, 255, 0.1));
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 
-/* --- PROJECT-CARD SPECIFIC STYLES --- */
-/* Hover effects specific to .project-card (extends .card from components.css) */
+/* Hover effects */
 .project-card:hover .card-bg {
-    opacity: 0.1;
+    opacity: 0.08;
 }
 
 .project-card:hover .card-type {
     color: var(--theme-color, var(--color-blue));
-    text-shadow: 0 0 8px rgba(255,255,255,0.1);
 }
 
 .project-card:hover .card-title {
     color: #ffffff;
 }
 
-/* --- PORTFOLIO-SPECIFIC THEMES --- */
-/* Island title colors (portfolio only) */
-.theme-gold .island-title { color: var(--color-gold); }
-.theme-blue .island-title { color: var(--color-blue); }
-.theme-rnd .island-title { color: var(--color-green); }
-.theme-proto .island-title { color: #c678dd; }
-.theme-config .island-title { color: var(--color-ghost); }
+/* ============================================
+   3.3 PORTFOLIO THEME COLORS
+   DNA-driven via section data-dna attribute
+   ============================================ */
+.theme-gold { --theme-color: var(--color-gold); }
+.theme-blue { --theme-color: var(--color-blue); }
+.theme-rnd { --theme-color: var(--color-green); }
+.theme-proto { --theme-color: #c678dd; }
+.theme-config { --theme-color: var(--color-ghost); }
+
+/* Island title inherits theme color */
+.theme-gold .island-title span:first-child { color: var(--color-gold); }
+.theme-blue .island-title span:first-child { color: var(--color-blue); }
+.theme-rnd .island-title span:first-child { color: var(--color-green); }
+.theme-proto .island-title span:first-child { color: #c678dd; }
+.theme-config .island-title span:first-child { color: var(--color-ghost); }
+
+/* Counter badge - no borders, just subtle text color inherit */
+.theme-gold .island-counter { color: rgba(212, 175, 55, 0.7); }
+.theme-blue .island-counter { color: rgba(48, 105, 152, 0.8); }
+.theme-rnd .island-counter { color: rgba(39, 201, 63, 0.7); }
+.theme-proto .island-counter { color: rgba(198, 120, 221, 0.7); }
+.theme-config .island-counter { color: rgba(255, 255, 255, 0.4); }
 
 
 /* --- 4. EMPTY STATE --- */
@@ -251,48 +402,51 @@
 }
 
 
-/* --- 6. RESPONSIVE --- */
+/* ============================================
+   6. RESPONSIVE BENTO ADAPTATIONS
+   ============================================ */
 
 /* TABLET LANDSCAPE (1024px - 1279px) */
 @media (min-width: 1024px) and (max-width: 1279px) {
+    /* 8-column grid for tablet landscape */
     .island-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(8, 1fr);
+        grid-auto-rows: minmax(150px, auto);
+    }
+
+    .island-grid .project-card {
+        grid-column: span 4; /* 2 per row */
+    }
+
+    .island-grid .project-card:first-child {
+        grid-column: span 8; /* Full width featured */
+        grid-row: span 1;
+    }
+
+    .island-grid .project-card:nth-child(4n) {
+        grid-column: span 4;
     }
 
     h1 {
-        font-size: 2.2rem !important;
+        font-size: 2.2rem;
     }
 
-    /* FIX: Compact Tabs & Cards for Landscape Tablet */
     .folder-tabs-bar {
-        height: 35px !important; /* Thinner */
-        padding: 0 15px !important;
+        height: 45px;
     }
 
     .file-tab {
-        padding: 4px 10px !important;
-        font-size: 0.75rem !important;
+        padding: 6px 10px;
+        font-size: 0.75rem;
     }
 
     .project-card {
-        min-height: 200px !important; /* Shorter */
-        padding: 15px !important;
+        padding: 18px;
     }
 
-    .card-title {
-        font-size: 1.1rem !important;
-    }
-
-    .card-desc {
-        font-size: 0.8rem !important;
-        margin-bottom: 15px !important;
-    }
-
-    /* Ensure content scrolls */
     .portfolio-container {
-        overflow-y: auto !important;
-        height: calc(100vh - 60px - 35px) !important; /* Header 60px + Tabs 35px */
-        padding-bottom: 60px !important;
+        overflow-y: auto;
+        padding-bottom: 60px;
     }
 }
 
@@ -335,152 +489,196 @@
 
     /* 1. Main Layout: Grid (Content | Tabs) */
     .layout-main {
-        display: grid !important;
-        grid-template-columns: 1fr 50px !important; /* Content | Tabs */
-        gap: 0 !important;
-        padding: 0 !important;
-        overflow: hidden !important; /* Prevent body scroll */
-
-        /* FIX: Force position under header */
-        top: 50px !important;
-        margin-top: 0 !important;
-        height: calc(100vh - 50px) !important;
+        display: grid;
+        grid-template-columns: 1fr 55px; /* Content | Tabs */
+        gap: 0;
+        padding: 0;
+        overflow: hidden;
+        top: 50px;
+        margin-top: 0;
+        height: calc(100vh - 50px);
     }
 
-    /* 2. Tabs Bar: Vertical, Right Side */
+    /* 2. Tabs Bar: Vertical, Right Side - GLASSMORPHISM */
     .folder-tabs-bar {
         grid-column: 2;
         grid-row: 1;
-        width: 50px !important;
-        height: 100% !important;
-        position: sticky !important;
-        top: 0 !important;
-        right: 0 !important;
+        width: 55px;
+        height: 100%;
+        position: sticky;
+        top: 0;
+        right: 0;
 
-        flex-direction: column !important;
-        justify-content: center !important;
-        padding: 10px 0 !important;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 20px 0;
 
-        background-color: #1A1A22 !important;
-        border-bottom: none !important;
-        border-left: 1px solid rgba(255, 255, 255, 0.05) !important;
+        /* Glassmorphism: Lighter, premium feel */
+        background: rgba(45, 45, 60, 0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
 
-        overflow: hidden !important;
+        border-bottom: none;
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+
+        /* Subtle inner glow */
+        box-shadow:
+            inset 1px 0 0 rgba(255, 255, 255, 0.05),
+            -4px 0 20px rgba(0, 0, 0, 0.2);
+
+        overflow: hidden;
 
         /* Mobile Animation: Slide from Right */
-        transform: translateX(100%) !important;
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     .folder-tabs-bar.slide-down {
-        transform: translateX(0) !important;
+        transform: translateX(0);
     }
 
     .tabs-inner-container {
-        flex-direction: column !important;
-        width: 100% !important;
-        height: auto !important;
-        padding: 0 !important;
-        gap: 15px !important;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        padding: 0;
+        gap: 12px;
+        align-items: center;
     }
 
-    /* Hide Path & Text */
-    .folder-path { display: none !important; }
-    .file-tab span:last-child { display: none !important; } /* Hide text label */
+    /* Hide Path & Text on mobile */
+    .folder-path { display: none; }
+    .file-tab span:last-child { display: none; }
+    .file-tab::after { display: none; } /* Hide active indicator */
 
-    /* Tab Icons */
+    /* Tab Icons - Circular style */
     .file-tab {
-        width: 36px !important;
-        height: 36px !important;
-        padding: 0 !important;
-        justify-content: center !important;
-        border-radius: 6px !important;
-        background: transparent !important;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 10px;
+        background: transparent;
+        border: 1px solid transparent;
+        transition: all 0.2s ease;
     }
 
     .file-tab .icon {
-        font-size: 1.1rem !important;
-        margin: 0 !important;
+        font-size: 1.1rem;
+        margin: 0;
+    }
+
+    .file-tab:hover {
+        background: rgba(255, 255, 255, 0.08);
     }
 
     .file-tab.active {
-        background: rgba(255,255,255,0.08) !important;
-        border: 1px solid rgba(255,255,255,0.1) !important;
+        background: rgba(255, 255, 255, 0.1);
+        border-color: var(--theme-color, rgba(255, 255, 255, 0.15));
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
     }
 
     /* 3. Content Area: Left Side */
     .portfolio-container {
         grid-column: 1;
         grid-row: 1;
-        padding: 15px !important;
-        overflow-y: auto !important; /* Scroll content independently */
-        height: 100% !important;
-        padding-bottom: 80px !important; /* Space for footer */
-        padding-top: 20px !important;
+        padding: 15px;
+        overflow-y: auto;
+        height: 100%;
+        padding-bottom: 80px;
+        padding-top: 15px;
     }
 
-    /* Adjust Page Title */
+    /* Page Title */
     .portfolio-container > div:first-child {
-        margin-top: 0 !important;
-        margin-bottom: 15px !important;
+        margin-top: 0;
+        margin-bottom: 15px;
     }
 
     h1 {
-        font-size: 1.6rem !important;
-        margin-bottom: 5px !important;
+        font-size: 1.6rem;
+        margin-bottom: 5px;
     }
 
     .text-ghost.font-mono {
-        font-size: 0.75rem !important;
+        font-size: 0.75rem;
     }
 
-    /* Cards Default (1 Column) */
+    /* BENTO GRID: 2-Column on Mobile */
     .island-grid {
-        grid-template-columns: 1fr !important;
-        gap: 15px !important;
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: minmax(120px, auto);
+        gap: clamp(10px, 2.5vw, 15px);
+    }
+
+    /* All cards span 1 column by default */
+    .island-grid .project-card {
+        grid-column: span 1;
+    }
+
+    /* First/featured card spans full width */
+    .island-grid .project-card:first-child {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+
+    /* Remove nth-child span override for mobile */
+    .island-grid .project-card:nth-child(4n) {
+        grid-column: span 1;
     }
 
     .project-card {
-        min-height: auto !important;
-        padding: 15px !important;
+        padding: clamp(12px, 3vw, 18px);
+        border-radius: 10px;
     }
 
     .card-header {
-        margin-bottom: 10px !important;
+        margin-bottom: 8px;
     }
 
     .card-title {
-        font-size: 1.1rem !important;
-        margin-bottom: 8px !important;
+        font-size: clamp(0.9rem, 3.5cqw, 1.1rem);
+        margin-bottom: 6px;
     }
 
     .card-desc {
-        font-size: 0.8rem !important;
-        margin-bottom: 12px !important;
-        line-height: 1.4 !important;
+        font-size: 0.75rem;
+        margin-bottom: 10px;
+        line-height: 1.4;
     }
 
     .tech-tag {
-        font-size: 0.65rem !important;
-        padding: 3px 6px !important;
+        font-size: 0.6rem;
+        padding: 3px 6px;
     }
 
-    /* Animation Reset for Mobile */
+    /* Island header compact */
+    .island-header {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+
+    .island-title {
+        font-size: 0.95rem;
+    }
+
+    .island-counter {
+        font-size: 0.6rem;
+        padding: 3px 6px;
+    }
+
+    /* Animation */
     .island-section {
         transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
     .island-section.mobile-fade-in {
-        animation: fadeIn 0.4s ease forwards;
+        animation: portfolioFadeIn 0.4s ease forwards;
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
+    @keyframes portfolioFadeIn {
+        from { opacity: 0; transform: translateY(15px); }
         to { opacity: 1; transform: translateY(0); }
-    }
-
-    .island-section.active,
-    .island-section.mobile-fade-in {
-        transform: none !important;
     }
 }
 
@@ -488,23 +686,35 @@
 @media (min-width: 768px) and (max-width: 1023px) {
     /* Adjust Layout Main for 80px Header */
     .layout-main {
-        top: 80px !important;
-        height: calc(100vh - 80px) !important;
+        top: 80px;
+        height: calc(100vh - 80px);
     }
 
-    /* 2 Columns for Tablet */
+    /* 4-column grid for tablet portrait */
     .island-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 20px !important;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(140px, auto);
+        gap: 18px;
+    }
+
+    .island-grid .project-card {
+        grid-column: span 2;
+    }
+
+    .island-grid .project-card:first-child {
+        grid-column: span 4;
+    }
+
+    .island-grid .project-card:nth-child(4n) {
+        grid-column: span 2;
     }
 
     .project-card {
-        padding: 20px !important;
+        padding: 20px;
     }
 
-    /* FIX: Reduce H1 size for tablet portrait */
     h1 {
-        font-size: 2rem !important;
+        font-size: 2rem;
     }
 }
 
@@ -513,50 +723,65 @@
 /* Short Phones (< 740px) */
 @media (max-height: 740px) and (max-width: 767px) {
     .project-card {
-        padding: 12px !important;
+        padding: 10px;
     }
 
     .card-desc {
         display: -webkit-box;
-        -webkit-line-clamp: 2; /* Limit text lines */
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
 
-    .folder-tabs-bar {
-        gap: 10px !important; /* Tighter tabs */
+    .tabs-inner-container {
+        gap: 8px;
     }
 
-    /* Hide cards > 3 (Logic handled by JS, but CSS helper) */
+    .file-tab {
+        width: 36px;
+        height: 36px;
+    }
+
     .project-card.hidden-mobile {
-        display: none !important;
+        display: none;
     }
 }
 
 /* Tall Phones (> 840px) */
 @media (min-height: 841px) and (max-width: 767px) {
     .project-card {
-        padding: 20px !important;
+        padding: 18px;
     }
 
     .card-desc {
-        -webkit-line-clamp: 4; /* More text */
+        -webkit-line-clamp: 4;
     }
 }
 
 /* --- NARROW PHONES (< 400px) --- */
 @media (max-width: 400px) {
+    /* Single column for very narrow screens */
+    .island-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .island-grid .project-card,
+    .island-grid .project-card:first-child,
+    .island-grid .project-card:nth-child(4n) {
+        grid-column: span 1;
+    }
+
     .card-title {
-        font-size: 1rem !important;
+        font-size: 0.95rem;
     }
 
     .card-type {
-        font-size: 0.6rem !important;
+        font-size: 0.6rem;
     }
 
     .tech-tag {
-        font-size: 0.6rem !important;
-        padding: 2px 5px !important;
+        font-size: 0.55rem;
+        padding: 2px 5px;
     }
 
     .card-header {

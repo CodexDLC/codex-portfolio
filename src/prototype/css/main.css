@@ -625,7 +625,8 @@
     grid-template-columns: repeat(12, 1fr);
     /* Adaptive rows based on viewport height */
     grid-auto-rows: minmax(120px, 1fr);
-    gap: clamp(16px, 2vh, 32px);
+    /* Fluid spacing: grows proportionally with viewport */
+    gap: clamp(10px, 2.5vw, 30px);
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
@@ -1315,30 +1316,46 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Bento Grid: адаптация для мобилки (одна колонка) */
+    /* Bento Grid: Mobile 2-column layout */
     .bento-grid {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-        padding: 0 10px !important;
+        display: grid;
+        /* 2-column grid for mobile */
+        grid-template-columns: repeat(2, 1fr);
+        /* Fluid spacing that grows with viewport */
+        gap: clamp(10px, 2.5vw, 30px);
+        padding: 0 clamp(10px, 2.5vw, 20px);
     }
 
-    /* Сброс span-классов на мобилке */
-    .bento-grid .col-span-4,
+    /* Priority items span full width on mobile */
+    .bento-grid .bento-item.priority,
+    .bento-grid .bento-item[data-priority="high"],
+    .bento-grid .bento-item.row-span-2,
+    .bento-grid .bento-item.theme-green {
+        grid-column: span 2;
+    }
+
+    /* Standard items take 1 column */
+    .bento-grid .col-span-4 {
+        grid-column: span 1;
+    }
+
+    /* Featured/Hero cards span full width */
     .bento-grid .col-span-8,
     .bento-grid .col-span-6,
     .bento-grid .col-span-12 {
-        grid-column: span 1 !important;
-    }
-    .bento-grid .row-span-2 {
-        grid-row: span 1 !important;
+        grid-column: span 2;
     }
 
-    /* Компактные карточки на мобилке */
+    /* Row span reset for mobile (no multi-row) */
+    .bento-grid .row-span-2 {
+        grid-row: span 1;
+    }
+
+    /* Compact cards on mobile with fluid padding */
     .bento-grid .bento-item {
-        min-height: 100px !important;
-        padding: 15px !important;
-        border-radius: 10px !important;
+        min-height: 100px;
+        padding: clamp(12px, 3vw, 20px);
+        border-radius: clamp(8px, 2vw, 12px);
     }
 
     /* СТИЛИ ДЛЯ КАРТОЧЕК ПОРТАЛОВ */

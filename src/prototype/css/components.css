@@ -109,6 +109,7 @@
 /* ============================================
    3. CARD COMPONENT (Universal card style)
    Used in: bento grid, project cards, tiles
+   Container Query enabled for adaptive content
    ============================================ */
 .card {
     position: relative;
@@ -124,6 +125,10 @@
     overflow: hidden;
 
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    /* Container Query: Enable container for adaptive content */
+    container-type: inline-size;
+    container-name: card;
 }
 
 .card:hover {
@@ -174,7 +179,8 @@
 
 /* Card content */
 .card-title {
-    font-size: 1.2rem;
+    /* Fluid typography with container queries */
+    font-size: clamp(1rem, 4cqw, 1.4rem);
     font-weight: 700;
     color: var(--color-ivory);
     margin-bottom: 8px;
@@ -249,6 +255,236 @@
 .theme-blue .card-type { color: var(--color-blue); }
 .theme-green .card-type { color: var(--color-green); }
 .theme-purple .card-type { color: #c678dd; }
+
+/* ============================================
+   4.1 CONTAINER QUERY ADAPTIVE SLOTS
+   Content adapts based on card container width
+   ============================================ */
+
+/* Small cards (< 280px): Compact mode */
+@container card (max-width: 279px) {
+    .card-content {
+        padding: 10px;
+    }
+
+    .card-desc {
+        display: none; /* Hide description on very small cards */
+    }
+
+    .tech-stack-grid .tech-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 0.6rem;
+        padding: 6px 4px;
+    }
+
+    .card-title {
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+    }
+
+    .card-type {
+        font-size: 0.6rem;
+    }
+
+    .tags-list {
+        gap: 4px;
+    }
+
+    .tag, .tech-tag {
+        font-size: 0.55rem;
+        padding: 2px 4px;
+    }
+}
+
+/* Medium cards (280px - 450px): Standard mode */
+@container card (min-width: 280px) and (max-width: 449px) {
+    .card-desc {
+        display: block;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        overflow: hidden;
+    }
+
+    .card-meta {
+        display: none; /* Hide extended metadata */
+    }
+}
+
+/* Large cards (> 450px): Full mode */
+@container card (min-width: 450px) {
+    .card-desc {
+        display: block;
+        -webkit-line-clamp: unset;
+    }
+
+    .card-meta {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        color: var(--color-ghost);
+    }
+
+    .card-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .tags-list {
+        gap: 8px;
+    }
+
+    .tag, .tech-tag {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+}
+
+/* ============================================
+   4.2 VISUAL DNA SYSTEM (Data-Driven Theming)
+   Apply via data-dna="business|ecosystem|rnd"
+   ============================================ */
+
+/* DNA: BUSINESS (Gold - Structured, Professional) */
+[data-dna="business"] {
+    --dna-color: var(--color-gold);
+    --dna-glow: rgba(212, 175, 55, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: linear-gradient(
+        135deg,
+        rgba(212, 175, 55, 0.05) 0%,
+        rgba(30, 30, 47, 0.4) 100%
+    );
+}
+
+[data-dna="business"]:hover {
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow:
+        0 8px 32px rgba(212, 175, 55, 0.15),
+        0 0 0 1px rgba(212, 175, 55, 0.1);
+    transform: translateY(-4px) scale(1.02);
+}
+
+[data-dna="business"] .card-type {
+    color: var(--color-gold);
+}
+
+[data-dna="business"] .card-status.active {
+    background-color: var(--color-gold);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+}
+
+/* DNA: ECOSYSTEM (Blue - Connected, Modern) */
+[data-dna="ecosystem"] {
+    --dna-color: var(--color-blue);
+    --dna-glow: rgba(48, 105, 152, 0.3);
+    border: 1px solid rgba(48, 105, 152, 0.2);
+    background: rgba(30, 30, 47, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Animated SVG grid pattern for ecosystem cards */
+[data-dna="ecosystem"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(rgba(48, 105, 152, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(48, 105, 152, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: gridPulse 4s ease-in-out infinite;
+    opacity: 0.5;
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes gridPulse {
+    0%, 100% { opacity: 0.3; background-size: 30px 30px; }
+    50% { opacity: 0.6; background-size: 32px 32px; }
+}
+
+[data-dna="ecosystem"]:hover {
+    border-color: rgba(48, 105, 152, 0.5);
+    box-shadow:
+        0 8px 32px rgba(48, 105, 152, 0.2),
+        inset 0 0 30px rgba(48, 105, 152, 0.05);
+    transform: translateY(-4px);
+}
+
+[data-dna="ecosystem"]:hover::before {
+    animation-play-state: paused;
+    opacity: 0.8;
+}
+
+[data-dna="ecosystem"] .card-type {
+    color: var(--color-blue);
+}
+
+[data-dna="ecosystem"] .card-status.active {
+    background-color: var(--color-blue);
+    box-shadow: 0 0 8px rgba(48, 105, 152, 0.6);
+}
+
+/* DNA: R&D (Gray/Green - Experimental, Technical) */
+[data-dna="rnd"] {
+    --dna-color: var(--color-green);
+    --dna-glow: rgba(39, 201, 63, 0.2);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    background: rgba(30, 30, 47, 0.5);
+    position: relative;
+}
+
+/* Noise texture overlay for R&D cards */
+[data-dna="rnd"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    z-index: -1;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+[data-dna="rnd"]:hover {
+    border-color: rgba(39, 201, 63, 0.4);
+    border-style: solid;
+    box-shadow: 0 8px 24px rgba(39, 201, 63, 0.1);
+    transform: translateY(-4px);
+}
+
+/* Scanline/glitch effect on hover for R&D */
+[data-dna="rnd"]:hover .card-title {
+    animation: glitchText 0.3s ease-in-out;
+}
+
+@keyframes glitchText {
+    0%, 100% { transform: translateX(0); opacity: 1; }
+    20% { transform: translateX(-2px); opacity: 0.8; }
+    40% { transform: translateX(2px); opacity: 0.9; }
+    60% { transform: translateX(-1px); opacity: 0.85; }
+    80% { transform: translateX(1px); }
+}
+
+[data-dna="rnd"] .card-type {
+    color: var(--color-green);
+}
+
+[data-dna="rnd"] .card-status.active {
+    background-color: var(--color-green);
+    box-shadow: 0 0 8px rgba(39, 201, 63, 0.6);
+}
 
 /* ============================================
    5. CARD BACKGROUND PATTERNS
@@ -363,10 +599,34 @@
     transform: translateY(-1px);
 }
 
-.tags-list {
+/* Tags container - Django-ready flex wrapper */
+.tags-list,
+.card-tags {
     display: flex;
     gap: 6px;
     flex-wrap: wrap;
+    align-items: flex-start;
+    margin-top: auto; /* Push to bottom of card */
+}
+
+/* Tech tag variant (used in project cards) */
+.tech-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--color-ghost);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.tech-tag:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-ivory);
+    border-color: var(--theme-color, var(--color-ghost));
 }
 
 /* ============================================
