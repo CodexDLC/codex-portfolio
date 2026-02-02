@@ -13,6 +13,7 @@
     <!-- Styles (Paths from root) -->
     <link rel="stylesheet" href="src/prototype/css/base.css">
     <link rel="stylesheet" href="src/prototype/css/base-adaptive.css">
+    <link rel="stylesheet" href="src/prototype/css/components.css">
     <link rel="stylesheet" href="src/prototype/css/main.css">
 </head>
 <body>
@@ -149,50 +150,50 @@
 
                 <!-- MOBILE: Simplified Pipeline Animation -->
                 <div class="mobile-init-screen">
-                    <svg class="mobile-pipeline-svg" viewBox="0 0 300 480" preserveAspectRatio="xMidYMid meet">
+                    <svg class="mobile-pipeline-svg" viewBox="0 0 300 420" preserveAspectRatio="xMidYMid meet">
                         <!-- TOP: Architecture Wide Block -->
                         <g class="mp-node mp-arch">
-                            <rect x="30" y="20" width="240" height="45" rx="6" class="mp-rect-main"/>
-                            <text x="150" y="48" class="mp-text-main">ARCHITECTURE</text>
+                            <rect x="30" y="10" width="240" height="40" rx="6" class="mp-rect-main"/>
+                            <text x="150" y="35" class="mp-text-main">ARCHITECTURE</text>
                         </g>
 
                         <!-- Lines from Architecture to 3 icons -->
-                        <path class="mp-line mp-line-1a" d="M 60,65 L 60,100"/>
-                        <path class="mp-line mp-line-1b" d="M 150,65 L 150,100"/>
-                        <path class="mp-line mp-line-1c" d="M 240,65 L 240,100"/>
+                        <path class="mp-line mp-line-1a" d="M 60,50 L 60,80"/>
+                        <path class="mp-line mp-line-1b" d="M 150,50 L 150,80"/>
+                        <path class="mp-line mp-line-1c" d="M 240,50 L 240,80"/>
 
                         <!-- 3 Icons Row -->
                         <g class="mp-node mp-icon-1">
-                            <rect x="30" y="100" width="60" height="60" rx="8" class="mp-rect-icon gold"/>
-                            <text x="60" y="135" class="mp-text-icon">UI</text>
+                            <rect x="30" y="80" width="60" height="60" rx="8" class="mp-rect-icon gold"/>
+                            <text x="60" y="115" class="mp-text-icon">UI</text>
                         </g>
                         <g class="mp-node mp-icon-2">
-                            <rect x="120" y="100" width="60" height="60" rx="8" class="mp-rect-icon blue"/>
-                            <text x="150" y="135" class="mp-text-icon">API</text>
+                            <rect x="120" y="80" width="60" height="60" rx="8" class="mp-rect-icon blue"/>
+                            <text x="150" y="115" class="mp-text-icon">API</text>
                         </g>
                         <g class="mp-node mp-icon-3">
-                            <rect x="210" y="100" width="60" height="60" rx="8" class="mp-rect-icon green"/>
-                            <text x="240" y="135" class="mp-text-icon">DB</text>
+                            <rect x="210" y="80" width="60" height="60" rx="8" class="mp-rect-icon green"/>
+                            <text x="240" y="115" class="mp-text-icon">DB</text>
                         </g>
 
                         <!-- Lines from icons converging to TOP of diamond -->
-                        <path class="mp-line mp-line-2" d="M 60,160 L 60,200 L 150,240"/>
-                        <path class="mp-line mp-line-3" d="M 150,160 L 150,240"/>
-                        <path class="mp-line mp-line-4" d="M 240,160 L 240,200 L 150,240"/>
+                        <path class="mp-line mp-line-2" d="M 60,140 L 60,180 L 150,210"/>
+                        <path class="mp-line mp-line-3" d="M 150,140 L 150,210"/>
+                        <path class="mp-line mp-line-4" d="M 240,140 L 240,180 L 150,210"/>
 
                         <!-- CI/CD Diamond -->
                         <g class="mp-node mp-merge">
-                            <polygon points="150,240 185,280 150,320 115,280" class="mp-diamond"/>
-                            <text x="150" y="285" class="mp-text-icon">CI/CD</text>
+                            <polygon points="150,210 185,250 150,290 115,250" class="mp-diamond"/>
+                            <text x="150" y="255" class="mp-text-icon">CI/CD</text>
                         </g>
 
                         <!-- Line from diamond to Product -->
-                        <path class="mp-line mp-line-5" d="M 150,320 L 150,360"/>
+                        <path class="mp-line mp-line-5" d="M 150,290 L 150,330"/>
 
                         <!-- Final Product Block -->
                         <g class="mp-node mp-product">
-                            <rect x="50" y="360" width="200" height="50" rx="6" class="mp-rect-product"/>
-                            <text x="150" y="390" class="mp-text-main">PRODUCT</text>
+                            <rect x="50" y="330" width="200" height="50" rx="6" class="mp-rect-product"/>
+                            <text x="150" y="360" class="mp-text-main">PRODUCT</text>
                         </g>
                     </svg>
 
@@ -226,49 +227,14 @@
                     </div>
                 </div>
 
-                <!-- MOBILE SEPARATOR (Loading → Ready) -->
-                <div class="mobile-separator">
-                    <span class="separator-text">// LOADING_MODULES<span class="dots"></span></span>
-                    <div class="separator-line"></div>
-                </div>
-
-                    <!-- MOBILE: Windows 8 Style Tiles Grid -->
-                    <div class="mobile-tiles-grid">
-                        <!-- Wide tile: Clients (gold) -->
-                        <a href="src/prototype/portfolio.html#business" class="mobile-tile tile-wide tile-gold">
-                            <span class="tile-label">01 // CLIENTS</span>
-                            <h2 class="tile-title">Client Solutions</h2>
-                            <span class="tile-icon">PY</span>
-                        </a>
-
-                        <!-- Wide tile: Products (blue) -->
-                        <a href="src/prototype/portfolio.html#eco" class="mobile-tile tile-wide tile-blue">
-                            <span class="tile-label">02 // PRODUCTS</span>
-                            <h2 class="tile-title">My Products</h2>
-                            <span class="tile-icon">PY</span>
-                        </a>
-
-                        <!-- Square tile: Open Source (green) -->
-                        <a href="src/prototype/portfolio.html#rnd" class="mobile-tile tile-square tile-green">
-                            <span class="tile-label">03 // OSS</span>
-                            <h2 class="tile-title">Open Source</h2>
-                            <span class="tile-icon">GIT</span>
-                        </a>
-
-                        <!-- Square tile: Prototypes (purple) -->
-                        <a href="src/prototype/portfolio.html#prototypes" class="mobile-tile tile-square tile-purple">
-                            <span class="tile-label">04 // LAB</span>
-                            <h2 class="tile-title">Prototypes</h2>
-                            <span class="tile-icon">EXP</span>
-                        </a>
-
-                        <!-- Wide tile: Configs (ghost) -->
-                        <a href="src/prototype/portfolio.html#configs" class="mobile-tile tile-wide tile-ghost">
-                            <span class="tile-label">05 // TOOLKIT</span>
-                            <h2 class="tile-title">Configs & Setup</h2>
-                            <span class="tile-icon">YML</span>
-                        </a>
+                <!-- MOBILE: Scroll Indicator (стрелочки вниз) -->
+                <div class="mobile-scroll-indicator mobile-only">
+                    <span class="scroll-text">// EXPLORE</span>
+                    <div class="scroll-arrows">
+                        <span class="arrow">▼</span>
+                        <span class="arrow">▼</span>
                     </div>
+                </div>
 
                 </div><!-- /hero-main-content -->
 
@@ -312,55 +278,57 @@
                 <!-- BENTO GRID: Projects & Skills -->
                 <div class="bento-grid">
                     <!-- Item 1: Featured Project (Large) -->
-                    <div class="bento-item col-span-8 row-span-2 dna-business">
-                        <div class="bento-header">
-                            <span class="font-mono text-gold text-sm">01 // FEATURED</span>
-                            <h3 class="text-xl mt-2">Enterprise CRM Core</h3>
+                    <a href="src/prototype/portfolio.html#business" class="bento-item card col-span-8 row-span-2 theme-gold">
+                        <div class="card-bg bg-pattern-grid"></div>
+                        <div class="card-header">
+                            <span class="card-type">01 // FEATURED</span>
+                            <span class="card-status active"></span>
                         </div>
-                        <div class="bento-content mt-4">
-                            <p class="text-ghost text-sm">
-                                High-load architecture for fintech sector.
-                                Microservices, Kafka, React.
-                            </p>
+                        <h3 class="card-title">Enterprise CRM Core</h3>
+                        <p class="card-desc">High-load architecture for fintech sector. Microservices, Kafka, React.</p>
+                        <div class="tags-list">
+                            <span class="tag">Python</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">PostgreSQL</span>
                         </div>
-                        <div class="bento-footer mt-auto pt-4 flex gap-2">
-                            <span class="badge">Python</span>
-                            <span class="badge">Docker</span>
-                        </div>
-                    </div>
+                    </a>
 
                     <!-- Item 2: Stack (Small) -->
-                    <div class="bento-item col-span-4 dna-rnd">
-                        <div class="bento-header">
-                            <span class="font-mono text-blue text-sm">02 // STACK</span>
+                    <a href="src/prototype/portfolio.html#opensource" class="bento-item card col-span-4 theme-blue">
+                        <div class="card-bg bg-pattern-code"></div>
+                        <div class="card-header">
+                            <span class="card-type">02 // STACK</span>
+                            <span class="card-status active"></span>
                         </div>
-                        <div class="tech-stack-grid mt-4">
+                        <h3 class="card-title">Tech Arsenal</h3>
+                        <div class="tech-stack-grid">
                             <div class="tech-icon">PY</div>
                             <div class="tech-icon">JS</div>
                             <div class="tech-icon">GO</div>
                             <div class="tech-icon">K8S</div>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- Item 3: Philosophy (Medium) -->
-                    <div class="bento-item col-span-4 dna-eco">
-                        <div class="bento-header">
-                            <span class="font-mono text-ghost text-sm">03 // METHOD</span>
-                            <h3 class="text-lg mt-2">Clean Architecture</h3>
+                    <a href="src/prototype/experience.html" class="bento-item card col-span-4 theme-ghost">
+                        <div class="card-bg bg-pattern-lines"></div>
+                        <div class="card-header">
+                            <span class="card-type">03 // METHOD</span>
+                            <span class="card-status"></span>
                         </div>
-                        <p class="text-ghost text-sm mt-2">
-                            Code is read more often than it is written.
-                        </p>
-                    </div>
+                        <h3 class="card-title">Clean Architecture</h3>
+                        <p class="card-desc">Code is read more often than it is written.</p>
+                    </a>
 
                     <!-- Item 4: Contact Call (Medium) -->
-                    <a href="src/prototype/contact.html" class="bento-item col-span-8 bg-gradient-blue">
-                        <div class="flex items-center justify-between w-full h-full">
-                            <div>
-                                <span class="font-mono text-ivory text-sm">04 // HIRE ME</span>
-                                <h3 class="text-2xl mt-2">Let's Build Together -></h3>
-                            </div>
+                    <a href="src/prototype/contact.html" class="bento-item card col-span-8 theme-green">
+                        <div class="card-bg bg-pattern-dots"></div>
+                        <div class="card-header">
+                            <span class="card-type">04 // HIRE ME</span>
+                            <span class="card-status active"></span>
                         </div>
+                        <h3 class="card-title">Let's Build Together -></h3>
+                        <p class="card-desc">Open for opportunities. Python, Architecture, DevOps.</p>
                     </a>
                 </div><!-- /bento-grid -->
 

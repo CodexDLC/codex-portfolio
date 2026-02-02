@@ -348,16 +348,28 @@
     .layout-footer { bottom: 0; }
 
     .layout-main {
+        position: relative !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        transform: none !important;
         width: 100% !important;
         max-width: 100% !important;
-        margin: 0 !important;
         border: none !important;
         box-shadow: none !important;
-        /* Отступы под фиксированные хедер и футер */
-        margin-top: 60px !important;
+
+        /* Стандартные отступы под fixed header/footer */
+        margin-top: 50px !important;
         margin-bottom: 60px !important;
-        padding: 20px !important;
-        min-height: auto;
+
+        /* Базовый внутренний padding (страницы могут переопределить) */
+        padding: 10px !important;
+
+        /* Минимальная высота контента */
+        min-height: calc(100vh - 110px);
+
+        /* Разрешаем скролл по умолчанию */
+        overflow: visible !important;
     }
 
     /* Б. ХЕДЕР (Лого + Бургер) */

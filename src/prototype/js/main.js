@@ -237,17 +237,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Показываем мобильный separator сразу с READY статусом
         showMobileSeparator();
 
-        // На мобильных показываем tiles grid
-        if (isMobile) {
-            const mobileTilesGrid = document.querySelector('.mobile-tiles-grid');
-            if (mobileTilesGrid) {
-                mobileTilesGrid.classList.add('show-tiles');
-            }
-        } else {
-            // Показываем мобильные порталы (для совместимости)
-            showMobilePortals();
-        }
-
         // Запускаем анимацию логотипа (функция из base.js)
         if (typeof typeSlogan === 'function') {
             typeSlogan();
@@ -261,27 +250,47 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- MOBILE PIPELINE ANIMATION ---
     const runMobilePipelineAnimation = () => {
         const mobileInitScreen = document.querySelector('.mobile-init-screen');
-        const mobileTilesGrid = document.querySelector('.mobile-tiles-grid');
-        const mpNodes = document.querySelectorAll('.mp-node');
-        const mpLines = document.querySelectorAll('.mp-line');
 
         if (!mobileInitScreen) return;
 
-        // Animation sequence timing (ms)
+        // Animation sequence timing (ms) - synced with bento items like desktop
         const sequence = [
+            // 1. Architecture block appears
             { delay: 300, action: () => document.querySelector('.mp-arch')?.classList.add('visible') },
-            { delay: 600, action: () => document.querySelector('.mp-line-1')?.classList.add('drawn') },
-            { delay: 900, action: () => document.querySelector('.mp-icon-1')?.classList.add('visible') },
-            { delay: 1100, action: () => document.querySelector('.mp-icon-2')?.classList.add('visible') },
-            { delay: 1300, action: () => document.querySelector('.mp-icon-3')?.classList.add('visible') },
+            // 2. Lines from arch to 3 icons
+            { delay: 600, action: () => {
+                document.querySelector('.mp-line-1a')?.classList.add('drawn');
+                document.querySelector('.mp-line-1b')?.classList.add('drawn');
+                document.querySelector('.mp-line-1c')?.classList.add('drawn');
+            }},
+            // 3. 3 icons appear + trigger bento items (synced like desktop)
+            { delay: 900, action: () => {
+                document.querySelector('.mp-icon-1')?.classList.add('visible');
+                showBentoItem(1); // Stack
+            }},
+            { delay: 1100, action: () => {
+                document.querySelector('.mp-icon-2')?.classList.add('visible');
+                showBentoItem(2); // Method
+            }},
+            { delay: 1300, action: () => {
+                document.querySelector('.mp-icon-3')?.classList.add('visible');
+                showBentoItem(0); // Featured
+            }},
+            // 4. Lines converge to diamond top
             { delay: 1600, action: () => {
                 document.querySelector('.mp-line-2')?.classList.add('drawn');
                 document.querySelector('.mp-line-3')?.classList.add('drawn');
                 document.querySelector('.mp-line-4')?.classList.add('drawn');
             }},
+            // 5. CI/CD diamond appears
             { delay: 2200, action: () => document.querySelector('.mp-merge')?.classList.add('visible') },
+            // 6. Line to product
             { delay: 2600, action: () => document.querySelector('.mp-line-5')?.classList.add('drawn') },
-            { delay: 3000, action: () => document.querySelector('.mp-product')?.classList.add('visible') },
+            // 7. Product block appears + Contact bento
+            { delay: 3000, action: () => {
+                document.querySelector('.mp-product')?.classList.add('visible');
+                showBentoItem(3); // Contact
+            }},
         ];
 
         // Run animation sequence
@@ -297,25 +306,23 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                 mobileInitScreen.classList.add('hidden');
 
-                // Show final screen (hero + tiles)
+                // Show final screen (hero)
                 if (finalScreen) {
                     finalScreen.style.setProperty('display', 'block', 'important');
                     finalScreen.style.opacity = "1";
                 }
 
-                // Show tiles grid
-                if (mobileTilesGrid) {
-                    mobileTilesGrid.classList.add('show-tiles');
+                // Show scroll indicator (стрелочки вниз к bento)
+                const scrollIndicator = document.querySelector('.mobile-scroll-indicator');
+                if (scrollIndicator) {
+                    scrollIndicator.classList.add('show');
                 }
-
-                // Show separator
-                showMobileSeparator();
 
                 // Update status after delay
                 setTimeout(() => {
                     updateSeparatorStatus();
                     updateModulesStatus();
-                }, 500);
+                }, 800);
 
                 // Start logo animation
                 if (typeof typeSlogan === 'function') {

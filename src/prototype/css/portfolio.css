@@ -182,168 +182,28 @@
     box-shadow: 0 15px 30px rgba(0,0,0,0.3);
 }
 
-/* --- CARD BACKGROUND PATTERNS --- */
-.card-bg {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1; /* Под контентом */
-    opacity: 0.05; /* Едва заметно */
-    transition: opacity 0.3s;
-    pointer-events: none;
-}
-
+/* --- PROJECT-CARD SPECIFIC STYLES --- */
+/* Hover effects specific to .project-card (extends .card from components.css) */
 .project-card:hover .card-bg {
-    opacity: 0.1; /* Чуть ярче при ховере */
+    opacity: 0.1;
 }
 
-/* Pattern 1: Grid (E-Commerce, SaaS) */
-.bg-grid {
-    background-image:
-        linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px);
-    background-size: 20px 20px;
-}
-
-/* Pattern 2: Dots (AI, Bots) */
-.bg-dots {
-    background-image: radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
-    background-size: 15px 15px;
-}
-
-/* Pattern 3: Circuit / Lines (DevOps, Config) */
-.bg-lines {
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 10px,
-        rgba(255,255,255,0.1) 10px,
-        rgba(255,255,255,0.1) 11px
-    );
-}
-
-/* Pattern 4: Code / Hex (Core, Libs) */
-.bg-code {
-    /* Имитация строк кода */
-    background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 19px,
-        rgba(255,255,255,0.05) 20px
-    );
-}
-
-
-/* Card Header */
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 15px;
-}
-
-.card-type {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--color-ghost);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: color 0.3s;
-}
-
-/* При ховере на карточку тип подсвечивается цветом темы */
 .project-card:hover .card-type {
     color: var(--theme-color, var(--color-blue));
     text-shadow: 0 0 8px rgba(255,255,255,0.1);
 }
 
-.card-status {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: var(--color-ghost);
-    box-shadow: 0 0 5px rgba(255,255,255,0.2);
-}
-
-/* Card Content */
-.card-title {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--color-ivory);
-    margin-bottom: 10px;
-    line-height: 1.2;
-    transition: color 0.3s;
-}
-
-/* При ховере заголовок становится чуть ярче */
 .project-card:hover .card-title {
     color: #ffffff;
 }
 
-.card-desc {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    color: #A0A0B0; /* Чуть светлее ghost */
-    line-height: 1.5;
-    margin-bottom: 25px;
-    flex-grow: 1;
-}
-
-/* Card Footer (Tags) */
-.card-tags {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.tech-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--color-ghost);
-    background: rgba(255,255,255,0.05);
-    padding: 5px 10px;
-    border-radius: 4px;
-    border: 1px solid rgba(255,255,255,0.05);
-    transition: all 0.2s;
-}
-
-/* Hover Effect for Tags */
-.tech-tag:hover {
-    background: rgba(255,255,255,0.1);
-    color: var(--color-ivory);
-    /* Теперь цвет берется из родительской секции */
-    border-color: var(--theme-color, var(--color-ghost));
-    transform: translateY(-1px);
-}
-
-/* Theme Accents (Setting Variables) */
-.text-purple { color: #c678dd; }
-.text-green { color: var(--color-green); }
-
-/* Business (Gold) */
-.theme-gold { --theme-color: var(--color-gold); }
-.theme-gold .island-title { color: var(--theme-color); }
-.theme-gold .card-status.active { background-color: var(--theme-color); box-shadow: 0 0 8px rgba(255, 215, 0, 0.4); }
-
-/* Ecosystem (Blue) */
-.theme-blue { --theme-color: var(--color-blue); }
-.theme-blue .island-title { color: var(--theme-color); }
-.theme-blue .card-status.active { background-color: var(--theme-color); box-shadow: 0 0 8px rgba(97, 175, 239, 0.4); }
-
-/* R&D (Green) */
-.theme-rnd { --theme-color: var(--color-green); }
-.theme-rnd .island-title { color: var(--theme-color); }
-.theme-rnd .card-status.active { background-color: var(--theme-color); box-shadow: 0 0 8px rgba(152, 195, 121, 0.4); }
-
-/* Prototypes (Purple) */
-.theme-proto { --theme-color: #c678dd; }
-.theme-proto .island-title { color: var(--theme-color); }
-.theme-proto .card-status.active { background-color: var(--theme-color); box-shadow: 0 0 8px rgba(198, 120, 221, 0.4); }
-
-/* Configs (Ghost) */
-.theme-config { --theme-color: var(--color-ghost); }
-.theme-config .island-title { color: var(--theme-color); }
-.theme-config .card-status.active { background-color: var(--theme-color); box-shadow: 0 0 8px rgba(255, 255, 255, 0.3); }
+/* --- PORTFOLIO-SPECIFIC THEMES --- */
+/* Island title colors (portfolio only) */
+.theme-gold .island-title { color: var(--color-gold); }
+.theme-blue .island-title { color: var(--color-blue); }
+.theme-rnd .island-title { color: var(--color-green); }
+.theme-proto .island-title { color: #c678dd; }
+.theme-config .island-title { color: var(--color-ghost); }
 
 
 /* --- 4. EMPTY STATE --- */
