@@ -17,6 +17,14 @@
 
     display: flex;
     justify-content: flex-start;
+
+    /* Animation Init State (Desktop: Slide Down) */
+    transform: translateY(-100%);
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.folder-tabs-bar.slide-down {
+    transform: translateY(0);
 }
 
 .tabs-inner-container {
@@ -358,6 +366,13 @@
         border-left: 1px solid rgba(255, 255, 255, 0.05) !important;
 
         overflow: hidden !important;
+
+        /* Mobile Animation: Slide from Right */
+        transform: translateX(100%) !important;
+    }
+
+    .folder-tabs-bar.slide-down {
+        transform: translateX(0) !important;
     }
 
     .tabs-inner-container {
