@@ -1,5 +1,5 @@
 # Секреты и ключи (Критично!)
-.env
+src/backend/.env
 *.env
 secrets.py
 credentials.json
