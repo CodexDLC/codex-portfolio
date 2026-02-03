@@ -1,0 +1,31 @@
+# Секреты и ключи (Критично!)
+.env
+*.env
+secrets.py
+credentials.json
+
+# Виртуальное окружение (ИИ не нужно читать тысячи либ)
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Базы данных (Не даем ИИ пытаться прочитать бинарные файлы)
+*.db
+*.sqlite3
+postgres_data/
+redis_data/
+
+# Логи и временные файлы
+*.log
+logs/
+tmp/
+.pytest_cache/
+.ruff_cache/
+
+# Инфраструктура
+.git/
+node_modules/
+dist/
+build/

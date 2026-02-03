@@ -1,0 +1,115 @@
+# 🏗️ DATA SCHEMA: PROJECT
+
+Этот документ описывает структуру данных для сущности `Project`, которая будет использоваться в базе
+данных и API портфолио.
+
+## 1. CLASS DEFINITION (Python / Pydantic)
+
+```python
+from typing import List, Optional
+from enum import Enum
+from pydantic import BaseModel
+
+class ProjectSection(str, Enum):
+    CLIENTS = "clients"       # Коммерческие заказы
+    PRODUCTS = "products"     # Свои продукты / SaaS
+    OPENSOURCE = "opensource" # Библиотеки / Open Source
+    PROTOTYPES = "prototypes" # Лаборатория / Эксперименты
+    CONFIGS = "configs"       # Конфиги / DevOps / Dotfiles
+
+class ProjectType(str, Enum):
+    # Core Dev
+    FULLSTACK = "FULLSTACK"
+    BACKEND = "BACKEND"
+    FRONTEND = "FRONTEND"
+    API = "API"
+    BOT = "BOT"
+
+    # Business
+    ERP = "ERP SYSTEM"
+    ECOMMERCE = "E-COMMERCE"
+    SAAS = "SAAS"
+    LANDING = "LANDING"
+    MOBILE = "MOBILE APP"
+
+    # Ops / Libs
+    LIBRARY = "LIBRARY"
+    FRAMEWORK = "FRAMEWORK"
+    TEMPLATE = "TEMPLATE"
+    CLI = "CLI TOOL"
+    DEVOPS = "DEVOPS"
+    CONFIG = "CONFIG"
+    DOTFILES = "DOTFILES"
+    SCRIPT = "SCRIPT"
+
+    # Lab
+    POC = "POC"
+    AI = "AI LAB"
+    GAMEDEV = "GAME DEV"
+    UIKIT = "UI KIT"
+
+class ProjectStatus(str, Enum):
+    ACTIVE = "active"           # Зеленый (В работе / Поддержка)
+    COMPLETED = "completed"     # Синий (Завершен)
+    ARCHIVED = "archived"       # Серый (Архив)
+    DEVELOPMENT = "development" # Желтый (В разработке)
+
+class Project(BaseModel):
+    id: int
+    slug: str                   # URL-friendly ID (e.g., "industrial-core")
+    title: str                  # Название проекта
+    description: str            # Краткое описание (для карточки)
+    content: Optional[str]      # Полное описание (Markdown/HTML)
+
+    # Классификация
+    section: ProjectSection     # Вкладка в портфолио
+    type: ProjectType           # Тип проекта (тег в шапке)
+
+    # Технологии
+    stack: List[str]            # ["Python", "Django", "PostgreSQL"]
+
+    # Ссылки
+    url: Optional[str]          # Ссылка на демо / сайт
+    github_url: Optional[str]   # Ссылка на репозиторий
+
+    # Мета
+    status: ProjectStatus       # Статус проекта
+    date_created: str           # ISO Date
+    is_featured: bool = False   # Отображать на главной (Bento Grid)
+
+```
+
+## 2. JSON EXAMPLE
+
+```json
+{
+  "id": 101,
+  "slug": "industrial-erp-core",
+  "title": "Industrial Core",
+  "description": "High-load production management system for a manufacturing plant.",
+  "section": "clients",
+  "type": "ERP SYSTEM",
+  "stack": [
+    "Python",
+    "Django",
+    "PostgreSQL",
+    "Redis",
+    "Celery"
+  ],
+  "url": "https://demo.factory-x.com",
+  "github_url": null,
+  "status": "completed",
+  "is_featured": true
+}
+
+```
+
+## 3. MAPPING TO UI
+
+| Field | UI Element |
+| :--- | :--- |
+| `section` | Определяет вкладку (`#clients`, `#products`...) и цветовую тему (`theme-gold`, `theme-blue`...). |
+| `type` | Текст в шапке карточки (`.card-type`). |
+| `status` | Цвет точки в шапке (`.card-status`). |
+| `stack` | Теги внизу карточки (`.tech-tag`). |
+| `is_featured` | Если `true`, проект попадает в Bento Grid на главной странице (`index.html`). |

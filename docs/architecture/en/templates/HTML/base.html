@@ -1,0 +1,221 @@
+# Base Template Structure
+
+[⬅️ Back](../README.md) | [🏠 Root](/docs/README.md)
+
+## `base.html` — Reusable Django Template
+
+This is the parent template that all pages inherit from. It defines the structure, blocks, and global scripts.
+
+```django
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CodexDLC - Developer's Life Cycle{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base-adaptive.css' %}">
+    
+    <!-- Page-specific CSS -->
+    {% block extra_css %}{% endblock %}
+    
+    <!-- i18n: Language metadata -->
+    <meta name="language" content="{{ LANGUAGE_CODE }}">
+</head>
+<body>
+    <!-- DJANGO: Add Django messages framework for notifications -->
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message message-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <!-- Header (Global) -->
+    {% block header %}
+        <header class="layout-header">
+            <div class="header-logo">
+                <!-- Logo animation handled by JS -->
+                <span id="logo-text">Codex<span style="color: var(--color-gold);">D</span><span style="color: var(--color-ivory);">L</span><span style="color: var(--color-blue);">C</span></span>
+            </div>
+            
+            <nav class="header-nav">
+                <a href="{% url 'home' %}" class="nav-link">
+                    {% trans "nav_home" %}
+                </a>
+                <a href="{% url 'portfolio' %}" class="nav-link">
+                    {% trans "nav_portfolio" %}
+                </a>
+                <a href="{% url 'experience' %}" class="nav-link">
+                    {% trans "nav_experience" %}
+                </a>
+                <a href="{% url 'contact' %}" class="nav-link">
+                    {% trans "nav_contact" %}
+                </a>
+            </nav>
+            
+            <button class="nav-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+    {% endblock %}
+    
+    <!-- Main Content Area -->
+    <main class="slides-container">
+        {% block content %}
+            <!-- Page-specific content here -->
+        {% endblock %}
+    </main>
+    
+    <!-- Footer (Global) -->
+    {% block footer %}
+        <footer class="layout-footer">
+            <div class="footer-content">
+                {% blocktrans %}
+                    © 2024 CodexDLC. {% trans "footer_all_rights" %}
+                {% endblocktrans %}
+            </div>
+        </footer>
+    {% endblock %}
+    
+    <!-- Global JavaScript -->
+    <script>
+        const CURRENT_LANG = "{{ LANGUAGE_CODE }}";
+        const IS_MOBILE = window.innerWidth < 768;
+    </script>
+    
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    
+    <!-- Page-specific JS -->
+    {% block extra_js %}{% endblock %}
+    
+    <!-- i18n: Pass language code to JS for frontend translations -->
+    {% if LANGUAGE_CODE == 'ru' %}
+        <script src="{% static 'i18n/ru.json' %}" as="fetch"></script>
+    {% elif LANGUAGE_CODE == 'de' %}
+        <script src="{% static 'i18n/de.json' %}" as="fetch"></script>
+    {% else %}
+        <script src="{% static 'i18n/en.json' %}" as="fetch"></script>
+    {% endif %}
+</body>
+</html>
+```
+
+<!-- DJANGO: Consider using django-template-extensions for component includes -->
+<!-- DJANGO: Add CSRF token if using forms in child templates -->
+
+---
+
+## Template Blocks Reference
+
+| Block | Purpose | Override in |
+|-------|---------|-----------|
+| `title` | Page title (for `<title>` tag) | All pages |
+| `extra_css` | Page-specific stylesheets | Pages with unique styles |
+| `header` | Header content | Rarely (keep global) |
+| `content` | Main page content | Every page (required) |
+| `footer` | Footer content | Rarely (keep global) |
+| `extra_js` | Page-specific scripts | Portfolio, Experience, Contact |
+
+---
+
+## Context Variables (Django → Template)
+
+```python
+# In views.py
+def home(request):
+    context = {
+        'LANGUAGE_CODE': request.LANGUAGE_CODE,
+        'is_home': True,
+        'logo_animation_delay': settings.LOGO_ANIMATION_DELAY,
+    }
+    return render(request, 'index.html', context)
+```
+
+**Common Variables:**
+- `LANGUAGE_CODE`: Current language (EN, RU, DE)
+- `IS_AUTHENTICATED`: User login status
+- `is_home`: Boolean flag (for conditional header/footer rendering)
+
+<!-- DJANGO: Use Django's `get_language()` and `LANGUAGES` settings for i18n -->
+
+---
+
+## Inheritance Example
+
+**Child template (portfolio.html):**
+
+```django
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "page_portfolio_title" %} | CodexDLC{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+{% endblock %}
+
+{% block content %}
+    <!-- Portfolio content goes here -->
+    <div id="slide-bento" class="slide active">
+        <!-- Tab system and cards -->
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/portfolio.js' %}"></script>
+{% endblock %}
+```
+
+---
+
+## Navigation Links
+
+```django
+{% url 'home' %}          → /
+{% url 'portfolio' %}     → /portfolio/
+{% url 'experience' %}    → /experience/
+{% url 'contact' %}       → /contact/
+```
+
+<!-- DJANGO: Configure URL patterns in Django urls.py with meaningful names -->
+
+---
+
+## i18n in Templates
+
+```django
+<!-- Simple translation -->
+<p>{% trans "nav_home" %}</p>
+
+<!-- Translation with context -->
+<p>{% trans "action_delete" context="confirmation" %}</p>
+
+<!-- Plural forms -->
+{% blocktrans count counter=items|length %}
+    You have {{ counter }} item.
+{% plural %}
+    You have {{ counter }} items.
+{% endblocktrans %}
+
+<!-- Translation with variables -->
+{% blocktrans with name=user.name %}
+    Welcome, {{ name }}!
+{% endblocktrans %}
+```
+
+<!-- DJANGO: All user-facing text must use {% trans %} or {% translate %} -->
+

@@ -1,0 +1,56 @@
+{
+    // 1. ФОРМАТИРОВАНИЕ (То, что мы уже обсудили)
+    "editor.formatOnSave": true,
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": "explicit",
+            "source.organizeImports.ruff": "explicit"
+        }
+    },
+    "[django-html]": {
+        "editor.defaultFormatter": "monosans.djlint"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+
+    // 2. ИНТЕЛЛЕКТУАЛЬНЫЙ АНАЛИЗ (Чтобы импорты "зеленели")
+    // Указываем Pylance, где искать твои приложения
+    "python.analysis.extraPaths": [
+        "./src/backend",
+        "./src/backend/apps"
+    ],
+    // Автоматический импорт при печати
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.indexing": true,
+
+    // 3. СКРЫВАЕМ МУСОР (Как в PyCharm)
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        "**/*.pyc": true,
+        "**/.git": true,
+        "**/.venv": false // Оставляем, чтобы видеть установленные либы
+    },
+
+    // 4. ТЕРМИНАЛ (Чтобы команды типа 'python manage.py' работали везде)
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": "${workspaceFolder}/src/backend;${workspaceFolder}/src/backend/apps"
+    },
+
+    // 5. АССОЦИАЦИИ ФАЙЛОВ
+    // Если хочешь Live Preview — ставь "html". Если хочешь подсветку Django — "django-html"
+    "files.associations": {
+        "**/templates/**/*.html": "django-html",
+        "**/prototype/**/*.html": "html"
+    },
+
+    // 6. ПОДДЕРЖКА DJANGO (Расширение batisteo.vscode-django)
+    "django.template.languages": [
+        "html",
+        "django-html"
+    ],
+
+    
+}
