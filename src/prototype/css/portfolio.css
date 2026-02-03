@@ -35,7 +35,7 @@
     margin-bottom: 25px;
 
     display: flex;
-    justify-content: flex-start;
+    justify-content: center; /* Center the grid container */
     align-items: center;
 
     /* Animation Init State (Desktop: Slide Down) */
@@ -74,13 +74,18 @@
         0 0 30px rgba(39, 201, 63, 0.08);
 }
 
+/* GRID CONTAINER FOR TABS (Synced with Project Grid) */
 .tabs-inner-container {
     width: 100%;
     height: 100%;
-    display: flex;
+    padding: 0 25px; /* Matches container padding if any, or visual inset */
+
+    /* GRID SETUP: 12 Columns Base */
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    /* Fluid gap synced with .island-grid */
+    gap: clamp(15px, 2vw, 25px);
     align-items: center;
-    padding: 0 25px;
-    gap: 15px;
 }
 
 /* ============================================
@@ -88,16 +93,22 @@
    SYSTEM_ROOT > PORTFOLIO > [CATEGORY]
    ============================================ */
 .folder-path {
+    /* SPAN LOGIC: Always 2 columns */
+    grid-column: span 2;
+
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
     color: var(--color-ghost);
-    margin-right: 15px;
-    padding-right: 20px;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+
+    /* Remove fixed margins, let grid gap handle spacing */
+    margin-right: 0;
+    padding-right: 0;
+
     display: flex;
     align-items: center;
     gap: 6px;
     white-space: nowrap;
+    overflow: hidden; /* Prevent spill */
 }
 
 .folder-path .icon {
@@ -122,14 +133,23 @@
    1.2 FILE TABS (Enhanced)
    ============================================ */
 .file-tab {
+    /* SPAN LOGIC: Always 2 columns */
+    grid-column: span 2;
+    width: 100%; /* Fill the grid cell */
+
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.8rem;
     color: var(--color-ghost);
     text-decoration: none;
+
     display: flex;
     align-items: center;
+    justify-content: center; /* Center content in the cell */
     gap: 8px;
-    padding: 8px 14px;
+
+    /* Remove fixed padding, use vertical only */
+    padding: 8px 0;
+
     border-radius: 6px;
     transition: all 0.2s ease;
     opacity: 0.7;
@@ -174,10 +194,24 @@
    2. CONTENT CONTAINER & ANIMATIONS
    ============================================ */
 /* Visual Cleanup: Remove side borders from layout-main on portfolio page */
-/* This overrides base.css border-left/right on .layout-main */
 .page-portfolio .layout-main {
     border-left: none;
     border-right: none;
+
+    /* FIX: Remove height and overflow constraints */
+    height: auto !important;
+    min-height: 100vh;
+    overflow: visible !important;
+
+    /* FIX: Switch to relative positioning and RESET centering */
+    position: relative !important;
+    top: 0 !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+
+    /* FIX: Use margin auto for centering relative block */
+    margin: var(--header-total-h) auto 0 auto !important;
 }
 
 .portfolio-container {
@@ -185,12 +219,21 @@
     min-height: 60vh;
     overflow: visible;
     padding-bottom: 80px;
+    /* Ensure no global grid background here */
+    background: none;
+    /* FIX: Remove height and overflow constraints */
+    height: auto !important;
+    /* FIX: Restore padding */
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 /* Wrapper for sections */
 .islands-wrapper {
     position: relative;
-    width: 100%;
+    width: 100%; /* Fix: Ensure full width */
+    display: block; /* Fix: Ensure block display */
+    padding: 0; /* Fix: Remove padding */
     min-height: 400px;
 }
 
@@ -236,7 +279,6 @@
     justify-content: space-between;
     padding-bottom: 15px;
     margin-bottom: 25px;
-    /* Visual Cleanup: Removed border-bottom for seamless look */
     border-bottom: none;
 }
 
@@ -258,7 +300,6 @@
     background: rgba(255,255,255,0.04);
     padding: 5px 10px;
     border-radius: 4px;
-    /* Visual Cleanup: Removed border for seamless look */
     border: none;
 }
 
@@ -272,7 +313,7 @@
     grid-template-columns: repeat(12, 1fr);
     /* Auto rows - unlimited vertical expansion */
     grid-auto-rows: minmax(180px, auto);
-    /* Fluid gap */
+    /* Fluid gap - SYNCED with .tabs-inner-container */
     gap: clamp(15px, 2vw, 25px);
     width: 100%;
 }
@@ -282,16 +323,11 @@
     grid-column: span 4;
 }
 
-/* Featured/first card can span more */
-.island-grid .project-card:first-child {
-    grid-column: span 6;
-    grid-row: span 2;
-}
+/* REMOVED: Old nth-child logic to avoid conflicts with explicit classes */
 
-/* Alternate layout: every 4th card spans 6 */
-.island-grid .project-card:nth-child(4n) {
-    grid-column: span 6;
-}
+/* Helper classes for height */
+.height-x1 { grid-row: span 1; }
+.height-x2 { grid-row: span 2; }
 
 /* ============================================
    3.2 PROJECT CARD (Bento-Enhanced)
@@ -307,10 +343,11 @@
     padding: clamp(18px, 2.5vw, 28px);
     display: flex;
     flex-direction: column;
+    justify-content: space-between; /* Fix: Bento Volume */
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     overflow: hidden;
-    min-height: 0; /* Allow natural height */
+    min-height: 400px; /* Fix: Bento Volume */
     z-index: 1;
 
     /* Container Query: Enable for adaptive content */
@@ -406,6 +443,35 @@
    6. RESPONSIVE BENTO ADAPTATIONS
    ============================================ */
 
+/* LARGE SCREENS (1920px+) - 16 COLUMN GRID */
+@media (min-width: 1920px) {
+    .tabs-inner-container,
+    .island-grid {
+        grid-template-columns: repeat(16, 1fr);
+    }
+
+    /* Adaptive Sizes (L) */
+    .size-s { grid-column: span 2; }
+    .size-m { grid-column: span 4; }
+    .size-l { grid-column: span 6; }
+
+    /* Adjust spans for 16 cols if needed, or keep them as is */
+    /* Tabs (span 2) will take 12 cols total (6 items), leaving 4 empty */
+    /* Cards (span 4) will fit 4 per row (16/4 = 4) */
+}
+
+/* LAPTOP (1280px+) - 12 COLUMN GRID */
+@media (min-width: 1280px) and (max-width: 1919px) {
+    .island-grid {
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    /* Adaptive Sizes (M) */
+    .size-s { grid-column: span 3; }
+    .size-m { grid-column: span 4; }
+    .size-l { grid-column: span 6; }
+}
+
 /* TABLET LANDSCAPE (1024px - 1279px) */
 @media (min-width: 1024px) and (max-width: 1279px) {
     /* 8-column grid for tablet landscape */
@@ -414,18 +480,17 @@
         grid-auto-rows: minmax(150px, auto);
     }
 
+    /* Adaptive Sizes (M - Tablet Landscape) */
+    /* Reuse logic or adjust slightly */
+    .size-s { grid-column: span 4; } /* 2 per row */
+    .size-m { grid-column: span 4; } /* 2 per row */
+    .size-l { grid-column: span 8; } /* Full width */
+
     .island-grid .project-card {
         grid-column: span 4; /* 2 per row */
     }
 
-    .island-grid .project-card:first-child {
-        grid-column: span 8; /* Full width featured */
-        grid-row: span 1;
-    }
-
-    .island-grid .project-card:nth-child(4n) {
-        grid-column: span 4;
-    }
+    /* REMOVED: Old nth-child logic */
 
     h1 {
         font-size: 2.2rem;
@@ -493,10 +558,11 @@
         grid-template-columns: 1fr 55px; /* Content | Tabs */
         gap: 0;
         padding: 0;
-        overflow: hidden;
+        overflow: visible;
         top: 50px;
         margin-top: 0;
-        height: calc(100vh - 50px);
+        min-height: calc(100vh - 50px);
+        height: auto;
     }
 
     /* 2. Tabs Bar: Vertical, Right Side - GLASSMORPHISM */
@@ -538,6 +604,8 @@
     }
 
     .tabs-inner-container {
+        /* Reset Grid for Mobile Vertical Layout */
+        display: flex;
         flex-direction: column;
         width: 100%;
         height: auto;
@@ -583,8 +651,8 @@
         grid-column: 1;
         grid-row: 1;
         padding: 15px;
-        overflow-y: auto;
-        height: 100%;
+        overflow-y: visible;
+        height: auto;
         padding-bottom: 80px;
         padding-top: 15px;
     }
@@ -616,16 +684,7 @@
         grid-column: span 1;
     }
 
-    /* First/featured card spans full width */
-    .island-grid .project-card:first-child {
-        grid-column: span 2;
-        grid-row: span 1;
-    }
-
-    /* Remove nth-child span override for mobile */
-    .island-grid .project-card:nth-child(4n) {
-        grid-column: span 1;
-    }
+    /* REMOVED: Old nth-child logic */
 
     .project-card {
         padding: clamp(12px, 3vw, 18px);
@@ -687,7 +746,8 @@
     /* Adjust Layout Main for 80px Header */
     .layout-main {
         top: 80px;
-        height: calc(100vh - 80px);
+        min-height: calc(100vh - 80px);
+        height: auto;
     }
 
     /* 4-column grid for tablet portrait */
@@ -697,17 +757,21 @@
         gap: 18px;
     }
 
+    /* Adaptive Sizes (S - Tablet Portrait) */
+    .size-s { grid-column: span 4; } /* Full width or 2? Let's say 4 for now based on prev logic */
+    .size-m { grid-column: span 4; }
+    .size-l { grid-column: span 8; } /* Wait, grid is 4 cols. So span 4 is max */
+
+    /* Corrected for 4-col grid */
+    .size-s { grid-column: span 4; }
+    .size-m { grid-column: span 4; }
+    .size-l { grid-column: span 4; }
+
     .island-grid .project-card {
         grid-column: span 2;
     }
 
-    .island-grid .project-card:first-child {
-        grid-column: span 4;
-    }
-
-    .island-grid .project-card:nth-child(4n) {
-        grid-column: span 2;
-    }
+    /* REMOVED: Old nth-child logic */
 
     .project-card {
         padding: 20px;
@@ -716,6 +780,20 @@
     h1 {
         font-size: 2rem;
     }
+}
+
+/* --- MOBILE (< 768px) --- */
+@media (max-width: 767px) {
+    /* 4-column grid logic (but visually 1 or 2 cols) */
+    /* Actually mobile grid is defined as repeat(2, 1fr) above in max-width: 1023px block */
+    /* Let's refine for < 768px specifically if needed */
+
+    /* Adaptive Sizes (XS - Mobile) */
+    .size-s { grid-column: span 4; } /* Full width relative to 4-col concept, but here grid is 2-col */
+    /* If grid is 2-col: */
+    .size-s { grid-column: span 2; }
+    .size-m { grid-column: span 2; }
+    .size-l { grid-column: span 2; }
 }
 
 /* --- HEIGHT ADAPTATION (Mobile Vertical) --- */
