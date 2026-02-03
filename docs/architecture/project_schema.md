@@ -1,6 +1,8 @@
 # 🏗️ DATA SCHEMA: PROJECT
 
-Этот документ описывает структуру данных для сущности `Project`, которая будет использоваться в базе данных и API портфолио.
+Этот документ описывает структуру данных для сущности `Project`, которая будет
+использоваться в базе
+данных и API портфолио.
 
 ## 1. CLASS DEFINITION (Python / Pydantic)
 
@@ -23,14 +25,14 @@ class ProjectType(str, Enum):
     FRONTEND = "FRONTEND"
     API = "API"
     BOT = "BOT"
-    
+
     # Business
     ERP = "ERP SYSTEM"
     ECOMMERCE = "E-COMMERCE"
     SAAS = "SAAS"
     LANDING = "LANDING"
     MOBILE = "MOBILE APP"
-    
+
     # Ops / Libs
     LIBRARY = "LIBRARY"
     FRAMEWORK = "FRAMEWORK"
@@ -40,7 +42,7 @@ class ProjectType(str, Enum):
     CONFIG = "CONFIG"
     DOTFILES = "DOTFILES"
     SCRIPT = "SCRIPT"
-    
+
     # Lab
     POC = "POC"
     AI = "AI LAB"
@@ -59,22 +61,23 @@ class Project(BaseModel):
     title: str                  # Название проекта
     description: str            # Краткое описание (для карточки)
     content: Optional[str]      # Полное описание (Markdown/HTML)
-    
+
     # Классификация
     section: ProjectSection     # Вкладка в портфолио
     type: ProjectType           # Тип проекта (тег в шапке)
-    
+
     # Технологии
     stack: List[str]            # ["Python", "Django", "PostgreSQL"]
-    
+
     # Ссылки
     url: Optional[str]          # Ссылка на демо / сайт
     github_url: Optional[str]   # Ссылка на репозиторий
-    
+
     # Мета
     status: ProjectStatus       # Статус проекта
     date_created: str           # ISO Date
     is_featured: bool = False   # Отображать на главной (Bento Grid)
+
 ```
 
 ## 2. JSON EXAMPLE
@@ -99,6 +102,7 @@ class Project(BaseModel):
   "status": "completed",
   "is_featured": true
 }
+
 ```
 
 ## 3. MAPPING TO UI

@@ -124,6 +124,9 @@
     text-decoration: none;
     overflow: hidden;
 
+    /* FIX: Isolation to prevent style leakage */
+    isolation: isolate;
+
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
     /* Container Query: Enable container for adaptive content */
@@ -148,6 +151,8 @@
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 12px;
+    position: relative;
+    z-index: 2; /* Ensure header is above background effects */
 }
 
 .card-type {
@@ -186,6 +191,8 @@
     margin-bottom: 8px;
     line-height: 1.2;
     transition: color 0.3s;
+    position: relative;
+    z-index: 2;
 }
 
 .card:hover .card-title {
@@ -198,6 +205,8 @@
     color: #A0A0B0;
     line-height: 1.5;
     flex-grow: 1;
+    position: relative;
+    z-index: 2;
 }
 
 /* Card icon (bottom right) */
@@ -212,6 +221,7 @@
     background: rgba(255, 255, 255, 0.1);
     color: var(--color-ghost);
     opacity: 0.6;
+    z-index: 2;
 }
 
 /* ============================================
@@ -607,6 +617,8 @@
     flex-wrap: wrap;
     align-items: flex-start;
     margin-top: auto; /* Push to bottom of card */
+    position: relative;
+    z-index: 2;
 }
 
 /* Tech tag variant (used in project cards) */
@@ -734,6 +746,9 @@
 
     background: linear-gradient(135deg, rgba(30, 30, 47, 0.9) 0%, rgba(15, 15, 26, 1) 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
+
+    /* FIX: Isolation */
+    isolation: isolate;
 
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }

@@ -15,21 +15,24 @@
     <link rel="stylesheet" href="css/base-adaptive.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/contact.css">
 </head>
 <body>
 
-    <div class="layout-topbar">
-        <div class="sys-info">
-            <span class="text-gold">root@codex</span>:<span class="text-blue">~</span>$ ./run_contact.sh
-        </div>
-        <div class="sys-status desktop-only">
-            <span>RAM: 64GB</span>
-            <span class="text-ghost">|</span>
-            <span>UPTIME: 99.9%</span>
-        </div>
-    </div>
-
     <header class="layout-header">
+        <!-- Floor 1: Top Bar -->
+        <div class="layout-header-top">
+            <div class="sys-info">
+                <span class="text-gold">root@codex</span>:<span class="text-blue">~</span>$ ./run_contact.sh
+            </div>
+            <div class="sys-status desktop-only">
+                <span>RAM: 64GB</span>
+                <span class="text-ghost">|</span>
+                <span>UPTIME: 99.9%</span>
+            </div>
+        </div>
+
+        <!-- Floor 2: Brand + Nav -->
         <div class="header-inner">
             <a href="../../index.html" class="brand">
                 <span id="brand-logo" class="font-mono">Codex<span class="text-gold">D</span><span class="text-ivory">L</span><span class="text-blue">C</span></span>
@@ -66,14 +69,153 @@
         </div>
     </header>
 
-    <main class="layout-main">
-        <div style="padding: 40px;">
-            <h1 style="font-size: 3rem; margin-bottom: 20px;">Contact <span class="text-gold">Station</span></h1>
-            <p class="font-mono text-ghost">
-                [WORK_IN_PROGRESS] <br>
-                Контент для страницы контактов будет спроектирован позже.
-            </p>
+    <main class="layout-main contact-grid">
+
+        <!-- ============================================================
+             LEFT PANEL: Terminal Shell (метафора запущенного скрипта)
+             ============================================================ -->
+        <div class="contact-terminal">
+
+            <!-- macOS titlebar dots + filename -->
+            <div class="contact-titlebar">
+                <div class="contact-dots">
+                    <span class="contact-dot red"></span>
+                    <span class="contact-dot yellow"></span>
+                    <span class="contact-dot green"></span>
+                </div>
+                <span class="contact-titlebar-name">contact.sh</span>
+            </div>
+
+            <!-- Script output lines: staggered CSS reveal -->
+            <div class="contact-output">
+
+                <!-- 1: command -->
+                <div class="contact-line contact-line-cmd">
+                    <span class="contact-prompt">root@codex:~$</span>
+                    <span class="contact-cmd-text">./run_contact.sh</span>
+                    <span class="contact-cursor"></span>
+                </div>
+
+                <!-- 2: separator -->
+                <div class="contact-line contact-line-sep">
+                    <span class="contact-line-text">──────────────────────────────────</span>
+                </div>
+
+                <!-- 3: header comment -->
+                <div class="contact-line contact-line-comment">
+                    <span class="contact-line-text"># CONTACT_UPLINK v1.0 — Initializing...</span>
+                </div>
+
+                <!-- 4: status OK — Profile -->
+                <div class="contact-line contact-line-status">
+                    <span class="contact-line-text"><span class="text-green">[OK]</span> Profile module loaded</span>
+                </div>
+
+                <!-- 5: status OK — Channels -->
+                <div class="contact-line contact-line-status">
+                    <span class="contact-line-text"><span class="text-green">[OK]</span> Channel modules loaded</span>
+                </div>
+
+                <!-- 6: status OK — Encryption -->
+                <div class="contact-line contact-line-status">
+                    <span class="contact-line-text"><span class="text-green">[OK]</span> Encryption enabled</span>
+                </div>
+
+                <!-- 7: blank spacer -->
+                <div class="contact-line contact-line-blank"></div>
+
+                <!-- 8: profile block -->
+                <div class="contact-line contact-line-profile">
+                    <div class="contact-profile-expanded">
+                        <div class="contact-avatar-large">
+                            <span class="avatar-placeholder">CD</span>
+                        </div>
+                        <div class="contact-info-block">
+                            <h2 class="contact-name">CodexDLC</h2>
+                            <p class="contact-role font-mono">System Architect / Python Dev</p>
+                            <div class="contact-status-row">
+                                <span class="status-dot online"></span>
+                                <span class="contact-status-text">Open for opportunities</span>
+                            </div>
+                            <div class="contact-skills tags-list">
+                                <span class="tag">Python</span>
+                                <span class="tag">Architecture</span>
+                                <span class="tag">DevOps</span>
+                                <span class="tag">AI / ML</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9: blank spacer -->
+                <div class="contact-line contact-line-blank"></div>
+
+                <!-- 10: section label -->
+                <div class="contact-line contact-line-section-label">
+                    <span class="contact-line-text text-green">// CHANNELS_READY</span>
+                </div>
+
+            </div>
         </div>
+
+        <!-- ============================================================
+             RIGHT PANEL: Contact Channels
+             ============================================================ -->
+        <div class="contact-channels">
+
+            <a href="mailto:info@codexdlc.dev" class="contact-channel-card contact-channel-email">
+                <div class="contact-channel-icon">@</div>
+                <div class="contact-channel-content">
+                    <span class="contact-channel-label">EMAIL</span>
+                    <span class="contact-channel-value">info@codexdlc.dev</span>
+                    <span class="contact-channel-action">click to compose</span>
+                </div>
+                <div class="contact-channel-arrow">&rsaquo;</div>
+            </a>
+
+            <a href="#" class="contact-channel-card contact-channel-telegram">
+                <div class="contact-channel-icon">&#x2708;&#xFE0F;</div>
+                <div class="contact-channel-content">
+                    <span class="contact-channel-label">TELEGRAM</span>
+                    <span class="contact-channel-value">@codexdlc</span>
+                    <span class="contact-channel-action">click to open</span>
+                </div>
+                <div class="contact-channel-arrow">&rsaquo;</div>
+            </a>
+
+            <a href="#" class="contact-channel-card contact-channel-github">
+                <div class="contact-channel-icon">&#x1F419;</div>
+                <div class="contact-channel-content">
+                    <span class="contact-channel-label">GITHUB</span>
+                    <span class="contact-channel-value">/codexdlc</span>
+                    <span class="contact-channel-action">view profile</span>
+                </div>
+                <div class="contact-channel-arrow">&rsaquo;</div>
+            </a>
+
+            <a href="#" class="contact-channel-card contact-channel-linkedin">
+                <div class="contact-channel-icon">&#x1F4BC;</div>
+                <div class="contact-channel-content">
+                    <span class="contact-channel-label">LINKEDIN</span>
+                    <span class="contact-channel-value">/in/codexdlc</span>
+                    <span class="contact-channel-action">connect</span>
+                </div>
+                <div class="contact-channel-arrow">&rsaquo;</div>
+            </a>
+
+            <!-- QR placeholder (desktop only) -->
+            <div class="contact-qr-expanded">
+                <div class="contact-qr-box">
+                    <span class="qr-text">SCAN_ME</span>
+                </div>
+                <div class="contact-qr-info">
+                    <span class="contact-qr-label">vCard / Contact</span>
+                    <span class="contact-qr-sublabel">Scan to save</span>
+                </div>
+            </div>
+
+        </div>
+
     </main>
 
     <!-- LEVEL 3: FOOTER (Status Bar) -->

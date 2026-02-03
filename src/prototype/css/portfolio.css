@@ -316,6 +316,9 @@
     /* Fluid gap - SYNCED with .tabs-inner-container */
     gap: clamp(15px, 2vw, 25px);
     width: 100%;
+
+    /* FIX: Isolation */
+    isolation: isolate;
 }
 
 /* Default card span: 4 columns (3 cards per row) */
@@ -349,6 +352,9 @@
     overflow: hidden;
     min-height: 400px; /* Fix: Bento Volume */
     z-index: 1;
+
+    /* FIX: Isolation */
+    isolation: isolate;
 
     /* Container Query: Enable for adaptive content */
     container-type: inline-size;
