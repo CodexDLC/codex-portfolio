@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mykhailo Abasov">
+    <meta name="description" content="{% block description %}{% endblock description %}">
+    <meta name="keywords" content="{% block keywords %}django, python, architect{% endblock keywords %}">
+    <title>{% block title %}My Project{% endblock title %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    {% block extra_head %}{% endblock extra_head %}
+
+</head>
+<body>
+    <header>
+        {% include "includes/_header.html" %}
+    </header>
+
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+
+    <footer>
+        {% include "includes/_footer.html" %}
+    </footer>
+    {% block extra_js %}{% endblock extra_js %}
+</body>
+</html>

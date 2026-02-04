@@ -1,4 +1,3 @@
-
 from django.views.generic import TemplateView
 
 # Create your views here.
@@ -6,7 +5,16 @@ from django.views.generic import TemplateView
 
 
 class MainView(TemplateView):
+    template_name = "home.html"
 
-    template_name = 'index.html'
 
 
+
+class ExperienceView(TemplateView):
+    template_name = "experience.html"
+
+
+
+class ContactView(TemplateView):
+    template_name = "contact.html"
+    

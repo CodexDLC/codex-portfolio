@@ -1,0 +1,35 @@
+{% load static %}
+
+<section id="slide-bento" class="slide hidden-down">
+    <div class="slide-content-wrapper">
+
+        <div class="bento-separator separator-bento">
+            <span class="bento-status">// LOADING<span class="dots"></span></span>
+            <div class="line"></div>
+        </div>
+
+        <div class="bento-grid">
+            
+            {% for project in projects %}
+                <a href="{% url 'project_detail' project.slug %}" 
+                   class="bento-item card {{ project.grid_class }} theme-{{ project.theme }}">
+                    
+                    <div class="card-bg {{ project.bg_pattern }}"></div>
+                    
+                    <div class="card-header">
+                        <span class="card-type">{{ project.number }} // {{ project.type }}</span>
+                        <span class="card-status {% if project.is_active %}active{% endif %}"></span>
+                    </div>
+                    
+                    <h3 class="card-title">{{ project.title }}</h3>
+                    <p class="card-desc">{{ project.description }}</p>
+                    
+                </a>
+            {% empty %}
+                <div class="bento-item card col-span-8 theme-ghost">
+                    <h3 class="card-title">System Offline</h3>
+                    <p class="card-desc">No projects loaded in the database.</p>
+                </div>
+            {% endfor %}
+
+        </div></div></section>

@@ -1,0 +1,602 @@
+/* src/prototype/css/contact.css */
+/* CONTACT PAGE — Shell Script Metaphor, Green DNA */
+
+/* ============================================
+   1. PAGE LAYOUT OVERRIDE
+   Pattern from: .layout-main.experience-grid (experience.css:4)
+   ============================================ */
+.layout-main.contact-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 24px;
+    padding: 24px 32px;
+    overflow: hidden;
+}
+
+/* ============================================
+   2. LEFT PANEL: TERMINAL SHELL
+   Visual pattern from: .experience-ide (experience.css:22)
+   ============================================ */
+.contact-terminal {
+    background: #151520;
+    border: var(--border-line);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(39, 201, 63, 0.06);
+}
+
+/* --- Titlebar (macOS dots) --- */
+/* .ide-dot / .ide-header live in experience.css which is not loaded here.
+   Duplicated here (6 declarations) to keep contact.css self-contained. */
+.contact-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: rgba(21, 21, 32, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.contact-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.contact-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.contact-dot.red    { background: #FF5F56; }
+.contact-dot.yellow { background: #FFBD2E; }
+.contact-dot.green  { background: #27C93F; }
+
+.contact-titlebar-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--color-ghost);
+    margin-left: 12px;
+    letter-spacing: 0.5px;
+}
+
+/* --- Script output area --- */
+.contact-output {
+    flex-grow: 1;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-green) transparent;
+}
+
+/* ============================================
+   3. TERMINAL LINES — base + variants
+   ============================================ */
+.contact-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--color-ghost);
+    /* Stagger animation — each child gets a unique delay via nth-child */
+    opacity: 0;
+    transform: translateY(6px);
+    animation: contactLineReveal 0.4s ease forwards;
+}
+
+/* Command line */
+.contact-line-cmd {
+    color: var(--color-ivory);
+    margin-bottom: 2px;
+}
+
+.contact-prompt {
+    color: var(--color-green);
+    font-weight: 700;
+    margin-right: 8px;
+}
+
+.contact-cmd-text {
+    color: var(--color-ivory);
+}
+
+/* Blinking green cursor */
+.contact-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1.1em;
+    vertical-align: middle;
+    margin-left: 4px;
+    animation: contactCursorBlink 1s step-end infinite;
+}
+
+/* Separator dashes — dimmed after reveal */
+.contact-line-sep .contact-line-text {
+    opacity: 0.35;
+}
+
+/* Comment (green, like .py-comment) */
+.contact-line-comment .contact-line-text {
+    color: #6A9955;
+}
+
+/* Status [OK] lines — ghost base, green [OK] via .text-green in HTML */
+.contact-line-status {
+    color: var(--color-ghost);
+}
+
+/* Section label */
+.contact-line-section-label {
+    margin-top: 6px;
+}
+
+/* Blank spacer — no animation */
+.contact-line-blank {
+    height: 10px;
+    opacity: 1 !important;
+    animation: none !important;
+}
+
+/* ============================================
+   4. PROFILE BLOCK (inside terminal)
+   Expanded from the compact drawer profile in base.css:542
+   ============================================ */
+.contact-line-profile {
+    margin: 2px 0;
+}
+
+.contact-profile-expanded {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 16px;
+    background: rgba(30, 30, 47, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+}
+
+/* Avatar — green accent variant */
+.contact-avatar-large {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.04);
+    border: 2px solid rgba(39, 201, 63, 0.35);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 16px rgba(39, 201, 63, 0.12);
+}
+
+.contact-avatar-large .avatar-placeholder {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-green);
+}
+
+/* Info column */
+.contact-info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-grow: 1;
+}
+
+.contact-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-ivory);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.contact-role {
+    font-size: 0.8rem;
+    color: var(--color-blue);
+    margin: 0;
+}
+
+.contact-status-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* .status-dot.online is already defined in base.css:588 */
+.contact-status-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--color-green);
+    text-shadow: 0 0 8px rgba(39, 201, 63, 0.4);
+}
+
+/* .tags-list + .tag are defined in components.css — reused as-is */
+.contact-skills {
+    margin-top: 2px;
+}
+
+/* ============================================
+   5. RIGHT PANEL: CONTACT CHANNELS
+   Expanded from the compact .contact-btn in base.css:603
+   ============================================ */
+.contact-channels {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-green) transparent;
+}
+
+/* Channel card */
+.contact-channel-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+
+    /* Stagger: fade in (opacity-only — transform reserved for hover) */
+    opacity: 0;
+    animation: contactChannelReveal 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+
+    transition: background 0.2s ease,
+                border-color 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.contact-channel-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--color-green);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25),
+                0 0 12px rgba(39, 201, 63, 0.1);
+}
+
+.contact-channel-card:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Per-channel left-border accents (pattern: .tile.tile-* in components.css:787) */
+.contact-channel-email    { border-left: 3px solid var(--color-gold); }
+.contact-channel-telegram { border-left: 3px solid var(--color-blue); }
+.contact-channel-github   { border-left: 3px solid var(--color-ghost); }
+.contact-channel-linkedin { border-left: 3px solid #c678dd; }
+
+/* Icon circle */
+.contact-channel-icon {
+    font-size: 1.5rem;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    color: var(--color-ghost);
+    transition: background 0.2s, color 0.2s;
+}
+
+.contact-channel-card:hover .contact-channel-icon {
+    background: rgba(39, 201, 63, 0.12);
+    color: var(--color-green);
+}
+
+/* Text content */
+.contact-channel-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-grow: 1;
+}
+
+.contact-channel-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--color-ghost);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+}
+
+.contact-channel-card:hover .contact-channel-label {
+    color: var(--color-green);
+}
+
+.contact-channel-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-ivory);
+}
+
+.contact-channel-action {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--color-ghost);
+    opacity: 0.5;
+    transition: opacity 0.2s, color 0.2s;
+}
+
+.contact-channel-card:hover .contact-channel-action {
+    opacity: 1;
+    color: var(--color-green);
+}
+
+/* Arrow indicator */
+.contact-channel-arrow {
+    font-size: 1.4rem;
+    color: var(--color-ghost);
+    opacity: 0.4;
+    transition: opacity 0.2s, transform 0.2s, color 0.2s;
+    flex-shrink: 0;
+}
+
+.contact-channel-card:hover .contact-channel-arrow {
+    opacity: 1;
+    color: var(--color-green);
+    transform: translateX(3px);
+}
+
+/* ============================================
+   6. QR PLACEHOLDER (desktop only)
+   Expanded from .contact-qr in base.css:642
+   ============================================ */
+.contact-qr-expanded {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+
+    opacity: 0;
+    animation: contactChannelReveal 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.contact-qr-box {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* .qr-text is already in base.css:659 */
+
+.contact-qr-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.contact-qr-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--color-ghost);
+}
+
+.contact-qr-sublabel {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--color-ghost);
+    opacity: 0.5;
+}
+
+/* ============================================
+   7. KEYFRAMES
+   ============================================ */
+@keyframes contactLineReveal {
+    0%   { opacity: 0;   transform: translateY(6px); }
+    100% { opacity: 1;   transform: translateY(0);   }
+}
+
+@keyframes contactChannelReveal {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes contactCursorBlink {
+    from, to { background-color: transparent; }
+    50%      { background-color: var(--color-green); }
+}
+
+/* ============================================
+   8. STAGGER DELAYS — Left panel (nth-child)
+   DOM order inside .contact-output:
+     1=cmd, 2=sep, 3=comment, 4=status, 5=status, 6=status,
+     7=blank, 8=profile, 9=blank, 10=label
+   ============================================ */
+.contact-output > :nth-child(1)  { animation-delay: 0.10s; }
+.contact-output > :nth-child(2)  { animation-delay: 0.22s; }
+.contact-output > :nth-child(3)  { animation-delay: 0.36s; }
+.contact-output > :nth-child(4)  { animation-delay: 0.52s; }
+.contact-output > :nth-child(5)  { animation-delay: 0.68s; }
+.contact-output > :nth-child(6)  { animation-delay: 0.84s; }
+/* child 7 = blank (animation: none) */
+.contact-output > :nth-child(8)  { animation-delay: 1.05s; }
+/* child 9 = blank (animation: none) */
+.contact-output > :nth-child(10) { animation-delay: 1.25s; }
+
+/* ============================================
+   9. STAGGER DELAYS — Right panel (channels)
+   Start after profile appears (1.05s)
+   ============================================ */
+.contact-channel-email    { animation-delay: 1.15s; }
+.contact-channel-telegram { animation-delay: 1.33s; }
+.contact-channel-github   { animation-delay: 1.51s; }
+.contact-channel-linkedin { animation-delay: 1.69s; }
+.contact-qr-expanded      { animation-delay: 1.90s; }
+
+/* ============================================
+   10. RESPONSIVE — TABLET (<= 1024px)
+   ============================================ */
+@media (max-width: 1024px) {
+    .layout-main.contact-grid {
+        gap: 18px;
+        padding: 18px 24px;
+    }
+
+    .contact-line {
+        font-size: 0.8rem;
+    }
+
+    .contact-profile-expanded {
+        gap: 16px;
+        padding: 12px;
+    }
+
+    .contact-avatar-large {
+        width: 90px;
+        height: 90px;
+    }
+
+    .contact-name {
+        font-size: 1.15rem;
+    }
+
+    .contact-channel-card {
+        padding: 16px 18px;
+        gap: 14px;
+    }
+
+    .contact-channel-value {
+        font-size: 0.95rem;
+    }
+}
+
+/* ============================================
+   11. RESPONSIVE — MOBILE (< 768px)
+   ============================================ */
+@media (max-width: 767px) {
+    /* --- 1. Main Layout: Single Column --- */
+    .layout-main.contact-grid {
+        display: block;
+        padding: 12px;
+        overflow-y: auto;
+    }
+
+    /* Hide the original right-hand panel */
+    .contact-channels {
+        display: none !important;
+    }
+
+
+    /* --- 2. Injected Mobile Channels Grid --- */
+    .contact-channels-grid-mobile {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+        gap: 12px;
+        padding: 10px 0;
+    }
+
+    /* --- 3. Icon Button Styles (for cloned cards) --- */
+    .contact-channels-grid-mobile .contact-channel-card {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        gap: 5px;
+        height: 70px;
+        border-left-width: 1px; /* Remove thick colored border */
+        animation: none; /* Remove stagger animation from cloned items */
+        opacity: 1;
+    }
+
+    .contact-channels-grid-mobile .contact-channel-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--color-green); /* Use green for all on hover */
+    }
+
+    /* Hide extra text content */
+    .contact-channels-grid-mobile .contact-channel-value,
+    .contact-channels-grid-mobile .contact-channel-action,
+    .contact-channels-grid-mobile .contact-channel-arrow {
+        display: none;
+    }
+
+    /* Adjust icon and label */
+    .contact-channels-grid-mobile .contact-channel-icon {
+        width: auto;
+        height: auto;
+        font-size: 1.6rem;
+        background: none;
+    }
+
+     .contact-channels-grid-mobile .contact-channel-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.5px;
+    }
+
+
+    /* --- 4. General Mobile Adjustments --- */
+    .contact-line {
+        font-size: 0.78rem;
+    }
+    .contact-profile-expanded {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .contact-avatar-large {
+        width: 80px;
+        height: 80px;
+    }
+    .contact-info-block {
+        align-items: center;
+    }
+    .contact-skills {
+        justify-content: center;
+    }
+    .contact-qr-expanded {
+        display: none;
+    }
+}
+
+/* ============================================
+   12. RESPONSIVE — NARROW PHONES (< 400px)
+   ============================================ */
+@media (max-width: 400px) {
+    .layout-main.contact-grid {
+        padding: 8px;
+        gap: 10px;
+    }
+
+    .contact-line {
+        font-size: 0.72rem;
+    }
+
+    .contact-channel-card {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .contact-channel-value {
+        font-size: 0.88rem;
+    }
+
+    .contact-channel-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 1.1rem;
+    }
+
+    .contact-name {
+        font-size: 1rem;
+    }
+}

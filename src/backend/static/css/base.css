@@ -1,0 +1,690 @@
+/* src/prototype/css/base.css */
+/* ARCHITECTURE: THE MONOLITH (Classic Sheet) */
+/* BASE STYLES (Desktop Default > 1920px) */
+
+/* 1. Импортируем компоненты */
+@import url("components.css");
+
+/* 2. Импортируем адаптив */
+@import url("base-adaptive.css");
+
+/* --- 1. SETTINGS & VARS --- */
+:root {
+    /* Цветовая палитра "IDE Night" */
+    --color-void:   #0F0F1A;
+    --color-monolith: #1E1E2F; /* Space Navy */
+    --color-ivory:  #FAF9F6;
+    --color-ghost:  rgba(255, 255, 255, 0.6);
+    --color-gold:   #FFD43B;
+    --color-blue:   #306998;
+    --color-green:  #27C93F;
+    --border-line:  1px solid rgba(255, 255, 255, 0.08);
+
+    /* Цвета вкладок */
+    --tab-bg-active: #1E1E2F;
+    --tab-bg-inactive: #151520;
+
+    /* Геометрия */
+    /* Default max-width for 2K+ screens */
+    --max-width:    1600px;
+    /* FIX: Header is now 10vh total */
+    --header-total-h: 10vh;
+    /* FIX: Footer is 50% of Header (5vh) */
+    --footer-h:     5vh;
+
+    /* Цвета Python (для удобства) */
+    --py-blue: #306998;
+    --py-gold: #FFD43B;
+}
+
+/* --- 2. RESET & BASE --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    /* Scroll handled by JS slide system in main.css */
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    background-color: var(--color-void);
+    color: var(--color-ivory);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    background-image: none !important;
+    overflow: hidden;
+}
+
+/* Шрифты */
+h1, h2, h3 { font-weight: 700; line-height: 1.1; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+a { text-decoration: none; color: inherit; transition: opacity 0.2s; }
+a:hover { opacity: 0.8; }
+
+/* --- 3. LAYOUT STRUCTURE (THE SHEET) --- */
+
+/* ОБЩАЯ ГЕОМЕТРИЯ ЛИСТА */
+.layout-header,
+.layout-footer,
+.layout-drawer,
+.bottom-drawer {
+    position: fixed;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100% !important;
+    max-width: var(--max-width);
+    margin: 0 !important;
+    background-color: var(--color-monolith);
+    border-left: var(--border-line);
+    border-right: var(--border-line);
+}
+
+/* LEVEL 1: HEADER (Unified Container) */
+.layout-header {
+    top: 0;
+    height: var(--header-total-h); /* 10vh */
+    /* FIX: Increased min-height to 100px */
+    min-height: 100px;
+    z-index: 150;
+    display: flex;
+    flex-direction: column; /* Stack TopBar and NavBar */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Floor 1: Top Bar (Inside Header) */
+.layout-header-top {
+    /* FIX: Adaptive height (25% of header) */
+    height: 25%;
+    /* FIX: Reduced min-height to 20px */
+    min-height: 20px;
+    flex-shrink: 0; /* Don't shrink */
+    background-color: #151520;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    font-family: 'JetBrains Mono', monospace;
+    /* FIX: Reduced font size by ~20% */
+    font-size: clamp(9px, 1.2vh, 12px);
+    color: var(--color-ghost);
+}
+
+/* Floor 2: Main Nav (Inside Header) */
+.header-inner {
+    flex-grow: 1; /* Take remaining space */
+    width: 100%;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    gap: 40px;
+}
+
+/* ЗОНА ЛОГОТИПА */
+.brand {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* FIX: Renamed from #brand-text to #brand-logo */
+#brand-logo {
+    /* FIX: Increased font size for large screens */
+    font-size: 2.2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--color-ivory);
+}
+
+#brand-slogan {
+    /* FIX: Increased font size for large screens */
+    font-size: 1.4rem;
+    margin-left: 15px;
+    font-family: 'JetBrains Mono', monospace;
+    display: inline-block;
+}
+
+/* ЗОНА ВКЛАДОК (IDE STYLE) */
+.header-nav {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-right: 0;
+    gap: 2px;
+}
+
+/* FIX: Hide mobile burger on desktop by default */
+.mobile-burger-btn {
+    display: none;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background: var(--tab-bg-inactive);
+    color: var(--color-ghost);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    border-radius: 5px 5px 0 0;
+    border-top: 2px solid transparent;
+    transition: background 0.2s, color 0.2s;
+    position: relative;
+}
+
+.nav-link:hover {
+    background: #252530;
+    color: var(--color-ivory);
+}
+
+.nav-link.active {
+    background: var(--tab-bg-active);
+    color: var(--color-ivory);
+    border-top: 2px solid var(--color-blue);
+    z-index: 2;
+}
+
+.file-icon { font-size: 1rem; }
+
+/* CODE ICONS IN TABS */
+.code-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700; /* Жирный шрифт */
+    font-size: 0.85rem;
+    margin-right: 4px;
+    letter-spacing: 0.5px; /* Чуть шире */
+}
+
+/* FIX: Делаем синий светлее, чтобы он не казался тонким на темном фоне */
+.code-icon.blue { color: #61AFEF; }
+.code-icon.yellow { color: var(--color-gold); }
+.code-icon.green { color: var(--color-green); }
+.code-icon.folder {
+    font-style: normal;
+    filter: saturate(1.2);
+}
+
+
+.tab-close {
+    margin-left: 8px;
+    font-size: 1.1rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+    cursor: pointer;
+}
+
+.nav-link:hover .tab-close,
+.nav-link.active .tab-close {
+    opacity: 0.6;
+}
+
+.tab-close:hover {
+    opacity: 1 !important;
+    color: #FF5F56;
+}
+
+/* Анимация вкладок */
+.nav-hidden { opacity: 0; transform: translateY(10px); pointer-events: none; }
+.nav-visible { opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease; pointer-events: auto; }
+
+
+/* LEVEL 2: MAIN BODY (Contains Slides) */
+.layout-main {
+    position: fixed;
+
+    /* Position between header and footer */
+    top: var(--header-total-h);
+    bottom: var(--footer-h);
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 100%;
+    max-width: var(--max-width);
+
+    /* Визуал листа */
+    background-color: var(--color-monolith);
+    border-left: var(--border-line);
+    border-right: var(--border-line);
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+
+    /* No scroll - slides are controlled by JS */
+    overflow: hidden;
+    padding: 0;
+}
+
+/* LEVEL 3: FOOTER */
+.layout-footer {
+    bottom: 0;
+    height: var(--footer-h);
+    /* FIX: Safety minimum height */
+    min-height: 50px;
+    background-color: #1E1E2F;
+    border-top: 1px solid var(--color-gold);
+    z-index: 200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+}
+
+.footer-left .copyright-text {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--color-ghost);
+    font-size: 0.8rem;
+}
+
+.footer-right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.control-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-ivory);
+    cursor: pointer;
+    gap: 8px;
+}
+
+.btn-icon { font-size: 1.4rem; }
+
+.btn-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--color-ghost);
+    letter-spacing: 1px;
+}
+.control-btn:hover .btn-label { color: var(--color-gold); }
+
+/* Lang Slider */
+.lang-slider {
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    width: 40px;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.lang-slider.expanded {
+    width: 140px;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-gold);
+    justify-content: space-between;
+}
+
+.lang-visible {
+    font-family: 'JetBrains Mono';
+    font-weight: bold;
+    color: var(--color-ivory);
+}
+
+.lang-hidden {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    opacity: 0;
+    width: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+}
+
+.lang-slider.expanded .lang-hidden {
+    opacity: 1;
+    width: auto;
+    pointer-events: auto;
+    margin-right: 10px;
+    order: -1;
+}
+
+.lang-hidden span { cursor: pointer; color: var(--color-ghost); }
+.lang-hidden span:hover { color: var(--color-gold); }
+
+
+/* UTILITY HELPERS */
+/* Note: .text-* color utilities moved to components.css */
+
+/* VISIBILITY UTILITIES */
+.desktop-only { display: block !important; } /* Default for Desktop */
+.mobile-only { display: none !important; }
+
+/* --- SYSTEM HUB & BOTTOM DRAWERS --- */
+
+/* 1. DESKTOP DRAWER (Layout Drawer) */
+.layout-drawer {
+    bottom: var(--footer-h); /* Над футером */
+    height: 0;
+    overflow: hidden;
+    background-color: #151520;
+    border-top: 1px solid var(--color-gold);
+    transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 190;
+    box-shadow: inset 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.layout-drawer.open { height: 320px; }
+
+.drawer-section {
+    display: none;
+    height: 100%;
+    padding: 40px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    /* FIX: Stack content vertically */
+    flex-direction: column;
+}
+
+.drawer-section.active { display: flex; opacity: 1; }
+
+/* 2. MOBILE DRAWER (Bottom Drawer) */
+.bottom-drawer {
+    position: fixed;
+    bottom: -100%; /* Hidden by default */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100% !important;
+    max-width: var(--max-width);
+    background-color: #151520;
+    border-top: 2px solid var(--color-gold);
+    z-index: 1000; /* Поверх всего */
+    transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 30px 40px;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.bottom-drawer.active {
+    bottom: 0; /* Выезжает снизу */
+}
+
+/* Hub Header */
+.hub-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 15px;
+}
+
+.hub-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: var(--color-gold);
+    letter-spacing: 1px;
+}
+
+.hub-close, .drawer-close {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--color-ghost);
+    transition: color 0.2s;
+}
+.hub-close:hover, .drawer-close:hover { color: var(--color-ivory); }
+
+/* Hub Grid */
+.hub-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    width: 100%;
+}
+
+.hub-col {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.hub-col-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--color-ghost);
+    margin-bottom: 10px;
+    opacity: 0.7;
+}
+
+/* Hub Links */
+.hub-link {
+    text-decoration: none;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hub-link.main-link {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-ivory);
+    font-family: 'Inter', sans-serif;
+}
+.hub-link.main-link:hover { color: var(--color-blue); transform: translateX(5px); }
+.hub-link.main-link.active { color: var(--color-blue); }
+
+.hub-link.sub-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--color-ghost);
+}
+.hub-link.sub-link:hover { color: var(--color-ivory); }
+
+.hub-link.meta-link {
+    font-size: 0.85rem;
+    color: #666;
+}
+.hub-link.meta-link:hover { color: var(--color-ghost); }
+
+/* Dots */
+.dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+.dot.gold { background: var(--color-gold); }
+.dot.blue { background: var(--color-blue); }
+.dot.green { background: var(--color-green); }
+.dot.purple { background: #c678dd; }
+.dot.ghost { background: var(--color-ghost); }
+
+/* Hub Footer Meta */
+.hub-footer-meta {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #555;
+}
+
+/* --- CONTACT DRAWER STYLES (Business Card) --- */
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: 'JetBrains Mono';
+    color: var(--color-ghost);
+    width: 100%; /* Ensure full width */
+}
+
+.contact-card-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* Avatar | Links | QR */
+    gap: 30px;
+    align-items: center;
+    padding: 10px 0;
+    width: 100%; /* Ensure full width */
+}
+
+/* Profile */
+.contact-profile {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-placeholder {
+    font-family: 'JetBrains Mono';
+    font-size: 1.5rem;
+    color: var(--color-gold);
+    font-weight: bold;
+}
+
+.profile-info h3 {
+    font-size: 1.2rem;
+    color: var(--color-ivory);
+    margin-bottom: 5px;
+}
+
+.profile-role {
+    font-family: 'JetBrains Mono';
+    font-size: 0.8rem;
+    color: var(--color-blue);
+    margin-bottom: 10px;
+}
+
+.profile-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    color: var(--color-ghost);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-green);
+    box-shadow: 0 0 5px rgba(39, 201, 63, 0.5);
+}
+
+/* Links Grid */
+.contact-links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.contact-btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: var(--color-gold);
+    transform: translateY(-2px);
+}
+
+.contact-btn .icon {
+    font-size: 1.2rem;
+    color: var(--color-ghost);
+}
+
+.contact-btn .label {
+    font-family: 'JetBrains Mono';
+    font-size: 0.7rem;
+    color: var(--color-ghost);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.contact-btn .value {
+    font-size: 0.9rem;
+    color: var(--color-ivory);
+    font-weight: 500;
+}
+
+/* QR Code */
+.contact-qr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.qr-box {
+    width: 100px;
+    height: 100px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-text {
+    font-family: 'JetBrains Mono';
+    font-size: 0.6rem;
+    color: black;
+    font-weight: bold;
+}
+
+.qr-label {
+    font-family: 'JetBrains Mono';
+    font-size: 0.7rem;
+    color: var(--color-ghost);
+}
+
+/* Mobile Adaptation for Contact Card */
+@media (max-width: 768px) {
+    .contact-card-layout {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .contact-qr { display: none; } /* Hide QR on mobile */
+
+    .contact-links-grid {
+        grid-template-columns: 1fr;
+    }
+}

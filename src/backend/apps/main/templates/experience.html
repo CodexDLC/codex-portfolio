@@ -1,0 +1,161 @@
+{% extends "base.html" %}  
+{% load static %}          
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/experience.css' %}">
+{% endblock extra_head %}
+{% block content %}
+        <!-- ======== START of new content ======== -->
+    <main class="layout-main experience-grid">
+
+        <!-- Top Block: IDE and System Specs -->
+        <div class="experience-header">
+            <!-- Left Panel: The Core (IDE) -->
+            <div class="experience-ide">
+                <div class="ide-header">
+                    <span class="ide-dot red"></span>
+                    <span class="ide-dot yellow"></span>
+                    <span class="ide-dot green"></span>
+                </div>
+                <div class="ide-code">
+                    <pre><code id="code-animation"><span class="py-keyword">class</span> <span class="py-class">SystemArchitect</span>:
+    <span class="py-string">"""Defines the core architecture and high-level strategy."""</span>
+    <span class="py-keyword">def</span> <span class="py-method">__init__</span>(<span class="py-keyword">self</span>):
+        <span class="py-keyword">self</span>.vision = <span class="py-string">"Scalable & Resilient"</span>
+
+    <span class="py-keyword">def</span> <span class="py-method">design_blueprint</span>(<span class="py-keyword">self</span>, project_name):
+        <span class="py-keyword">return</span> <span class="py-string">f"Blueprint for {project_name} is ready."</span>
+
+<span class="py-keyword">class</span> <span class="py-class">TechLead</span>(<span class="py-class">SystemArchitect</span>):
+    <span class="py-string">"""Translates architecture into technical execution and mentors the team."""</span>
+    <span class="py-keyword">def</span> <span class="py-method">manage_team</span>(<span class="py-keyword">self</span>):
+        <span class="py-keyword">return</span> <span class="py-string">"Team is aligned and motivated."</span>
+
+    <span class="py-keyword">def</span> <span class="py-method">code_review</span>(<span class="py-keyword">self</span>):
+        <span class="py-keyword">return</span> <span class="py-string">"Code quality is assured."</span>
+
+<span class="py-keyword">class</span> <span class="py-class">Student</span>(<span class="py-class">TechLead</span>):
+    <span class="py-string">"""A lifelong learner, always exploring new technologies."""</span>
+    <span class="py-keyword">def</span> <span class="py-method">__init__</span>(<span class="py-keyword">self</span>):
+        <span class="py-keyword">super</span>().__init__()
+        <span class="py-keyword">self</span>.learning = {<span class="py-string">"AI"</span>, <span class="py-string">"Rust"</span>, <span class="py-string">"Quantum Computing"</span>}
+
+    <span class="py-keyword">def</span> <span class="py-method">learn</span>(<span class="py-keyword">self</span>, new_skill):
+        <span class="py-keyword">self</span>.learning.add(new_skill)
+        <span class="py-keyword">return</span> <span class="py-string">f"Acquired skill: {new_skill}"</span>
+
+<span class="py-comment"># Always learning, always evolving.</span>
+me = <span class="py-class">Student</span>()
+</code></pre>
+                </div>
+            </div>
+
+            <!-- Right Panel: sys.env -->
+            <div class="experience-specs">
+                <div class="card">
+
+                    <!-- Titlebar -->
+                    <div class="env-titlebar">
+                        <span class="env-filename">sys.env</span>
+                    </div>
+
+                    <!-- IDENTITY -->
+                    <div class="env-section">
+                        <div class="env-comment"># ── IDENTITY ─────────────</div>
+                        <div class="env-line"><span class="env-key">name</span><span class="env-eq">=</span><span class="env-val">"Mykjailo Abasov"</span></div>
+                        <div class="env-line"><span class="env-key">username</span><span class="env-eq">=</span><span class="env-val">"@CodexDLC"</span></div>
+                        <div class="env-line"><span class="env-key">role</span><span class="env-eq">=</span><span class="env-val">"Full-Stack Python Dev"</span></div>
+                        <div class="env-line"><span class="env-key">location</span><span class="env-eq">=</span><span class="env-val">"Remote | Worldwide"</span></div>
+                        <div class="env-line"><span class="env-key">status</span><span class="env-eq">=</span><span class="env-val env-val-active">"⚡ Production Ready"</span></div>
+                    </div>
+
+                    <!-- FOCUS -->
+                    <div class="env-section">
+                        <div class="env-comment"># ── FOCUS ────────────────</div>
+                        <div class="spec-item">
+                            <div class="spec-label"><span>Backend Dev</span><span class="text-gold">88%</span></div>
+                            <div class="spec-bar"><div class="spec-bar-fill skill" style="width:88%"></div></div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label"><span>System Design</span><span class="text-blue">72%</span></div>
+                            <div class="spec-bar"><div class="spec-bar-fill exp" style="width:72%"></div></div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label"><span>Cloud & Deploy</span><span class="text-green">65%</span></div>
+                            <div class="spec-bar"><div class="spec-bar-fill devops" style="width:65%"></div></div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label"><span>Data Engineering</span><span class="text-purple">58%</span></div>
+                            <div class="spec-bar"><div class="spec-bar-fill data" style="width:58%"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- TECH ARSENAL -->
+                    <div class="env-section">
+                        <div class="env-comment"># ── TECH ARSENAL ─────────</div>
+                        <div class="arsenal-group">
+                            <span class="arsenal-cat cat-gold">[core]</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">Django</span>
+                            <span class="tag">PostgreSQL</span>
+                        </div>
+                        <div class="arsenal-group">
+                            <span class="arsenal-cat cat-blue">[frontend]</span>
+                            <span class="tag">React</span>
+                            <span class="tag">HTML5</span>
+                            <span class="tag">CSS3</span>
+                            <span class="tag">JS ES6+</span>
+                        </div>
+                        <div class="arsenal-group">
+                            <span class="arsenal-cat cat-green">[devops]</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">AWS</span>
+                            <span class="tag">CI/CD</span>
+                            <span class="tag">Linux</span>
+                        </div>
+                        <div class="arsenal-group">
+                            <span class="arsenal-cat cat-purple">[learning]</span>
+                            <span class="tag">Kubernetes</span>
+                            <span class="tag">GraphQL</span>
+                            <span class="tag">Serverless</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Block: Changelog Terminal -->
+        <div class="experience-changelog">
+            <ul class="changelog-list">
+                <li class="changelog-item">
+                    <span class="changelog-version">v1.2.0</span>
+                    <span class="changelog-status text-green">[SUCCESS]</span>
+                    <span class="changelog-desc">Completed full-stack implementation for Project "Omega".</span>
+                </li>
+                <li class="changelog-item">
+                    <span class="changelog-version">v1.1.5</span>
+                    <span class="changelog-status text-blue">[DEPLOYED]</span>
+                    <span class="changelog-desc">New portfolio module `codex-ui` released.</span>
+                </li>
+                 <li class="changelog-item">
+                    <span class="changelog-version">v1.1.0</span>
+                    <span class="changelog-status text-yellow">[LEARNING]</span>
+                    <span class="changelog-desc">Acquired skill: Advanced "Container Orchestration".</span>
+                </li>
+                <li class="changelog-item">
+                    <span class="changelog-version">v1.0.0</span>
+                    <span class="changelog-status text-green">[SUCCESS]</span>
+                    <span class="changelog-desc">Initial system architecture for "Codex Portfolio" designed.</span>
+                </li>
+                <li class="changelog-item">
+                    <span class="changelog-version">v0.8.0</span>
+                    <span class="changelog-status text-yellow">[LEARNING]</span>
+                    <span class="changelog-desc">Completed course on "AI & Machine Learning".</span>
+                </li>
+            </ul>
+        </div>
+
+    </main>
+    <!-- ======== END of new content ======== -->
+{% endblock content %}

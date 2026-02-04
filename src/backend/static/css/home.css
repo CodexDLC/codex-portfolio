@@ -1,0 +1,1684 @@
+/* src/prototype/css/main.css */
+/* CONTENT STYLES FOR MAIN PAGE (index.html / main.py) */
+
+/* ============================================
+   SLIDE SYSTEM: Two fullscreen slides (Hero & Bento)
+   Controlled by JS wheel events, not scroll-snap
+   ============================================ */
+
+/* Container for both slides */
+.slides-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Individual slide */
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Flexbox to center content */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* Padding inside wrapper, not here */
+    padding: 40px;
+
+    box-sizing: border-box;
+    overflow: hidden;
+
+    /* Transition for slide switching */
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Slide states */
+.slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.slide.hidden-down {
+    opacity: 0;
+    transform: translateY(50px);
+    pointer-events: none;
+    z-index: 5;
+}
+
+.slide.hidden-up {
+    opacity: 0;
+    transform: translateY(-50px);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Wrapper to constrain width inside the slide */
+.slide-content-wrapper {
+    width: 100%;
+    max-width: var(--max-width);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* Center content with space for modules-bar at bottom */
+    justify-content: center;
+    padding: 20px 0;
+}
+
+/* Hero slide: balance content vertically */
+#slide-hero .slide-content-wrapper {
+    justify-content: space-between;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+/* Main hero content area (init + final screens) */
+#slide-hero .hero-main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 0; /* Allow shrinking in flex container */
+    overflow: hidden;
+}
+
+/* Bento slide: fill available space */
+#slide-bento .slide-content-wrapper {
+    justify-content: flex-start;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* --- LEGACY SUPPORT (keep old classes working) --- */
+.snap-section {
+    /* Converted to .slide */
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.snap-content-wrapper {
+    width: 100%;
+    max-width: var(--max-width);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* --- DIAGRAM STYLES (Nodes & Paths) --- */
+.diagram-path {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 3;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawLine 2.5s ease-out forwards;
+}
+
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+
+.diagram-node {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInNode 1s ease-out forwards;
+}
+
+@keyframes fadeInNode { to { opacity: 1; transform: translateY(0); } }
+
+.diagram-node text {
+    fill: var(--color-ivory);
+    font-family: 'JetBrains Mono';
+    font-size: 11px;
+    text-anchor: middle;
+}
+
+/* Animation delays for diagram elements (SYNCHRONIZED WITH MAIN.JS) */
+/* Logs: 0.5s -> 1.2s -> 2.2s -> 3.2s -> 4.5s -> 6.0s */
+
+.delay-0 { animation-delay: 0.6s; } /* REQ (Log: 0.5s) */
+.delay-1 { animation-delay: 1.4s; } /* R&D (Log: 1.2s) */
+.delay-2 { animation-delay: 2.4s; } /* DOCS/SYS (Log: 2.2s) */
+.delay-3 { animation-delay: 3.4s; } /* CORE/CLUSTERS (Log: 3.2s) */
+.delay-4 { animation-delay: 4.7s; } /* CI/CD Complex (Log: 4.5s) */
+.delay-5 { animation-delay: 6.2s; } /* PROD (Log: 6.0s) */
+.delay-6 { animation-delay: 7.2s; } /* Node PROD (Log: 7.0s) */
+
+/* --- HERO TEXT HIGHLIGHT COLORS --- */
+.highlight-white { color: var(--color-ivory); }
+.highlight-gold { color: var(--color-gold); }
+.highlight-blue { color: var(--color-blue); }
+
+/* --- SCENE 1: INITIALIZATION (WINDOWED MODE) --- */
+.init-layout-fixed {
+    display: grid;
+    grid-template-columns: 350px 1fr; /* Wider terminal on large screens */
+    /* Height scales with viewport - bigger on 2K+ */
+    min-height: 500px;
+    max-height: 800px;
+    height: 70vh;
+    gap: 0;
+    padding: 0;
+    align-items: stretch;
+
+    /* Окно терминала */
+    background: var(--color-monolith);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+
+    box-sizing: border-box;
+
+    /* Геометрия - full width of wrapper */
+    width: 100%;
+    margin: 0 auto;
+
+    border-radius: 8px;
+
+    /* Анимация исчезновения */
+    transition: all 0.8s ease-in;
+}
+
+.terminal-col {
+    background: rgba(0, 0, 0, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    min-height: 350px;
+}
+
+/* --- WINDOW CONTROLS (Mac Style) --- */
+.window-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.win-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: opacity 0.2s;
+}
+.win-btn:hover { opacity: 0.8; cursor: pointer; }
+
+.win-btn.red { background: #FF5F56; }
+.win-btn.yellow { background: #FFBD2E; }
+.win-btn.green { background: #27C93F; }
+
+
+.pipeline-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    min-height: 350px;
+}
+
+.pipeline-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-bottom: 0;
+}
+
+.pipeline-wrapper svg {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    filter: drop-shadow(0 0 20px rgba(48, 105, 152, 0.2));
+}
+
+/* FIX: Цвета для SVG элементов */
+.stroke-gold { stroke: var(--py-gold) !important; }
+.fill-blue { fill: var(--py-blue) !important; stroke: none !important; filter: drop-shadow(0 0 8px var(--py-blue)); }
+.shape-core { stroke: var(--py-gold); stroke-width: 3; filter: drop-shadow(0 0 10px var(--py-gold)); }
+.shape-product { fill: var(--py-gold); filter: drop-shadow(0 0 15px var(--py-gold)); }
+
+/* Базовые формы (если нет спец. класса) */
+.shape-rect, .shape-circle, .shape-rhombus {
+    fill: #1A1A24;
+    stroke: rgba(255,255,255,0.2);
+    stroke-width: 2;
+}
+
+.log-stream {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.log-stream div {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    margin-bottom: 8px;
+    animation: blink 0.2s ease-in;
+    color: rgba(255, 255, 255, 0.6);
+}
+.log-stream .text-gold { color: var(--py-gold); }
+
+@keyframes blink { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+
+
+/* --- SCENE 2: FINAL (CLEAN HERO) --- */
+.final-hero-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Height scales with viewport - bigger on 2K+ */
+    min-height: 500px;
+    max-height: 800px;
+    height: 70vh;
+    align-items: center;
+    padding: 0;
+
+    /* Чистый стиль */
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+
+    box-sizing: border-box;
+    width: 100%;
+
+    position: relative;
+    margin: 0 auto;
+
+    /* Изоляция для фона */
+    isolation: isolate;
+    overflow: hidden;
+
+    /* Анимация появления */
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+/* FIX: ВОССТАНОВИЛИ КОСУЮ ЛИНИЮ (СИНИЙ ГРАДИЕНТ) */
+.hero-diagonal-bg {
+    display: block; /* Вернули */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 60%; /* Правая часть */
+
+    /* Сине-фиолетовый градиент */
+    background: linear-gradient(135deg, rgba(48, 105, 152, 0.15) 0%, rgba(30, 30, 47, 0) 100%);
+
+    /* Косой срез */
+    clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+
+    z-index: -1;
+    pointer-events: none;
+
+    /* Легкая граница слева для акцента */
+    border-left: 1px solid rgba(48, 105, 152, 0.2);
+}
+
+.final-text-side {
+    justify-self: start;
+    text-align: left;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* FIX: Padding adjusted for centered layout */
+    padding: 40px;
+    border-right: none;
+}
+
+/* Новые стили для диагонального текста (РЕЗИНОВЫЕ) */
+.hero-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 40px;
+}
+
+.hero-line {
+    font-family: 'JetBrains Mono';
+    /* Base size for 1921+ (2K, 4K) - DO NOT CHANGE */
+    font-size: clamp(2rem, 4vw, 3.5rem) !important;
+    line-height: 1.0;
+    color: var(--ivory);
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Сдвиги для диагонали */
+.line-1 { margin-left: 0; }
+.line-2 { margin-left: 0; }
+
+/* Стили для описания (Трапеция) */
+.hero-desc-group {
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    /* Вертикальная полоска слева */
+    border-left: 2px solid var(--py-blue);
+    padding-left: 20px;
+}
+
+.hero-desc-p {
+    font-family: 'JetBrains Mono';
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    color: var(--color-ghost);
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Золотая галочка через псевдоэлемент */
+.hero-desc-p::before {
+    content: "> ";
+    color: var(--py-gold);
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.final-visual-side {
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: 40px;
+}
+
+#python-wireframe {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Сама картинка */
+.floating-python-logo {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    opacity: 1;
+    filter: none;
+    animation: floatingLogo 6s ease-in-out infinite;
+}
+
+/* Добавили scaleX(-1) для зеркалирования */
+@keyframes floatingLogo {
+    0%, 100% { transform: translateY(0) rotate(0deg) scaleX(-1); }
+    50% { transform: translateY(-20px) rotate(2deg) scaleX(-1); }
+}
+
+/* ============================================
+   HERO MODULES BAR (Separator + Tabs)
+   Shows loading status and module tabs
+   Layout: [STATUS] [LINE] [TABS...]
+   ============================================ */
+.hero-modules-bar {
+    width: 100%;
+    margin-top: auto; /* Push to bottom of hero */
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modules-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--color-ghost);
+    white-space: nowrap;
+    display: flex;
+    flex-shrink: 0;
+    transition: color 0.3s ease;
+}
+
+.modules-status.status-ready {
+    color: var(--color-green);
+    text-shadow: 0 0 10px rgba(39, 201, 63, 0.5);
+}
+
+/* Separator line between status and tabs */
+.modules-line {
+    flex-grow: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    animation: pulseLine 3s infinite ease-in-out;
+}
+
+.modules-line.line-ready {
+    background: var(--color-green);
+    opacity: 0.3;
+    animation: none;
+}
+
+/* Tabs container - pushed to the right */
+.modules-tabs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+/* Individual module tab */
+.module-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--color-ivory);
+    cursor: pointer;
+    text-decoration: none;
+
+    /* Hidden by default, appears with animation */
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s ease, transform 0.4s ease,
+                background 0.2s ease, border-color 0.2s ease;
+}
+
+.module-tab.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.module-tab:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.module-tab:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Tab icon (like header nav) */
+.module-tab .tab-icon {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 4px;
+    border-radius: 2px;
+    text-transform: uppercase;
+}
+
+.module-tab .tab-icon.gold {
+    color: var(--color-gold);
+    background: rgba(212, 175, 55, 0.15);
+}
+.module-tab .tab-icon.blue {
+    color: var(--color-blue);
+    background: rgba(48, 105, 152, 0.15);
+}
+.module-tab .tab-icon.ghost {
+    color: var(--color-ghost);
+    background: rgba(255, 255, 255, 0.05);
+}
+.module-tab .tab-icon.green {
+    color: var(--color-green);
+    background: rgba(39, 201, 63, 0.15);
+}
+
+.module-tab .tab-name {
+    color: var(--color-ghost);
+}
+
+/* --- BENTO SEPARATOR (LOADING STYLE) --- */
+.bento-separator {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1s;
+    padding: 20px 0;
+}
+
+/* Separator Hero (Bottom) - DEPRECATED, use .hero-modules-bar */
+.separator-hero {
+    margin-top: auto;
+}
+
+/* Separator Bento (Top) */
+.separator-bento {
+    margin-bottom: 20px;
+}
+
+.bento-separator span,
+.bento-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--color-ghost);
+    white-space: nowrap;
+    display: flex;
+    transition: color 0.3s ease;
+}
+
+/* Status changes to green when ready */
+.separator-success .bento-status {
+    color: var(--color-green);
+    text-shadow: 0 0 10px rgba(39, 201, 63, 0.5);
+}
+
+/* Анимация точек */
+.dots::after {
+    content: '';
+    animation: loadingDots 2s infinite steps(4);
+}
+
+/* Note: @keyframes loadingDots moved to components.css */
+
+.bento-separator .line {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    animation: pulseLine 3s infinite ease-in-out;
+}
+
+/* Класс для успешного статуса разделителя */
+.separator-success span {
+    color: var(--color-green);
+    text-shadow: 0 0 10px rgba(39, 201, 63, 0.5);
+}
+
+.separator-success .line {
+    background: var(--color-green);
+    opacity: 0.5;
+    animation: none;
+}
+
+/* Note: @keyframes pulseLine moved to components.css */
+
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* --- BENTO GRID ALIGNMENT & ANIMATION --- */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    /* Adaptive rows based on viewport height */
+    grid-auto-rows: minmax(120px, 1fr);
+    /* Fluid spacing: grows proportionally with viewport */
+    gap: clamp(10px, 2.5vw, 30px);
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    /* Take available space, but don't overflow */
+    flex: 1;
+    align-content: stretch;
+    max-height: 100%;
+}
+
+/* Настройка спанов */
+.col-span-4 { grid-column: span 4; }
+.col-span-8 { grid-column: span 8; }
+.col-span-6 { grid-column: span 6; }
+.col-span-12 { grid-column: span 12; }
+.row-span-2 { grid-row: span 2; }
+
+/* Скрытое состояние карточки */
+.bento-hidden {
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+}
+
+/* Видимое состояние карточки */
+.bento-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: auto;
+}
+
+/* --- СТИЛИ КАРТОЧЕК (Визуал) --- */
+.bento-item {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: clamp(16px, 2vw, 24px);
+    padding: clamp(16px, 2vw, 32px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    /* Adaptive height - no fixed min-height */
+    min-height: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.bento-item:hover {
+    transform: translateY(-4px);
+    background-color: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+}
+
+/* ДНК 1: BUSINESS (Gold / Structure) */
+.dna-business {
+    border-color: rgba(255, 215, 0, 0.3);
+    background: linear-gradient(to top, rgba(255, 215, 0, 0.05), transparent 60%), #151520;
+}
+.dna-business:hover {
+    border-color: var(--color-gold);
+    box-shadow: 0 10px 40px rgba(255, 215, 0, 0.1);
+}
+
+/* ДНК 2: ECOSYSTEM (Blue / Network) */
+.dna-eco {
+    border-color: rgba(97, 175, 254, 0.3);
+    background: linear-gradient(45deg, rgba(97, 175, 254, 0.05), transparent 60%), #151520;
+}
+.dna-eco:hover {
+    border-color: var(--color-blue);
+    box-shadow: 0 10px 40px rgba(97, 175, 254, 0.1);
+}
+
+/* ДНК 3: R&D (Ghost / Terminal) */
+.dna-rnd {
+    border-color: rgba(255, 255, 255, 0.1);
+    border-style: dashed;
+    background: #151520;
+    position: relative;
+}
+.dna-rnd:hover {
+    border-color: var(--color-ghost);
+    background: rgba(255,255,255,0.02);
+}
+
+/* MOBILE-ONLY ELEMENTS: Скрыты на десктопе по умолчанию */
+.mobile-separator,
+.mobile-portals-stack,
+.mobile-init-screen {
+    display: none;
+}
+
+.mobile-loading-visual {
+    display: none;
+}
+
+/* ============================================
+   RESPONSIVE ADAPTATIONS (Desktop-First)
+   Structure: 2K+ → Full HD → Laptop → Tablet Landscape → Tablet Portrait → Mobile
+   ============================================ */
+
+/* --- FULL HD: 1441px - 1920px --- */
+@media (min-width: 1441px) and (max-width: 1920px) {
+    .slide {
+        padding: 20px;
+    }
+
+    .init-layout-fixed,
+    .final-hero-layout {
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        flex: 1;
+    }
+
+    .hero-line {
+        font-size: 3.4rem !important;
+    }
+
+    .hero-desc-p {
+        font-size: 1rem;
+    }
+
+    .bento-grid {
+        grid-auto-rows: minmax(90px, 1fr);
+        gap: 20px;
+    }
+}
+
+/* --- LAPTOP: 1280px - 1440px --- */
+@media (min-width: 1280px) and (max-width: 1440px) {
+    .slide {
+        padding: 15px;
+    }
+
+    .init-layout-fixed,
+    .final-hero-layout {
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        flex: 1;
+    }
+
+    .hero-line {
+        font-size: 3rem !important;
+    }
+
+    .hero-desc-p {
+        font-size: 0.9rem;
+    }
+
+    .bento-grid {
+        grid-auto-rows: minmax(80px, 1fr);
+        gap: 16px;
+    }
+
+    .bento-item {
+        padding: 18px;
+    }
+}
+
+/* --- LAPTOP LOW HEIGHT: 1280px - 1440px, height < 850px --- */
+@media (min-width: 1280px) and (max-width: 1440px) and (max-height: 850px) {
+    .slide {
+        padding: 10px;
+    }
+
+    #slide-hero .slide-content-wrapper {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .init-layout-fixed {
+        grid-template-columns: 280px 1fr;
+    }
+
+    .terminal-col,
+    .pipeline-col {
+        min-height: 180px;
+        padding: 10px;
+    }
+
+    .hero-line {
+        font-size: 2.4rem !important;
+    }
+
+    .hero-desc-p {
+        font-size: 0.8rem;
+        line-height: 1.2;
+    }
+
+    .hero-title-group {
+        margin-bottom: 20px;
+    }
+
+    .hero-modules-bar {
+        padding: 4px 0;
+    }
+
+    .module-tab {
+        padding: 3px 8px;
+        font-size: 0.6rem;
+    }
+
+    .bento-grid {
+        grid-auto-rows: minmax(60px, 1fr);
+        gap: 12px;
+    }
+
+    .bento-item {
+        padding: 14px;
+        border-radius: 10px;
+    }
+}
+
+/* --- TABLET LANDSCAPE: 1024px - 1279px --- */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .slide {
+        padding: 12px;
+    }
+
+    .init-layout-fixed,
+    .final-hero-layout {
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        flex: 1;
+    }
+
+    .terminal-col,
+    .pipeline-col {
+        min-height: 200px;
+    }
+
+    .hero-line {
+        font-size: 2.4rem !important;
+    }
+
+    .hero-desc-p {
+        font-size: 0.75rem;
+        line-height: 1.3;
+    }
+
+    .bento-grid {
+        grid-auto-rows: minmax(70px, 1fr);
+        gap: 14px;
+    }
+
+    .bento-item {
+        padding: 16px;
+        border-radius: 14px;
+    }
+}
+
+/* --- TABLET PORTRAIT: 768px - 1023px --- */
+@media (min-width: 768px) and (max-width: 1023px) {
+    /* Hero: Stacked layout (Terminal top, Pipeline bottom) */
+    .init-layout-fixed {
+        grid-template-columns: 1fr; /* Single column */
+        grid-template-rows: auto auto; /* Two rows */
+        height: auto;
+        min-height: auto;
+    }
+
+    .terminal-col {
+        width: 100%;
+        height: 300px; /* Fixed height for terminal */
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .pipeline-col {
+        width: 100%;
+        height: 350px; /* Fixed height for diagram */
+        display: flex; /* Ensure it's visible */
+    }
+
+    /* Final Screen: Stacked */
+    .final-hero-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+        padding-bottom: 40px;
+    }
+
+    .final-text-side {
+        padding: 40px 20px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .hero-title-group {
+        align-items: center;
+    }
+
+    .hero-line {
+        text-align: center;
+        font-size: 3rem !important;
+    }
+
+    .hero-desc-group {
+        align-items: center;
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .final-visual-side {
+        display: none; /* Hide visual on tablet portrait to save space, or keep small */
+    }
+}
+
+/* --- MOBILE CATEGORY HUB (< 768px) --- */
+.mobile-hub {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 80px;
+}
+
+.hub-card {
+    display: block;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 767px) {
+    /* Переопределяем padding для главной страницы (минимальный) */
+    .layout-main {
+        padding: 5px !important;
+    }
+
+    /* FIX: Убираем безумные падинги на мобилке */
+    .slide {
+        padding: 10px !important;
+    }
+
+    .slides-container {
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height: calc(100vh - 120px); /* Минус header и footer */
+        overflow: visible;
+    }
+
+    #slide-hero {
+        position: relative;
+        height: auto;
+        min-height: calc(100vh - 120px);
+    }
+
+    #slide-hero .slide-content-wrapper {
+        padding: 10px 0 !important;
+        height: auto;
+        min-height: auto;
+    }
+
+    .hero-main-content {
+        min-height: auto;
+        height: auto;
+    }
+
+    /* DISABLE SCROLL SNAP ON MOBILE */
+    html { scroll-snap-type: none; }
+    .snap-section {
+        height: auto;
+        min-height: auto;
+        scroll-snap-align: none;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+    }
+    .snap-content-wrapper {
+        height: auto;
+        display: block;
+    }
+
+    /* INIT SCREEN: Скрываем десктопную версию */
+    .init-layout-fixed {
+        display: block !important;
+        grid-template-columns: unset !important;
+        height: 280px !important;
+        min-height: 280px !important;
+        max-height: 280px !important;
+        padding: 15px !important;
+        margin: 10px auto !important;
+        width: calc(100% - 20px) !important;
+        background: var(--color-monolith) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+    }
+
+    /* Терминал на мобилке — показываем */
+    .terminal-col {
+        display: flex !important;
+        width: 100%;
+        min-height: 200px;
+        border-right: none;
+        border-bottom: none;
+    }
+
+    /* Pipeline — полностью убираем на мобилке */
+    .pipeline-col {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        visibility: hidden !important;
+    }
+
+    /* FINAL SCREEN: Hero текст (Mobile - Pyramid style, centered) */
+    .final-hero-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        grid-template-columns: unset !important;
+        /* FIX: Ограничиваем высоту чтобы оставить место для scroll indicator */
+        min-height: auto !important;
+        max-height: calc(100vh - 200px) !important; /* Leave space for header + footer + indicator */
+        padding: 15px 20px !important;
+        margin: 0 !important;
+        width: 100% !important;
+        background: transparent !important;
+    }
+
+    .final-text-side {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        width: 100%;
+    }
+
+    /* Pyramid text style - centered, each line progressively indented */
+    .hero-title-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .hero-line {
+        font-size: clamp(1.4rem, 5vw, 2rem) !important;
+        white-space: nowrap;
+        text-align: center;
+        line-height: 1.3;
+    }
+
+    /* Description as pyramid under title */
+    .hero-desc-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-left: none;
+        border-top: none;
+        padding-left: 0;
+        padding-top: 0;
+        gap: 4px;
+    }
+
+    .hero-desc-p {
+        white-space: nowrap;
+        text-align: center;
+        font-size: clamp(0.55rem, 2.5vw, 0.75rem);
+        line-height: 1.4;
+        margin: 0;
+    }
+
+    /* Remove the ">" prefix on mobile for cleaner pyramid look */
+    .hero-desc-p::before {
+        content: none !important;
+    }
+
+    /* Картинка — полностью убираем на мобилке */
+    .final-visual-side {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        visibility: hidden !important;
+        position: absolute !important;
+    }
+
+    /* Hide diagonal background on mobile */
+    .hero-diagonal-bg {
+        display: none !important;
+    }
+
+    /* Разделитель — скрываем на мобилке */
+    .bento-separator { display: none; }
+
+    /* FIX: Скрываем слоган на мобилке */
+    #brand-slogan { display: none; }
+
+    /* --- HERO SECTION FIXES (Fluid Dynamics) --- */
+    .hero-section {
+        display: flex !important;
+        flex-direction: column !important;
+        /* Заполняем всё пространство между хедером и футером */
+        min-height: calc(100vh - 170px);
+        /* Hero текст наверху, кнопки прижаты к низу */
+        justify-content: space-between !important;
+        margin: 0 !important;
+        padding-bottom: 10px !important;
+    }
+
+    /* --- INTRO ANIMATION STYLES --- */
+
+    /* 1. SVG (Visual) - Виден по умолчанию, потом исчезает */
+    .hero-visual.mobile-intro-view {
+        display: flex !important; /* Показываем на мобилке */
+        justify-content: center;
+        align-items: center;
+        flex: 1; /* Занимает все место */
+        opacity: 1;
+        transition: opacity 1.5s ease-out; /* Медленное затухание */
+    }
+
+    /* Класс для скрытия SVG */
+    .hero-visual.fade-out {
+        opacity: 0;
+        pointer-events: none;
+        /* position: absolute; <--- УБРАЛИ, ЧТОБЫ НЕ ПРЫГАЛО */
+    }
+
+    /* Класс для полного удаления из потока (добавляется JS после анимации) */
+    .hero-visual.hidden-flow {
+        display: none !important;
+    }
+
+    /* 2. TEXT - Скрыт по умолчанию, потом появляется */
+    .hero-text.mobile-hidden-start {
+        opacity: 0;
+        /* Убираем transform, чтобы не было скачка при смене display */
+        /* transform: translateY(20px) scale(0.95); */
+        transition: opacity 0.8s ease;
+        display: none !important; /* Скрываем из потока, чтобы SVG был по центру */
+    }
+
+    /* Класс для показа Текста */
+    .hero-text.fade-in {
+        display: flex !important; /* Возвращаем в поток */
+        opacity: 1;
+
+        /* Hero текст наверху, не растягивается */
+        flex-direction: column;
+        align-items: var(--hero-align, flex-start);
+        text-align: var(--hero-align-text, left);
+
+        /* Анимация появления */
+        animation: fadeInUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-title {
+        /* [MAGIC] Шрифт растет сам от 1.8rem до 2.5rem в зависимости от ширины */
+        font-size: clamp(1.8rem, 5vw + 1rem, 2.8rem) !important;
+        line-height: 1.1 !important;
+        margin-bottom: 25px !important;
+    }
+
+    .hero-desc {
+        /* Тоже растет */
+        font-size: clamp(0.9rem, 2vw + 0.5rem, 1.1rem) !important;
+        border-left: 2px solid var(--color-blue);
+        padding-left: 15px;
+
+        /* [NEW] Скрываем описание по умолчанию для анимации */
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+
+    /* Класс для показа описания */
+    .hero-desc.show-desc {
+        opacity: 1;
+    }
+
+    /* MOBILE SEPARATOR (между Hero и порталами) */
+    .mobile-separator {
+        display: flex !important;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 0;
+        margin: 10px 0;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .mobile-separator.show-separator {
+        opacity: 1;
+    }
+
+    .mobile-separator .separator-text {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        color: var(--color-ghost);
+        white-space: nowrap;
+        transition: color 0.3s ease;
+    }
+
+    .mobile-separator .separator-line {
+        flex-grow: 1;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+    }
+
+    /* Анимация точек загрузки (keyframes in components.css) */
+    .mobile-separator .dots::after {
+        content: '';
+        animation: loadingDots 1.5s infinite;
+    }
+
+    /* Класс для статуса READY */
+    .mobile-separator.separator-ready .separator-text {
+        color: var(--color-gold);
+    }
+
+    /* 3. BUTTONS - Скрыты по умолчанию */
+    .mobile-portals-stack {
+        display: none !important; /* Скрыты */
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+        width: 100%;
+        flex-shrink: 0;
+    }
+
+    /* Класс для показа кнопок */
+    .mobile-portals-stack.show-buttons {
+        display: flex !important;
+    }
+
+    /* Анимации вылета кнопок */
+    .portal-card {
+        opacity: 0; /* Скрыты до анимации */
+    }
+
+    .mobile-portals-stack.show-buttons .portal-card {
+        animation-duration: 0.6s;
+        animation-fill-mode: forwards;
+        animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* 1. Business (Слева) */
+    .mobile-portals-stack.show-buttons .p-biz {
+        animation-name: slideInLeft;
+        animation-delay: 0.1s;
+    }
+
+    /* 2. Eco (Снизу) */
+    .mobile-portals-stack.show-buttons .p-eco {
+        animation-name: slideInBottom;
+        animation-delay: 0.3s;
+    }
+
+    /* 3. R&D (Справа) */
+    .mobile-portals-stack.show-buttons .p-rnd {
+        animation-name: slideInRight;
+        animation-delay: 0.5s;
+    }
+
+    @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-50px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(50px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInBottom {
+        from { opacity: 0; transform: translateY(50px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Bento Grid: Mobile 2-column layout */
+    .bento-grid {
+        display: grid;
+        /* 2-column grid for mobile */
+        grid-template-columns: repeat(2, 1fr);
+        /* Fluid spacing that grows with viewport */
+        gap: clamp(10px, 2.5vw, 30px);
+        padding: 0 clamp(10px, 2.5vw, 20px);
+    }
+
+    /* Priority items span full width on mobile */
+    .bento-grid .bento-item.priority,
+    .bento-grid .bento-item[data-priority="high"],
+    .bento-grid .bento-item.row-span-2,
+    .bento-grid .bento-item.theme-green {
+        grid-column: span 2;
+    }
+
+    /* Standard items take 1 column */
+    .bento-grid .col-span-4 {
+        grid-column: span 1;
+    }
+
+    /* Featured/Hero cards span full width */
+    .bento-grid .col-span-8,
+    .bento-grid .col-span-6,
+    .bento-grid .col-span-12 {
+        grid-column: span 2;
+    }
+
+    /* Row span reset for mobile (no multi-row) */
+    .bento-grid .row-span-2 {
+        grid-row: span 1;
+    }
+
+    /* Compact cards on mobile with fluid padding */
+    .bento-grid .bento-item {
+        min-height: 100px;
+        padding: clamp(12px, 3vw, 20px);
+        border-radius: clamp(8px, 2vw, 12px);
+    }
+
+    /* СТИЛИ ДЛЯ КАРТОЧЕК ПОРТАЛОВ */
+    .portal-card {
+        position: relative;
+        width: 100%;
+        min-height: 70px; /* Уменьшенная высота */
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-decoration: none;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: linear-gradient(135deg, rgba(30, 30, 47, 0.8) 0%, rgba(15, 15, 26, 1) 100%);
+    }
+
+    .portal-card span {
+        font-family: 'JetBrains Mono', monospace;
+        color: var(--color-gold);
+        font-size: 0.6rem;
+        letter-spacing: 2px;
+        margin-bottom: 3px;
+    }
+
+    .portal-card h2 {
+        color: white;
+        font-size: 1.2rem;
+        margin: 0;
+    }
+
+    /* Индивидуальные акценты для карточек */
+    .p-biz { border-left: 4px solid var(--color-gold); }
+    .p-eco { border-left: 4px solid var(--color-blue); }
+    .p-rnd { border-left: 4px solid var(--color-ghost); }
+
+    /* Картинка ПОД терминалом во время загрузки */
+    .mobile-loading-visual {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        flex-grow: 1;
+        transition: opacity 0.5s ease;
+    }
+
+    .mobile-loading-visual .loading-tree-img {
+        width: 100%;
+        height: auto;
+        opacity: 0.7;
+        filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
+        animation: floatTree 3s ease-in-out infinite;
+    }
+
+    @keyframes floatTree {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+    }
+
+    /* Скрытие картинки когда появляется hero */
+    .mobile-loading-visual.hidden {
+        display: none !important;
+    }
+
+    /* Hide hero-modules-bar on mobile */
+    .hero-modules-bar {
+        display: none !important;
+    }
+
+    /* ========================================
+       MOBILE INIT SCREEN: Simplified Pipeline
+       ======================================== */
+    .mobile-init-screen {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 140px); /* Полный экран минус header/footer */
+        padding: 15px;
+        opacity: 1;
+        transition: opacity 0.8s ease;
+    }
+
+    .mobile-init-screen.fade-out {
+        opacity: 0;
+    }
+
+    .mobile-init-screen.hidden {
+        display: none !important;
+    }
+
+    .mobile-pipeline-svg {
+        width: 100%;
+        max-width: 90%; /* Больше места на маленьких экранах */
+        height: auto;
+        flex: 1;
+        max-height: 50vh; /* Половина экрана максимум */
+    }
+
+    /* Loading indicator at bottom of init screen */
+    .mobile-init-loading {
+        padding: 15px 0;
+        text-align: center;
+    }
+
+    .mobile-init-loading .loading-text {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        color: var(--color-gold);
+        letter-spacing: 1px;
+    }
+
+    .mobile-init-loading .dots::after {
+        content: '';
+        animation: loadingDots 1.5s infinite;
+    }
+
+    /* Pipeline Nodes */
+    .mp-node {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .mp-node.visible {
+        opacity: 1;
+    }
+
+    /* Main rectangles */
+    .mp-rect-main {
+        fill: rgba(30, 30, 47, 0.8);
+        stroke: var(--color-ghost);
+        stroke-width: 2;
+    }
+
+    .mp-rect-icon {
+        fill: rgba(30, 30, 47, 0.9);
+        stroke-width: 2;
+    }
+
+    .mp-rect-icon.gold { stroke: var(--color-gold); }
+    .mp-rect-icon.blue { stroke: var(--color-blue); }
+    .mp-rect-icon.green { stroke: var(--color-green); }
+
+    .mp-diamond {
+        fill: rgba(30, 30, 47, 0.9);
+        stroke: var(--color-gold);
+        stroke-width: 2;
+    }
+
+    .mp-rect-product {
+        fill: var(--color-gold);
+        stroke: none;
+    }
+
+    /* Text styles */
+    .mp-text-main {
+        fill: var(--color-ivory);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        font-weight: 700;
+        text-anchor: middle;
+        dominant-baseline: middle;
+    }
+
+    .mp-text-icon {
+        fill: var(--color-ivory);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        font-weight: 700;
+        text-anchor: middle;
+        dominant-baseline: middle;
+    }
+
+    /* Product block text should be dark on gold background */
+    .mp-node.mp-product .mp-text-main {
+        fill: #151520;
+    }
+
+    /* Pipeline Lines */
+    .mp-line {
+        fill: none;
+        stroke: var(--color-ghost);
+        stroke-width: 2;
+        stroke-dasharray: 200;
+        stroke-dashoffset: 200;
+        transition: stroke-dashoffset 0.8s ease;
+    }
+
+    .mp-line.drawn {
+        stroke-dashoffset: 0;
+    }
+
+    /* Hide old mobile loading visual */
+    .mobile-loading-visual {
+        display: none !important;
+    }
+
+    /* Hide old portals on mobile */
+    .mobile-portals-stack {
+        display: none !important;
+    }
+
+    /* Hide desktop init screen on mobile */
+    .init-layout-fixed {
+        display: none !important;
+    }
+
+    /* ========================================
+       MOBILE SCROLL INDICATOR
+       ======================================== */
+    .mobile-scroll-indicator {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .mobile-scroll-indicator.show {
+        display: flex !important;
+        opacity: 1;
+    }
+
+    .mobile-scroll-indicator .scroll-text {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        color: var(--color-ghost);
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+    }
+
+    .mobile-scroll-indicator .scroll-arrows {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+    }
+
+    .mobile-scroll-indicator .arrow {
+        color: var(--color-gold);
+        font-size: 0.8rem;
+        opacity: 0.6;
+        animation: bounceArrow 1.5s ease-in-out infinite;
+    }
+
+    .mobile-scroll-indicator .arrow:nth-child(2) {
+        animation-delay: 0.2s;
+        opacity: 0.4;
+    }
+
+    /* Note: @keyframes bounceArrow in components.css */
+
+    /* Hide old separator on mobile */
+    .mobile-separator {
+        display: none !important;
+    }
+}
+
+/* --- СПЕЦИАЛЬНО ДЛЯ ШИРОКИХ МОБИЛОК (480px - 767px) --- */
+@media (min-width: 480px) and (max-width: 767px) {
+    .hero-section {
+        /* Центруем контент по вертикали, если места много */
+        justify-content: center !important;
+        padding-top: 40px; /* Чуть воздуха сверху */
+    }
+
+    .hero-text.fade-in {
+        /* Переключаем на центр */
+        --hero-align: center;
+        --hero-align-text: center;
+        margin-bottom: 40px; /* Больше воздуха до кнопок */
+    }
+
+    .hero-desc {
+        /* Возвращаем полоску слева */
+        border-left: 2px solid var(--color-blue) !important;
+        border-bottom: none !important;
+        padding-left: 15px !important;
+        padding-bottom: 0 !important;
+        max-width: 80%; /* Чтобы текст не размазывался в одну строку */
+    }
+
+    /* Делаем кнопки порталов чуть "жирнее" */
+    .mobile-portals-stack {
+        width: 80%; /* Не во всю ширь, а аккуратно по центру */
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* --- ВЫСОКИЕ ТЕЛЕФОНЫ (> 840px высота) --- */
+@media (min-height: 841px) and (max-width: 767px) {
+    .portal-card {
+        min-height: 100px !important; /* Большие кнопки */
+        padding: 15px !important;
+    }
+
+    .portal-card h2 {
+        font-size: 1.3rem !important;
+        margin-bottom: 0;
+    }
+
+    .portal-card span {
+        font-size: 0.65rem !important;
+        margin-bottom: 2px !important;
+    }
+}
+
+/* --- КОРОТКИЕ ТЕЛЕФОНЫ (< 740px) --- */
+@media (max-height: 740px) and (max-width: 767px) {
+    /* Только компактные кнопки, без изменения остального интерфейса */
+    .portal-card {
+        min-height: 60px !important; /* Компактные кнопки */
+        padding: 12px !important;
+    }
+
+    .portal-card h2 {
+        font-size: 1.1rem !important;
+    }
+
+    .portal-card span {
+        font-size: 0.55rem !important;
+    }
+}

@@ -1,0 +1,907 @@
+/* src/prototype/css/components.css */
+/* SHARED UI COMPONENTS - Tabs, Cards, Tags, Status indicators */
+/* Base visual styles (colors, fonts, borders). Sizes adapted per page. */
+
+/* ============================================
+   1. COLOR UTILITIES (Text & Icon colors)
+   ============================================ */
+.text-gold { color: var(--color-gold); }
+.text-blue { color: var(--color-blue); }
+.text-green { color: var(--color-green); }
+.text-ghost { color: var(--color-ghost); }
+.text-purple { color: #c678dd; }
+.text-ivory { color: var(--color-ivory); }
+
+.icon-gold { color: var(--color-gold); }
+.icon-blue { color: var(--color-blue); }
+.icon-green { color: var(--color-green); }
+.icon-ghost { color: var(--color-ghost); }
+.icon-purple { color: #c678dd; }
+
+/* Background accents */
+.bg-gold { background-color: rgba(212, 175, 55, 0.15); }
+.bg-blue { background-color: rgba(48, 105, 152, 0.15); }
+.bg-green { background-color: rgba(39, 201, 63, 0.15); }
+.bg-ghost { background-color: rgba(255, 255, 255, 0.05); }
+.bg-purple { background-color: rgba(198, 120, 221, 0.15); }
+
+/* ============================================
+   2. TAB COMPONENT (IDE-style file tabs)
+   Used in: header nav, portfolio tabs, module tabs
+   ============================================ */
+.tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--color-ghost);
+    text-decoration: none;
+
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0.8;
+}
+
+.tab:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--color-ivory);
+    opacity: 1;
+}
+
+.tab.active {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--color-ivory);
+    opacity: 1;
+}
+
+.tab:active {
+    transform: scale(0.98);
+}
+
+/* Tab icon badge */
+.tab-icon {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 4px;
+    border-radius: 2px;
+    text-transform: uppercase;
+}
+
+.tab-icon.gold {
+    color: var(--color-gold);
+    background: rgba(212, 175, 55, 0.15);
+}
+.tab-icon.blue {
+    color: var(--color-blue);
+    background: rgba(48, 105, 152, 0.15);
+}
+.tab-icon.green {
+    color: var(--color-green);
+    background: rgba(39, 201, 63, 0.15);
+}
+.tab-icon.ghost {
+    color: var(--color-ghost);
+    background: rgba(255, 255, 255, 0.05);
+}
+.tab-icon.purple {
+    color: #c678dd;
+    background: rgba(198, 120, 221, 0.15);
+}
+
+.tab-name {
+    color: var(--color-ghost);
+}
+
+.tab:hover .tab-name,
+.tab.active .tab-name {
+    color: var(--color-ivory);
+}
+
+/* ============================================
+   3. CARD COMPONENT (Universal card style)
+   Used in: bento grid, project cards, tiles
+   Container Query enabled for adaptive content
+   ============================================ */
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    background: rgba(30, 30, 47, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 20px;
+
+    text-decoration: none;
+    overflow: hidden;
+
+    /* FIX: Isolation to prevent style leakage */
+    isolation: isolate;
+
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    /* Container Query: Enable container for adaptive content */
+    container-type: inline-size;
+    container-name: card;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    background: rgba(30, 30, 47, 0.7);
+    border-color: var(--theme-color, rgba(255, 255, 255, 0.15));
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card:active {
+    transform: translateY(-2px) scale(0.99);
+}
+
+/* Card header */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 2; /* Ensure header is above background effects */
+}
+
+.card-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--color-ghost);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.card:hover .card-type {
+    color: var(--theme-color, var(--color-blue));
+}
+
+/* Card status indicator */
+.card-status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-ghost);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.card-status.active {
+    background-color: var(--theme-color, var(--color-green));
+    box-shadow: 0 0 8px var(--theme-color, rgba(39, 201, 63, 0.4));
+}
+
+/* Card content */
+.card-title {
+    /* Fluid typography with container queries */
+    font-size: clamp(1rem, 4cqw, 1.4rem);
+    font-weight: 700;
+    color: var(--color-ivory);
+    margin-bottom: 8px;
+    line-height: 1.2;
+    transition: color 0.3s;
+    position: relative;
+    z-index: 2;
+}
+
+.card:hover .card-title {
+    color: #ffffff;
+}
+
+.card-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: #A0A0B0;
+    line-height: 1.5;
+    flex-grow: 1;
+    position: relative;
+    z-index: 2;
+}
+
+/* Card icon (bottom right) */
+.card-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 3px 6px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-ghost);
+    opacity: 0.6;
+    z-index: 2;
+}
+
+/* ============================================
+   4. CARD THEMES (Color variants)
+   ============================================ */
+.theme-gold { --theme-color: var(--color-gold); }
+.theme-blue { --theme-color: var(--color-blue); }
+.theme-green { --theme-color: var(--color-green); }
+.theme-ghost { --theme-color: var(--color-ghost); }
+.theme-purple { --theme-color: #c678dd; }
+
+/* Portfolio aliases (for backward compatibility) */
+.theme-rnd { --theme-color: var(--color-green); }
+.theme-proto { --theme-color: #c678dd; }
+.theme-config { --theme-color: var(--color-ghost); }
+
+/* Theme border accents */
+.theme-gold .card,
+.card.theme-gold {
+    border-left: 3px solid var(--color-gold);
+}
+.theme-blue .card,
+.card.theme-blue {
+    border-left: 3px solid var(--color-blue);
+}
+.theme-green .card,
+.card.theme-green {
+    border-left: 3px solid var(--color-green);
+}
+.theme-ghost .card,
+.card.theme-ghost {
+    border-left: 3px solid var(--color-ghost);
+}
+.theme-purple .card,
+.card.theme-purple {
+    border-left: 3px solid #c678dd;
+}
+
+/* Theme title colors */
+.theme-gold .card-type { color: var(--color-gold); }
+.theme-blue .card-type { color: var(--color-blue); }
+.theme-green .card-type { color: var(--color-green); }
+.theme-purple .card-type { color: #c678dd; }
+
+/* ============================================
+   4.1 CONTAINER QUERY ADAPTIVE SLOTS
+   Content adapts based on card container width
+   ============================================ */
+
+/* Small cards (< 280px): Compact mode */
+@container card (max-width: 279px) {
+    .card-content {
+        padding: 10px;
+    }
+
+    .card-desc {
+        display: none; /* Hide description on very small cards */
+    }
+
+    .tech-stack-grid .tech-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 0.6rem;
+        padding: 6px 4px;
+    }
+
+    .card-title {
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+    }
+
+    .card-type {
+        font-size: 0.6rem;
+    }
+
+    .tags-list {
+        gap: 4px;
+    }
+
+    .tag, .tech-tag {
+        font-size: 0.55rem;
+        padding: 2px 4px;
+    }
+}
+
+/* Medium cards (280px - 450px): Standard mode */
+@container card (min-width: 280px) and (max-width: 449px) {
+    .card-desc {
+        display: block;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        overflow: hidden;
+    }
+
+    .card-meta {
+        display: none; /* Hide extended metadata */
+    }
+}
+
+/* Large cards (> 450px): Full mode */
+@container card (min-width: 450px) {
+    .card-desc {
+        display: block;
+        -webkit-line-clamp: unset;
+        line-clamp: 2;
+    }
+
+    .card-meta {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        color: var(--color-ghost);
+    }
+
+    .card-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .tags-list {
+        gap: 8px;
+    }
+
+    .tag, .tech-tag {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+}
+
+/* ============================================
+   4.2 VISUAL DNA SYSTEM (Data-Driven Theming)
+   Apply via data-dna="business|ecosystem|rnd"
+   ============================================ */
+
+/* DNA: BUSINESS (Gold - Structured, Professional) */
+[data-dna="business"] {
+    --dna-color: var(--color-gold);
+    --dna-glow: rgba(212, 175, 55, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: linear-gradient(
+        135deg,
+        rgba(212, 175, 55, 0.05) 0%,
+        rgba(30, 30, 47, 0.4) 100%
+    );
+}
+
+[data-dna="business"]:hover {
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow:
+        0 8px 32px rgba(212, 175, 55, 0.15),
+        0 0 0 1px rgba(212, 175, 55, 0.1);
+    transform: translateY(-4px) scale(1.02);
+}
+
+[data-dna="business"] .card-type {
+    color: var(--color-gold);
+}
+
+[data-dna="business"] .card-status.active {
+    background-color: var(--color-gold);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+}
+
+/* DNA: ECOSYSTEM (Blue - Connected, Modern) */
+[data-dna="ecosystem"] {
+    --dna-color: var(--color-blue);
+    --dna-glow: rgba(48, 105, 152, 0.3);
+    border: 1px solid rgba(48, 105, 152, 0.2);
+    background: rgba(30, 30, 47, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Animated SVG grid pattern for ecosystem cards */
+[data-dna="ecosystem"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(rgba(48, 105, 152, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(48, 105, 152, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: gridPulse 4s ease-in-out infinite;
+    opacity: 0.5;
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes gridPulse {
+    0%, 100% { opacity: 0.3; background-size: 30px 30px; }
+    50% { opacity: 0.6; background-size: 32px 32px; }
+}
+
+[data-dna="ecosystem"]:hover {
+    border-color: rgba(48, 105, 152, 0.5);
+    box-shadow:
+        0 8px 32px rgba(48, 105, 152, 0.2),
+        inset 0 0 30px rgba(48, 105, 152, 0.05);
+    transform: translateY(-4px);
+}
+
+[data-dna="ecosystem"]:hover::before {
+    animation-play-state: paused;
+    opacity: 0.8;
+}
+
+[data-dna="ecosystem"] .card-type {
+    color: var(--color-blue);
+}
+
+[data-dna="ecosystem"] .card-status.active {
+    background-color: var(--color-blue);
+    box-shadow: 0 0 8px rgba(48, 105, 152, 0.6);
+}
+
+/* DNA: R&D (Gray/Green - Experimental, Technical) */
+[data-dna="rnd"] {
+    --dna-color: var(--color-green);
+    --dna-glow: rgba(39, 201, 63, 0.2);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    background: rgba(30, 30, 47, 0.5);
+    position: relative;
+}
+
+/* Noise texture overlay for R&D cards */
+[data-dna="rnd"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    z-index: -1;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+[data-dna="rnd"]:hover {
+    border-color: rgba(39, 201, 63, 0.4);
+    border-style: solid;
+    box-shadow: 0 8px 24px rgba(39, 201, 63, 0.1);
+    transform: translateY(-4px);
+}
+
+/* Scanline/glitch effect on hover for R&D */
+[data-dna="rnd"]:hover .card-title {
+    animation: glitchText 0.3s ease-in-out;
+}
+
+@keyframes glitchText {
+    0%, 100% { transform: translateX(0); opacity: 1; }
+    20% { transform: translateX(-2px); opacity: 0.8; }
+    40% { transform: translateX(2px); opacity: 0.9; }
+    60% { transform: translateX(-1px); opacity: 0.85; }
+    80% { transform: translateX(1px); }
+}
+
+[data-dna="rnd"] .card-type {
+    color: var(--color-green);
+}
+
+[data-dna="rnd"] .card-status.active {
+    background-color: var(--color-green);
+    box-shadow: 0 0 8px rgba(39, 201, 63, 0.6);
+}
+
+/* ============================================
+   5. CARD BACKGROUND PATTERNS
+   ============================================ */
+.card-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    opacity: 0.05;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.card:hover .card-bg {
+    opacity: 0.1;
+}
+
+/* Grid pattern (E-Commerce, SaaS) */
+.bg-pattern-grid {
+    background-image:
+        linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Dots pattern (AI, Bots) */
+.bg-pattern-dots {
+    background-image: radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
+    background-size: 15px 15px;
+}
+
+/* Lines pattern (DevOps, Config) */
+.bg-pattern-lines {
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255,255,255,0.1) 10px,
+        rgba(255,255,255,0.1) 11px
+    );
+}
+
+/* Code pattern (Core, Libs) */
+.bg-pattern-code {
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 19px,
+        rgba(255,255,255,0.05) 20px
+    );
+}
+
+/* ============================================
+   6. TECH STACK GRID (Icon grid for stack card)
+   ============================================ */
+.tech-stack-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.tech-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-ivory);
+
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 12px 8px;
+
+    transition: all 0.2s ease;
+}
+
+.tech-icon:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--theme-color, var(--color-blue));
+    transform: translateY(-2px);
+}
+
+/* Color variants for tech icons */
+.tech-icon.gold { color: var(--color-gold); border-color: rgba(212, 175, 55, 0.3); }
+.tech-icon.blue { color: var(--color-blue); border-color: rgba(48, 105, 152, 0.3); }
+.tech-icon.green { color: var(--color-green); border-color: rgba(39, 201, 63, 0.3); }
+
+/* ============================================
+   7. TAG COMPONENT (Tech tags)
+   ============================================ */
+.tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--color-ghost);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s;
+}
+
+.tag:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-ivory);
+    border-color: var(--theme-color, var(--color-ghost));
+    transform: translateY(-1px);
+}
+
+/* Tags container - Django-ready flex wrapper */
+.tags-list,
+.card-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-top: auto; /* Push to bottom of card */
+    position: relative;
+    z-index: 2;
+}
+
+/* Tech tag variant (used in project cards) */
+.tech-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--color-ghost);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.tech-tag:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-ivory);
+    border-color: var(--theme-color, var(--color-ghost));
+}
+
+/* ============================================
+   8. STATUS INDICATOR (Loading / Ready)
+   ============================================ */
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--color-ghost);
+}
+
+.status-text {
+    white-space: nowrap;
+    transition: color 0.3s ease;
+}
+
+.status-indicator.ready .status-text {
+    color: var(--color-green);
+    text-shadow: 0 0 10px rgba(39, 201, 63, 0.5);
+}
+
+.status-line {
+    flex-grow: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    animation: pulseLine 3s infinite ease-in-out;
+}
+
+.status-indicator.ready .status-line {
+    background: var(--color-green);
+    opacity: 0.3;
+    animation: none;
+}
+
+/* Loading dots animation */
+.dots::after {
+    content: '';
+    animation: loadingDots 1.5s infinite;
+}
+
+@keyframes loadingDots {
+    0% { content: ''; }
+    25% { content: '.'; }
+    50% { content: '..'; }
+    75% { content: '...'; }
+    100% { content: ''; }
+}
+
+@keyframes pulseLine {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+/* ============================================
+   9. SEPARATOR (Horizontal divider with status)
+   ============================================ */
+.separator {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+}
+
+.separator-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--color-ghost);
+    white-space: nowrap;
+    transition: color 0.3s ease;
+}
+
+.separator-line {
+    flex-grow: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.separator.ready .separator-text {
+    color: var(--color-green);
+    text-shadow: 0 0 10px rgba(39, 201, 63, 0.5);
+}
+
+.separator.ready .separator-line {
+    background: var(--color-green);
+    opacity: 0.3;
+}
+
+/* ============================================
+   10. TILE COMPONENT (Windows 8 style)
+   Used in: mobile tiles grid
+   ============================================ */
+.tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    overflow: hidden;
+
+    background: linear-gradient(135deg, rgba(30, 30, 47, 0.9) 0%, rgba(15, 15, 26, 1) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    /* FIX: Isolation */
+    isolation: isolate;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tile:active {
+    transform: scale(0.98);
+}
+
+.tile-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    opacity: 0.7;
+}
+
+.tile-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-ivory);
+    margin: 5px 0 0 0;
+}
+
+.tile-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 3px 6px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 0.6;
+}
+
+/* Tile color themes */
+.tile.tile-gold {
+    border-left: 4px solid var(--color-gold);
+}
+.tile.tile-gold .tile-label { color: var(--color-gold); }
+
+.tile.tile-blue {
+    border-left: 4px solid var(--color-blue);
+}
+.tile.tile-blue .tile-label { color: var(--color-blue); }
+
+.tile.tile-green {
+    border-left: 4px solid var(--color-green);
+}
+.tile.tile-green .tile-label { color: var(--color-green); }
+
+.tile.tile-purple {
+    border-left: 4px solid #c678dd;
+}
+.tile.tile-purple .tile-label { color: #c678dd; }
+
+.tile.tile-ghost {
+    border-left: 4px solid var(--color-ghost);
+}
+.tile.tile-ghost .tile-label { color: var(--color-ghost); }
+
+/* ============================================
+   11. SCROLL INDICATOR (Arrows)
+   ============================================ */
+.scroll-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.scroll-indicator .scroll-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--color-ghost);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.scroll-indicator .scroll-arrows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.scroll-indicator .arrow {
+    color: var(--color-gold);
+    font-size: 0.8rem;
+    opacity: 0.6;
+    animation: bounceArrow 1.5s ease-in-out infinite;
+}
+
+.scroll-indicator .arrow:nth-child(2) {
+    animation-delay: 0.2s;
+    opacity: 0.4;
+}
+
+/* Scroll up variant */
+.scroll-indicator.up .arrow {
+    transform: rotate(180deg);
+}
+
+@keyframes bounceArrow {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(5px); opacity: 1; }
+}
+
+/* ============================================
+   12. MOBILE STATUS BAR (Optional time display)
+   ============================================ */
+.mobile-status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--color-ghost);
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mobile-status-bar .status-time {
+    color: var(--color-ivory);
+}
+
+.mobile-status-bar .status-info {
+    display: flex;
+    gap: 10px;
+}
+
+/* ============================================
+   13. EMPTY STATE
+   ============================================ */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--color-ghost);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.empty-state .empty-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+.empty-state .empty-text {
+    font-size: 0.9rem;
+}
