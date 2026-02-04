@@ -1,24 +1,16 @@
 # JavaScript — краткие пояснения (RU)
 
-[⬅️ Back](../README.md) | [🏠 Root](/docs/README.md)
+[⬅️ Back](../README.md) | [🏠 Docs Root](../../../../../README.md)
 
 Кратко о JS-модулях прототипа и что важно учесть при переносе в Django-шаблоны:
 
-- Логика разделена на модули: `base.js` (logo, меню), `main.js` (slides),
-  `portfolio.js` (tabs).
-
-- Контракты DOM: сохраняйте `id` и `data-*` атрибуты, на которые опирается JS
-  (`#slide-hero`, `#slide-
-  bento`, `data-tab`).
-
-- i18n: все строки должны быть переведены и загружаться в JS через
-  `static/i18n/*.json`.
+- Логика разделена на модули: `base.js` (logo, меню), `main.js` (slides), `portfolio.js` (tabs).
+- Контракты DOM: сохраняйте `id` и `data-*` атрибуты, на которые опирается JS (`#slide-hero`, `#slide-bento`, `data-tab`).
+- i18n: все строки должны быть переведены и загружаться в JS через `static/i18n/*.json`.
 
 См. подробности (EN):
 
-- Base module: [EN: base-module.md](../../en/templates/JavaScript/base-module.md)
-
-- Slides module: [EN: slides-module.md](../../en/templates/JavaScript/slides-
-  module.md)
+- Base module: [EN: base-module.md](../../../en/backend/templates/JavaScript/base-module.md)
+- Slides module: [EN: slides-module.md](../../../en/backend/templates/JavaScript/slides-module.md)
 
 <!-- DJANGO: сохраняйте контракт DOM → JS, не изменяйте id без синхронизации -->

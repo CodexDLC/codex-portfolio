@@ -1,6 +1,6 @@
 # 🎯 Base Module (Header & Logo Animation)
 
-[⬅️ Back](../README.md) | [🏠 Root](/docs/README.md)
+[⬅️ Back](../README.md) | [🏠 Docs Root](../../../../../README.md)
 
 Source: [src/prototype/js/base.js](../../../src/prototype/js/base.js)
 
@@ -9,14 +9,9 @@ Source: [src/prototype/js/base.js](../../../src/prototype/js/base.js)
 The **Base Module** handles:
 
 - Logo typing animation on page load
-
 - Mobile burger menu toggle
-
 - Session storage for animation playback control
-
 - Global event listeners
-
-##
 
 ## Logo Animation (`typeSlogan()`)
 
@@ -28,9 +23,7 @@ The **Base Module** handles:
    ```
 
 2. **After Delay:**
-
    - Desktop: 3 seconds
-
    - Mobile: 1.5 seconds
 
 3. **Type Animation:** Slowly reveal `[ Developer's Life Cycle ]`
@@ -44,9 +37,7 @@ The **Base Module** handles:
    ```
 
 4. **Typing Speed:**
-
    - Desktop: 50ms per character
-
    - Mobile: 30ms per character
 
 ### Implementation
@@ -115,14 +106,11 @@ function startTyping() {
 
     typeNextPart();
 }
-
 ```
 
 <!-- DJANGO: Move delay/speed to Django settings (LOGO_ANIMATION_DELAY, LOGO_ANIMATION_SPEED) -->
 <!-- DJANGO: Extract slogan text to i18n system (gettext for backend, JSON for frontend JS) -->
 <!-- TODO: Consider CSS animations instead of JS for better performance -->
-
-##
 
 ## Session Storage (Animation Playback Control)
 
@@ -143,23 +131,17 @@ if (sessionStorage.getItem(SESSION_KEY)) {
 if (!skipAnimation) {
     typeSlogan();
 }
-
 ```
 
 **Behavior:**
 
 - User loads page → Animation plays → `sessionStorage` set
-
 - User reloads page (Ctrl+R) → Animation skipped
-
 - User closes tab and opens new tab → Animation plays again (new session)
-
 - User navigates to another page → Animation skipped (same session)
 
 <!-- DJANGO: Replace sessionStorage with Django sessions (user.profile.intro_shown) -->
 <!-- DJANGO: Track at database level for persistent "don't show intro again" across sessions -->
-
-##
 
 ## Mobile Burger Menu
 
@@ -185,19 +167,15 @@ document.querySelectorAll('.nav-link').forEach(link => {
         burgerButton.classList.remove('active');
     });
 });
-
 ```
 
 **Visibility:**
 
 - Desktop (768px+): Always visible
-
 - Mobile (< 768px): Hidden by default, toggle with burger button
 
 <!-- DJANGO: Menu items could come from Django menu system -->
 <!-- TODO: Add close button or click-outside behavior to close menu -->
-
-##
 
 ## Global Event Listeners
 
@@ -221,10 +199,7 @@ window.addEventListener('resize', () => {
     const isMobile = window.innerWidth < 768;
     // ...
 });
-
 ```
-
-##
 
 ## i18n Integration
 
@@ -244,20 +219,15 @@ All user-visible text is marked for translation:
 
 // Menu
 // i18n: menu_toggle
-
 ```
 
 **Future Migration:**
 
 - Extract to `static/i18n/en.json`, `ru.json`, `de.json`
-
 - Use helper: `function t(key) { return translations[key] || key; }`
-
 - Initialize from Django context: `const CURRENT_LANG = "{{ LANGUAGE_CODE }}";`
 
 <!-- DJANGO: All text should use gettext_lazy() in Python, i18n keys in templates/JS -->
-
-##
 
 ## Performance Notes
 
@@ -265,4 +235,3 @@ All user-visible text is marked for translation:
 <!-- TODO: Move animation to CSS keyframes if possible -->
 <!-- TODO: Test on low-end devices (animation smoothness) -->
 <!-- DJANGO: Preload fonts to avoid FOIT (Flash of Invisible Text) -->
-

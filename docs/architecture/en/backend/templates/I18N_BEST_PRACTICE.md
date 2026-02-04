@@ -1,14 +1,12 @@
 # 🌐 i18n Best Practice & Architecture
 
-[⬅️ Back](../README.md) | [🏠 Root](/docs/README.md)
+[⬅️ Back](../README.md) | [🏠 Docs Root](../../../../../README.md)
 
 ## Language Support
 
 **Supported Languages:** EN (English), RU (Русский), DE (Deutsch)
 **Default Language:** EN
 **Direction:** LTR only (no RTL support currently)
-
-##
 
 ## Language Selection Flow
 
@@ -24,13 +22,11 @@ If match found → Use selected language
 If no match → Fallback to EN
   ↓
 Store in Django session / cookie for future visits
-
 ```
 
 ### Django Configuration
 
 ```python
-
 # settings.py
 
 LANGUAGE_CODE = 'en'  # Default
@@ -52,17 +48,13 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',  # Must be after Session
     # ... other middleware
 ]
-
 ```
-
-##
 
 ## Backend i18n (Django)
 
 ### Using gettext_lazy in Python Code
 
 ```python
-
 # views.py
 
 from django.utils.translation import gettext_lazy as _
@@ -73,7 +65,6 @@ def contact_view(request):
         'form_label': _('contact_form_name'),
     }
     return render(request, 'contact.html', context)
-
 ```
 
 ### In Django Templates
@@ -101,21 +92,16 @@ def contact_view(request):
 {% blocktrans with name=user.first_name %}
     Hello {{ name }}, welcome to CodexDLC!
 {% endblocktrans %}
-
 ```
 
 ### Generating `.po` Files
 
 ```bash
-
 # Extract all translation strings from code and templates
-
 python manage.py makemessages -l en -l ru -l de
 
 # Compile .mo files for production (faster lookup)
-
 python manage.py compilemessages
-
 ```
 
 Generated files:
@@ -131,10 +117,7 @@ locale/
 └── de/LC_MESSAGES/
     ├── django.po      (German translations)
     └── django.mo      (Compiled)
-
 ```
-
-##
 
 ## Frontend i18n (JavaScript)
 
@@ -153,7 +136,6 @@ locale/
             window.translations = data;
         });
 </script>
-
 ```
 
 ### Helper Function
@@ -170,7 +152,6 @@ function t(key) {
 // Usage
 const welcomeText = t('hero_title');
 console.log(welcomeText);  // Output: "Welcome to CodexDLC" (EN) or "Добро пожаловать в CodexDLC" (RU)
-
 ```
 
 ### Dynamic Text in JS
@@ -190,7 +171,6 @@ const tabNames = {
     'tech': t('tab_tech'),
     'research': t('tab_research'),
 };
-
 ```
 
 ### JSON File Structure
@@ -200,21 +180,16 @@ static/i18n/
 ├── en.json  { "nav_home": "Home", "hero_title": "Welcome...", ... }
 ├── ru.json  { "nav_home": "Главная", "hero_title": "Добро пожаловать...", ... }
 └── de.json  { "nav_home": "Startseite", "hero_title": "Willkommen...", ... }
-
 ```
 
 See [I18N_KEYS.md](I18N_KEYS.md) for complete key reference.
-
-##
 
 ## Migration Strategy
 
 ### Phase 1: Initial Setup
 
 1. Extract all strings to [I18N_KEYS.md](I18N_KEYS.md)
-
 2. Create `.po` skeleton files
-
 3. Create JSON files in `static/i18n/`
 
 ### Phase 2: Django Template Migration
@@ -225,7 +200,6 @@ See [I18N_KEYS.md](I18N_KEYS.md) for complete key reference.
 
 <!-- After -->
 <a href="{% url 'portfolio' %}">{% trans "nav_portfolio" %}</a>
-
 ```
 
 ### Phase 3: JavaScript Cleanup
@@ -236,16 +210,12 @@ const text = "Developer's";
 
 // After
 const text = t('slogan_developers');
-
 ```
 
 ### Phase 4: Translation (AI Agents)
 
 - AI agent translates `.po` files (EN → RU, DE)
-
 - AI agent generates JSON files with translations
-
-##
 
 ## Fallback & Error Handling
 
@@ -256,7 +226,6 @@ const text = t('slogan_developers');
 ```django
 {% trans "nonexistent_key" %}
 <!-- Output: "nonexistent_key" (visible so you know it's untranslated) -->
-
 ```
 
 **JavaScript:**
@@ -264,17 +233,13 @@ const text = t('slogan_developers');
 ```javascript
 t('nonexistent_key')
 // Returns: "nonexistent_key"
-
 ```
 
 ### Language Not Available
 
 ```python
-
 # If user's Accept-Language is "fr" (French, not supported)
-
 # Django automatically falls back to EN
-
 ```
 
 ### Partial Translation
@@ -283,10 +248,7 @@ t('nonexistent_key')
 .po file has 100 strings
 Only 80 translated to RU
 Missing 20 strings → Django shows EN fallback
-
 ```
-
-##
 
 ## Testing i18n
 
@@ -298,7 +260,6 @@ python manage.py shell
 >>> translation.activate('ru')
 >>> from django.utils.translation import gettext as _
 >>> print(_('nav_home'))  # Should print "Главная"
-
 ```
 
 ### Browser DevTools
@@ -307,7 +268,6 @@ python manage.py shell
 // In console
 CURRENT_LANG  // "en" or "ru" or "de"
 t('nav_home')  // Get translation
-
 ```
 
 ### Switch Language (for testing)
@@ -316,10 +276,7 @@ t('nav_home')  // Get translation
 URL: http://localhost:8000/?lang=ru
 Django middleware switches to Russian
 JSON loads `i18n/ru.json`
-
 ```
-
-##
 
 ## Pluralization
 
@@ -331,7 +288,6 @@ JSON loads `i18n/ru.json`
 {% plural %}
     You have {{ items }} projects.
 {% endblocktrans %}
-
 ```
 
 ### In `.po` file
@@ -342,17 +298,13 @@ msgid_plural "You have %(items)d projects."
 msgstr[0] "У вас есть 1 проект."
 msgstr[1] "У вас есть %(items)d проекта."
 msgstr[2] "У вас есть %(items)d проектов."
-
 ```
-
-##
 
 ## Performance
 
 ### Caching Translations
 
 ```python
-
 # settings.py
 
 CACHES = {
@@ -363,9 +315,7 @@ CACHES = {
 }
 
 # Auto-cache translations after compilation
-
 # Cache invalidated when running makemessages
-
 ```
 
 ### Frontend Caching
@@ -382,48 +332,28 @@ if (localStorage.getItem(`translations_${CURRENT_LANG}`)) {
             localStorage.setItem(`translations_${CURRENT_LANG}`, JSON.stringify(data));
         });
 }
-
 ```
-
-##
 
 ## Common Pitfalls
 
 1. **Hardcoded strings in templates** → Always use `{% trans %}`
-
 2. **String concatenation** → Use `.format()` or template variables instead
-
 3. **Forgetting to run `makemessages`** → New strings won't be extracted
-
 4. **JSON key mismatches** → Keep [I18N_KEYS.md](I18N_KEYS.md) in sync
-
 5. **Not testing all languages** → Test EN, RU, DE on every change
-
-##
 
 ## Adding a New Language
 
 1. Add to `LANGUAGES` in `settings.py`
-
 2. Run `python manage.py makemessages -l <lang_code>`
-
 3. Create `static/i18n/<lang_code>.json`
-
 4. AI agent translates `.po` file
-
 5. Run `python manage.py compilemessages`
-
-##
 
 ## Future Enhancements
 
 - [ ] Add language switcher UI (dropdown in header)
-
 - [ ] Support cookie-based language selection
-
 - [ ] SEO: Generate language-specific sitemaps
-
 - [ ] RTL support (Arabic, Hebrew) if needed
-
 - [ ] Crowdin integration for professional translations
-

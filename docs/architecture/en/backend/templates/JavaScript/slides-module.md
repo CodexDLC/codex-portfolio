@@ -1,47 +1,28 @@
 # 📜 Slides Module (Navigation & State Management)
 
-[⬅️ Back](../README.md) | [🏠 Root](/docs/README.md)
-
-##
+[⬅️ Back](../README.md) | [🏠 Docs Root](../../../../../README.md)
 
 ## 🎯 Описание
 
-Кратко: модуль управления слайдами и навигацией в прототипе — отвечает за
-переходы между Hero и
-Bento-grid, обработку колесика мыши, тайминги анимаций и таб-систему на странице
-портфолио.
+Кратко: модуль управления слайдами и навигацией в прототипе — отвечает за переходы между Hero и Bento-grid, обработку колесика мыши, тайминги анимаций и таб-систему на странице портфолио.
 
 <!-- i18n: module_slides_description -->
-
-##
 
 ## 🗺️ Структура (Файлы и цели)
 
 - **Source:** [src/prototype/js/main.js](../../../src/prototype/js/main.js)
-
 - **Purpose:** Управление переходами между слайдами, cooldown, табы портфолио.
-
-- **Контракт:** `#slide-hero`, `#slide-bento`, классы `active|hidden-up|hidden-
-  down`, `data-tab`,
-  `data-active-dna`.
-
-##
+- **Контракт:** `#slide-hero`, `#slide-bento`, классы `active|hidden-up|hidden-down`, `data-tab`, `data-active-dna`.
 
 ## Overview
 
 The **Slides Module** manages:
 
 - Two-slide system (Hero + Bento Grid)
-
 - Slide transitions with animations
-
 - Wheel event handling with cooldown
-
 - Slide state management
-
 - Module tab system (for portfolio page)
-
-##
 
 ## Slide System Architecture
 
@@ -60,7 +41,6 @@ The **Slides Module** manages:
     <div class="bento-card"><!-- Card 2 --></div>
     <!-- More cards -->
 </div>
-
 ```
 
 ### State Variables
@@ -70,10 +50,7 @@ let currentSlide = 0;           // Current active slide (0 or 1)
 let isSliding = false;          // Animation lock (prevent overlapping)
 let lastSlideTime = 0;          // Timestamp of last slide change
 const SLIDE_COOLDOWN = 800;     // ms between slide changes
-
 ```
-
-##
 
 ## Main Slide Function: `goToSlide()`
 
@@ -124,7 +101,6 @@ function goToSlide(index, direction = 'down') {
         isSliding = false;
     }, 600);
 }
-
 ```
 
 **CSS Classes & Transitions:**
@@ -151,13 +127,10 @@ function goToSlide(index, direction = 'down') {
     transform: translateY(100%);
     z-index: 5;
 }
-
 ```
 
 <!-- DJANGO: Slide transitions could migrate to URL-based navigation (/portfolio, /experience) -->
 <!-- TODO: Add keyboard navigation (arrow keys for slide switching) -->
-
-##
 
 ## Wheel Event Handler
 
@@ -190,27 +163,19 @@ function handleWheel(event) {
 
 // Attach listener (passive: false because we call preventDefault)
 window.addEventListener('wheel', handleWheel, { passive: false });
-
 ```
 
 **Cooldown Mechanism:**
 
 - User scrolls down → Slide transition starts
-
 - `isSliding` set to `true` (lock)
-
 - Animation runs (600ms)
-
 - After 600ms → `isSliding` set to `false`
-
 - Cooldown timer (`SLIDE_COOLDOWN = 800ms`) ensures minimum gap between slides
-
 - User can scroll again after 800ms
 
 <!-- DJANGO: Wheel scrolling could be replaced with AJAX pagination or view-based navigation -->
 <!-- TODO: Add touchpad/mobile swipe support for slide navigation -->
-
-##
 
 ## Module Tab System (Portfolio Page)
 
@@ -251,15 +216,12 @@ document.querySelectorAll('[data-tab]').forEach(tab => {
         updateDNAAndBreadcrumb(tabId);
     });
 });
-
 ```
 
 **Visual DNA Theming:**
 
 - Each section has a `data-active-dna` attribute
-
 - CSS uses `:root[data-active-dna="business"]` selectors to change colors
-
 - Example: Business DNA uses gold accents, Ecosystem DNA uses blue
 
 <!-- i18n: tab_business -->
@@ -269,8 +231,6 @@ document.querySelectorAll('[data-tab]').forEach(tab => {
 
 <!-- DJANGO: Tab content could come from Django views with different color contexts -->
 <!-- TODO: Add URL hash support for direct tab links (#portfolio/business) -->
-
-##
 
 ## Initialization Sequence
 
@@ -296,10 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Initialize other modules (from base.js)
     // typeSlogan(), setupBurgerMenu(), etc.
 });
-
 ```
-
-##
 
 ## Performance Considerations
 
@@ -307,8 +264,6 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- TODO: Add touch support (swipe gestures on mobile) -->
 <!-- TODO: Test animation performance on low-end devices -->
 <!-- DJANGO: Consider server-side rendering slide content for better SEO -->
-
-##
 
 ## i18n Integration
 
@@ -323,6 +278,4 @@ document.addEventListener('DOMContentLoaded', () => {
 // i18n: category_clients
 // i18n: category_products
 // i18n: category_services
-
 ```
-

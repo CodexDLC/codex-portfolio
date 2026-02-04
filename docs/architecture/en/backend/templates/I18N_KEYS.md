@@ -1,9 +1,8 @@
 # 🌍 i18n Keys Reference
 
-[⬅️ Back](../README.md) | [🏠 Root](/docs/README.md)
+[⬅️ Back](../README.md) | [🏠 Docs Root](../../../../README.md)
 
-Master list of all translation keys for **EN** (English), **RU** (Русский),
-**DE** (Deutsch).
+Master list of all translation keys for **EN** (English), **RU** (Русский), **DE** (Deutsch).
 
 ## Navigation
 
@@ -15,8 +14,6 @@ Master list of all translation keys for **EN** (English), **RU** (Русский
 | nav_contact | Contact | base.html | Main navigation link |
 | menu_toggle | Menu | base.html | Mobile burger button |
 
-##
-
 ## Logo Animation
 
 | Key | EN | File | Context |
@@ -25,16 +22,12 @@ Master list of all translation keys for **EN** (English), **RU** (Русский
 | slogan_life | Life | base.js | Logo typing animation |
 | slogan_cycle | Cycle | base.js | Logo typing animation |
 
-##
-
 ## Hero Section
 
 | Key | EN | File | Context |
 |-----|----|----|---------|
 | hero_title | Welcome to CodexDLC | index.html | Main heading |
 | hero_subtitle | Exploring the intersection of code and design | index.html | Subtitle text |
-
-##
 
 ## Bento Grid Cards
 
@@ -44,8 +37,6 @@ Master list of all translation keys for **EN** (English), **RU** (Русский
 | bento_card_title_products | My Products | index.html | Card title |
 | bento_card_title_services | My Services | index.html | Card title |
 | bento_card_title_skills | My Skills | index.html | Card title |
-
-##
 
 ## Portfolio Page
 
@@ -60,8 +51,6 @@ Master list of all translation keys for **EN** (English), **RU** (Русский
 | category_products | PRODUCTS | portfolio.js | Breadcrumb category |
 | category_services | SERVICES | portfolio.js | Breadcrumb category |
 
-##
-
 ## Experience Page
 
 | Key | EN | File | Context |
@@ -71,8 +60,6 @@ Master list of all translation keys for **EN** (English), **RU** (Русский
 | experience_role | Role | experience.html | Label |
 | experience_company | Company | experience.html | Label |
 | experience_period | Period | experience.html | Label |
-
-##
 
 ## Contact Page
 
@@ -86,16 +73,12 @@ Master list of all translation keys for **EN** (English), **RU** (Русский
 | contact_form_success | Message sent successfully! | contact.html | Success message |
 | contact_form_error | Error sending message. Try again. | contact.html | Error message |
 
-##
-
 ## Footer
 
 | Key | EN | File | Context |
 |-----|----|----|---------|
 | footer_copyright | © 2024 CodexDLC. All rights reserved. | base.html | Copyright text |
 | footer_all_rights | All rights reserved. | base.html | Legal text |
-
-##
 
 ## Implementation: JSON Files
 
@@ -140,7 +123,6 @@ Master list of all translation keys for **EN** (English), **RU** (Русский
   "footer_copyright": "© 2024 CodexDLC. All rights reserved.",
   "footer_all_rights": "All rights reserved."
 }
-
 ```
 
 ### `static/i18n/ru.json`
@@ -184,7 +166,6 @@ Master list of all translation keys for **EN** (English), **RU** (Русский
   "footer_copyright": "© 2024 CodexDLC. Все права защищены.",
   "footer_all_rights": "Все права защищены."
 }
-
 ```
 
 ### `static/i18n/de.json`
@@ -228,10 +209,7 @@ Master list of all translation keys for **EN** (English), **RU** (Русский
   "footer_copyright": "© 2024 CodexDLC. Alle Rechte vorbehalten.",
   "footer_all_rights": "Alle Rechte vorbehalten."
 }
-
 ```
-
-##
 
 ## Django `.po` File Generation
 
@@ -241,7 +219,6 @@ From this table, generate `.po` files:
 locale/en/LC_MESSAGES/django.po
 locale/ru/LC_MESSAGES/django.po
 locale/de/LC_MESSAGES/django.po
-
 ```
 
 **Example entry:**
@@ -250,8 +227,6 @@ locale/de/LC_MESSAGES/django.po
 #: base.html:line
 msgid "nav_home"
 msgstr "Home"
-
 ```
 
 <!-- DJANGO: Use `python manage.py makemessages -l en -l ru -l de` to auto-generate -->
-

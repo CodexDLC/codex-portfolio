@@ -71,7 +71,43 @@ Index files (README.md) contain a navigation table with links to child content.
 
 ---
 
-## �🏗️ Critical Architecture
+## 📏 MARKDOWN & DOCUMENTATION RULES (STRICT)
+
+WHEN generating or editing `.md` files, you MUST adhere to the following Linter Standards (Zero Tolerance):
+
+1.  **MD047 (End with Newline):**
+    * EVERY file must end with exactly one newline character (`\n`).
+    * BAD: `...end of text.` (EOF)
+    * GOOD: `...end of text.\n` (EOF)
+
+2.  **MD032 (List Spacing):**
+    * You MUST insert a blank line BEFORE the start of any list (unordered `*` or ordered `1.`).
+    * You MUST insert a blank line AFTER the end of any list.
+    * **BAD:**
+        Text
+        * Item 1
+    * **GOOD:**
+        Text
+
+        * Item 1
+
+        Next text
+
+3.  **MD007 (Indentation):**
+    * Use strictly **2 spaces** for nested lists. Do not use 4 spaces or tabs.
+
+4.  **Structure Mirroring (CRITICAL):**
+    * Documentation folder structure MUST mirror the Code structure.
+    * IF Code is in: `src/backend/apps/portfolio/`
+    * THEN Docs go to: `docs/architecture/en/backend/apps/portfolio/`
+    * NEVER dump files into the root of `backend/`. Always create the specific subfolder.
+
+5.  **No "Partial" Updates:**
+    * If you edit a document, ensure relative links (`[Back](../README.md)`) are correct for the new depth.
+
+---
+
+## 🏗️ Critical Architecture
 ### Code Philosophy & Stack
 **Golden Rule:** **Framework-Native-First.** Seek solutions in FastAPI/Pydantic first, then write custom code.
 
@@ -197,7 +233,7 @@ Use relative paths from the page's location (e.g., `src/prototype/portfolio.html
 
 ---
 
-## � DevOps & Infrastructure
+##  DevOps & Infrastructure
 
 ### Configuration & Tooling
 - **Package Manager:** Poetry (`pyproject.toml` single source of truth)
@@ -223,7 +259,7 @@ Use relative paths from the page's location (e.g., `src/prototype/portfolio.html
 
 ---
 
-## �📋 Key Patterns & Conventions
+## 📋 Key Patterns & Conventions
 
 ### Slide System Pattern (main.js)
 ```javascript
@@ -323,12 +359,12 @@ All docs follow **Hub-and-Leaf model**:
 
 ## ⚠️ Common Pitfalls
 
-1. **CSS Variable Scoping:** Don't hardcode colors—use `:root` vars. Changes in one place affect entire site.
-2. **Fixed Positioning Pattern:** All `.layout-*` elements use `left: 50% + transform: translateX(-50%)` for centering. Don't break this—it's fundamental to responsive design.
-3. **Slide Cooldown:** If you modify `SLIDE_COOLDOWN` or `isSliding` logic, test rapid scrolling. Too-short cooldowns cause animation stutter.
-4. **Mobile Testing:** Always test at 768px and below. Burger menu should appear. Tab widths should stack vertically.
-5. **Relative Paths:** Sub-pages (portfolio.html, etc.) use `../../` paths. Verify paths when moving files.
-6. **Session Storage:** Hero animation checks `sessionStorage.getItem('codex_intro_shown')`. Don't bypass—it prevents re-animating on reload.
+1.  **CSS Variable Scoping:** Don't hardcode colors—use `:root` vars. Changes in one place affect entire site.
+2.  **Fixed Positioning Pattern:** All `.layout-*` elements use `left: 50% + transform: translateX(-50%)` for centering. Don't break this—it's fundamental to responsive design.
+3.  **Slide Cooldown:** If you modify `SLIDE_COOLDOWN` or `isSliding` logic, test rapid scrolling. Too-short cooldowns cause animation stutter.
+4.  **Mobile Testing:** Always test at 768px and below. Burger menu should appear. Tab widths should stack vertically.
+5.  **Relative Paths:** Sub-pages (portfolio.html, etc.) use `../../` paths. Verify paths when moving files.
+6.  **Session Storage:** Hero animation checks `sessionStorage.getItem('codex_intro_shown')`. Don't bypass—it prevents re-animating on reload.
 
 ---
 
