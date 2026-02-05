@@ -1,6 +1,6 @@
 # 🏗️ Backend Architecture Hub
 
-[⬅️ Back](../../README.md) | [🏠 Docs Root](../../../../README.md)
+[⬅️ Back](../../README.md) | [🏠 Docs Root](../../../../docs/README.md)
 
 > **SCOPE:** This folder documents the Django monolith in `src/backend/`.
 > **PHILOSOPHY:** Hybrid Monolith (Django + HTMX). No DRF, No React.

@@ -2,17 +2,17 @@
 
 [⬅️ Back](../README.md) | [🏠 Docs Root](../../../../../README.md)
 
-## 🎯 Описание
+## 🎯 Description
 
-Кратко: модуль управления слайдами и навигацией в прототипе — отвечает за переходы между Hero и Bento-grid, обработку колесика мыши, тайминги анимаций и таб-систему на странице портфолио.
+Briefly: The slides and navigation management module in the prototype—responsible for transitions between Hero and Bento-grid, mouse wheel handling, animation timings, and the tab system on the portfolio page.
 
 <!-- i18n: module_slides_description -->
 
-## 🗺️ Структура (Файлы и цели)
+## 🗺️ Structure (Files & Goals)
 
 - **Source:** [src/prototype/js/main.js](../../../src/prototype/js/main.js)
-- **Purpose:** Управление переходами между слайдами, cooldown, табы портфолио.
-- **Контракт:** `#slide-hero`, `#slide-bento`, классы `active|hidden-up|hidden-down`, `data-tab`, `data-active-dna`.
+- **Purpose:** Manage slide transitions, cooldowns, portfolio tabs.
+- **Contract:** `#slide-hero`, `#slide-bento`, classes `active|hidden-up|hidden-down`, `data-tab`, `data-active-dna`.
 
 ## Overview
 

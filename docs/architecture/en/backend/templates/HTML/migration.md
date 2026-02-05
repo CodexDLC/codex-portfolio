@@ -2,16 +2,16 @@
 
 [⬅️ Back](../README.md) | [🏠 Docs Root](../../../../../README.md)
 
-Документ описывает практические шаги и правила, которыми следует руководствоваться при преобразовании прототипного HTML в поддерживаемые и расширяемые Django-шаблоны.
+This document describes the practical steps and rules to follow when converting prototype HTML into maintainable and extensible Django templates.
 
-## 1. Общая идея
+## 1. General Concept
 
-- Прототип содержит статический HTML, CSS и JS. При переносе мы выделяем:
-  - глобальную оболочку (`base.html`) — общие метаданные, CSS/JS, header/footer;
-  - частичные шаблоны (`includes/`) — повторяющиеся фрагменты (header, footer, card);
-  - страницы (child templates), которые расширяют `base.html` и наполняют блок `content`.
+- The prototype contains static HTML, CSS, and JS. During migration, we extract:
+  - **Global Wrapper (`base.html`):** Common metadata, CSS/JS, header/footer.
+  - **Partial Templates (`includes/`):** Repeatable fragments (header, footer, card).
+  - **Pages (Child Templates):** Extend `base.html` and populate the `content` block.
 
-## 2. Шаблонная структура (рекомендуемая)
+## 2. Template Structure (Recommended)
 
 ```
 templates/
@@ -26,28 +26,28 @@ templates/
 └── contact.html
 ```
 
-## 3. Блоки `base.html`
+## 3. `base.html` Blocks
 
-- `title` — заголовок страницы
-- `extra_css` — для page-specific CSS
-- `header` — глобальный header (по умолчанию include)
-- `content` — основной контент страницы
-- `footer` — глобальный footer
-- `extra_js` — page-specific JS
+- `title`: Page title.
+- `extra_css`: Page-specific CSS.
+- `header`: Global header (default include).
+- `content`: Main page content.
+- `footer`: Global footer.
+- `extra_js`: Page-specific JS.
 
-Использовать именованные блоки, чтобы минимизировать дублирование.
+Use named blocks to minimize duplication.
 
-## 4. Правила преобразования HTML-фрагментов
+## 4. HTML Fragment Conversion Rules
 
-1. Все пути к статике — заменить на `{% static 'path' %}`.
-2. Все ссылки — заменить на `{% url 'name' %}` (использовать именованные маршруты).
-3. Все видимые строки — вынести в i18n: `{% trans "key" %}` или через контекст, если строка динамическая.
-4. Оставьте неизменными `id` и ключевые `data-*` атрибуты, на которые опирается JS.
-5. Статичные блоки, которые содержат контент, — превратить в `include` и передавать контекст через `with`.
+1. **Static Paths:** Replace with `{% static 'path' %}`.
+2. **Links:** Replace with `{% url 'name' %}` (use named routes).
+3. **Visible Strings:** Extract to i18n: `{% trans "key" %}` or via context if dynamic.
+4. **Attributes:** Keep `id` and key `data-*` attributes unchanged (JS relies on them).
+5. **Static Content Blocks:** Convert to `include` and pass context via `with`.
 
-## 5. Карточки (Bento) — шаблон и контекст
+## 5. Cards (Bento) — Template & Context
 
-- Создать `includes/bento_card.html`:
+- Create `includes/bento_card.html`:
 
 ```django
 <article class="bento-card">
@@ -56,7 +56,7 @@ templates/
 </article>
 ```
 
-- В parent-шаблоне рендерить:
+- Render in parent template:
 
 ```django
 {% for card in cards %}
@@ -64,9 +64,9 @@ templates/
 {% endfor %}
 ```
 
-## 6. Передача данных: контекст view
+## 6. Data Passing: View Context
 
-- Для каждой страницы определить минимальный контекст в `views.py`.
+- Define minimal context in `views.py` for each page.
 
 ```python
 def portfolio(request):
@@ -75,26 +75,26 @@ def portfolio(request):
     return render(request, 'portfolio.html', context)
 ```
 
-## 7. JavaScript интеграция
+## 7. JavaScript Integration
 
-- Подключать глобальные скрипты в `base.html`.
-- Page-specific скрипты — в `extra_js` блоке.
-- JS должен ожидать `id`/`data-` контрактов, а не жесткую структуру DOM внутри конкретной страницы.
+- Include global scripts in `base.html`.
+- Page-specific scripts go in the `extra_js` block.
+- JS should expect `id`/`data-` contracts, not a rigid DOM structure within a specific page.
 
-## 8. i18n и тексты
+## 8. i18n & Text
 
-- Помечать ключи в шаблонах: `<!-- i18n: key_name -->` в документации; в шаблонах — `{% trans "key_name" %}`.
-- Для динамических текстов в JS — использовать `static/i18n/*.json` и helper `t(key)`.
+- Mark keys in templates: `<!-- i18n: key_name -->` in docs; in templates — `{% trans "key_name" %}`.
+- For dynamic text in JS, use `static/i18n/*.json` and a `t(key)` helper.
 
-## 9. Проверка и приёмка
+## 9. Verification & Acceptance
 
-1. Статические активы грузятся через `{% static %}` и доступны.
-2. Навигация работает через `{% url %}` и находится в `includes/header.html`.
-3. JS функциональность (typing, slides) сохраняет работоспособность — проверить целевые `id`/`data-*`.
+1. Static assets load via `{% static %}` and are accessible.
+2. Navigation works via `{% url %}` and resides in `includes/header.html`.
+3. JS functionality (typing, slides) remains operational—check target `id`/`data-*`.
 
-## 10. Примеры часто встречающихся улучшений при миграции
+## 10. Common Migration Improvements
 
-- Перенос меню в контекст (динамические ссылки из БД).
-- Хранение флагов показа intro в user profile / Django sessions.
-- Разбиение большого CSS на модули при подготовке к поддержке тем.
-- Автоматизировать проверку (CI) на совпадение id/классов между HTML и JS.
+- Move menu to context (dynamic links from DB).
+- Store "intro shown" flags in user profile / Django sessions.
+- Break large CSS into modules when preparing for theme support.
+- Automate verification (CI) for matching id/classes between HTML and JS.
