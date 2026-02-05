@@ -225,7 +225,7 @@ All user-visible text is marked for translation:
 
 - Extract to `static/i18n/en.json`, `ru.json`, `de.json`
 - Use helper: `function t(key) { return translations[key] || key; }`
-- Initialize from Django context: `const CURRENT_LANG = "{{ LANGUAGE_CODE }}";`
+- Initialize from Django context: `const CURRENT_LANG = "{% raw %}{{ LANGUAGE_CODE }}{% endraw %}";`
 
 <!-- DJANGO: All text should use gettext_lazy() in Python, i18n keys in templates/JS -->
 

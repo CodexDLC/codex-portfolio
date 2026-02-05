@@ -389,10 +389,10 @@ All docs follow **Hub-and-Leaf model**:
 
 **Architecture:**
 - **Backend (Django):** gettext + `.po` files in `locale/en/`, `locale/ru/`, `locale/de/`
-  - Shebang `{% load i18n %}` in templates, `{% trans "nav_home" %}` syntax
+  - Shebang `{% raw %}{% load i18n %}{% endraw %}` in templates, `{% raw %}{% trans "nav_home" %}{% endraw %}` syntax
   - Python code uses `from django.utils.translation import gettext_lazy as _`
 - **Frontend (Vanilla JS):** JSON files in `static/i18n/en.json`, `ru.json`, `de.json`
-  - Current language passed via `<script>const CURRENT_LANG = "{{ LANGUAGE_CODE }}";</script>`
+  - Current language passed via `<script>const CURRENT_LANG = "{% raw %}{{ LANGUAGE_CODE }}{% endraw %}";</script>`
   - Helper function: `function t(key) { return translations[key] || key; }`
 
 **Language Selection (Priority):**
@@ -424,11 +424,11 @@ All docs follow **Hub-and-Leaf model**:
   - Source: [src/prototype/js/](src/prototype/js/) files
   - Marked with `// i18n: key` for translation points
 - **HTML/** — Base template structure, inheritance hierarchy, context variables
-  - Example: `base.html` with `{% block header %}`, `{% block content %}`
+  - Example: `base.html` with `{% raw %}{% block header %}{% endraw %}`, `{% raw %}{% block content %}{% endraw %}`
   - Django template block patterns for all pages
 
 **Migration Path:**
 1. CSS/JS → Copy to Django `static/css/` and `static/js/`
-2. HTML → Refactor to Django templates with `{% extends "base.html" %}`
+2. HTML → Refactor to Django templates with `{% raw %}{% extends "base.html" %}{% endraw %}`
 3. Text → Extract to i18n keys (`.po` files and JSON)
 4. Replace hardcoded data with Django context variables

@@ -49,7 +49,7 @@ Keep these variables in `:root`—they are used in components and documentation 
 ```django
 <style>
 :root {
-  --color-gold: {{ DESIGN_TOKENS.color_gold }};
+  --color-gold: {% raw %}{{ DESIGN_TOKENS.color_gold }}{% endraw %};
 }
 </style>
 ```
