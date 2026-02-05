@@ -7,7 +7,7 @@ This document does not copy CSS entirely—it describes the principles, stages, 
 ## Document Goals
 
 - Explain the responsive layout architecture of the prototype.
-- Identify blocks and extension points for Django templates (`{% include %}`, `{% block %}`).
+- Identify blocks and extension points for Django templates (`{% raw %}{% include %}{% endraw %}`, `{% raw %}{% block %}{% endraw %}`).
 - Provide recommendations for separation of concerns between HTML (templates), CSS (static files), and JS (behavior).
 
 ## Responsive Layout Structure (High Level)
@@ -23,14 +23,14 @@ This document does not copy CSS entirely—it describes the principles, stages, 
 2. Create `base.html` with global blocks: `head`, `header`, `content`, `footer`, `extra_css`, `extra_js`.
 3. Break repeatable fragments into partial templates (`includes`): `includes/header.html`, `includes/footer.html`, `includes/bento_card.html`.
 4. In child templates, override the `content` block and include page-specific CSS/JS via `extra_css`/`extra_js`.
-5. Replace relative asset paths with `{% static %}` and all visible strings with `{% trans %}` or i18n keys.
+5. Replace relative asset paths with `{% raw %}{% static %}{% endraw %}` and all visible strings with `{% raw %}{% trans %}{% endraw %}` or i18n keys.
 
 ## Contract Points (What to Document/Preserve)
 
 - **ID / Slide Classes:** `#slide-hero`, `#slide-bento`—do not change, JS relies on them.
 - **State Classes:** `active`, `hidden-up`, `hidden-down`—keep for CSS/JS.
 - **Navigation:** `.header-nav`, `.nav-burger`—move to `includes/header.html` and populate links via Django `url`.
-- **Cards:** Create `includes/bento_card.html` with context `{% include 'includes/bento_card.html' with title=card.title description=card.desc %}`.
+- **Cards:** Create `includes/bento_card.html` with context `{% raw %}{% include 'includes/bento_card.html' with title=card.title description=card.desc %}{% endraw %}`.
 
 ## Examples: HTML Fragments to Templates
 
@@ -46,7 +46,7 @@ This document does not copy CSS entirely—it describes the principles, stages, 
 <header class="layout-header">
   <div class="header-logo">{{ site_logo_html|safe }}</div>
   <nav class="header-nav">
-    <a href="{% url 'home' %}" class="nav-link">{% trans "nav_home" %}</a>
+    <a href="{% raw %}{% url 'home' %}{% endraw %}" class="nav-link">{% raw %}{% trans "nav_home" %}{% endraw %}</a>
     <!-- other links -->
   </nav>
   <button class="nav-burger">...</button>
@@ -62,13 +62,13 @@ This document does not copy CSS entirely—it describes the principles, stages, 
 ## i18n & Text
 
 - All visible text must have i18n cases (`<!-- i18n: key -->` in documentation).
-- In templates, use `{% trans "key" %}` or pass strings from view via `gettext_lazy`.
+- In templates, use `{% raw %}{% trans "key" %}{% endraw %}` or pass strings from view via `gettext_lazy`.
 
 ## Post-Migration Verification
 
 1. Run Django server and open pages: verify styles are loaded and `static` paths are correct.
 2. Check slider behavior (wheel, mobile)—if classes don't match, JS won't work.
-3. i18n Test: Change `LANGUAGE_CODE` or use `?lang=ru` and ensure `{% trans %}` tags work.
+3. i18n Test: Change `LANGUAGE_CODE` or use `?lang=ru` and ensure `{% raw %}{% trans %}{% endraw %}` tags work.
 
 ## TODO / Possible Improvements
 

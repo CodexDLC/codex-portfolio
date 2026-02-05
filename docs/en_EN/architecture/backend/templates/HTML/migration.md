@@ -39,9 +39,9 @@ Use named blocks to minimize duplication.
 
 ## 4. HTML Fragment Conversion Rules
 
-1. **Static Paths:** Replace with `{% static 'path' %}`.
-2. **Links:** Replace with `{% url 'name' %}` (use named routes).
-3. **Visible Strings:** Extract to i18n: `{% trans "key" %}` or via context if dynamic.
+1. **Static Paths:** Replace with `{% raw %}{% static 'path' %}{% endraw %}`.
+2. **Links:** Replace with `{% raw %}{% url 'name' %}{% endraw %}` (use named routes).
+3. **Visible Strings:** Extract to i18n: `{% raw %}{% trans "key" %}{% endraw %}` or via context if dynamic.
 4. **Attributes:** Keep `id` and key `data-*` attributes unchanged (JS relies on them).
 5. **Static Content Blocks:** Convert to `include` and pass context via `with`.
 
@@ -59,9 +59,9 @@ Use named blocks to minimize duplication.
 - Render in parent template:
 
 ```django
-{% for card in cards %}
+{% raw %}{% for card in cards %}
   {% include 'includes/bento_card.html' with title=card.title description=card.description %}
-{% endfor %}
+{% endfor %}{% endraw %}
 ```
 
 ## 6. Data Passing: View Context
@@ -83,13 +83,13 @@ def portfolio(request):
 
 ## 8. i18n & Text
 
-- Mark keys in templates: `<!-- i18n: key_name -->` in docs; in templates — `{% trans "key_name" %}`.
+- Mark keys in templates: `<!-- i18n: key_name -->` in docs; in templates — `{% raw %}{% trans "key_name" %}{% endraw %}`.
 - For dynamic text in JS, use `static/i18n/*.json` and a `t(key)` helper.
 
 ## 9. Verification & Acceptance
 
-1. Static assets load via `{% static %}` and are accessible.
-2. Navigation works via `{% url %}` and resides in `includes/header.html`.
+1. Static assets load via `{% raw %}{% static %}{% endraw %}` and are accessible.
+2. Navigation works via `{% raw %}{% url %}{% endraw %}` and resides in `includes/header.html`.
 3. JS functionality (typing, slides) remains operational—check target `id`/`data-*`.
 
 ## 10. Common Migration Improvements

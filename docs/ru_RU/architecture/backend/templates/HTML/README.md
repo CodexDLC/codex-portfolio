@@ -10,6 +10,6 @@
 **Файл:** [migration.md](../../../../../en_EN/architecture/backend/templates/HTML/migration.md)
 **О чем:**
 *   Структура `base.html` и наследование.
-*   Правила замены путей на `{% static %}` и `{% url %}`.
+*   Правила замены путей на `{% raw %}{% static %}{% endraw %}` и `{% raw %}{% url %}{% endraw %}`.
 *   Выделение повторяющихся блоков в `includes/`.
 *   Интеграция i18n тегов.

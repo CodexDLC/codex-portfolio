@@ -70,7 +70,7 @@ def contact_view(request):
 ### In Django Templates
 
 ```django
-{% load i18n %}
+{% raw %}{% load i18n %}
 
 <!-- Simple translation -->
 <h1>{% trans "hero_title" %}</h1>
@@ -91,7 +91,7 @@ def contact_view(request):
 <!-- With variables -->
 {% blocktrans with name=user.first_name %}
     Hello {{ name }}, welcome to CodexDLC!
-{% endblocktrans %}
+{% endblocktrans %}{% endraw %}
 ```
 
 ### Generating `.po` Files
@@ -199,7 +199,7 @@ See [I18N_KEYS.md](I18N_KEYS.md) for complete key reference.
 <a href="/portfolio">Portfolio</a>
 
 <!-- After -->
-<a href="{% url 'portfolio' %}">{% trans "nav_portfolio" %}</a>
+<a href="{% raw %}{% url 'portfolio' %}{% endraw %}">{% raw %}{% trans "nav_portfolio" %}{% endraw %}</a>
 ```
 
 ### Phase 3: JavaScript Cleanup
@@ -224,7 +224,7 @@ const text = t('slogan_developers');
 **Django Template:**
 
 ```django
-{% trans "nonexistent_key" %}
+{% raw %}{% trans "nonexistent_key" %}{% endraw %}
 <!-- Output: "nonexistent_key" (visible so you know it's untranslated) -->
 ```
 
@@ -283,11 +283,11 @@ JSON loads `i18n/ru.json`
 ### Django
 
 ```django
-{% blocktrans count items=items|length %}
+{% raw %}{% blocktrans count items=items|length %}
     You have 1 project.
 {% plural %}
     You have {{ items }} projects.
-{% endblocktrans %}
+{% endblocktrans %}{% endraw %}
 ```
 
 ### In `.po` file
@@ -336,7 +336,7 @@ if (localStorage.getItem(`translations_${CURRENT_LANG}`)) {
 
 ## Common Pitfalls
 
-1. **Hardcoded strings in templates** → Always use `{% trans %}`
+1. **Hardcoded strings in templates** → Always use `{% raw %}{% trans %}{% endraw %}`
 2. **String concatenation** → Use `.format()` or template variables instead
 3. **Forgetting to run `makemessages`** → New strings won't be extracted
 4. **JSON key mismatches** → Keep [I18N_KEYS.md](I18N_KEYS.md) in sync
