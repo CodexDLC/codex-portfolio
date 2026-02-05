@@ -1,20 +1,28 @@
-# 📂 Documentation Root (Документация)
+# 📚 Documentation Hub
 
 [⬅️ Project Root](../README.md)
 
-## 🎯 Описание
+Welcome to the **CodexDLC** documentation. Please select your preferred language.
+*Note: English is the primary source of truth.*
 
-Центральный хаб документации проекта. Здесь собраны все стандарты, архитектурные решения и инструкции.
+---
 
-## 🗺️ Структура (Карта)
+## 🇬🇧 English (Official)
 
-### 📂 Подпапки
+*   [**Architecture**](./en_EN/architecture/README.md) — System design, patterns, and backend specs.
+*   [**Design System**](./en_EN/design/README.md) — UI/UX, visual DNA, and component library.
+*   [**Infrastructure**](./en_EN/infrastructure/README.md) — DevOps, CI/CD, and deployment.
+*   [**Management**](./en_EN/management/README.md) — Project roadmap and tasks.
+*   [**Meta & Standards**](./en_EN/meta/README.md) — Documentation rules and AI instructions.
 
-* [**Architecture/**](./architecture/README.md) — Логика сплит-экрана и Bento-сетки.
-* [**Design/**](./design/README.md) — Цвета Python, шрифты, UI-кит.
-* [**Meta/**](./meta/README.md) — Инструкции для AI и стандарты ведения проекта.
+---
 
-## ⚠️ Правила
+## 🇷🇺 Russian (Translation)
 
-* *Соблюдать стандарт навигации во всех вложенных файлах.*
-* *Обновлять этот индекс при добавлении новых разделов.*
+*   [**Архитектура**](./ru_RU/architecture/README.md) — Системный дизайн и паттерны.
+*   [**Дизайн-система**](./ru_RU/design/README.md) — UI/UX, визуальный язык и компоненты.
+*   [**Мета-информация**](./ru_RU/meta/README.md) — Стандарты документации.
+
+---
+
+> **Contributor Note:** Please strictly follow the [Documentation Standard](./en_EN/meta/documentation_standard.md).

@@ -1,30 +1,33 @@
 # Codex Portfolio
 
-Персональное портфолио и цифровая визитка.
-Реализовано на стеке **Django + HTMX** с использованием **Bento-grid** дизайна.
+> **[🇷🇺 Читать на русском / Documentation Hub](docs/README.md)**
 
-> **Цель:** Демонстрация навыков Fullstack-разработки, архитектурного подхода и владения современными (но простыми) технологиями.
+Personal portfolio and digital business card.
+Built with **Django + HTMX** using a **Bento-grid** design system.
 
-## 📂 Навигация по проекту
+> **GOAL:** Demonstrate Fullstack development skills, architectural thinking, and mastery of modern (yet simple) technologies.
 
-### 📚 Документация (Docs)
-Центр знаний проекта.
+## 📂 Project Navigation
 
-*   **[🗺️ КАРТА ПРОЕКТА (RU)](docs/architecture/ru/backend/README.md)** — **Начни отсюда.** Русскоязычный навигатор по всей архитектуре.
-*   **[📅 План работ (Roadmap)](docs/management/ROADMAP.md)** — Что делаем сейчас и что в планах.
-*   **[🏗️ Технические спеки (EN)](docs/architecture/en/backend/README.md)** — Детальные контракты и стандарты (Single Source of Truth).
+### 📚 Documentation (Docs)
+The central knowledge base.
 
-### 💻 Исходный код (Source)
-*   `src/backend/` — Django приложение (Core, Apps).
-*   `src/prototype/` — HTML/CSS/JS прототип (исходники верстки).
+*   **[🗺️ Documentation Root](docs/README.md)** — Start here. Choose your language (EN/RU).
+*   **[🏗️ Architecture (EN)](docs/en_EN/architecture/README.md)** — System design and patterns.
+*   **[🎨 Design System (EN)](docs/en_EN/design/README.md)** — UI/UX and Visual DNA.
+*   **[📅 Roadmap](docs/en_EN/management/ROADMAP.md)** — Current tasks and future plans.
 
-## 🛠️ Стек технологий
+### 💻 Source Code
+*   `src/backend/` — Django application (Core, Apps).
+*   `src/prototype/` — HTML/CSS/JS prototype (static sources).
+
+## 🛠️ Tech Stack
 
 *   **Backend:** Django 5.0, Service Layer Pattern.
-*   **Frontend:** Server-Side Rendering (Django Templates), HTMX для динамики.
+*   **Frontend:** Server-Side Rendering (Django Templates), HTMX for dynamics.
 *   **UI/UX:** Custom CSS, CSS Variables, Bento Grid Layout.
 *   **QA:** pytest, pytest-django.
 
-## 📌 Статус
+## 📌 Status
 🚧 **Active Development** (Phase 1: Migration from Prototype)
-См. [Roadmap](docs/management/ROADMAP.md) для деталей.
+See [Roadmap](docs/en_EN/management/ROADMAP.md) for details.
