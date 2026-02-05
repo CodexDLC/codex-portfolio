@@ -125,7 +125,7 @@ locale/
 
 ```django
 <script>
-    const CURRENT_LANG = "{{ LANGUAGE_CODE }}";
+    const CURRENT_LANG = "{% raw %}{{ LANGUAGE_CODE }}{% endraw %}";
 </script>
 
 <!-- Load appropriate i18n JSON -->

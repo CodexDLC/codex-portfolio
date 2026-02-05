@@ -48,7 +48,7 @@ Django template hierarchy and inheritance patterns
 ## 🔄 Migration Path
 
 1. **CSS/JS** → Copy to Django `static/css/` and `static/js/`
-2. **HTML** → Refactor to Django templates with `{% extends "base.html" %}`
+2. **HTML** → Refactor to Django templates with `{% raw %}{% extends "base.html" %}{% endraw %}`
 3. **Text** → Extract to i18n keys (`.po` files and JSON)
 4. **Data** → Replace hardcoded with Django context variables
 
