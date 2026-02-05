@@ -51,8 +51,8 @@ Use named blocks to minimize duplication.
 
 ```django
 <article class="bento-card">
-  <h3 class="bento-card-title">{{ title }}</h3>
-  <p class="bento-card-description">{{ description }}</p>
+  <h3 class="bento-card-title">{% raw %}{{ title }}{% endraw %}</h3>
+  <p class="bento-card-description">{% raw %}{{ description }}{% endraw %}</p>
 </article>
 ```
 

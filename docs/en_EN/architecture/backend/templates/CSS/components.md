@@ -44,7 +44,7 @@ This document does not copy CSS entirely—it describes the principles, stages, 
 
 ```django
 <header class="layout-header">
-  <div class="header-logo">{{ site_logo_html|safe }}</div>
+  <div class="header-logo">{% raw %}{{ site_logo_html|safe }}{% endraw %}</div>
   <nav class="header-nav">
     <a href="{% raw %}{% url 'home' %}{% endraw %}" class="nav-link">{% raw %}{% trans "nav_home" %}{% endraw %}</a>
     <!-- other links -->
