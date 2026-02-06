@@ -1,0 +1,152 @@
+[
+  {
+    "model": "system.techtag",
+    "pk": 1,
+    "fields": { "name": "Python", "slug": "python", "category": "backend", "icon_class": "devicon-python-plain", "order": 10 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 2,
+    "fields": { "name": "Django", "slug": "django", "category": "backend", "icon_class": "devicon-django-plain", "order": 20 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 3,
+    "fields": { "name": "FastAPI", "slug": "fastapi", "category": "backend", "icon_class": "devicon-fastapi-plain", "order": 30 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 4,
+    "fields": { "name": "REST API / DRF", "slug": "drf", "category": "backend", "icon_class": "", "order": 40 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 5,
+    "fields": { "name": "Celery", "slug": "celery", "category": "backend", "icon_class": "", "order": 50 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 6,
+    "fields": { "name": "ARQ", "slug": "arq", "category": "backend", "icon_class": "", "order": 55 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 7,
+    "fields": { "name": "AsyncIO", "slug": "asyncio", "category": "backend", "icon_class": "", "order": 60 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 10,
+    "fields": { "name": "PostgreSQL", "slug": "postgresql", "category": "database", "icon_class": "devicon-postgresql-plain", "order": 10 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 11,
+    "fields": { "name": "Redis", "slug": "redis", "category": "database", "icon_class": "devicon-redis-plain", "order": 20 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 12,
+    "fields": { "name": "SQLAlchemy", "slug": "sqlalchemy", "category": "database", "icon_class": "devicon-sqlalchemy-plain", "order": 30 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 20,
+    "fields": { "name": "JavaScript", "slug": "javascript", "category": "frontend", "icon_class": "devicon-javascript-plain", "order": 10 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 21,
+    "fields": { "name": "HTMX", "slug": "htmx", "category": "frontend", "icon_class": "devicon-htmx-plain", "order": 20 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 22,
+    "fields": { "name": "CSS / Tailwind", "slug": "tailwind", "category": "frontend", "icon_class": "devicon-tailwindcss-plain", "order": 30 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 23,
+    "fields": { "name": "Alpine.js", "slug": "alpinejs", "category": "frontend", "icon_class": "devicon-alpinejs-plain", "order": 40 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 30,
+    "fields": { "name": "Docker", "slug": "docker", "category": "devops", "icon_class": "devicon-docker-plain", "order": 10 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 31,
+    "fields": { "name": "Linux", "slug": "linux", "category": "devops", "icon_class": "devicon-linux-plain", "order": 20 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 32,
+    "fields": { "name": "Nginx", "slug": "nginx", "category": "devops", "icon_class": "devicon-nginx-plain", "order": 30 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 33,
+    "fields": { "name": "CI/CD", "slug": "cicd", "category": "devops", "icon_class": "", "order": 40 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 34,
+    "fields": { "name": "Gunicorn / Uvicorn", "slug": "gunicorn", "category": "devops", "icon_class": "", "order": 50 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 40,
+    "fields": { "name": "Pytest", "slug": "pytest", "category": "tools", "icon_class": "devicon-pytest-plain", "order": 10 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 41,
+    "fields": { "name": "Git", "slug": "git", "category": "tools", "icon_class": "devicon-git-plain", "order": 20 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 100,
+    "fields": { "name": "В разработке", "slug": "status-dev", "category": "project_status", "icon_class": "", "color_hex": "#FFD700", "order": 10 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 101,
+    "fields": { "name": "В поддержке", "slug": "status-support", "category": "project_status", "icon_class": "", "color_hex": "#27C93F", "order": 20 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 102,
+    "fields": { "name": "Production", "slug": "status-prod", "category": "project_status", "icon_class": "", "color_hex": "#27C93F", "order": 30 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 103,
+    "fields": { "name": "MVP", "slug": "status-mvp", "category": "project_status", "icon_class": "", "color_hex": "#FFBD2E", "order": 40 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 104,
+    "fields": { "name": "Archived", "slug": "status-archived", "category": "project_status", "icon_class": "", "color_hex": "#808080", "order": 50 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 200,
+    "fields": { "name": "Open Source", "slug": "type-opensource", "category": "project_type", "icon_class": "", "color_hex": "#27C93F", "order": 10 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 201,
+    "fields": { "name": "Pet Project", "slug": "type-pet", "category": "project_type", "icon_class": "", "color_hex": "#c678dd", "order": 20 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 202,
+    "fields": { "name": "Commercial", "slug": "type-commercial", "category": "project_type", "icon_class": "", "color_hex": "#FFD700", "order": 30 }
+  },
+  {
+    "model": "system.techtag",
+    "pk": 203,
+    "fields": { "name": "Startup", "slug": "type-startup", "category": "project_type", "icon_class": "", "color_hex": "#61AFEF", "order": 40 }
+  }
+]

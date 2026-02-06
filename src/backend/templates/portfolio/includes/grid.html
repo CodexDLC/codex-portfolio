@@ -1,0 +1,59 @@
+<!--
+    ISLAND SECTION
+    Этот блок заменяет содержимое #portfolio-grid.
+    Класс "active" нужен для анимации появления (CSS fade-in).
+    Класс темы (theme-gold) задает цвета.
+-->
+<section class="island-section active {{ category.theme_class }}" id="current-island">
+
+    <!-- Заголовок секции (из базы) -->
+    <div class="island-header">
+        <span class="island-title">
+            <!-- Цветная цифра -->
+            <span class="{{ category.tab_icon_class }}">{{ category.section_number }} //</span>
+            {{ category.section_title }}
+        </span>
+        <span class="island-counter">{{ projects|length }} MODULES</span>
+    </div>
+
+    <!-- Сетка карточек -->
+    <div class="island-grid">
+
+        {% for project in projects %}
+            <!--
+                КАРТОЧКА ПРОЕКТА
+                Используем наши новые универсальные классы:
+                bento-card — база.
+                project.style_visual.css_class — тема (visual-theme-gold).
+                project.style_layout.css_class — размер (layout-span-4).
+            -->
+            <a href="{{ project.link_github|default:'#' }}" class="bento-card {{ project.style_visual.css_class }} {{ project.style_layout.css_class }}" target="_blank">
+
+                <!-- Хедер карточки -->
+                <div class="bento-header">
+                    <span class="bento-type">{{ project.get_project_type_display }}</span>
+                    <!-- Статус (активен/нет) -->
+                    <span class="bento-status {% if project.status == 'dev' or project.status == 'prod' %}active{% endif %}"></span>
+                </div>
+
+                <!-- Контент -->
+                <h3 class="bento-title">{{ project.title }}</h3>
+                <p class="bento-desc">{{ project.description|truncatechars:100 }}</p>
+
+                <!-- Теги (внизу) -->
+                <div class="bento-tags">
+                    {% for tag in project.tags.all|slice:":3" %}
+                        <span class="bento-tag" data-category="{{ tag.category }}">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+            </a>
+        {% empty %}
+            <!-- Если проектов нет -->
+            <div class="bento-card visual-theme-ghost layout-span-12">
+                <h3 class="bento-title">No Data</h3>
+                <p class="bento-desc">No projects found in this category.</p>
+            </div>
+        {% endfor %}
+
+    </div>
+</section>

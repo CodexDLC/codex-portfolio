@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Portfolio // CodexDLC{% endblock %}
+
+{% block content %}
+<main class="layout-main page-portfolio">
+
+    <!--
+        1. ПАНЕЛЬ ВКЛАДОК (TABS)
+        Подключаем отдельный файл. Передаем туда список категорий (categories)
+        и слаг текущей активной категории (active_category_slug), чтобы подсветить нужный таб.
+    -->
+    {% include "portfolio/includes/tabs.html" with categories=categories active_slug=active_category_slug %}
+
+    <div class="portfolio-container">
+
+        <!-- Заголовок страницы (Статический или динамический) -->
+        <div style="margin-bottom: 40px;">
+            <h1 style="font-size: 3rem; margin-bottom: 10px;">System <span class="text-blue">Registry</span></h1>
+            <p class="text-ghost font-mono">> Accessing project database...</p>
+        </div>
+
+        <!--
+            2. КОНТЕЙНЕР СЕТКИ (GRID WRAPPER)
+            id="portfolio-grid" — это КЛЮЧЕВОЙ элемент для HTMX.
+            Все клики по табам будут заменять содержимое ИМЕННО ЭТОГО блока.
+
+            Внутри мы сразу рендерим сетку для "активной" категории (которая пришла с сервера при первой загрузке),
+            чтобы страница не была пустой.
+        -->
+        <div id="portfolio-grid" class="islands-wrapper">
+            {% include "portfolio/includes/grid.html" with projects=projects category=active_category_obj %}
+        </div>
+
+        <!--
+            3. EMPTY STATE (Заглушка)
+            Показывается, если проектов нет (логика внутри grid.html, но можно и тут).
+            Пока скроем.
+        -->
+        <div class="empty-state" style="display: none;">
+            <div class="empty-icon">⚡</div>
+            <h2>Select a file to view code</h2>
+        </div>
+
+    </div>
+
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Скрипт для анимаций переключения (если нужен JS помимо HTMX) -->
+<script src="{% static 'js/portfolio.js' %}"></script>
+{% endblock %}

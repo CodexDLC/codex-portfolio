@@ -19,7 +19,7 @@ We split business logic into two distinct types of functions: **Selectors** and 
 Functions that return QuerySets, Lists, or DTOs. They never modify the DB.
 
 ```python
-# apps/portfolio/selectors.py
+# features/portfolio/selectors.py
 
 def get_featured_projects() -> QuerySet[Project]:
     """Returns all visible featured projects ordered by priority."""
@@ -34,7 +34,7 @@ def get_featured_projects() -> QuerySet[Project]:
 Functions that handle use-cases. They take raw arguments, validate them, and perform the action.
 
 ```python
-# apps/main/services.py
+# features/main/services.py
 
 def create_contact_message(*, name: str, email: str, text: str) -> ContactMessage:
     """Creates a message and triggers email notification."""

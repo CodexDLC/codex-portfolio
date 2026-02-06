@@ -1,0 +1,20 @@
+/* COLOR UTILITIES (Text & Icon colors) */
+.text-gold { color: var(--color-gold); }
+.text-blue { color: var(--color-blue); }
+.text-green { color: var(--color-green); }
+.text-ghost { color: var(--color-ghost); }
+.text-purple { color: #c678dd; }
+.text-ivory { color: var(--color-ivory); }
+
+.icon-gold { color: var(--color-gold); }
+.icon-blue { color: var(--color-blue); }
+.icon-green { color: var(--color-green); }
+.icon-ghost { color: var(--color-ghost); }
+.icon-purple { color: #c678dd; }
+
+/* Background accents */
+.bg-gold { background-color: rgba(212, 175, 55, 0.15); }
+.bg-blue { background-color: rgba(48, 105, 152, 0.15); }
+.bg-green { background-color: rgba(39, 201, 63, 0.15); }
+.bg-ghost { background-color: rgba(255, 255, 255, 0.05); }
+.bg-purple { background-color: rgba(198, 120, 221, 0.15); }

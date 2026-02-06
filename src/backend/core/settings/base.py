@@ -42,10 +42,9 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += [
     # Добавьте здесь ваши приложения
-    "apps.main",
-    "apps.portfolio",
-
-
+    "features.main",
+    "features.portfolio",
+    'features.system',
 ]
 
 

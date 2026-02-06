@@ -1,0 +1,79 @@
+/* TAB COMPONENT (IDE-style file tabs) */
+/* Used in: header nav, portfolio tabs, module tabs */
+
+.tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--color-ghost);
+    text-decoration: none;
+
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0.8;
+}
+
+.tab:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--color-ivory);
+    opacity: 1;
+}
+
+.tab.active {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--color-ivory);
+    opacity: 1;
+}
+
+.tab:active {
+    transform: scale(0.98);
+}
+
+/* Tab icon badge */
+.tab-icon {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 4px;
+    border-radius: 2px;
+    text-transform: uppercase;
+}
+
+.tab-icon.gold {
+    color: var(--color-gold);
+    background: rgba(212, 175, 55, 0.15);
+}
+.tab-icon.blue {
+    color: var(--color-blue);
+    background: rgba(48, 105, 152, 0.15);
+}
+.tab-icon.green {
+    color: var(--color-green);
+    background: rgba(39, 201, 63, 0.15);
+}
+.tab-icon.ghost {
+    color: var(--color-ghost);
+    background: rgba(255, 255, 255, 0.05);
+}
+.tab-icon.purple {
+    color: #c678dd;
+    background: rgba(198, 120, 221, 0.15);
+}
+
+.tab-name {
+    color: var(--color-ghost);
+}
+
+.tab:hover .tab-name,
+.tab.active .tab-name {
+    color: var(--color-ivory);
+}

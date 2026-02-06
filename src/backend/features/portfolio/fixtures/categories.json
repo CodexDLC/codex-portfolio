@@ -1,0 +1,77 @@
+[
+  {
+    "model": "portfolio.category",
+    "pk": 1,
+    "fields": {
+      "name": "Clients",
+      "slug": "clients",
+      "tab_filename": "clients.py",
+      "tab_icon_text": "PY",
+      "tab_icon_class": "gold",
+      "section_number": "01",
+      "section_title": "CLIENT SOLUTIONS",
+      "theme_class": "theme-gold",
+      "order": 10
+    }
+  },
+  {
+    "model": "portfolio.category",
+    "pk": 2,
+    "fields": {
+      "name": "Products",
+      "slug": "products",
+      "tab_filename": "products.py",
+      "tab_icon_text": "PY",
+      "tab_icon_class": "blue",
+      "section_number": "02",
+      "section_title": "MY PRODUCTS",
+      "theme_class": "theme-blue",
+      "order": 20
+    }
+  },
+  {
+    "model": "portfolio.category",
+    "pk": 3,
+    "fields": {
+      "name": "Open Source",
+      "slug": "opensource",
+      "tab_filename": "opensource.py",
+      "tab_icon_text": "PY",
+      "tab_icon_class": "green",
+      "section_number": "03",
+      "section_title": "OPEN SOURCE",
+      "theme_class": "theme-rnd",
+      "order": 30
+    }
+  },
+  {
+    "model": "portfolio.category",
+    "pk": 4,
+    "fields": {
+      "name": "Prototypes",
+      "slug": "prototypes",
+      "tab_filename": "prototypes.py",
+      "tab_icon_text": "PY",
+      "tab_icon_class": "purple",
+      "section_number": "04",
+      "section_title": "LAB & PROTOTYPES",
+      "theme_class": "theme-proto",
+      "order": 40
+    }
+  },
+  {
+    "model": "portfolio.category",
+    "pk": 5,
+    "fields": {
+      "name": "Configs",
+      "slug": "configs",
+      "tab_filename": "config.yaml",
+      "tab_icon_text": "YML",
+      "tab_icon_class": "ghost",
+      "section_number": "05",
+      "section_title": "TOOLKIT & CONFIGS",
+      "theme_class": "theme-config",
+      "order": 50
+    }
+  }
+]

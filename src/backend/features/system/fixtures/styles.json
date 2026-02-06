@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Bento 1x1 (Standard)",
+    "css_class": "bento-card--1x1",
+    "target_area": "portfolio",
+    "attr_type": "layout"
+  },
+  {
+    "name": "Bento 2x2 (Large)",
+    "css_class": "bento-card--2x2",
+    "target_area": "portfolio",
+    "attr_type": "layout"
+  },
+  {
+    "name": "Bento 2x1 (Wide)",
+    "css_class": "bento-card--2x1",
+    "target_area": "portfolio",
+    "attr_type": "layout"
+  },
+  {
+    "name": "Glass Effect (Стекло)",
+    "css_class": "glass-panel",
+    "target_area": "all",
+    "attr_type": "visual"
+  },
+  {
+    "name": "Dark Theme Accent",
+    "css_class": "theme-dark-accent",
+    "target_area": "all",
+    "attr_type": "visual"
+  },
+  {
+    "name": "Timeline: Active Job",
+    "css_class": "timeline-item--active",
+    "target_area": "experience",
+    "attr_type": "state"
+  },
+  {
+    "name": "Timeline: Completed",
+    "css_class": "timeline-item--completed",
+    "target_area": "experience",
+    "attr_type": "state"
+  },
+  {
+    "name": "Text: Truncate (3 lines)",
+    "css_class": "line-clamp-3",
+    "target_area": "all",
+    "attr_type": "typography"
+  }
+]
