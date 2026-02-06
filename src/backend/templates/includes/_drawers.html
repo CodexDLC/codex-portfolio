@@ -1,0 +1,249 @@
+{% load i18n %}
+    <!-- ============================================================
+         GLOBAL OVERLAYS & DRAWERS
+         ============================================================ -->
+
+    <!-- SYSTEM HUB (DESKTOP) -->
+    <div id="hub-desktop" class="layout-drawer desktop-only">
+        <div class="drawer-section active">
+            <div class="hub-grid">
+                <!-- COL 1: MAIN NAVIGATION -->
+                <div class="hub-col">
+                    <h4 class="hub-col-title">01 // {% trans "NAVIGATION" %}</h4>
+                    <a href="{% url 'home' %}" class="hub-link main-link active">MAIN.PY</a>
+                    <a href="{% url 'portfolio' %}" class="hub-link main-link">PORTFOLIO/</a>
+                    <a href="{% url 'experience' %}" class="hub-link main-link">EXPERIENCE.LOG</a>
+                    <a href="{% url 'contact' %}" class="hub-link main-link">CONTACT.SH</a>
+                </div>
+
+                <!-- COL 2: PORTFOLIO INDEX -->
+                <div class="hub-col">
+                    <h4 class="hub-col-title">02 // {% trans "PORTFOLIO INDEX" %}</h4>
+                    <a href="{% url 'portfolio' %}#clients" class="hub-link sub-link"><span class="dot gold"></span> {% trans "Clients" %}</a>
+                    <a href="{% url 'portfolio' %}#products" class="hub-link sub-link"><span class="dot blue"></span> {% trans "Products" %}</a>
+                    <a href="{% url 'portfolio' %}#opensource" class="hub-link sub-link"><span class="dot green"></span> {% trans "Open Source" %}</a>
+                    <a href="{% url 'portfolio' %}#prototypes" class="hub-link sub-link"><span class="dot purple"></span> {% trans "Prototypes" %}</a>
+                    <a href="{% url 'portfolio' %}#configs" class="hub-link sub-link"><span class="dot ghost"></span> {% trans "Configs" %}</a>
+                </div>
+
+                <!-- COL 3: SYSTEM & META -->
+                <div class="hub-col">
+                    <h4 class="hub-col-title">03 // {% trans "SYSTEM" %}</h4>
+                    <a href="#" class="hub-link meta-link">Architecture.md</a>
+                    <a href="#" class="hub-link meta-link">Changelog.md</a>
+                    <a href="#" class="hub-link meta-link">Legal / Privacy</a>
+
+                    <div class="hub-footer-meta">
+                        <span>v.1.0.2</span>
+                        <span>© {% now "Y" %} CodexDLC</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SYSTEM HUB (MOBILE) -->
+    <div id="hub-mobile" class="bottom-drawer mobile-only">
+        <div class="hub-header">
+            <span class="hub-title">// {% trans "SYSTEM_MAP" %}</span>
+            <div class="hub-close" onclick="toggleSystemHub()">×</div>
+        </div>
+
+        <div class="hub-grid">
+            <!-- COL 1: MAIN NAVIGATION -->
+            <div class="hub-col">
+                <h4 class="hub-col-title">01 // {% trans "NAVIGATION" %}</h4>
+                <a href="{% url 'home' %}" class="hub-link main-link active">MAIN.PY</a>
+                <a href="{% url 'portfolio' %}" class="hub-link main-link">PORTFOLIO/</a>
+                <a href="{% url 'experience' %}" class="hub-link main-link">EXPERIENCE.LOG</a>
+                <a href="{% url 'contact' %}" class="hub-link main-link">CONTACT.SH</a>
+            </div>
+
+            <!-- COL 2: PORTFOLIO INDEX -->
+            <div class="hub-col">
+                <h4 class="hub-col-title">02 // {% trans "PORTFOLIO INDEX" %}</h4>
+                <a href="{% url 'portfolio' %}#clients" class="hub-link sub-link"><span class="dot gold"></span> {% trans "Clients" %}</a>
+                <a href="{% url 'portfolio' %}#products" class="hub-link sub-link"><span class="dot blue"></span> {% trans "Products" %}</a>
+                <a href="{% url 'portfolio' %}#opensource" class="hub-link sub-link"><span class="dot green"></span> {% trans "Open Source" %}</a>
+                <a href="{% url 'portfolio' %}#prototypes" class="hub-link sub-link"><span class="dot purple"></span> {% trans "Prototypes" %}</a>
+                <a href="{% url 'portfolio' %}#configs" class="hub-link sub-link"><span class="dot ghost"></span> {% trans "Configs" %}</a>
+            </div>
+
+            <!-- COL 3: SYSTEM & META -->
+            <div class="hub-col">
+                <h4 class="hub-col-title">03 // {% trans "SYSTEM" %}</h4>
+                <a href="#" class="hub-link meta-link">Architecture.md</a>
+                <a href="#" class="hub-link meta-link">Changelog.md</a>
+                <a href="#" class="hub-link meta-link">Legal / Privacy</a>
+
+                <div class="hub-footer-meta">
+                    <span>v.1.0.2</span>
+                    <span>© {% now "Y" %} CodexDLC</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT DRAWER (DESKTOP) -->
+    <div id="contact-desktop" class="layout-drawer desktop-only">
+        <div class="drawer-section active">
+            <div class="drawer-header">
+                <span>// {% trans "CONTACT_UPLINK" %}</span>
+                <div class="drawer-close" onclick="toggleContactDrawer()">×</div>
+            </div>
+
+            <div class="contact-card-layout">
+                <!-- PROFILE SECTION -->
+                <div class="contact-profile">
+                    <div class="profile-avatar">
+                        <span class="avatar-placeholder">CD</span>
+                    </div>
+                    <div class="profile-info">
+                        <h3 class="profile-name">CodexDLC</h3>
+                        <p class="profile-role">{% trans "System Architect / Python Dev" %}</p>
+                        <div class="profile-status">
+                            <span class="status-dot online"></span>
+                            <span>{% trans "Open for opportunities" %}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LINKS GRID -->
+                <div class="contact-links-grid">
+                    <a href="mailto:info@codexdlc.dev" class="contact-btn email">
+                        <span class="icon">@</span>
+                        <span class="label">Email</span>
+                        <span class="value">info@codexdlc.dev</span>
+                    </a>
+                    <a href="#" class="contact-btn telegram">
+                        <span class="icon">✈</span>
+                        <span class="label">Telegram</span>
+                        <span class="value">@codexdlc</span>
+                    </a>
+                    <a href="#" class="contact-btn github">
+                        <span class="icon">🐙</span>
+                        <span class="label">GitHub</span>
+                        <span class="value">/codexdlc</span>
+                    </a>
+                    <a href="#" class="contact-btn linkedin">
+                        <span class="icon">💼</span>
+                        <span class="label">LinkedIn</span>
+                        <span class="value">/in/codexdlc</span>
+                    </a>
+                </div>
+
+                <!-- QR CODE (Placeholder) -->
+                <div class="contact-qr">
+                    <div class="qr-box">
+                        <span class="qr-text">SCAN_ME</span>
+                    </div>
+                    <span class="qr-label">{% trans "vCard / Contact" %}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT DRAWER (MOBILE) -->
+    <div id="contact-mobile" class="bottom-drawer mobile-only">
+        <div class="drawer-header">
+            <span>// {% trans "CONTACT_UPLINK" %}</span>
+            <div class="drawer-close" onclick="toggleContactDrawer()">×</div>
+        </div>
+
+        <div class="contact-card-layout">
+            <!-- PROFILE SECTION -->
+            <div class="contact-profile">
+                <div class="profile-avatar">
+                    <span class="avatar-placeholder">CD</span>
+                </div>
+                <div class="profile-info">
+                    <h3 class="profile-name">CodexDLC</h3>
+                    <p class="profile-role">{% trans "System Architect / Python Dev" %}</p>
+                    <div class="profile-status">
+                        <span class="status-dot online"></span>
+                        <span>{% trans "Open for opportunities" %}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LINKS GRID -->
+            <div class="contact-links-grid">
+                <a href="mailto:info@codexdlc.dev" class="contact-btn email">
+                    <span class="icon">@</span>
+                    <span class="label">Email</span>
+                    <span class="value">info@codexdlc.dev</span>
+                </a>
+                <a href="#" class="contact-btn telegram">
+                    <span class="icon">✈</span>
+                    <span class="label">Telegram</span>
+                    <span class="value">@codexdlc</span>
+                </a>
+                <a href="#" class="contact-btn github">
+                    <span class="icon">🐙</span>
+                    <span class="label">GitHub</span>
+                    <span class="value">/codexdlc</span>
+                </a>
+                <a href="#" class="contact-btn linkedin">
+                    <span class="icon">💼</span>
+                    <span class="label">LinkedIn</span>
+                    <span class="value">/in/codexdlc</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN MENU OVERLAY (Mobile) -->
+    <div id="main-menu-overlay" class="glass-overlay">
+        <div class="overlay-content">
+            <div class="overlay-close" onclick="toggleMainMenu()">×</div>
+
+            <nav class="overlay-nav ide-tree">
+                <!-- Папка portfolio (раскрывается) -->
+                <div class="nav-folder-group">
+                    <div class="overlay-folder" onclick="toggleNavFolder(this)">
+                        <span class="folder-icon">📁</span>
+                        <span class="folder-name">portfolio/</span>
+                        <span class="folder-arrow">▶</span>
+                    </div>
+                    <div class="folder-children">
+                        <a href="{% url 'portfolio' %}#clients" class="overlay-file">
+                            <span class="file-icon gold">PY</span>
+                            <span class="file-name">clients.py</span>
+                        </a>
+                        <a href="{% url 'portfolio' %}#products" class="overlay-file">
+                            <span class="file-icon blue">PY</span>
+                            <span class="file-name">products.py</span>
+                        </a>
+                        <a href="{% url 'portfolio' %}#opensource" class="overlay-file">
+                            <span class="file-icon ghost">PY</span>
+                            <span class="file-name">opensource.py</span>
+                        </a>
+                        <a href="{% url 'portfolio' %}#prototypes" class="overlay-file">
+                            <span class="file-icon purple">PY</span>
+                            <span class="file-name">prototypes.py</span>
+                        </a>
+                        <a href="{% url 'portfolio' %}#configs" class="overlay-file">
+                            <span class="file-icon ghost">YML</span>
+                            <span class="file-name">config.yaml</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Файлы -->
+                <a href="{% url 'home' %}" class="overlay-file active">
+                    <span class="file-icon blue">PY</span>
+                    <span class="file-name">main.py</span>
+                </a>
+
+                <a href="{% url 'experience' %}" class="overlay-file">
+                    <span class="file-icon gold">LOG</span>
+                    <span class="file-name">experience.log</span>
+                </a>
+
+                <a href="{% url 'contact' %}" class="overlay-file">
+                    <span class="file-icon green">SH</span>
+                    <span class="file-name">contact.sh</span>
+                </a>
+            </nav>
+        </div>
+    </div>

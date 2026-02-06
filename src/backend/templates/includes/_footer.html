@@ -1,3 +1,44 @@
+{% load i18n %}
 <footer class="layout-footer">
-    <p>© 2026 Mykhailo Abasov // CodexDLC</p>
+    <div class="footer-left">
+        <span class="copyright-text"><span class="file-icon">📄</span>
+            {% if request.resolver_match.url_name == 'home' %}main.py
+            {% elif request.resolver_match.url_name == 'portfolio' %}portfolio/
+            {% elif request.resolver_match.url_name == 'experience' %}experience.log
+            {% elif request.resolver_match.url_name == 'contact' %}contact.sh
+            {% else %}unknown{% endif %}
+        </span>
+    </div>
+
+    <div class="footer-right">
+        <div class="control-btn" onclick="toggleSystemHub()">
+            <span class="btn-icon">☰</span>
+            <span class="btn-label desktop-only">HUB</span>
+        </div>
+
+        <div class="control-btn" onclick="toggleContactDrawer()">
+            <span class="btn-icon">✉</span>
+            <span class="btn-label desktop-only">CONTACTS</span>
+        </div>
+
+        <div class="sys-item desktop-only text-ghost">UTF-8</div>
+
+        <!-- Language Switcher (Visual Slider) -->
+        {% get_current_language as LANGUAGE_CODE %}
+        <div id="lang-slider" class="control-btn lang-slider" onclick="toggleLangSlider(this)">
+            <div class="lang-visible">{{ LANGUAGE_CODE|upper }}</div>
+            <div class="lang-hidden">
+                <span onclick="submitLanguage('en')">EN</span>
+                <span class="separator">/</span>
+                <span onclick="submitLanguage('ru')">RU</span>
+            </div>
+        </div>
+
+        <!-- Hidden Django Form -->
+        <form id="language-form" action="{% url 'set_language' %}" method="post" style="display:none;">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ request.get_full_path }}">
+            <input name="language" type="hidden" value="">
+        </form>
+    </div>
 </footer>

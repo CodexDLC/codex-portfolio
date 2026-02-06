@@ -1,0 +1,363 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-05 22:43+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\apps\main\templates\contact.html:43
+msgid "CONTACT_UPLINK v1.0 — Initializing..."
+msgstr "CONTACT_UPLINK v1.0 — Инициализация..."
+
+#: .\apps\main\templates\contact.html:48 .\apps\main\templates\contact.html:53
+#: .\apps\main\templates\contact.html:58
+msgid "OK"
+msgstr "OK"
+
+#: .\apps\main\templates\contact.html:48
+msgid "Profile module loaded"
+msgstr "Модуль профиля загружен"
+
+#: .\apps\main\templates\contact.html:53
+msgid "Channel modules loaded"
+msgstr "Модули связи загружены"
+
+#: .\apps\main\templates\contact.html:58
+msgid "Encryption enabled"
+msgstr "Шифрование включено"
+
+#: .\apps\main\templates\contact.html:72 .\templates\includes\_drawers.html:103
+#: .\templates\includes\_drawers.html:161
+msgid "System Architect / Python Dev"
+msgstr "Системный Архитектор / Python Dev"
+
+#: .\apps\main\templates\contact.html:75 .\templates\includes\_drawers.html:106
+#: .\templates\includes\_drawers.html:164
+msgid "Open for opportunities"
+msgstr "Открыт к предложениям"
+
+#: .\apps\main\templates\contact.html:92
+msgid "CHANNELS_READY"
+msgstr "КАНАЛЫ_ГОТОВЫ"
+
+#: .\apps\main\templates\contact.html:108
+msgid "click to compose"
+msgstr "написать письмо"
+
+#: .\apps\main\templates\contact.html:116
+msgid "click to open"
+msgstr "открыть чат"
+
+#: .\apps\main\templates\contact.html:125
+msgid "view profile"
+msgstr "смотреть профиль"
+
+#: .\apps\main\templates\contact.html:134
+msgid "connect"
+msgstr "установить связь"
+
+#: .\apps\main\templates\contact.html:145
+#: .\templates\includes\_drawers.html:140
+msgid "vCard / Contact"
+msgstr "vCard / Контакт"
+
+#: .\apps\main\templates\contact.html:146
+msgid "Scan to save"
+msgstr "Сканируй для сохранения"
+
+#: .\apps\main\templates\experience.html:64
+msgid "IDENTITY"
+msgstr "ЛИЧНОСТЬ"
+
+#: .\apps\main\templates\experience.html:67
+msgid "Full-Stack Python Dev"
+msgstr "Full-Stack Python Разработчик"
+
+#: .\apps\main\templates\experience.html:68
+msgid "Remote | Worldwide"
+msgstr "Удаленно | Весь мир"
+
+#: .\apps\main\templates\experience.html:69
+msgid "Production Ready"
+msgstr "Готов к Production"
+
+#: .\apps\main\templates\experience.html:74
+msgid "FOCUS"
+msgstr "ФОКУС"
+
+#: .\apps\main\templates\experience.html:76
+msgid "Backend Dev"
+msgstr "Бэкенд Разработка"
+
+#: .\apps\main\templates\experience.html:80
+msgid "System Design"
+msgstr "Системный Дизайн"
+
+#: .\apps\main\templates\experience.html:84
+msgid "Cloud & Deploy"
+msgstr "Облака & Деплой"
+
+#: .\apps\main\templates\experience.html:88
+msgid "Data Engineering"
+msgstr "Инженерия Данных"
+
+#: .\apps\main\templates\experience.html:95
+msgid "TECH ARSENAL"
+msgstr "ТЕХ. АРСЕНАЛ"
+
+#: .\apps\main\templates\experience.html:134
+#: .\apps\main\templates\experience.html:149
+msgid "SUCCESS"
+msgstr "УСПЕХ"
+
+#: .\apps\main\templates\experience.html:135
+msgid "Completed full-stack implementation for Project \"Omega\"."
+msgstr "Завершена full-stack реализация проекта \"Omega\"."
+
+#: .\apps\main\templates\experience.html:139
+msgid "DEPLOYED"
+msgstr "ЗАДЕПЛОЕНО"
+
+#: .\apps\main\templates\experience.html:140
+msgid "New portfolio module `codex-ui` released."
+msgstr "Выпущен новый модуль портфолио `codex-ui`."
+
+#: .\apps\main\templates\experience.html:144
+#: .\apps\main\templates\experience.html:154
+msgid "LEARNING"
+msgstr "ОБУЧЕНИЕ"
+
+#: .\apps\main\templates\experience.html:145
+msgid "Acquired skill: Advanced \"Container Orchestration\"."
+msgstr "Получен навык: Продвинутая \"Оркестрация Контейнеров\"."
+
+#: .\apps\main\templates\experience.html:150
+msgid "Initial system architecture for \"Codex Portfolio\" designed."
+msgstr "Спроектирована начальная архитектура \"Codex Portfolio\"."
+
+#: .\apps\main\templates\experience.html:155
+msgid "Completed course on \"AI & Machine Learning\"."
+msgstr "Завершен курс по \"ИИ и Машинному Обучению\"."
+
+#: .\apps\main\templates\includes\_bento_section.html:8
+msgid "LOADING"
+msgstr "ЗАГРУЗКА"
+
+#: .\apps\main\templates\includes\_bento_section.html:31
+msgid "System Offline"
+msgstr "Система Оффлайн"
+
+#: .\apps\main\templates\includes\_bento_section.html:32
+msgid "No projects loaded in the database."
+msgstr "Проекты не загружены в базу данных."
+
+#: .\apps\main\templates\includes\hero\_final_phase.html:14
+msgid "Analyzing complex enterprise business requirements."
+msgstr "Анализ сложных бизнес-требований уровня Enterprise."
+
+#: .\apps\main\templates\includes\hero\_final_phase.html:15
+msgid "Designing scalable distributed architecture."
+msgstr "Проектирование распределенной архитектуры."
+
+#: .\apps\main\templates\includes\hero\_final_phase.html:16
+msgid "Optimizing high-performance Python core."
+msgstr "Оптимизация производительности ядра."
+
+#: .\apps\main\templates\includes\hero\_final_phase.html:17
+msgid "Automating seamless CI/CD pipelines."
+msgstr "Автоматизация CI/CD процессов."
+
+#: .\apps\main\templates\includes\hero\_final_phase.html:18
+msgid "Delivering production value."
+msgstr "Доставка ценности."
+
+#: .\apps\main\templates\includes\hero\_final_phase.html:24
+msgid "System Tree"
+msgstr "Дерево Системы"
+
+#: .\apps\main\templates\includes\hero\_final_phase.html:30
+msgid "EXPLORE"
+msgstr "ИЗУЧИТЬ"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:26
+msgid "REQUEST"
+msgstr "ЗАПРОС"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:27
+msgid "R&D"
+msgstr "R&D"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:29
+msgid "DOCS"
+msgstr "ДОКИ"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:30
+msgid "SYS"
+msgstr "СИС"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:40
+msgid "FRONT"
+msgstr "ФРОНТ"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:41
+#: .\apps\main\templates\includes\hero\_init_phase.html:76
+msgid "UI"
+msgstr "UI"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:42
+msgid "LOGIC"
+msgstr "ЛОГИКА"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:44
+msgid "BACK"
+msgstr "БЭК"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:47
+#: .\apps\main\templates\includes\hero\_init_phase.html:84
+msgid "DB"
+msgstr "БД"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:49
+#: .\apps\main\templates\includes\hero\_init_phase.html:80
+msgid "API"
+msgstr "API"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:53
+#: .\apps\main\templates\includes\hero\_init_phase.html:91
+msgid "CI/CD"
+msgstr "CI/CD"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:57
+msgid "PROD"
+msgstr "ПРОД"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:69
+msgid "ARCHITECTURE"
+msgstr "АРХИТЕКТУРА"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:96
+msgid "PRODUCT"
+msgstr "ПРОДУКТ"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:100
+msgid "INITIALIZING"
+msgstr "ИНИЦИАЛИЗАЦИЯ"
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:107
+msgid "> Initializing Request..."
+msgstr "> Инициализация запроса..."
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:108
+msgid "> R&D Process started..."
+msgstr "> R&D Процесс запущен..."
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:109
+msgid "> Architecture defined."
+msgstr "> Архитектура определена."
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:110
+msgid "> CORE: Python Engine Ready."
+msgstr "> CORE: Python Движок готов."
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:111
+msgid "> FRONT: React Modules Loaded."
+msgstr "> FRONT: React Модули загружены."
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:112
+msgid "> DB: PostgreSQL Connected."
+msgstr "> DB: PostgreSQL Подключен."
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:113
+msgid "> API: Endpoints Exposed."
+msgstr "> API: Эндпоинты открыты."
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:114
+msgid "> CI/CD: Pipeline Green."
+msgstr "> CI/CD: Пайплайн зеленый."
+
+#: .\apps\main\templates\includes\hero\_init_phase.html:115
+msgid "> DEPLOY: Production Live."
+msgstr "> DEPLOY: Продакшн запущен."
+
+#: .\apps\portfolio\templates\portfolio.html:6
+msgid "Portfolio"
+msgstr "Портфолио"
+
+#: .\core\settings\base.py:114
+msgid "English"
+msgstr "Английский"
+
+#: .\core\settings\base.py:115
+msgid "Russian"
+msgstr "Русский"
+
+#: .\templates\base.html:11
+msgid "My Project"
+msgstr "Codex Portfolio"
+
+#: .\templates\includes\_drawers.html:12 .\templates\includes\_drawers.html:55
+msgid "NAVIGATION"
+msgstr "НАВИГАЦИЯ"
+
+#: .\templates\includes\_drawers.html:21 .\templates\includes\_drawers.html:64
+msgid "PORTFOLIO INDEX"
+msgstr "ИНДЕКС ПОРТФОЛИО"
+
+#: .\templates\includes\_drawers.html:22 .\templates\includes\_drawers.html:65
+msgid "Clients"
+msgstr "Клиенты"
+
+#: .\templates\includes\_drawers.html:23 .\templates\includes\_drawers.html:66
+msgid "Products"
+msgstr "Продукты"
+
+#: .\templates\includes\_drawers.html:24 .\templates\includes\_drawers.html:67
+msgid "Open Source"
+msgstr "Open Source"
+
+#: .\templates\includes\_drawers.html:25 .\templates\includes\_drawers.html:68
+msgid "Prototypes"
+msgstr "Прототипы"
+
+#: .\templates\includes\_drawers.html:26 .\templates\includes\_drawers.html:69
+msgid "Configs"
+msgstr "Конфиги"
+
+#: .\templates\includes\_drawers.html:31 .\templates\includes\_drawers.html:74
+msgid "SYSTEM"
+msgstr "СИСТЕМА"
+
+#: .\templates\includes\_drawers.html:48
+msgid "SYSTEM_MAP"
+msgstr "КАРТА_СИСТЕМЫ"
+
+#: .\templates\includes\_drawers.html:91 .\templates\includes\_drawers.html:149
+msgid "CONTACT_UPLINK"
+msgstr "КОНТАКТ_UPLINK"
+
+#~ msgid "Architecting"
+#~ msgstr "Архитектура"
+
+#~ msgid "Logic."
+#~ msgstr "Логики."
+
+#~ msgid "Deploying"
+#~ msgstr "Развертывание"
+
+#~ msgid "Reality."
+#~ msgstr "Реальности."

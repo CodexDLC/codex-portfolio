@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
 });
 
-/* --- HEADER: LOGO ANIMATION --- */
+/* --- HEADER: LOGO ANIMATION (LOOPED CLEAN) --- */
 let sloganAnimationStarted = false;
 
 function typeSlogan() {
@@ -21,55 +21,115 @@ function typeSlogan() {
     if (!sloganEl || !brandText) return;
 
     const isMobile = window.innerWidth <= 767;
-    const initialDelay = isMobile ? 1500 : 3000;
-    const charSpeed = isMobile ? 30 : 50;
 
-    setTimeout(() => {
+    // MOBILE OPTIMIZATION: No animation, just static logo
+    if (isMobile) {
+        brandText.style.display = 'inline-block';
+        brandText.style.opacity = '1';
+        sloganEl.style.display = 'none';
+        return; // Exit function, no typing loop
+    }
+
+    const charSpeed = 60;
+    const backspaceSpeed = 30;
+    const pauseBeforeReset = 5000; // Пауза перед возвратом к логотипу
+
+    // Курсор
+    const cursor = document.createElement('span');
+    cursor.textContent = '|';
+    cursor.style.color = 'var(--color-gold)';
+    cursor.style.animation = 'blink 1s step-end infinite';
+
+    // Добавляем стиль для мигания курсора, если его нет
+    if (!document.getElementById('cursor-style')) {
+        const style = document.createElement('style');
+        style.id = 'cursor-style';
+        style.textContent = `
+            @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // Функция для печати текста
+    function typeText(text, color, callback) {
+        const span = document.createElement('span');
+        span.style.color = color;
+        sloganEl.insertBefore(span, cursor);
+
+        let i = 0;
+        const interval = setInterval(() => {
+            if (i < text.length) {
+                span.textContent += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(interval);
+                if (callback) callback();
+            }
+        }, charSpeed);
+    }
+
+    // Функция для стирания всего текста
+    function backspaceAll(callback) {
+        const interval = setInterval(() => {
+            const lastSpan = sloganEl.querySelector('span:not(:last-child)'); // Игнорируем курсор
+            if (lastSpan) {
+                if (lastSpan.textContent.length > 0) {
+                    lastSpan.textContent = lastSpan.textContent.slice(0, -1);
+                } else {
+                    lastSpan.remove();
+                }
+            } else {
+                clearInterval(interval);
+                if (callback) callback();
+            }
+        }, backspaceSpeed);
+    }
+
+    // Сценарий анимации
+    function runSequence() {
+        // 1. Скрываем лого, показываем слоган
         brandText.style.opacity = '0';
-        brandText.style.transition = 'opacity 0.5s';
-
         setTimeout(() => {
             brandText.style.display = 'none';
             sloganEl.style.display = 'inline-block';
-            startTyping();
+            sloganEl.innerHTML = ''; // Очистка
+            sloganEl.appendChild(cursor);
+
+            // 2. Печатаем: [ Developer's Life Cycle ]
+            typeText("[ ", "var(--color-ghost)", () => {
+                typeText("Developer's", "var(--color-gold)", () => {
+                    typeText(" ", "transparent", () => {
+                        typeText("Life", "var(--color-ivory)", () => {
+                            typeText(" ", "transparent", () => {
+                                typeText("Cycle", "var(--color-blue)", () => {
+                                    typeText(" ]", "var(--color-ghost)", () => {
+
+                                        // 3. Финальная пауза и сброс
+                                        setTimeout(() => {
+                                            // Стираем перед возвратом логотипа (опционально, можно просто переключить)
+                                            backspaceAll(() => {
+                                                sloganEl.style.display = 'none';
+                                                brandText.style.display = 'inline-block';
+                                                setTimeout(() => {
+                                                    brandText.style.opacity = '1';
+
+                                                    // 4. Рестарт цикла через паузу
+                                                    setTimeout(runSequence, 3000);
+                                                }, 100);
+                                            });
+                                        }, pauseBeforeReset);
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
         }, 500);
-    }, initialDelay);
-
-    const parts = [
-        { text: "[ ", color: "var(--color-ghost)" },
-        { text: "Developer's", color: "var(--color-gold)" },
-        { text: " ", color: "transparent" },
-        { text: "Life", color: "var(--color-ivory)" },
-        { text: " ", color: "transparent" },
-        { text: "Cycle", color: "var(--color-blue)" },
-        { text: " ]", color: "var(--color-ghost)" }
-    ];
-
-    let partIndex = 0;
-
-    function startTyping() {
-        function typeNextPart() {
-            if (partIndex >= parts.length) return;
-
-            const part = parts[partIndex];
-            const span = document.createElement('span');
-            span.style.color = part.color;
-            sloganEl.appendChild(span);
-
-            let charIndex = 0;
-            const interval = setInterval(() => {
-                if (charIndex < part.text.length) {
-                    span.textContent += part.text.charAt(charIndex);
-                    charIndex++;
-                } else {
-                    clearInterval(interval);
-                    partIndex++;
-                    typeNextPart();
-                }
-            }, charSpeed);
-        }
-        typeNextPart();
     }
+
+    // Запуск (первый раз с задержкой)
+    setTimeout(runSequence, 3000);
 }
 
 /* --- HEADER: MOBILE MENU OVERLAY --- */
@@ -179,3 +239,18 @@ function toggleContactDrawer() {
 
 // Deprecated functions (kept for compatibility if needed, but redirected)
 function toggleNavDrawer() { toggleSystemHub(); }
+
+/* --- I18N FORM SUBMITTER --- */
+function submitLanguage(langCode) {
+    // Prevent event bubbling if clicked inside slider
+    event.stopPropagation();
+
+    const form = document.getElementById('language-form');
+    if (!form) return;
+
+    const input = form.querySelector('input[name="language"]');
+    if (input) {
+        input.value = langCode;
+        form.submit();
+    }
+}

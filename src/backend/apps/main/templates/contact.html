@@ -1,12 +1,13 @@
+{% extends "base.html" %} {% load static %}
+{% load i18n %}
 
-
-{% extends "base.html" %} {% load static %}  
 {% block extra_head %}
     <link rel="stylesheet" href="{% static 'css/contact.css' %}">
 {% endblock extra_head %}
-{% block content %}
-        <main class="layout-main contact-grid">
 
+{% block main_class %}contact-grid{% endblock main_class %}
+
+{% block content %}
         <!-- ============================================================
              PANEL 1: Terminal Shell
              ============================================================ -->
@@ -39,22 +40,22 @@
 
                 <!-- 3: header comment -->
                 <div class="contact-line contact-line-comment">
-                    <span class="contact-line-text"># CONTACT_UPLINK v1.0 — Initializing...</span>
+                    <span class="contact-line-text"># {% trans "CONTACT_UPLINK v1.0 — Initializing..." %}</span>
                 </div>
 
                 <!-- 4: status OK — Profile -->
                 <div class="contact-line contact-line-status">
-                    <span class="contact-line-text"><span class="text-green">[OK]</span> Profile module loaded</span>
+                    <span class="contact-line-text"><span class="text-green">[{% trans "OK" %}]</span> {% trans "Profile module loaded" %}</span>
                 </div>
 
                 <!-- 5: status OK — Channels -->
                 <div class="contact-line contact-line-status">
-                    <span class="contact-line-text"><span class="text-green">[OK]</span> Channel modules loaded</span>
+                    <span class="contact-line-text"><span class="text-green">[{% trans "OK" %}]</span> {% trans "Channel modules loaded" %}</span>
                 </div>
 
                 <!-- 6: status OK — Encryption -->
                 <div class="contact-line contact-line-status">
-                    <span class="contact-line-text"><span class="text-green">[OK]</span> Encryption enabled</span>
+                    <span class="contact-line-text"><span class="text-green">[{% trans "OK" %}]</span> {% trans "Encryption enabled" %}</span>
                 </div>
 
                 <!-- 7: blank spacer -->
@@ -68,10 +69,10 @@
                         </div>
                         <div class="contact-info-block">
                             <h2 class="contact-name">CodexDLC</h2>
-                            <p class="contact-role font-mono">System Architect / Python Dev</p>
+                            <p class="contact-role font-mono">{% trans "System Architect / Python Dev" %}</p>
                             <div class="contact-status-row">
                                 <span class="status-dot online"></span>
-                                <span class="contact-status-text">Open for opportunities</span>
+                                <span class="contact-status-text">{% trans "Open for opportunities" %}</span>
                             </div>
                             <div class="contact-skills tags-list">
                                 <span class="tag">Python</span>
@@ -88,7 +89,7 @@
 
                 <!-- 10: section label -->
                 <div class="contact-line contact-line-section-label">
-                    <span class="contact-line-text text-green">// CHANNELS_READY</span>
+                    <span class="contact-line-text text-green">// {% trans "CHANNELS_READY" %}</span>
                 </div>
 
             </div>
@@ -104,7 +105,7 @@
                         <div class="contact-channel-content">
                             <span class="contact-channel-label">EMAIL</span>
                             <span class="contact-channel-value">info@codexdlc.dev</span>
-                            <span class="contact-channel-action">click to compose</span>
+                            <span class="contact-channel-action">{% trans "click to compose" %}</span>
                         </div>
                         <div class="contact-channel-arrow">›</div> </a>
 
@@ -112,7 +113,7 @@
                         <div class="contact-channel-icon">✈️</div> <div class="contact-channel-content">
                             <span class="contact-channel-label">TELEGRAM</span>
                             <span class="contact-channel-value">@codexdlc</span>
-                            <span class="contact-channel-action">click to open</span>
+                            <span class="contact-channel-action">{% trans "click to open" %}</span>
                         </div>
                         <div class="contact-channel-arrow">›</div>
                     </a>
@@ -121,7 +122,7 @@
                         <div class="contact-channel-icon">🐙</div> <div class="contact-channel-content">
                             <span class="contact-channel-label">GITHUB</span>
                             <span class="contact-channel-value">/codexdlc</span>
-                            <span class="contact-channel-action">view profile</span>
+                            <span class="contact-channel-action">{% trans "view profile" %}</span>
                         </div>
                         <div class="contact-channel-arrow">›</div>
                     </a>
@@ -130,7 +131,7 @@
                         <div class="contact-channel-icon">💼</div> <div class="contact-channel-content">
                             <span class="contact-channel-label">LINKEDIN</span>
                             <span class="contact-channel-value">/in/codexdlc</span>
-                            <span class="contact-channel-action">connect</span>
+                            <span class="contact-channel-action">{% trans "connect" %}</span>
                         </div>
                         <div class="contact-channel-arrow">›</div>
                     </a>
@@ -141,13 +142,10 @@
                     <span class="qr-text">SCAN_ME</span>
                 </div>
                 <div class="contact-qr-info">
-                    <span class="contact-qr-label">vCard / Contact</span>
-                    <span class="contact-qr-sublabel">Scan to save</span>
+                    <span class="contact-qr-label">{% trans "vCard / Contact" %}</span>
+                    <span class="contact-qr-sublabel">{% trans "Scan to save" %}</span>
                 </div>
             </div>
 
         </div>
-
-    </main>
-
 {% endblock content %}

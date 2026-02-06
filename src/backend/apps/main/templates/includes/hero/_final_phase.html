@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <div id="final-screen" class="final-hero-layout" style="display: none;">
     <div class="hero-diagonal-bg"></div>
@@ -10,23 +11,23 @@
         </div>
 
         <div class="hero-desc-group">
-            <p class="hero-desc-p">Analyzing complex enterprise business requirements.</p>
-            <p class="hero-desc-p text-blue">Designing scalable distributed architecture.</p>
-            <p class="hero-desc-p text-blue">Optimizing high-performance Python core.</p>
-            <p class="hero-desc-p text-gold">Automating seamless CI/CD pipelines.</p>
-            <p class="hero-desc-p text-gold">Delivering production value.</p>
+            <p class="hero-desc-p">{% trans "Analyzing complex enterprise business requirements." %}</p>
+            <p class="hero-desc-p text-blue">{% trans "Designing scalable distributed architecture." %}</p>
+            <p class="hero-desc-p text-blue">{% trans "Optimizing high-performance Python core." %}</p>
+            <p class="hero-desc-p text-gold">{% trans "Automating seamless CI/CD pipelines." %}</p>
+            <p class="hero-desc-p text-gold">{% trans "Delivering production value." %}</p>
         </div>
     </div>
 
     <div class="final-visual-side">
         <div id="python-wireframe">
-            <img src="{% static 'img/8.png' %}" alt="System Tree" class="floating-python-logo">
+            <img src="{% static 'img/8.png' %}" alt="{% trans 'System Tree' %}" class="floating-python-logo">
         </div>
     </div>
 </div>
 
 <div class="mobile-scroll-indicator mobile-only">
-    <span class="scroll-text">// EXPLORE</span>
+    <span class="scroll-text">// {% trans "EXPLORE" %}</span>
     <div class="scroll-arrows">
         <span class="arrow">▼</span>
         <span class="arrow">▼</span>

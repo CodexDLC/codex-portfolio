@@ -4,18 +4,17 @@
 {% block extra_head %}
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock extra_head %}
+
 {% block content %}
-    <main class="layout-main">
-        
-        <div class="slides-container">
+    <div class="slides-container">
 
-            {% include "includes/hero/_hero_section.html" %}
+        {% include "includes/hero/_hero_section.html" %}
 
-            {% include "includes/_bento_section.html" %}
+        {% include "includes/_bento_section.html" %}
 
-        </div></main>
+    </div>
 {% endblock content %}
+
 {% block extra_js %}
-    <script src="{% static 'js/base.js' %}"></script>    
     <script src="{% static 'js/main.js' %}"></script>
 {% endblock extra_js %}

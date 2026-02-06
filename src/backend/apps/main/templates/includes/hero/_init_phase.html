@@ -1,3 +1,5 @@
+{% load i18n %}
+{% load static %}
 <div id="init-screen" class="init-layout-fixed">
     <div class="terminal-col">
         <div class="window-controls">
@@ -11,7 +13,7 @@
     <div class="pipeline-col">
         <div id="diagram-container" class="pipeline-wrapper">
             <svg viewBox="0 40 1050 520" preserveAspectRatio="xMidYMid meet">
-                 <g class="lines-layer">
+                <g class="lines-layer">
                     <path class="diagram-path delay-0" d="M 50,300 L 130,300" />
                     <path class="diagram-path delay-1" d="M 170,270 V 200 H 220" />
                     <path class="diagram-path delay-1" d="M 170,330 V 400 H 220" />
@@ -22,38 +24,36 @@
                 </g>
 
                 <g class="nodes-layer">
-                    <g class="diagram-node delay-0"><circle cx="50" cy="300" r="28" class="shape-circle"/><text x="50" y="305" font-size="8">REQUEST</text></g>
-                    <g class="diagram-node delay-1"><polygon points="170,270 210,300 170,330 130,300" class="shape-rhombus"/><text x="170" y="305" font-size="9">R&D</text></g>
+                    <g class="diagram-node delay-0"><circle cx="50" cy="300" r="28" class="shape-circle"/><text x="50" y="305" font-size="8">{% trans "REQUEST" %}</text></g>
+                    <g class="diagram-node delay-1"><polygon points="170,270 210,300 170,330 130,300" class="shape-rhombus"/><text x="170" y="305" font-size="9">{% trans "R&D" %}</text></g>
 
-                    <g class="diagram-node delay-2"><rect x="220" y="180" width="100" height="40" class="shape-rect"/><text x="270" y="205">DOCS</text></g>
-                    <g class="diagram-node delay-2"><rect x="220" y="380" width="100" height="40" class="shape-rect"/><text x="270" y="405">SYS</text></g>
+                    <g class="diagram-node delay-2"><rect x="220" y="180" width="100" height="40" class="shape-rect"/><text x="270" y="205">{% trans "DOCS" %}</text></g>
+                    <g class="diagram-node delay-2"><rect x="220" y="380" width="100" height="40" class="shape-rect"/><text x="270" y="405">{% trans "SYS" %}</text></g>
 
                     <g class="diagram-node delay-3">
                         <rect x="400" y="260" width="120" height="80" class="shape-core"/>
-                        <g transform="translate(440, 280) scale(0.8)" fill="none" stroke-width="2">
-                            <path d="M10,0 C5,0 0,2 0,7 L0,15 L10,15 L10,17 L-5,17 C-10,17 -15,20 -15,25 L-15,35 C-15,40 -10,42 -5,42 L0,42 L0,35 C0,30 5,28 10,28 L20,28 C25,28 30,25 30,20 L30,7 C30,2 25,0 20,0 L10,0 Z" stroke="var(--color-blue)" />
-                            <path d="M20,50 C25,50 30,48 30,43 L30,35 L20,35 L20,33 L35,33 C40,33 45,30 45,25 L45,15 C45,10 40,8 35,8 L30,8 L30,15 C30,20 25,22 20,22 L10,22 C5,22 0,25 0,30 L0,43 C0,48 5,50 10,50 L20,50 Z" stroke="var(--color-gold)" />
-                        </g>
+                        <!-- Замена рисованного логотипа на SVG файл -->
+                        <image href="{% static 'img/Python-logo-notext.svg' %}" x="435" y="275" width="50" height="50" />
                     </g>
 
-                    <g class="diagram-node delay-3"><rect x="520" y="160" width="100" height="40" class="shape-rect fill-blue"/><text x="570" y="185">FRONT</text></g>
-                    <g class="diagram-node delay-3"><rect x="280" y="80" width="100" height="40" class="shape-rect stroke-gold"/><text x="330" y="105">UI</text></g>
-                    <g class="diagram-node delay-3"><rect x="540" y="80" width="100" height="40" class="shape-rect stroke-gold"/><text x="590" y="105">LOGIC</text></g>
+                    <g class="diagram-node delay-3"><rect x="520" y="160" width="100" height="40" class="shape-rect fill-blue"/><text x="570" y="185">{% trans "FRONT" %}</text></g>
+                    <g class="diagram-node delay-3"><rect x="280" y="80" width="100" height="40" class="shape-rect stroke-gold"/><text x="330" y="105">{% trans "UI" %}</text></g>
+                    <g class="diagram-node delay-3"><rect x="540" y="80" width="100" height="40" class="shape-rect stroke-gold"/><text x="590" y="105">{% trans "LOGIC" %}</text></g>
 
-                    <g class="diagram-node delay-3"><rect x="520" y="400" width="100" height="40" class="shape-rect fill-blue"/><text x="570" y="425">BACK</text></g>
+                    <g class="diagram-node delay-3"><rect x="520" y="400" width="100" height="40" class="shape-rect fill-blue"/><text x="570" y="425">{% trans "BACK" %}</text></g>
                     <g class="diagram-node delay-3">
                         <rect x="280" y="480" width="100" height="40" rx="15" class="shape-rect stroke-gold"/>
-                        <text x="330" y="505">DB</text>
+                        <text x="330" y="505">{% trans "DB" %}</text>
                     </g>
-                    <g class="diagram-node delay-3"><rect x="540" y="480" width="100" height="40" class="shape-rect stroke-gold"/><text x="590" y="505">API</text></g>
+                    <g class="diagram-node delay-3"><rect x="540" y="480" width="100" height="40" class="shape-rect stroke-gold"/><text x="590" y="505">{% trans "API" %}</text></g>
 
                     <g class="diagram-node delay-4">
                         <polygon points="720,270 770,300 720,330 670,300" class="shape-rhombus stroke-gold"/>
-                        <text x="720" y="305" font-size="9">CI/CD</text>
+                        <text x="720" y="305" font-size="9">{% trans "CI/CD" %}</text>
                     </g>
 
                     <g class="diagram-node delay-5">
-                        <rect x="850" y="260" width="80" height="80" class="shape-product"/><text x="890" y="305" fill="#151520">PROD</text>
+                        <rect x="850" y="260" width="80" height="80" class="shape-product"/><text x="890" y="305" fill="#151520">{% trans "PROD" %}</text>
                     </g>
                 </g>
             </svg>
@@ -65,37 +65,52 @@
     <svg class="mobile-pipeline-svg" viewBox="0 0 300 420" preserveAspectRatio="xMidYMid meet">
         <g class="mp-node mp-arch">
             <rect x="30" y="10" width="240" height="40" rx="6" class="mp-rect-main"/>
-            <text x="150" y="35" class="mp-text-main">ARCHITECTURE</text>
+            <text x="150" y="35" class="mp-text-main">{% trans "ARCHITECTURE" %}</text>
         </g>
         <path class="mp-line mp-line-1a" d="M 60,50 L 60,80"/>
         <path class="mp-line mp-line-1b" d="M 150,50 L 150,80"/>
         <path class="mp-line mp-line-1c" d="M 240,50 L 240,80"/>
         <g class="mp-node mp-icon-1">
             <rect x="30" y="80" width="60" height="60" rx="8" class="mp-rect-icon gold"/>
-            <text x="60" y="115" class="mp-text-icon">UI</text>
+            <text x="60" y="115" class="mp-text-icon">{% trans "UI" %}</text>
         </g>
         <g class="mp-node mp-icon-2">
             <rect x="120" y="80" width="60" height="60" rx="8" class="mp-rect-icon blue"/>
-            <text x="150" y="115" class="mp-text-icon">API</text>
+            <text x="150" y="115" class="mp-text-icon">{% trans "API" %}</text>
         </g>
         <g class="mp-node mp-icon-3">
             <rect x="210" y="80" width="60" height="60" rx="8" class="mp-rect-icon green"/>
-            <text x="240" y="115" class="mp-text-icon">DB</text>
+            <text x="240" y="115" class="mp-text-icon">{% trans "DB" %}</text>
         </g>
         <path class="mp-line mp-line-2" d="M 60,140 L 60,180 L 150,210"/>
         <path class="mp-line mp-line-3" d="M 150,140 L 150,210"/>
         <path class="mp-line mp-line-4" d="M 240,140 L 240,180 L 150,210"/>
         <g class="mp-node mp-merge">
             <polygon points="150,210 185,250 150,290 115,250" class="mp-diamond"/>
-            <text x="150" y="255" class="mp-text-icon">CI/CD</text>
+            <text x="150" y="255" class="mp-text-icon">{% trans "CI/CD" %}</text>
         </g>
         <path class="mp-line mp-line-5" d="M 150,290 L 150,330"/>
         <g class="mp-node mp-product">
             <rect x="50" y="330" width="200" height="50" rx="6" class="mp-rect-product"/>
-            <text x="150" y="360" class="mp-text-main">PRODUCT</text>
+            <text x="150" y="360" class="mp-text-main">{% trans "PRODUCT" %}</text>
         </g>
     </svg>
     <div class="mobile-init-loading">
-        <span class="loading-text">// INITIALIZING<span class="dots"></span></span>
+        <span class="loading-text">// {% trans "INITIALIZING" %}<span class="dots"></span></span>
     </div>
 </div>
+
+{{ terminal_messages|json_script:"terminal-messages-data" }}
+<script id="terminal-messages-data" type="application/json">
+{
+    "msg1": "{% trans '> Initializing Request...' %}",
+    "msg2": "{% trans '> R&D Process started...' %}",
+    "msg3": "{% trans '> Architecture defined.' %}",
+    "msg4": "{% trans '> CORE: Python Engine Ready.' %}",
+    "msg5": "{% trans '> FRONT: React Modules Loaded.' %}",
+    "msg6": "{% trans '> DB: PostgreSQL Connected.' %}",
+    "msg7": "{% trans '> API: Endpoints Exposed.' %}",
+    "msg8": "{% trans '> CI/CD: Pipeline Green.' %}",
+    "msg9": "{% trans '> DEPLOY: Production Live.' %}"
+}
+</script>

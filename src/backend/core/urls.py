@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('i18n/', include('django.conf.urls.i18n')),  # URL для смены языка
     path("", include("apps.main.urls")),
     path("portfolio/", include("apps.portfolio.urls")),
 ]

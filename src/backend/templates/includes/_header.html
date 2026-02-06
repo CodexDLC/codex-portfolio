@@ -1,3 +1,4 @@
+{% load i18n %}
 <header class="layout-header">
 
         <!-- Floor 1: Top Bar -->
@@ -15,7 +16,7 @@
         <div class="header-inner">
             <a href="{% url 'home' %}" class="brand">
                 <!-- FIX: Changed ID to brand-logo -->
-                <span id="brand-logo" class="font-mono">Codex<span class="text-gold">D</span><span class="text-ivory">L</span><span class="text-blue">C</span></span>
+                <span id="brand-logo" class="font-mono">Codex<span class="text-ghost">-</span><span class="text-gold">D</span><span class="text-ivory">L</span><span class="text-blue">C</span></span>
                 <span id="brand-slogan"></span>
             </a>
             <!-- Mobile Burger Button (Opens Overlay) -->
@@ -23,22 +24,22 @@
                 ☰
             </div>
             <nav class="header-nav">
-                <a href="{% url 'home' %}" class="nav-link active">
+                <a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
                     <span class="code-icon blue">PY</span>
                     <span class="file-name">main.py</span>
                     <span class="tab-close">x</span>
                 </a>
-                <a href="{% url 'portfolio' %}" class="nav-link nav-folder">
+                <a href="{% url 'portfolio' %}" class="nav-link nav-folder {% if request.resolver_match.url_name == 'portfolio' %}active{% endif %}">
                     <span class="code-icon folder">📁</span>
                     <span class="file-name">portfolio/</span>
                     <span class="tab-close">x</span>
                 </a>
-                <a href="{% url 'experience' %}" class="nav-link">
+                <a href="{% url 'experience' %}" class="nav-link {% if request.resolver_match.url_name == 'experience' %}active{% endif %}">
                     <span class="code-icon yellow">LOG</span>
                     <span class="file-name">experience.log</span>
                     <span class="tab-close">x</span>
                 </a>
-                <a href="{% url 'contact' %}" class="nav-link">
+                <a href="{% url 'contact' %}" class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
                     <span class="code-icon green">SH</span>
                     <span class="file-name">contact.sh</span>
                     <span class="tab-close">x</span>

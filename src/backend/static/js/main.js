@@ -28,7 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
      * @param {number} index - Slide index (0 = Hero, 1 = Bento)
      * @param {string} direction - 'up' or 'down'
      */
-    function goToSlide(index, direction = 'down') {
+    // Expose globally for onclick handlers
+    window.goToSlide = function(index, direction = 'down') {
         if (index < 0 || index >= slides.length) return;
         if (index === currentSlide) return;
 
@@ -63,6 +64,11 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     function handleWheel(e) {
         if (isSliding) return;
+
+        // If we are on a page that handles its own scrolling (like experience.html with internal scroll),
+        // we might want to prevent this global handler.
+        // Simple check: if the event target is inside a .stop-global-scroll element
+        if (e.target.closest('.stop-global-scroll')) return;
 
         const delta = e.deltaY;
         const threshold = 30; // Minimum scroll to trigger
@@ -198,16 +204,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const showAllContentImmediately = () => {
         const isMobile = window.innerWidth <= 767;
 
-        // Скрываем экран загрузки
-        if (initScreen) initScreen.style.display = 'none';
+        // Скрываем экран загрузки (Desktop)
+        if (initScreen) initScreen.style.setProperty('display', 'none', 'important');
 
-        // Скрываем мобильный init screen
+        // Скрываем мобильный init screen (Mobile)
         const mobileInitScreen = document.querySelector('.mobile-init-screen');
-        if (mobileInitScreen) mobileInitScreen.style.display = 'none';
+        if (mobileInitScreen) mobileInitScreen.style.setProperty('display', 'none', 'important');
 
         // Показываем финал
         if (finalScreen) {
-            finalScreen.style.display = isMobile ? 'block' : 'grid';
+            // FIX: Use correct display type for mobile (flex) vs desktop (grid)
+            // Removing !important to let CSS handle specifics if needed, but setting inline to override 'none'
+            finalScreen.style.display = isMobile ? 'flex' : 'grid';
             finalScreen.style.opacity = '1';
         }
 
@@ -237,6 +245,11 @@ document.addEventListener("DOMContentLoaded", () => {
         // Показываем мобильный separator сразу с READY статусом
         showMobileSeparator();
 
+        // Показываем мобильные порталы сразу
+        if (isMobile) {
+             showMobilePortals();
+        }
+
         // Запускаем анимацию логотипа (функция из base.js)
         if (typeof typeSlogan === 'function') {
             typeSlogan();
@@ -248,88 +261,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // В base.js функция глобальная, так что просто вызываем её.
 
     // --- MOBILE PIPELINE ANIMATION ---
+    // (Больше не используется, но оставим функцию на всякий случай, если захотим вернуть)
     const runMobilePipelineAnimation = () => {
-        const mobileInitScreen = document.querySelector('.mobile-init-screen');
-
-        if (!mobileInitScreen) return;
-
-        // Animation sequence timing (ms) - synced with bento items like desktop
-        const sequence = [
-            // 1. Architecture block appears
-            { delay: 300, action: () => document.querySelector('.mp-arch')?.classList.add('visible') },
-            // 2. Lines from arch to 3 icons
-            { delay: 600, action: () => {
-                document.querySelector('.mp-line-1a')?.classList.add('drawn');
-                document.querySelector('.mp-line-1b')?.classList.add('drawn');
-                document.querySelector('.mp-line-1c')?.classList.add('drawn');
-            }},
-            // 3. 3 icons appear + trigger bento items (synced like desktop)
-            { delay: 900, action: () => {
-                document.querySelector('.mp-icon-1')?.classList.add('visible');
-                showBentoItem(1); // Stack
-            }},
-            { delay: 1100, action: () => {
-                document.querySelector('.mp-icon-2')?.classList.add('visible');
-                showBentoItem(2); // Method
-            }},
-            { delay: 1300, action: () => {
-                document.querySelector('.mp-icon-3')?.classList.add('visible');
-                showBentoItem(0); // Featured
-            }},
-            // 4. Lines converge to diamond top
-            { delay: 1600, action: () => {
-                document.querySelector('.mp-line-2')?.classList.add('drawn');
-                document.querySelector('.mp-line-3')?.classList.add('drawn');
-                document.querySelector('.mp-line-4')?.classList.add('drawn');
-            }},
-            // 5. CI/CD diamond appears
-            { delay: 2200, action: () => document.querySelector('.mp-merge')?.classList.add('visible') },
-            // 6. Line to product
-            { delay: 2600, action: () => document.querySelector('.mp-line-5')?.classList.add('drawn') },
-            // 7. Product block appears + Contact bento
-            { delay: 3000, action: () => {
-                document.querySelector('.mp-product')?.classList.add('visible');
-                showBentoItem(3); // Contact
-            }},
-        ];
-
-        // Run animation sequence
-        sequence.forEach(({ delay, action }) => {
-            setTimeout(action, delay);
-        });
-
-        // Transition to final screen
-        setTimeout(() => {
-            // Fade out init screen
-            mobileInitScreen.classList.add('fade-out');
-
-            setTimeout(() => {
-                mobileInitScreen.classList.add('hidden');
-
-                // Show final screen (hero)
-                if (finalScreen) {
-                    finalScreen.style.setProperty('display', 'block', 'important');
-                    finalScreen.style.opacity = "1";
-                }
-
-                // Show scroll indicator (стрелочки вниз к bento)
-                const scrollIndicator = document.querySelector('.mobile-scroll-indicator');
-                if (scrollIndicator) {
-                    scrollIndicator.classList.add('show');
-                }
-
-                // Update status after delay
-                setTimeout(() => {
-                    updateSeparatorStatus();
-                    updateModulesStatus();
-                }, 800);
-
-                // Start logo animation
-                if (typeof typeSlogan === 'function') {
-                    typeSlogan();
-                }
-            }, 800);
-        }, 3800);
+        // ... (код анимации) ...
     };
 
     const runBootSequence = () => {
@@ -339,21 +273,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const isMobile = window.innerWidth <= 767;
 
-        // На мобильных запускаем новую анимацию pipeline
+        // На мобильных - СРАЗУ показываем контент (LCP Optimization)
         if (isMobile) {
-            runMobilePipelineAnimation();
+            showAllContentImmediately();
             return;
+        }
+
+        // Получаем переводы из JSON
+        let translations = {};
+        try {
+            const scriptTag = document.getElementById('terminal-messages-data');
+            if (scriptTag) {
+                translations = JSON.parse(scriptTag.textContent);
+            }
+        } catch (e) {
+            console.warn("Translations not found, using defaults");
         }
 
         // Desktop animation (original)
         // Маппинг логов - triggerTab показывает таб в hero-modules-bar
         const messages = [
-            { t: 500, m: "> Initializing Request...", triggerNav: 0, triggerTab: 0 },
-            { t: 1200, m: "> R&D Process started...", c: "text-ghost", triggerBento: 1, triggerNav: 1, triggerTab: 1 },
-            { t: 2200, m: "> Architecture defined.", c: "text-blue", triggerBento: 2, triggerNav: 2, triggerTab: 2 },
-            { t: 3200, m: "> CORE: Python Engine Ready.", c: "text-gold", triggerBento: 0, triggerNav: 3, triggerTab: 3 },
-            { t: 4500, m: "> CI/CD Pipeline active.", c: "text-gold" },
-            { t: 6000, m: "> DEPLOYED TO PRODUCT.", c: "text-gold", triggerBento: 3 }
+            { t: 500, m: translations.msg1 || "> Initializing Request...", triggerNav: 0, triggerTab: 0 },
+            { t: 1200, m: translations.msg2 || "> R&D Process started...", c: "text-ghost", triggerBento: 1, triggerNav: 1, triggerTab: 1 },
+            { t: 2200, m: translations.msg3 || "> Architecture defined.", c: "text-blue", triggerBento: 2, triggerNav: 2, triggerTab: 2 },
+            { t: 3200, m: translations.msg4 || "> CORE: Python Engine Ready.", c: "text-gold", triggerBento: 0, triggerNav: 3, triggerTab: 3 },
+            { t: 4500, m: translations.msg8 || "> CI/CD Pipeline active.", c: "text-gold" },
+            { t: 6000, m: translations.msg9 || "> DEPLOYED TO PRODUCT.", c: "text-gold", triggerBento: 3 }
         ];
 
         messages.forEach((item) => {
@@ -424,17 +369,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ПРОВЕРКА: Если мы на главной странице (есть терминал)
     if (logs && initScreen) {
-        // DEBUG: Временно отключена проверка sessionStorage - всегда показываем анимацию
-        // const introShown = sessionStorage.getItem(SESSION_KEY);
-        // if (introShown) {
-        //     showAllContentImmediately();
-        // } else {
-        //     sessionStorage.setItem(SESSION_KEY, 'true');
-        //     runBootSequence();
-        // }
-
-        // Всегда запускаем анимацию (для тестирования)
-        runBootSequence();
+        // Проверка sessionStorage - показываем анимацию только один раз за сессию
+        const introShown = sessionStorage.getItem(SESSION_KEY);
+        if (introShown) {
+            showAllContentImmediately();
+        } else {
+            sessionStorage.setItem(SESSION_KEY, 'true');
+            runBootSequence();
+        }
     } else {
         // Если мы на внутренней странице (нет терминала), показываем всё сразу
         showAllContentImmediately();

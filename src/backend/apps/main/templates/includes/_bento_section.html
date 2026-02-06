@@ -1,10 +1,11 @@
 {% load static %}
+{% load i18n %}
 
 <section id="slide-bento" class="slide hidden-down">
     <div class="slide-content-wrapper">
 
         <div class="bento-separator separator-bento">
-            <span class="bento-status">// LOADING<span class="dots"></span></span>
+            <span class="bento-status">// {% trans "LOADING" %}<span class="dots"></span></span>
             <div class="line"></div>
         </div>
 
@@ -27,8 +28,8 @@
                 </a>
             {% empty %}
                 <div class="bento-item card col-span-8 theme-ghost">
-                    <h3 class="card-title">System Offline</h3>
-                    <p class="card-desc">No projects loaded in the database.</p>
+                    <h3 class="card-title">{% trans "System Offline" %}</h3>
+                    <p class="card-desc">{% trans "No projects loaded in the database." %}</p>
                 </div>
             {% endfor %}
 

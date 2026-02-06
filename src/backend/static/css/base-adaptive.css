@@ -261,6 +261,7 @@
         /* Switch to Flex for Burger layout */
         display: flex;
         justify-content: space-between;
+        position: relative; /* For absolute burger */
     }
 
     /* Logo: Keep it relatively large */
@@ -283,6 +284,10 @@
         font-size: 2rem;
         color: var(--color-gold);
         cursor: pointer;
+        position: absolute; /* FIX: Absolute positioning */
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     /* Footer */
@@ -307,9 +312,6 @@
     .contact-links-grid {
         grid-template-columns: 1fr 1fr !important; /* 2x2 Grid inside column */
     }
-
-    /* FIX: Removed margin-top for layout-main to avoid double spacing with top: 80px */
-    /* .layout-main { margin-top: 80px !important; } */
 }
 
 /* ============================================
@@ -395,6 +397,7 @@
         padding: 0 !important;
         gap: 0 !important;
         grid-template-columns: unset !important;
+        position: relative !important; /* For absolute burger */
     }
 
     .header-nav { display: none !important; } /* Скрываем десктопное меню */
@@ -404,6 +407,10 @@
         font-size: 1.8rem;
         color: var(--color-gold);
         cursor: pointer;
+        position: absolute !important; /* FIX: Absolute positioning */
+        right: 0 !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
     }
 
     .brand { padding: 0 !important; width: auto !important; }
