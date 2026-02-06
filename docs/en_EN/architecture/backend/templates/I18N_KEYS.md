@@ -229,4 +229,4 @@ msgid "nav_home"
 msgstr "Home"
 ```
 
-<!-- DJANGO: Use `python manage.py makemessages -l en -l ru -l de` to auto-generate -->
+<!-- DJANGO: Use `python cli.py makemessages -l en -l ru -l de` to auto-generate -->

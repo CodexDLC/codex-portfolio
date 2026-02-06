@@ -5,8 +5,6 @@
 Personal portfolio and digital business card.
 Built with **Django + HTMX** using a **Bento-grid** design system.
 
-> **GOAL:** Demonstrate Fullstack development skills, architectural thinking, and mastery of modern (yet simple) technologies.
-
 ## 📂 Project Navigation
 
 ### 📚 Documentation (Docs)

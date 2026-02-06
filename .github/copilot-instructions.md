@@ -174,7 +174,7 @@ See [src/prototype/js/base.js](src/prototype/js/base.js) lines 8-60 for `typeSlo
 poetry install
 
 # Run management menu (generates project structure)
-python manage.py
+python cli.py
 
 # To generate project_structure.txt file
 python scripts/generate_project_tree.py

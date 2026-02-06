@@ -98,10 +98,10 @@ def contact_view(request):
 
 ```bash
 # Extract all translation strings from code and templates
-python manage.py makemessages -l en -l ru -l de
+python cli.py makemessages -l en -l ru -l de
 
 # Compile .mo files for production (faster lookup)
-python manage.py compilemessages
+python cli.py compilemessages
 ```
 
 Generated files:
@@ -255,7 +255,7 @@ Missing 20 strings → Django shows EN fallback
 ### Django Shell
 
 ```bash
-python manage.py shell
+python cli.py shell
 >>> from django.utils import translation
 >>> translation.activate('ru')
 >>> from django.utils.translation import gettext as _
