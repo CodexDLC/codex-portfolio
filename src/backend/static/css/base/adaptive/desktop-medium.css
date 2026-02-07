@@ -1,0 +1,60 @@
+/* src/prototype/css/base/adaptive/desktop-medium.css */
+/* MEDIUM DESKTOP: 1441px - 1920px (Full HD included) */
+
+@media (min-width: 1441px) and (max-width: 1920px) {
+    :root {
+        /* FIX: Reduced max-width to 1200px to prevent "flat" look on wide screens */
+        /* Was 1440px */
+        --max-width: 1200px;
+
+        /* FIX: Reduced heights for Medium Desktop */
+        --header-total-h: 8vh;
+        --footer-h: 4vh;
+    }
+
+    /* --- HEADER ADAPTATION --- */
+
+    .layout-header {
+        /* FIX: Reduced min-height to allow shrinking on shorter screens */
+        min-height: 70px;
+    }
+
+    /* FIX: Top Bar takes 20% instead of 25% in this range */
+    .layout-header-top {
+        height: 20%;
+        padding: 0 30px; /* Less padding */
+    }
+
+    /* Logo */
+    #brand-logo {
+        font-size: 1.9rem; /* Was 2.2rem */
+    }
+    #brand-slogan {
+        font-size: 1.2rem; /* Was 1.4rem */
+    }
+
+    /* Tabs */
+    .nav-link {
+        font-size: 0.75rem; /* Was 0.85rem */
+        padding: 6px 12px;  /* Was 8px 15px */
+    }
+    .code-icon {
+        font-size: 0.75rem; /* Was 0.85rem */
+    }
+
+    /* --- FOOTER ADAPTATION --- */
+    .layout-footer {
+        padding: 0 15px;
+        font-size: 0.7rem; /* Was 0.75rem */
+        /* Ensure min-height matches visual balance if 4vh is too small */
+        min-height: 45px !important;
+    }
+
+    .btn-icon {
+        font-size: 1.2rem; /* Was 1.4rem */
+    }
+
+    .btn-label {
+        font-size: 0.7rem; /* Was 0.75rem */
+    }
+}

@@ -1,9 +1,12 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from features.system.models import StyleAttribute, TechTag
-from .category import Category
 
-class Project(models.Model):
+from .category import Category
+from ...system.models import StyleAttribute, TechTag
+from ...system.models.mixins import TimeStampedMixin
+
+
+class Project(TimeStampedMixin):
     """
     Проект в портфолио.
     Отображается как Bento-карточка.
@@ -35,6 +38,7 @@ class Project(models.Model):
     title = models.CharField(_("Название"), max_length=100)
     slug = models.SlugField(_("Slug"), unique=True)
     description = models.TextField(_("Краткое описание"), blank=True)
+    content = models.TextField(_("Полное описание"), blank=True, help_text="Markdown или HTML для страницы проекта")
     
     # Внешний вид (Bento)
     style_visual = models.ForeignKey(
@@ -47,15 +51,7 @@ class Project(models.Model):
         verbose_name=_("Стиль (Визуал)")
     )
     
-    style_layout = models.ForeignKey(
-        StyleAttribute, 
-        on_delete=models.SET_NULL, 
-        null=True, 
-        blank=True,
-        related_name='projects_layout',
-        limit_choices_to={'attr_type': 'layout'},
-        verbose_name=_("Размер (Сетка)")
-    )
+    # style_layout удален, так как размер вычисляется динамически LayoutService
 
     # Технологии и Теги
     tags = models.ManyToManyField(
@@ -73,9 +69,15 @@ class Project(models.Model):
     link_demo = models.URLField(_("Demo URL"), blank=True)
     link_github = models.URLField(_("GitHub URL"), blank=True)
     
+    # Метрики для веса
+    views_count = models.PositiveIntegerField(_("Просмотры"), default=0)
+    likes_count = models.PositiveIntegerField(_("Лайки"), default=0)
+    is_featured = models.BooleanField(_("Избранное"), default=False, help_text="Поднимает вес проекта")
+
     is_active = models.BooleanField(_("Активен"), default=True)
     order = models.PositiveIntegerField(_("Сортировка"), default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
+    
+    # created_at и updated_at наследуются от TimeStampedMixin
 
     class Meta:
         verbose_name = _("Проект")

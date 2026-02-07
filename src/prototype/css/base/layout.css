@@ -1,0 +1,42 @@
+/* src/prototype/css/base/layout.css */
+/* MAIN LAYOUT STRUCTURE (THE SHEET) */
+
+/* ОБЩАЯ ГЕОМЕТРИЯ ЛИСТА */
+.layout-header,
+.layout-footer,
+.layout-drawer,
+.bottom-drawer {
+    position: fixed;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100% !important;
+    max-width: var(--max-width);
+    margin: 0 !important;
+    background-color: var(--color-monolith);
+    border-left: var(--border-line);
+    border-right: var(--border-line);
+}
+
+/* LEVEL 2: MAIN BODY (Contains Slides) */
+.layout-main {
+    position: fixed;
+
+    /* Position between header and footer */
+    top: var(--header-total-h);
+    bottom: var(--footer-h);
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 100%;
+    max-width: var(--max-width);
+
+    /* Визуал листа */
+    background-color: var(--color-monolith);
+    border-left: var(--border-line);
+    border-right: var(--border-line);
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+
+    /* No scroll - slides are controlled by JS */
+    overflow: hidden;
+    padding: 0;
+}

@@ -1,0 +1,150 @@
+/* src/prototype/css/base/header.css */
+/* HEADER STYLES */
+
+/* LEVEL 1: HEADER (Unified Container) */
+.layout-header {
+    top: 0;
+    height: var(--header-total-h); /* 10vh */
+    min-height: 100px;
+    z-index: 150;
+    display: flex;
+    flex-direction: column; /* Stack TopBar and NavBar */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Floor 1: Top Bar (Inside Header) */
+.layout-header-top {
+    height: 25%;
+    min-height: 20px;
+    flex-shrink: 0; /* Don't shrink */
+    background-color: #151520;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(9px, 1.2vh, 12px);
+    color: var(--color-ghost);
+}
+
+/* Floor 2: Main Nav (Inside Header) */
+.header-inner {
+    flex-grow: 1; /* Take remaining space */
+    width: 100%;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    gap: 40px;
+}
+
+/* ЗОНА ЛОГОТИПА */
+.brand {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#brand-logo {
+    font-size: 2.2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--color-ivory);
+}
+
+#brand-slogan {
+    font-size: 1.4rem;
+    margin-left: 15px;
+    font-family: 'JetBrains Mono', monospace;
+    display: inline-block;
+}
+
+/* ЗОНА ВКЛАДОК (IDE STYLE) */
+.header-nav {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-right: 0;
+    gap: 2px;
+}
+
+/* FIX: Hide mobile burger on desktop by default */
+.mobile-burger-btn {
+    display: none;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background: var(--tab-bg-inactive);
+    color: var(--color-ghost);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    border-radius: 5px 5px 0 0;
+    border-top: 2px solid transparent;
+    transition: background 0.2s, color 0.2s;
+    position: relative;
+}
+
+.nav-link:hover {
+    background: #252530;
+    color: var(--color-ivory);
+}
+
+.nav-link.active {
+    background: var(--tab-bg-active);
+    color: var(--color-ivory);
+    border-top: 2px solid var(--color-blue);
+    z-index: 2;
+}
+
+.file-icon { font-size: 1rem; }
+
+/* CODE ICONS IN TABS */
+.code-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-right: 4px;
+    letter-spacing: 0.5px;
+}
+
+.code-icon.blue { color: #61AFEF; }
+.code-icon.yellow { color: var(--color-gold); }
+.code-icon.green { color: var(--color-green); }
+.code-icon.folder {
+    font-style: normal;
+    filter: saturate(1.2);
+}
+
+.tab-close {
+    margin-left: 8px;
+    font-size: 1.1rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+    cursor: pointer;
+}
+
+.nav-link:hover .tab-close,
+.nav-link.active .tab-close {
+    opacity: 0.6;
+}
+
+.tab-close:hover {
+    opacity: 1 !important;
+    color: #FF5F56;
+}
+
+/* Анимация вкладок */
+.nav-hidden { opacity: 0; transform: translateY(10px); pointer-events: none; }
+.nav-visible { opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease; pointer-events: auto; }

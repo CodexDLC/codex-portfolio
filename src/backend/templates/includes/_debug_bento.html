@@ -1,0 +1,276 @@
+{% load static %}
+{% load i18n %}
+
+<!-- DEBUG BENTO PATTERNS (SLIDER MODE) -->
+<!-- Each section is a fullscreen slide -->
+
+<div class="slides-container" id="debug-slides">
+
+    <!-- SLIDE 1: STANDARD (1 XL, 3 L, 2 M) -->
+    <section class="slide island-section active theme-gold">
+        <div class="slide-content-wrapper">
+            <div class="island-header">
+                <span class="island-title"><span class="text-gold">01 //</span> STANDARD PATTERN</span>
+                <span class="island-counter">6 ITEMS</span>
+            </div>
+            <div class="island-grid">
+                <!-- XL CARD -->
+                <div class="bento-card size-xl visual-theme-gold">
+                    <div class="bento-header">
+                        <span class="bento-type">ENTERPRISE CORE</span>
+                        <span class="bento-status active"></span>
+                    </div>
+                    <h3 class="bento-title">Neural Network Platform</h3>
+                    <p class="bento-desc">A scalable AI infrastructure designed for processing petabytes of data in real-time with predictive analytics.</p>
+                    <div class="bento-tags">
+                        <span class="bento-tag" data-category="backend">Python</span>
+                        <span class="bento-tag" data-category="backend">PyTorch</span>
+                        <span class="bento-tag" data-category="backend">Kafka</span>
+                    </div>
+                </div>
+
+                <!-- L CARD -->
+                <div class="bento-card size-l visual-theme-blue">
+                    <div class="bento-header">
+                        <span class="bento-type">MICROSERVICE</span>
+                        <span class="bento-status active"></span>
+                    </div>
+                    <h3 class="bento-title">Payment Gateway API</h3>
+                    <p class="bento-desc">Secure transaction processing system with fraud detection and multi-currency support for global markets.</p>
+                    <div class="bento-tags">
+                        <span class="bento-tag" data-category="backend">Go</span>
+                        <span class="bento-tag" data-category="backend">gRPC</span>
+                    </div>
+                </div>
+
+                <!-- L CARD -->
+                <div class="bento-card size-l visual-theme-green">
+                    <div class="bento-header">
+                        <span class="bento-type">DEVOPS TOOL</span>
+                    </div>
+                    <h3 class="bento-title">Docker Orchestrator</h3>
+                    <p class="bento-desc">Automated container deployment pipeline with self-healing capabilities and load balancing strategies.</p>
+                    <div class="bento-tags">
+                        <span class="bento-tag" data-category="devops">Docker</span>
+                        <span class="bento-tag" data-category="devops">Kubernetes</span>
+                    </div>
+                </div>
+
+                <!-- L CARD -->
+                <div class="bento-card size-l visual-theme-purple">
+                    <div class="bento-header">
+                        <span class="bento-type">LIBRARY</span>
+                        <span class="bento-status active"></span>
+                    </div>
+                    <h3 class="bento-title">Async Data Parser</h3>
+                    <p class="bento-desc">High-performance asynchronous web scraper built on top of aiohttp with anti-detection mechanisms.</p>
+                    <div class="bento-tags">
+                        <span class="bento-tag" data-category="backend">Python</span>
+                        <span class="bento-tag" data-category="backend">AsyncIO</span>
+                    </div>
+                </div>
+
+                <!-- M CARD -->
+                <div class="bento-card size-m visual-theme-ghost">
+                    <div class="bento-header">
+                        <span class="bento-type">CONFIG</span>
+                    </div>
+                    <h3 class="bento-title">Nginx Hardened</h3>
+                    <p class="bento-desc">Security-focused Nginx configuration boilerplate.</p>
+                    <div class="bento-tags">
+                        <span class="bento-tag" data-category="devops">Nginx</span>
+                    </div>
+                </div>
+
+                <!-- M CARD -->
+                <div class="bento-card size-m visual-theme-ghost">
+                    <div class="bento-header">
+                        <span class="bento-type">SCRIPT</span>
+                    </div>
+                    <h3 class="bento-title">Backup Bot</h3>
+                    <p class="bento-desc">Automated database backup utility to S3.</p>
+                    <div class="bento-tags">
+                        <span class="bento-tag" data-category="devops">Bash</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 2: TWIN GIANTS (XL, M, M, XL, M, M) -->
+    <section class="slide island-section hidden-down theme-blue">
+        <div class="slide-content-wrapper">
+            <div class="island-header">
+                <span class="island-title"><span class="text-blue">02 //</span> TWIN GIANTS (MIXED)</span>
+                <span class="island-counter">6 ITEMS</span>
+            </div>
+            <div class="island-grid">
+                <!-- XL 1 -->
+                <div class="bento-card size-xl visual-theme-blue">
+                    <div class="bento-header"><span class="bento-type">SAAS PLATFORM</span><span class="bento-status active"></span></div>
+                    <h3 class="bento-title">Cloud Dashboard</h3>
+                    <p class="bento-desc">Comprehensive analytics dashboard for monitoring cloud resources across AWS, Azure, and GCP.</p>
+                    <div class="bento-tags">
+                        <span class="bento-tag" data-category="frontend">React</span>
+                        <span class="bento-tag" data-category="frontend">TypeScript</span>
+                    </div>
+                </div>
+
+                <!-- M 1 -->
+                <div class="bento-card size-m visual-theme-ghost">
+                    <div class="bento-header"><span class="bento-type">UI KIT</span></div>
+                    <h3 class="bento-title">Dark Theme UI</h3>
+                    <p class="bento-desc">Component library for internal tools.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="frontend">CSS</span></div>
+                </div>
+
+                <!-- M 2 -->
+                <div class="bento-card size-m visual-theme-ghost">
+                    <div class="bento-header"><span class="bento-type">ICON SET</span></div>
+                    <h3 class="bento-title">Dev Icons</h3>
+                    <p class="bento-desc">SVG icon pack for developers.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="frontend">Figma</span></div>
+                </div>
+
+                <!-- XL 2 -->
+                <div class="bento-card size-xl visual-theme-green">
+                    <div class="bento-header"><span class="bento-type">OPEN SOURCE</span><span class="bento-status active"></span></div>
+                    <h3 class="bento-title">Django Starter Kit</h3>
+                    <p class="bento-desc">Production-ready Django template with Docker, Celery, Redis, and CI/CD pipelines pre-configured.</p>
+                    <div class="bento-tags">
+                        <span class="bento-tag" data-category="backend">Django</span>
+                        <span class="bento-tag" data-category="devops">Cookiecutter</span>
+                    </div>
+                </div>
+
+                <!-- M 3 -->
+                <div class="bento-card size-m visual-theme-ghost">
+                    <div class="bento-header"><span class="bento-type">DOCS</span></div>
+                    <h3 class="bento-title">API Specs</h3>
+                    <p class="bento-desc">OpenAPI 3.0 documentation.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="tools">Swagger</span></div>
+                </div>
+
+                <!-- M 4 -->
+                <div class="bento-card size-m visual-theme-ghost">
+                    <div class="bento-header"><span class="bento-type">TESTS</span></div>
+                    <h3 class="bento-title">E2E Suite</h3>
+                    <p class="bento-desc">Cypress testing framework setup.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="tools">Cypress</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: UNIFORM (6 L) -->
+    <section class="slide island-section hidden-down theme-green">
+        <div class="slide-content-wrapper">
+            <div class="island-header">
+                <span class="island-title"><span class="text-green">03 //</span> UNIFORM GRID</span>
+                <span class="island-counter">6 ITEMS</span>
+            </div>
+            <div class="island-grid">
+                <!-- L 1 -->
+                <div class="bento-card size-l visual-theme-gold">
+                    <div class="bento-header"><span class="bento-type">MODULE</span></div>
+                    <h3 class="bento-title">Auth Service</h3>
+                    <p class="bento-desc">JWT authentication microservice.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="backend">Go</span></div>
+                </div>
+                <!-- L 2 -->
+                <div class="bento-card size-l visual-theme-blue">
+                    <div class="bento-header"><span class="bento-type">MODULE</span></div>
+                    <h3 class="bento-title">User Profile</h3>
+                    <p class="bento-desc">User management and settings.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="backend">Python</span></div>
+                </div>
+                <!-- L 3 -->
+                <div class="bento-card size-l visual-theme-green">
+                    <div class="bento-header"><span class="bento-type">MODULE</span></div>
+                    <h3 class="bento-title">Billing</h3>
+                    <p class="bento-desc">Stripe integration module.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="backend">Node.js</span></div>
+                </div>
+                <!-- L 4 -->
+                <div class="bento-card size-l visual-theme-purple">
+                    <div class="bento-header"><span class="bento-type">MODULE</span></div>
+                    <h3 class="bento-title">Notifications</h3>
+                    <p class="bento-desc">Email and Push notification sender.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="devops">RabbitMQ</span></div>
+                </div>
+                <!-- L 5 -->
+                <div class="bento-card size-l visual-theme-ghost">
+                    <div class="bento-header"><span class="bento-type">MODULE</span></div>
+                    <h3 class="bento-title">Logger</h3>
+                    <p class="bento-desc">Centralized logging system.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="devops">ELK</span></div>
+                </div>
+                <!-- L 6 -->
+                <div class="bento-card size-l visual-theme-gold">
+                    <div class="bento-header"><span class="bento-type">MODULE</span></div>
+                    <h3 class="bento-title">Analytics</h3>
+                    <p class="bento-desc">Data collection service.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="backend">ClickHouse</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: CHAOS MIX (1 XL, 3 L, 2 M - Shuffled) -->
+    <section class="slide island-section hidden-down theme-proto">
+        <div class="slide-content-wrapper">
+            <div class="island-header">
+                <span class="island-title"><span class="text-purple">04 //</span> CHAOS MIX</span>
+                <span class="island-counter">6 ITEMS</span>
+            </div>
+            <div class="island-grid">
+                <!-- M 1 -->
+                <div class="bento-card size-m visual-theme-ghost">
+                    <div class="bento-header"><span class="bento-type">UTIL</span></div>
+                    <h3 class="bento-title">Tiny Tool</h3>
+                    <p class="bento-desc">Small utility script.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="tools">Bash</span></div>
+                </div>
+                <!-- L 1 -->
+                <div class="bento-card size-l visual-theme-blue">
+                    <div class="bento-header"><span class="bento-type">LIB</span></div>
+                    <h3 class="bento-title">React Component</h3>
+                    <p class="bento-desc">Complex UI widget.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="frontend">React</span></div>
+                </div>
+                <!-- XL 1 -->
+                <div class="bento-card size-xl visual-theme-purple">
+                    <div class="bento-header"><span class="bento-type">CORE</span><span class="bento-status active"></span></div>
+                    <h3 class="bento-title">Game Engine</h3>
+                    <p class="bento-desc">2D Physics engine written in C++ with Python bindings for scripting.</p>
+                    <div class="bento-tags">
+                        <span class="bento-tag" data-category="backend">C++</span>
+                        <span class="bento-tag" data-category="backend">Python</span>
+                    </div>
+                </div>
+                <!-- M 2 -->
+                <div class="bento-card size-m visual-theme-ghost">
+                    <div class="bento-header"><span class="bento-type">CONFIG</span></div>
+                    <h3 class="bento-title">Vimrc</h3>
+                    <p class="bento-desc">My Vim setup.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="tools">Vim</span></div>
+                </div>
+                <!-- L 2 -->
+                <div class="bento-card size-l visual-theme-green">
+                    <div class="bento-header"><span class="bento-type">TOOL</span></div>
+                    <h3 class="bento-title">CI Pipeline</h3>
+                    <p class="bento-desc">GitHub Actions workflow.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="devops">YAML</span></div>
+                </div>
+                <!-- L 3 -->
+                <div class="bento-card size-l visual-theme-ghost">
+                    <div class="bento-header"><span class="bento-type">DOCS</span></div>
+                    <h3 class="bento-title">Readme</h3>
+                    <p class="bento-desc">Project documentation.</p>
+                    <div class="bento-tags"><span class="bento-tag" data-category="tools">Markdown</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>

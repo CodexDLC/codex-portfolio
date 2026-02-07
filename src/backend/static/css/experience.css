@@ -1,138 +1,67 @@
-/* src/prototype/css/experience.css */
+/* src/backend/static/css/experience.css */
+/* EXPERIENCE PAGE ASSEMBLY */
 
-/* --- 1. Experience Page Layout (SLIDES SYSTEM) --- */
-.layout-main.experience-grid {
+/* 1. COMPONENTS */
+@import "components/_split-view.css";
+@import "components/_terminal.css";
+@import "components/_tags.css";
+@import "components/_slides.css";
+@import "components/_utils.css"; /* Colors */
+
+/* 2. LAYOUT OVERRIDES */
+/* Restore Layout Main override for Slides */
+.experience-page.layout-main {
     display: block;
-    overflow: hidden; /* NO GLOBAL SCROLLBAR */
+    overflow: hidden;
     padding: 0;
-    /* FIX: Removed 'position: relative' to keep 'position: fixed' from base.css */
-    /* This restores centering (left: 50%, transform: -50%) and auto-height (top/bottom) */
+    /* Removed top:0 and margin:0 to respect base layout positioning (under header) */
 }
 
-/* --- 2. SLIDE COMMON STYLES --- */
-/* These styles should match home.css logic but scoped here if needed */
-.slides-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Center content vertically */
-}
-
-.slide.active {
-    opacity: 1;
-    visibility: visible;
-    z-index: 2;
-    transform: translateY(0);
-}
-
-/* Slide Transitions (Vertical) */
-.slide.prev { transform: translateY(-100%); opacity: 0; visibility: visible; }
-.slide.next { transform: translateY(100%); opacity: 0; visibility: visible; }
-
+/* FIX: Add padding to content wrapper to prevent edge sticking */
 .slide-content-wrapper {
-    width: 100%;
-    height: 100%;
     padding: 20px 40px;
+    box-sizing: border-box;
+    /* FIX: Ensure flex column for sticky footer behavior */
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
-.slide-content-wrapper.centered-wrapper {
-    align-items: center; /* Center the widget horizontally */
-}
-
-
-/* --- 3. SLIDE 1: IDE + SPECS --- */
+/* Override Split View for Experience (2fr 1fr) */
 .experience-header {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-    height: 100%;
-    max-height: 80vh; /* Limit height */
+    /* FIX: Changed ratio to make terminal narrower (1.5fr 1fr instead of 2fr 1fr) */
+    grid-template-columns: 1.5fr 1fr;
+    /* FIX: Use flex-grow instead of fixed height to allow space for scroll hint */
+    height: auto;
+    flex-grow: 1;
+    min-height: 0; /* Allow shrinking */
+    max-height: 80vh; /* Keep max constraint */
 }
 
-/* IDE Panel */
-.experience-ide {
-    background: #151520;
-    border: var(--border-line);
-    border-radius: 8px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 0 30px rgba(0,0,0,0.3);
-}
-
-.ide-header {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 20px;
-}
-
-.ide-dot { width: 12px; height: 12px; border-radius: 50%; }
-.ide-dot.red { background: #FF5F56; }
-.ide-dot.yellow { background: #FFBD2E; }
-.ide-dot.green { background: #27C93F; }
-
+/* 3. IDE CONTENT SPECIFICS */
 .ide-code {
     flex-grow: 1;
-    overflow-y: auto;
+    overflow-y: auto; /* Keep scroll as fallback */
+    /* Hide scrollbar if not needed */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-ghost) transparent;
 }
 
 #code-animation {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-    line-height: 1.6;
+    /* FIX: Adaptive font size to fit terminal without scroll */
+    font-size: clamp(0.7rem, 1.4vh, 0.95rem);
+    line-height: 1.5;
     white-space: pre-wrap;
     color: var(--color-ivory);
 }
 
-#code-animation .cursor {
-    display: inline-block;
-    width: 8px;
-    height: 1.2em;
-    background-color: var(--color-gold);
-    vertical-align: middle;
-    animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-    from, to { background-color: transparent }
-    50% { background-color: var(--color-gold); }
-}
-
-/* Syntax Highlight */
-.py-comment { color: #6A9955; }
-.py-keyword { color: #C586C0; }
-.py-class { color: #4EC9B0; }
-.py-decorator { color: #DCDCAA; }
-.py-string { color: #CE9178; }
-.py-number { color: #B5CEA8; }
-.py-method { color: #DCDCAA; }
-
-/* Specs Panel */
+/* 4. RIGHT PANEL SPECIFICS (Specs Card) */
 .experience-specs {
     min-height: 0;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--color-gold) transparent;
+    height: 100%;
 }
 
 .experience-specs .card {
@@ -141,26 +70,41 @@
     background: var(--color-monolith);
     display: flex;
     flex-direction: column;
-    transition: none;
     border: var(--border-line);
     border-radius: 8px;
-    padding: 20px;
+    /* FIX: Reduced padding to save space */
+    padding: 0; /* Remove padding from card, move to content */
+    overflow: hidden; /* For header background */
 }
 
+/* Env Vars */
 .env-titlebar {
-    padding-bottom: 12px;
+    /* FIX: Match terminal header style */
+    display: flex;
+    align-items: center;
+    height: 40px; /* Fixed height like terminal */
+    padding: 0 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    margin-bottom: 16px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.02); /* Subtle bg */
 }
 
-.env-filename {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
-    color: var(--color-ghost);
-    letter-spacing: 0.5px;
+.env-filename { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--color-ghost); }
+
+/* Content wrapper for padding */
+.env-content-wrapper {
+    padding: 0 15px 15px 15px;
 }
 
-.env-section { margin-bottom: 18px; }
+/* We need to wrap content in HTML or apply padding to sections.
+   Since we can't change HTML easily here, let's apply padding to sections but handle first one.
+*/
+.env-section {
+    margin-bottom: 18px;
+    padding: 0 15px; /* Add side padding */
+}
+.env-section:last-child { margin-bottom: 15px; }
+
 .env-comment { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #6A9955; margin-bottom: 10px; }
 .env-line { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; line-height: 1.9; display: flex; align-items: baseline; }
 .env-key { color: var(--color-gold); font-weight: 700; min-width: 68px; }
@@ -168,15 +112,17 @@
 .env-val { color: var(--color-ivory); }
 .env-val-active { color: var(--color-green); text-shadow: 0 0 8px rgba(39, 201, 63, 0.3); }
 
+/* Spec Bars */
 .spec-item { margin-bottom: 14px; }
 .spec-item .spec-label { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--color-ghost); margin-bottom: 8px; display: flex; justify-content: space-between; }
 .spec-bar { width: 100%; height: 10px; background: rgba(255, 255, 255, 0.05); border-radius: 5px; overflow: hidden; }
 .spec-bar-fill { height: 100%; border-radius: 5px; }
-.spec-bar-fill.skill { background: var(--color-gold); box-shadow: 0 0 10px rgba(255, 212, 59, 0.4); }
-.spec-bar-fill.exp { background: var(--color-blue); box-shadow: 0 0 10px rgba(48, 105, 152, 0.5); }
-.spec-bar-fill.devops { background: var(--color-green); box-shadow: 0 0 10px rgba(39, 201, 63, 0.4); }
-.spec-bar-fill.data { background: #c678dd; box-shadow: 0 0 10px rgba(198, 120, 221, 0.4); }
+.spec-bar-fill.skill { background: var(--color-gold); }
+.spec-bar-fill.exp { background: var(--color-blue); }
+.spec-bar-fill.devops { background: var(--color-green); }
+.spec-bar-fill.data { background: #c678dd; }
 
+/* Arsenal */
 .arsenal-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
 .arsenal-cat { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 700; min-width: 68px; }
 .arsenal-cat.cat-gold { color: var(--color-gold); }
@@ -184,42 +130,21 @@
 .arsenal-cat.cat-green { color: var(--color-green); }
 .arsenal-cat.cat-purple { color: #c678dd; }
 
-/* Scroll Hint */
-.scroll-hint {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    opacity: 0.7;
-    cursor: pointer;
-    transition: opacity 0.2s;
-    z-index: 10;
-}
-.scroll-hint:hover { opacity: 1; }
-.scroll-text { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--color-ghost); letter-spacing: 1px; }
-.scroll-arrow { font-size: 1.2rem; color: var(--color-gold); animation: bounce 2s infinite; }
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-5px); }
-    60% { transform: translateY(-3px); }
+/* FIX: Reduce tag size */
+.tag {
+    font-size: 0.7rem;
+    padding: 3px 8px;
 }
 
-/* --- 4. SLIDE 2: CHANGELOG WIDGET --- */
+/* 5. WIDGETS (Changelog) */
 .widget-container {
     width: 100%;
-    max-width: 100%; /* FIX: Fill the sheet */
     background: #151520;
     border: var(--border-line);
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    height: 100%; /* FIX: Fill the vertical space of the slide */
-    max-height: none;
+    height: 100%;
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
 }
 
@@ -230,22 +155,11 @@
     padding: 20px;
     border-bottom: 1px solid rgba(255,255,255,0.05);
     background: rgba(255,255,255,0.02);
-    flex-shrink: 0; /* Header shouldn't shrink */
+    flex-shrink: 0;
 }
 
-.widget-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1rem;
-    color: var(--color-green);
-    font-weight: 700;
-    margin-right: 10px;
-}
-
-.widget-meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--color-ghost);
-}
+.widget-title { font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--color-green); font-weight: 700; margin-right: 10px; }
+.widget-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--color-ghost); }
 
 .btn-back-top {
     background: transparent;
@@ -264,48 +178,29 @@
     color: var(--color-gold);
 }
 
-/* Scrollable Content Area */
 .experience-changelog {
     padding: 20px;
-    overflow-y: auto; /* INTERNAL SCROLL */
-    /* Custom scrollbar */
+    overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--color-gold) transparent;
-    flex-grow: 1; /* Fill remaining space */
+    flex-grow: 1;
 }
 
-.changelog-list {
-    list-style: none;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-}
-
-.changelog-item {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-    line-height: 1.5;
-    padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255,255,255,0.03);
-}
-
-.changelog-item:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
+.changelog-list { list-style: none; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+.changelog-item { display: flex; gap: 15px; margin-bottom: 15px; line-height: 1.5; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+.changelog-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
 .changelog-version { color: var(--color-ghost); width: 70px; flex-shrink: 0; }
 .changelog-status { width: 110px; flex-shrink: 0; font-weight: 700; }
 .changelog-desc { color: var(--color-ivory); }
 
-/* --- Load More Button Styling --- */
+/* Load More Button */
 .changelog-load-more {
     display: flex;
     justify-content: center;
     padding: 20px 0 10px 0;
     margin-top: 10px;
-    border-top: 1px dashed rgba(255, 255, 255, 0.1); /* Visual separator */
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
 }
 
 .btn-load-more {
@@ -324,76 +219,194 @@
 }
 
 .btn-load-more:hover {
-    background: rgba(97, 175, 239, 0.1); /* Blue tint */
+    background: rgba(97, 175, 239, 0.1);
     border-color: var(--color-blue);
     color: var(--color-blue);
     box-shadow: 0 0 15px rgba(97, 175, 239, 0.2);
 }
 
-.btn-load-more:active {
-    transform: translateY(1px);
+/* Scroll Hint */
+.scroll-hint {
+    /* FIX: Changed from absolute to relative/flex to prevent overlap */
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    z-index: 10;
+
+    /* Push to bottom */
+    margin-top: auto;
+    /* FIX: Reduced padding for scroll hint */
+    padding-top: 10px;
+}
+.scroll-hint:hover { opacity: 1; }
+.scroll-text { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--color-ghost); letter-spacing: 1px; }
+/* FIX: Hide arrow as requested */
+.scroll-arrow { display: none; }
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60% { transform: translateY(-3px); }
 }
 
-/* --- 5. Responsive Adjustments --- */
+/* --- MOBILE TABS (CODE | SPECS) --- */
+.exp-mobile-tabs {
+    display: none; /* Hidden by default */
+    /* FIX: Full width tabs */
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 15px;
+}
 
-/* Tablet (<= 1024px) */
-@media (max-width: 1024px) {
-    .layout-main.experience-grid {
-        height: auto; /* Disable fixed height */
-        overflow-y: auto; /* Enable native scroll */
-        display: block;
-    }
+.exp-tab {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-ghost);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
 
-    .slides-container {
-        height: auto;
-        overflow: visible;
-    }
+    /* FIX: Flex grow to fill space equally */
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
 
-    .slide {
-        position: relative; /* Stack slides normally */
-        height: auto;
-        opacity: 1;
-        visibility: visible;
-        transform: none !important;
-        padding-bottom: 40px;
-    }
+.exp-tab.active {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}
 
-    .slide-content-wrapper {
-        padding: 20px;
-    }
+/* 6. RESPONSIVE */
+
+/* FIX: Compact Desktop / Laptop (1024px - 1366px) */
+@media (min-width: 1024px) and (max-width: 1366px) {
+    /* Reduced padding */
+    .slide-content-wrapper { padding: 15px 25px; }
+
+    /* Smaller fonts for specs */
+    .env-line { font-size: 0.75rem; line-height: 1.6; }
+    .env-filename { font-size: 0.7rem; }
+    .spec-item .spec-label { font-size: 0.75rem; }
+    .arsenal-cat { font-size: 0.65rem; }
+    .tag { font-size: 0.65rem; padding: 2px 6px; }
+
+    /* Tighter scroll hint */
+    .scroll-hint { padding-top: 5px; }
+
+    /* FIX: Smaller widget header */
+    .widget-header { padding: 15px; }
+    .widget-title { font-size: 0.9rem; }
+    .widget-meta { font-size: 0.7rem; }
+    .btn-back-top { font-size: 0.65rem; padding: 4px 10px; }
+}
+
+/* FIX: Changed breakpoint from 1024px to 1000px to keep 2 columns on 1024px screens */
+@media (max-width: 1000px) {
+    /* FIX: Removed layout-main override to keep fixed positioning */
+    /* .experience-page.layout-main { height: auto; overflow-y: auto; display: block; } */
+
+    /* FIX: Removed slides-container override */
+    /* .slides-container { height: auto; overflow: visible; } */
+
+    /* FIX: Removed slide override to keep absolute positioning (slider) */
+    /* .slide { position: relative; ... } */
 
     .experience-header {
-        display: grid;
-        grid-template-columns: 1fr;
+        display: flex; /* Flex instead of grid for tabs */
+        flex-direction: column;
+        /* FIX: Allow full height growth */
         height: auto;
+        flex-grow: 1;
+        min-height: 0;
         max-height: none;
     }
 
-    .experience-ide { height: 400px; }
+    /* FIX: Remove max-height constraint to fill space */
+    .terminal-window { height: 100%; max-height: none; }
+    .experience-specs .card { height: 100%; max-height: none; }
 
-    .scroll-hint { display: none; }
+    .scroll-hint { display: flex; } /* Show hint */
 
-    .widget-container {
-        max-height: none; /* Let it grow */
-        height: auto; /* Auto height on tablet */
-        max-width: 100%;
+    .widget-container { max-height: none; height: 100%; max-width: 100%; }
+    .experience-changelog { max-height: none; }
+
+    /* FIX: Adjust padding for tablet */
+    .slide-content-wrapper { padding: 20px; }
+
+    /* SHOW TABS */
+    .exp-mobile-tabs { display: flex; }
+
+    /* HIDE PANELS BY DEFAULT (JS will toggle) */
+    .split-view-left, .split-view-right {
+        display: none;
+        width: 100%;
+        height: 100%;
+        flex-grow: 1;
     }
 
-    .experience-changelog {
-        max-height: 500px; /* Limit height on tablet if desired, or remove */
-    }
+    /* Default active panel (Code) - FIX: Added !important to override display: none */
+    .split-view-left.active-panel { display: block !important; }
+    .split-view-right.active-panel { display: block !important; }
+
+    /* FIX: Increase content size for tablet (filling space) */
+    .env-line { font-size: 1.0rem; line-height: 2.0; }
+    .spec-item .spec-label { font-size: 0.9rem; }
+    .spec-bar { height: 12px; }
+    .env-section { margin-bottom: 30px; }
+    .tag { font-size: 0.85rem; padding: 6px 12px; }
 }
 
-/* Mobile (<= 767px) */
 @media (max-width: 767px) {
     .experience-header { display: flex; flex-direction: column; gap: 15px; }
-    .experience-ide { display: none; }
-    .experience-specs { margin-bottom: 0; overflow-y: visible; }
+    /* FIX: Allow terminal to be shown via tabs */
+    /* .terminal-window { display: none; } */
     .experience-specs .card { height: auto; min-height: unset; }
-
     .changelog-item { flex-direction: column; gap: 5px; }
-    .changelog-version, .changelog-status { width: auto; }
 
-    .widget-header { flex-direction: column; gap: 10px; align-items: flex-start; }
-    .widget-controls { width: 100%; display: flex; justify-content: flex-end; }
+    /* FIX: Restore row layout for widget header on mobile */
+    .widget-header {
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+    }
+    .widget-controls {
+        width: auto;
+        display: flex;
+        justify-content: flex-end;
+    }
+    /* FIX: Hide meta to save space */
+    .widget-meta { display: none; }
+
+    /* FIX: Adjust padding for mobile */
+    .slide-content-wrapper { padding: 10px 20px; }
+
+    /* FIX: Reset sizes for mobile (smaller than tablet) */
+    .env-line { font-size: 0.75rem; line-height: 1.6; } /* Reduced */
+    .spec-item .spec-label { font-size: 0.75rem; } /* Reduced */
+    .spec-bar { height: 8px; } /* Reduced */
+    .env-section { margin-bottom: 15px; } /* Reduced */
+    .tag { font-size: 0.65rem; padding: 3px 8px; } /* Reduced */
+
+    /* FIX: Smaller code font */
+    #code-animation { font-size: 0.7rem; }
+
+    /* FIX: Smaller widget header for mobile */
+    .widget-title { font-size: 0.8rem; }
+    .btn-back-top { font-size: 0.6rem; padding: 4px 10px; }
 }

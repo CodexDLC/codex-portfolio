@@ -6,12 +6,13 @@
       "name": "Clients",
       "slug": "clients",
       "tab_filename": "clients.py",
-      "tab_icon_text": "PY",
-      "tab_icon_class": "gold",
+      "tab_icon_text": "CL",
+      "tab_icon_class": "icon-gold",
       "section_number": "01",
       "section_title": "CLIENT SOLUTIONS",
       "theme_class": "theme-gold",
-      "order": 10
+      "order": 10,
+      "is_active": true
     }
   },
   {
@@ -20,13 +21,14 @@
     "fields": {
       "name": "Products",
       "slug": "products",
-      "tab_filename": "products.py",
-      "tab_icon_text": "PY",
-      "tab_icon_class": "blue",
+      "tab_filename": "products.tsx",
+      "tab_icon_text": "PR",
+      "tab_icon_class": "icon-blue",
       "section_number": "02",
-      "section_title": "MY PRODUCTS",
+      "section_title": "SAAS PRODUCTS",
       "theme_class": "theme-blue",
-      "order": 20
+      "order": 20,
+      "is_active": true
     }
   },
   {
@@ -35,13 +37,14 @@
     "fields": {
       "name": "Open Source",
       "slug": "opensource",
-      "tab_filename": "opensource.py",
-      "tab_icon_text": "PY",
-      "tab_icon_class": "green",
+      "tab_filename": "opensource.md",
+      "tab_icon_text": "OS",
+      "tab_icon_class": "icon-green",
       "section_number": "03",
       "section_title": "OPEN SOURCE",
-      "theme_class": "theme-rnd",
-      "order": 30
+      "theme_class": "theme-green",
+      "order": 30,
+      "is_active": true
     }
   },
   {
@@ -50,13 +53,14 @@
     "fields": {
       "name": "Prototypes",
       "slug": "prototypes",
-      "tab_filename": "prototypes.py",
-      "tab_icon_text": "PY",
-      "tab_icon_class": "purple",
+      "tab_filename": "proto.ipynb",
+      "tab_icon_text": "R&D",
+      "tab_icon_class": "icon-purple",
       "section_number": "04",
-      "section_title": "LAB & PROTOTYPES",
-      "theme_class": "theme-proto",
-      "order": 40
+      "section_title": "R&D LAB",
+      "theme_class": "theme-purple",
+      "order": 40,
+      "is_active": true
     }
   },
   {
@@ -66,12 +70,13 @@
       "name": "Configs",
       "slug": "configs",
       "tab_filename": "config.yaml",
-      "tab_icon_text": "YML",
-      "tab_icon_class": "ghost",
+      "tab_icon_text": "CFG",
+      "tab_icon_class": "icon-ghost",
       "section_number": "05",
-      "section_title": "TOOLKIT & CONFIGS",
-      "theme_class": "theme-config",
-      "order": 50
+      "section_title": "SYSTEM CONFIGS",
+      "theme_class": "theme-ghost",
+      "order": 50,
+      "is_active": true
     }
   }
 ]

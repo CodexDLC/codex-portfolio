@@ -3,7 +3,7 @@
     <div class="footer-left">
         <span class="copyright-text"><span class="file-icon">📄</span>
             {% if request.resolver_match.url_name == 'home' %}main.py
-            {% elif request.resolver_match.url_name == 'portfolio' %}portfolio/
+            {% elif 'portfolio' in request.resolver_match.app_names %}portfolio/
             {% elif request.resolver_match.url_name == 'experience' %}experience.log
             {% elif request.resolver_match.url_name == 'contact' %}contact.sh
             {% else %}unknown{% endif %}

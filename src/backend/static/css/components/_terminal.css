@@ -1,0 +1,90 @@
+/* TERMINAL WINDOW COMPONENT */
+/* Used in: Contact (Shell), Experience (IDE), Home (Intro) */
+
+:root {
+    /* Terminal Palette (VS Code Dark inspired) */
+    --term-fg:       #FAF9F6; /* Ivory */
+    --term-comment:  #6A9955; /* Green Dim */
+    --term-keyword:  #C586C0; /* Purple */
+    --term-string:   #CE9178; /* Orange */
+    --term-func:     #DCDCAA; /* Yellow */
+    --term-type:     #4EC9B0; /* Teal */
+    --term-number:   #B5CEA8; /* Light Green */
+    --term-var:      #9CDCFE; /* Light Blue */
+    --term-prompt:   #27C93F; /* Matrix Green */
+    --term-error:    #FF5F56; /* Red */
+}
+
+.terminal-window {
+    background: #151520;
+    border: var(--border-line);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0,0,0,0.3);
+    height: 100%; /* Fill container */
+}
+
+/* Header (Titlebar) */
+.terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: rgba(21, 21, 32, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* macOS Dots */
+.terminal-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.terminal-dot.red    { background: #FF5F56; }
+.terminal-dot.yellow { background: #FFBD2E; }
+.terminal-dot.green  { background: #27C93F; }
+
+/* Filename / Title */
+.terminal-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--color-ghost);
+    margin-left: 12px;
+    letter-spacing: 0.5px;
+}
+
+/* Content Area */
+.terminal-content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    /* Custom Scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-gold) transparent;
+}
+
+/* --- SYNTAX HIGHLIGHTING (Unified) --- */
+.term-text, .term-line {
+    color: var(--term-fg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.term-comment { color: var(--term-comment); }
+.term-keyword { color: var(--term-keyword); }
+.term-string  { color: var(--term-string); }
+.term-func    { color: var(--term-func); }
+.term-type    { color: var(--term-type); }
+.term-number  { color: var(--term-number); }
+.term-var     { color: var(--term-var); }
+.term-prompt  { color: var(--term-prompt); font-weight: 700; margin-right: 8px; }
+.term-error   { color: var(--term-error); }

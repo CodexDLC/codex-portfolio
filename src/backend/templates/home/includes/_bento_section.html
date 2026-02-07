@@ -1,73 +1,63 @@
 {% load static %}
 {% load i18n %}
 
-<section id="slide-bento" class="slide hidden-down">
+<!-- FIX: Added theme-blue for status colors -->
+<section id="slide-bento" class="slide hidden-down theme-blue">
     <div class="slide-content-wrapper">
 
-        <div class="bento-separator separator-bento">
-            <span class="bento-status">// {% trans "LOADING" %}<span class="dots"></span></span>
-            <div class="line"></div>
+        <!-- FIX: Exact copy of Hero Modules Bar structure (minus tabs) -->
+        <!-- FIX: Removed inline padding, handled by CSS -->
+        <div class="hero-modules-bar home-mode-bar">
+
+            <span class="modules-status status-ready">
+                <span class="text-green">//</span> {% trans "SYSTEM_READY" %}<span class="dots"></span>
+            </span>
+
+            <div class="modules-line line-ready"></div>
+
         </div>
 
-        <div class="bento-grid">
+        <!-- FIX: Added home-mode class for wider layout without borders -->
+        <div class="island-grid home-mode">
 
-            <!-- DEBUG: NEW BENTO SYSTEM TEST (START) -->
-            <!-- Эти карточки используют новую систему классов из components/_bento.css -->
+            {% for item in bento_items %}
+                {% if item.is_project %}
+                    <!-- PROJECT CARD -->
+                    <a href="{% url 'portfolio:portfolio' %}?project={{ item.slug }}"
+                       class="bento-card {{ item.layout_class }} {{ item.style_visual }}">
 
-            <!-- 1. Gold Theme + Small Size (Span 2) -->
-            <div class="bento-card visual-theme-gold layout-span-2">
-                <div class="bento-header">
-                    <span class="bento-type">DEBUG</span>
-                    <span class="bento-status active"></span>
-                </div>
-                <h3 class="bento-title">Gold Small</h3>
-                <p class="bento-desc">Testing layout-span-2</p>
-            </div>
+                        <div class="bento-header">
+                            <span class="bento-type">{{ item.project_type }}</span>
+                            <span class="bento-status active"></span>
+                        </div>
 
-            <!-- 2. Blue Theme + Medium Size (Span 4) -->
-            <div class="bento-card visual-theme-blue layout-span-4">
-                <div class="bento-header">
-                    <span class="bento-type">ECOSYSTEM</span>
-                </div>
-                <h3 class="bento-title">Blue Medium</h3>
-                <p class="bento-desc">Testing layout-span-4 with grid pattern overlay.</p>
-            </div>
+                        <h3 class="bento-title">{{ item.title }}</h3>
+                        <p class="bento-desc">{{ item.description|truncatechars:80 }}</p>
 
-            <!-- 3. Green Theme + Large Size (Span 6) -->
-            <div class="bento-card visual-theme-green layout-span-6">
-                <div class="bento-header">
-                    <span class="bento-type">TERMINAL</span>
-                    <span class="bento-status"></span>
-                </div>
-                <h3 class="bento-title">Green Large</h3>
-                <p class="bento-desc">Testing layout-span-6 with dashed border style.</p>
-                <div class="bento-tags">
-                    <span class="bento-tag">Python</span>
-                    <span class="bento-tag">Django</span>
-                </div>
-            </div>
-            <!-- DEBUG: NEW BENTO SYSTEM TEST (END) -->
-
-            {% for project in projects %}
-                <a href="{% url 'project_detail' project.slug %}" 
-                   class="bento-item card {{ project.grid_class }} theme-{{ project.theme }}">
-                    
-                    <div class="card-bg {{ project.bg_pattern }}"></div>
-                    
-                    <div class="card-header">
-                        <span class="card-type">{{ project.number }} // {{ project.type }}</span>
-                        <span class="card-status {% if project.is_active %}active{% endif %}"></span>
-                    </div>
-                    
-                    <h3 class="card-title">{{ project.title }}</h3>
-                    <p class="card-desc">{{ project.description }}</p>
-                    
-                </a>
+                        <div class="bento-tags">
+                            {% for tag in item.tags %}
+                                <span class="bento-tag" data-category="{{ tag.category }}">{{ tag.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </a>
+                {% else %}
+                    <!-- LINK CARD (View All) -->
+                    <a href="{{ item.url }}" class="bento-card {{ item.layout_class }} {{ item.style_visual }} link-card">
+                        <div class="bento-header">
+                            <span class="bento-type">{{ item.project_type }}</span>
+                            <span class="bento-status active"></span>
+                        </div>
+                        <h3 class="bento-title">{{ item.title }} -></h3>
+                        <p class="bento-desc">{{ item.description }}</p>
+                    </a>
+                {% endif %}
             {% empty %}
-                <div class="bento-item card col-span-8 theme-ghost">
-                    <h3 class="card-title">{% trans "System Offline" %}</h3>
-                    <p class="card-desc">{% trans "No projects loaded in the database." %}</p>
+                <div class="bento-card visual-theme-ghost size-xl">
+                    <h3 class="bento-title">{% trans "System Offline" %}</h3>
+                    <p class="bento-desc">{% trans "No projects loaded in the database." %}</p>
                 </div>
             {% endfor %}
 
-        </div></div></section>
+        </div>
+    </div>
+</section>

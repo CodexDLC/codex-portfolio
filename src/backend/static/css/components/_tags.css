@@ -1,6 +1,7 @@
 /* TAG COMPONENT (Tech tags) */
 
-.tag, .tech-tag {
+/* FIX: Added .bento-tag alias */
+.tag, .tech-tag, .bento-tag {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -16,70 +17,88 @@
     white-space: nowrap;
 }
 
-.tag:hover, .tech-tag:hover {
+.tag:hover, .tech-tag:hover, .bento-tag:hover {
     background: rgba(255, 255, 255, 0.1);
     color: var(--color-ivory);
     border-color: var(--theme-color, rgba(255, 255, 255, 0.2));
     transform: translateY(-1px);
 }
 
+/* --- COMPACT LAPTOP OVERRIDES (1024px - 1440px) --- */
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .tag, .tech-tag, .bento-tag {
+        font-size: 0.65rem; /* Smaller font */
+        padding: 2px 6px;   /* Smaller padding */
+        gap: 4px;
+    }
+}
+
 /* --- CATEGORY VARIANTS (Data Attribute Driven) --- */
 
 /* Backend / Core -> GOLD */
 .tag[data-category="backend"],
-.tech-tag[data-category="backend"] {
+.tech-tag[data-category="backend"],
+.bento-tag[data-category="backend"] {
     color: var(--color-gold);
     border-color: rgba(212, 175, 55, 0.2);
     background: rgba(212, 175, 55, 0.05);
 }
 .tag[data-category="backend"]:hover,
-.tech-tag[data-category="backend"]:hover {
+.tech-tag[data-category="backend"]:hover,
+.bento-tag[data-category="backend"]:hover {
     background: rgba(212, 175, 55, 0.15);
     border-color: var(--color-gold);
 }
 
 /* Frontend -> BLUE */
 .tag[data-category="frontend"],
-.tech-tag[data-category="frontend"] {
+.tech-tag[data-category="frontend"],
+.bento-tag[data-category="frontend"] {
     color: var(--color-blue);
     border-color: rgba(48, 105, 152, 0.2);
     background: rgba(48, 105, 152, 0.05);
 }
 .tag[data-category="frontend"]:hover,
-.tech-tag[data-category="frontend"]:hover {
+.tech-tag[data-category="frontend"]:hover,
+.bento-tag[data-category="frontend"]:hover {
     background: rgba(48, 105, 152, 0.15);
     border-color: var(--color-blue);
 }
 
 /* DevOps -> GREEN */
 .tag[data-category="devops"],
-.tech-tag[data-category="devops"] {
+.tech-tag[data-category="devops"],
+.bento-tag[data-category="devops"] {
     color: var(--color-green);
     border-color: rgba(39, 201, 63, 0.2);
     background: rgba(39, 201, 63, 0.05);
 }
 .tag[data-category="devops"]:hover,
-.tech-tag[data-category="devops"]:hover {
+.tech-tag[data-category="devops"]:hover,
+.bento-tag[data-category="devops"]:hover {
     background: rgba(39, 201, 63, 0.15);
     border-color: var(--color-green);
 }
 
 /* Project Type (Pet, OpenSource) -> PURPLE */
 .tag[data-category="project_type"],
-.tech-tag[data-category="project_type"] {
+.tech-tag[data-category="project_type"],
+.bento-tag[data-category="project_type"] {
     color: #c678dd;
     border-color: rgba(198, 120, 221, 0.2);
     background: rgba(198, 120, 221, 0.05);
 }
 .tag[data-category="project_type"]:hover,
-.tech-tag[data-category="project_type"]:hover {
+.tech-tag[data-category="project_type"]:hover,
+.bento-tag[data-category="project_type"]:hover {
     background: rgba(198, 120, 221, 0.15);
     border-color: #c678dd;
 }
 
 /* Project Status (Dev, Prod) -> BADGE STYLE */
 .tag[data-category="project_status"],
-.tech-tag[data-category="project_status"] {
+.tech-tag[data-category="project_status"],
+.bento-tag[data-category="project_status"] {
     font-weight: 700;
     border-radius: 12px; /* Pill shape */
     padding: 3px 10px;
@@ -90,14 +109,16 @@
 
 /* Status specific colors (can be refined via inline style from DB color_hex, but defaults here) */
 .tag[data-category="project_status"][data-slug*="prod"],
-.tech-tag[data-category="project_status"][data-slug*="prod"] {
+.tech-tag[data-category="project_status"][data-slug*="prod"],
+.bento-tag[data-category="project_status"][data-slug*="prod"] {
     color: var(--color-green);
     border-color: var(--color-green);
     background: rgba(39, 201, 63, 0.1);
 }
 
 .tag[data-category="project_status"][data-slug*="dev"],
-.tech-tag[data-category="project_status"][data-slug*="dev"] {
+.tech-tag[data-category="project_status"][data-slug*="dev"],
+.bento-tag[data-category="project_status"][data-slug*="dev"] {
     color: var(--color-gold);
     border-color: var(--color-gold);
     background: rgba(212, 175, 55, 0.1);
@@ -154,3 +175,4 @@
 .tech-icon.gold { color: var(--color-gold); border-color: rgba(212, 175, 55, 0.3); }
 .tech-icon.blue { color: var(--color-blue); border-color: rgba(48, 105, 152, 0.3); }
 .tech-icon.green { color: var(--color-green); border-color: rgba(39, 201, 63, 0.3); }
+.tech-icon.blue { color: var(--color-blue); border-color: rgba(48, 105, 152, 0.3); }

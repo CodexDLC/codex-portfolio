@@ -2,6 +2,11 @@
 <!-- data-active-dna используется для подсветки нижней границы цветом текущей категории -->
 <div class="folder-tabs-bar" data-active-dna="{{ active_category_obj.theme_class|default:'theme-gold' }}">
 
+    <!-- Кнопка переключения стороны (Видна только на мобильных через CSS) -->
+    <button id="switch-side-btn" class="tab side-switcher" title="Switch Side">
+        <span class="tab-icon">↔</span>
+    </button>
+
     <div class="tabs-inner-container">
 
         <!-- Breadcrumb (Путь): SYSTEM_ROOT > PORTFOLIO > [CATEGORY] -->
@@ -11,36 +16,35 @@
             <span class="path-sep">></span>
             <span>PORTFOLIO</span>
             <span class="path-sep">></span>
-            <!-- Этот span обновляется через hx-swap-oob (Out of Band) или просто перерисовывается, если бы он был внутри grid.
-                Но так как он снаружи, HTMX его не обновит сам по себе.
-                ВАРИАНТ: Оставить статичным или обновлять JS-ом. Пока оставим статичным. -->
             <span class="path-active" id="breadcrumb-category">{{ active_category_obj.name|upper }}</span>
         </div>
 
         <!-- ЦИКЛ ПО КАТЕГОРИЯМ -->
         {% for cat in categories %}
-            <!--
-                HTMX АТРИБУТЫ:
-                hx-get: URL, куда стучаться (наш View, который вернет только grid.html).
-                hx-target: "#portfolio-grid" — куда вставить полученный HTML.
-                hx-swap: "innerHTML" — заменить внутренности контейнера.
-                hx-push-url: "true" — поменять URL в браузере (чтобы работала кнопка "Назад").
-            -->
-            <a href="{% url 'portfolio_category' cat.slug %}"
-               class="file-tab {% if cat.slug == active_slug %}active{% endif %}"
-               hx-get="{% url 'portfolio_category' cat.slug %}"
+            <a href="{% url 'portfolio:portfolio' %}?category={{ cat.slug }}"
+               class="tab file-tab {% if cat.slug == active_category_slug %}active{% endif %}"
+               hx-get="{% url 'portfolio:portfolio' %}?category={{ cat.slug }}"
                hx-target="#portfolio-grid"
                hx-swap="innerHTML transition:true"
                hx-push-url="true"
-               data-dna="{{ cat.theme_class }}"> <!-- data-dna для JS анимаций -->
+               data-dna="{{ cat.theme_class }}">
 
-               <!-- Иконка (цвет берется из модели или CSS класса) -->
-               <span class="icon {{ cat.tab_icon_class }}">{{ cat.tab_icon_text }}</span>
-
-               <!-- Название файла (clients.py) -->
-               <span>{{ cat.tab_filename }}</span>
+               <span class="tab-icon {{ cat.tab_icon_class }}">{{ cat.tab_icon_text }}</span>
+               <span class="tab-name">{{ cat.tab_filename }}</span>
             </a>
         {% endfor %}
 
     </div>
+
+    <!-- Slide Controls (Mobile Only) - Moved below tabs -->
+    <!-- FIX: Added ID for HTMX OOB Swap -->
+    <div id="mobile-slide-controls" class="mobile-slide-controls">
+        <button id="slide-prev-btn" class="tab control-tab" title="Previous Slide" disabled style="opacity: 0.3; cursor: default;">
+            <span class="tab-icon">↑</span>
+        </button>
+        <button id="slide-next-btn" class="tab control-tab" title="Next Slide" disabled style="opacity: 0.3; cursor: default;">
+            <span class="tab-icon">↓</span>
+        </button>
+    </div>
+
 </div>

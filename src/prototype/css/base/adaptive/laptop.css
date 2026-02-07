@@ -1,0 +1,113 @@
+/* src/prototype/css/base/adaptive/laptop.css */
+/* STANDARD LAPTOP (1366x768 Optimized): 1280px - 1440px */
+
+@media (min-width: 1280px) and (max-width: 1440px) {
+
+    :root {
+        --max-width: 100%; /* Full width */
+        /* FIX: Use vh but respect min-heights below */
+        --header-total-h: 10vh;
+        --footer-h: 5vh;
+    }
+
+    /* Header: Compact for 768px height */
+    .layout-header {
+        min-height: 70px; /* Compact header */
+    }
+
+    /* Topbar: Ultra compact (Stylistic accent) */
+    .layout-header-top {
+        height: 20px;
+        min-height: 20px;
+        padding: 0 20px;
+        font-size: 0.6rem; /* Smaller font */
+    }
+
+    /* Header Inner */
+    .header-inner {
+        padding: 0 15px;
+        gap: 20px;
+    }
+
+    .brand {
+        padding-left: 10px;
+    }
+
+    #brand-logo {
+        font-size: 1.4rem; /* Smaller logo */
+    }
+
+    #brand-slogan {
+        font-size: 0.9rem;
+        margin-left: 10px;
+    }
+
+    .nav-link {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+
+    .code-icon {
+        font-size: 0.75rem;
+    }
+
+    .tab-close {
+        margin-left: 5px;
+        font-size: 0.9rem;
+    }
+
+    /* Footer: Compact */
+    .layout-footer {
+        padding: 0 15px;
+        font-size: 0.7rem;
+        /* FIX: Removed min-height override, using base (50px) */
+    }
+
+    .btn-icon {
+        font-size: 1.1rem;
+    }
+
+    .btn-label {
+        font-size: 0.65rem;
+    }
+
+    .footer-left .copyright-text {
+        font-size: 0.65rem;
+    }
+
+    .lang-slider {
+        padding: 3px 6px;
+        width: 32px;
+    }
+
+    .lang-slider.expanded {
+        width: 110px;
+    }
+
+    /* Drawer */
+    .layout-drawer {
+        /* bottom: 40px; */
+    }
+
+    .layout-drawer.open {
+        height: 260px;
+    }
+
+    .drawer-section {
+        padding: 25px;
+    }
+
+    .nav-grid {
+        gap: 20px;
+    }
+
+    .nav-col h4 {
+        font-size: 0.8rem;
+        margin-bottom: 12px;
+    }
+
+    .nav-link-drawer {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+}

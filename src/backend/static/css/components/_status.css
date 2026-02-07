@@ -83,6 +83,45 @@
     opacity: 0.3;
 }
 
+/* FIX: Match Hero styles exactly */
+.bento-separator {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 0;
+}
+
+.bento-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; /* Match Hero 12px */
+    color: var(--color-ghost);
+    white-space: nowrap;
+    display: flex; /* Match Hero */
+    flex-shrink: 0; /* Match Hero */
+    transition: color 0.3s ease;
+}
+
+.bento-separator .line {
+    flex-grow: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    /* Optional: Add animation like Hero */
+    animation: pulseLine 3s infinite ease-in-out;
+}
+
+/* Success State for Bento */
+.bento-separator.separator-success .bento-status {
+    color: var(--color-green);
+    text-shadow: 0 0 10px rgba(39, 201, 63, 0.5);
+}
+
+.bento-separator.separator-success .line {
+    background: var(--color-green);
+    opacity: 0.3;
+    animation: none;
+}
+
 /* SCROLL INDICATOR (Arrows) */
 .scroll-indicator {
     display: flex;

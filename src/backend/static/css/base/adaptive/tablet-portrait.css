@@ -1,0 +1,82 @@
+/* src/prototype/css/base/adaptive/tablet-portrait.css */
+/* TABLET PORTRAIT: 768px - 1023px */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    :root {
+        --max-width: 100%;
+        --header-total-h: 80px; /* Fixed height for tablet */
+        --footer-h: 50px;
+    }
+
+    /* Header */
+    .layout-header {
+        min-height: 80px;
+    }
+
+    .layout-header-top {
+        height: 25px;
+        padding: 0 20px;
+    }
+
+    .header-inner {
+        padding: 0 20px;
+        /* Switch to Flex for Burger layout */
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* Logo: Keep it relatively large */
+    #brand-logo {
+        font-size: 1.6rem;
+    }
+
+    #brand-slogan {
+        display: none; /* Hide slogan to save space if needed, or keep small */
+    }
+
+    /* Navigation: HIDE TABS */
+    .header-nav {
+        display: none !important;
+    }
+
+    /* Burger: SHOW */
+    .mobile-burger-btn {
+        display: block !important;
+        font-size: 2rem;
+        color: var(--color-gold);
+        cursor: pointer;
+    }
+
+    /* Footer */
+    .layout-footer {
+        padding: 0 20px;
+    }
+
+    /* --- CONTACTS ADAPTATION (TABLET) --- */
+    .contact-card-layout {
+        grid-template-columns: 1fr 1fr !important; /* 2 Columns */
+        gap: 30px !important;
+    }
+
+    .contact-qr { display: none !important; } /* Hide QR */
+
+    /* Profile takes 1 column */
+    .contact-profile {
+        justify-content: center;
+    }
+
+    /* Links take 1 column */
+    .contact-links-grid {
+        grid-template-columns: 1fr 1fr !important; /* 2x2 Grid inside column */
+    }
+
+    /* FIX: Removed margin-top for layout-main to avoid double spacing with top: 80px */
+    /* .layout-main { margin-top: 80px !important; } */
+}
+
+/* --- ЗАЩИТА: Скрываем мобильные шторки на Планшете и Десктопе --- */
+@media (min-width: 768px) {
+    .bottom-drawer { display: none !important; }
+    .desktop-only { display: block !important; }
+    .mobile-only { display: none !important; }
+}

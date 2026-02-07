@@ -1,0 +1,99 @@
+/* src/prototype/css/base/footer.css */
+/* FOOTER STYLES */
+
+/* LEVEL 3: FOOTER */
+.layout-footer {
+    bottom: 0;
+    height: var(--footer-h);
+    min-height: 50px;
+    background-color: #1E1E2F;
+    border-top: 1px solid var(--color-gold);
+    z-index: 200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+}
+
+.footer-left .copyright-text {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--color-ghost);
+    font-size: 0.8rem;
+}
+
+.footer-right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.control-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-ivory);
+    cursor: pointer;
+    gap: 8px;
+}
+
+.btn-icon { font-size: 1.4rem; }
+
+.btn-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--color-ghost);
+    letter-spacing: 1px;
+}
+.control-btn:hover .btn-label { color: var(--color-gold); }
+
+/* Lang Slider */
+.lang-slider {
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    width: 40px;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.lang-slider.expanded {
+    width: 140px;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-gold);
+    justify-content: space-between;
+}
+
+.lang-visible {
+    font-family: 'JetBrains Mono';
+    font-weight: bold;
+    color: var(--color-ivory);
+}
+
+.lang-hidden {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    opacity: 0;
+    width: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+}
+
+.lang-slider.expanded .lang-hidden {
+    opacity: 1;
+    width: auto;
+    pointer-events: auto;
+    margin-right: 10px;
+    order: -1;
+}
+
+.lang-hidden span { cursor: pointer; color: var(--color-ghost); }
+.lang-hidden span:hover { color: var(--color-gold); }

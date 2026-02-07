@@ -1,0 +1,264 @@
+/* src/prototype/css/base/adaptive/mobile.css */
+/* MOBILE: < 768px */
+
+@media (max-width: 767px) {
+
+    /* А. ГЕОМЕТРИЯ СТРАНИЦЫ */
+    body {
+        background-color: #1E1E2F; /* Базовый цвет */
+        background-image: none !important;
+        overflow: hidden; /* Блокируем скролл body, так как скроллим layout-main */
+    }
+
+    /* Сброс рамок десктопа, НО ВОЗВРАЩАЕМ ФИКСАЦИЮ */
+    .layout-header, .layout-footer {
+        width: 100% !important;
+        max-width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        transform: none !important; /* FIX: Сброс translateX(-50%) с десктопа */
+        border-radius: 0 !important;
+        border: none !important;
+        margin: 0 !important;
+        position: fixed !important;
+        z-index: 500 !important;
+    }
+
+    .layout-header { top: 0; }
+    .layout-footer { bottom: 0; }
+
+    /* FIX: Restore FIXED layout-main behavior (like tablet/desktop) */
+    .layout-main {
+        position: fixed !important;
+        top: 50px !important; /* Mobile Header Height */
+        bottom: 60px !important; /* Mobile Footer Height */
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        transform: none !important;
+
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+
+        margin: 0 !important;
+
+        /* FIX: Increased vertical padding to 20px for breathing room */
+        padding: 20px 10px !important;
+
+        /* Enable internal scroll */
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch; /* Smooth scroll iOS */
+    }
+
+    /* Б. ХЕДЕР (Лого + Бургер) */
+    .layout-header {
+        height: 50px !important;
+        min-height: 50px !important;
+        max-height: 50px !important;
+        padding: 0 15px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background-color: #1E1E2F !important;
+        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+        flex-direction: row !important; /* Вернуть в строку для мобилки */
+    }
+
+    /* Скрываем Top Bar на мобилке (или переносим) */
+    .layout-header-top {
+        display: none !important;
+    }
+
+    .header-inner {
+        display: flex !important;
+        width: 100% !important;
+        height: 100% !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0 !important;
+        gap: 0 !important;
+        grid-template-columns: unset !important;
+    }
+
+    .header-nav { display: none !important; } /* Скрываем десктопное меню */
+
+    .mobile-burger-btn {
+        display: block !important;
+        font-size: 1.8rem;
+        color: var(--color-gold);
+        cursor: pointer;
+    }
+
+    .brand { padding: 0 !important; width: auto !important; }
+    #brand-text { font-size: 1.2rem !important; }
+
+    /* Скрываем desktop drawer на мобилке */
+    .layout-drawer {
+        display: none !important;
+    }
+
+    /* Г. ФУТЕР (Пульт) */
+    .layout-footer {
+        height: 60px !important;
+        padding: 0 20px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        background-color: #151520 !important;
+        border: none !important;
+        border-top: 2px solid var(--color-gold) !important;
+        min-height: 60px !important;
+    }
+
+    /* Стили элементов футера */
+    .footer-left .copyright-text {
+        font-family: 'JetBrains Mono', monospace;
+        color: var(--color-ghost);
+        font-size: 0.7rem;
+    }
+
+    /* Скрываем иконку файла, показываем копирайт */
+    .footer-left .copyright-text .file-icon { display: none; }
+    .footer-left .copyright-text::before {
+        content: "© 2026 CodexDLC";
+    }
+    /* Скрываем оригинальный текст "home.html" */
+    .footer-left .copyright-text {
+        font-size: 0;
+    }
+    .footer-left .copyright-text::before {
+        font-size: 0.7rem;
+    }
+
+    .footer-right {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .control-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-ivory);
+        cursor: pointer;
+    }
+
+    /* Скрываем текст кнопок (NAVIGATION, CONTACTS), оставляем иконки */
+    .btn-label { display: none !important; }
+    .btn-icon { font-size: 1.4rem; }
+
+    /* --- ЛОГИКА СЛАЙДЕРА ЯЗЫКА --- */
+    .lang-slider {
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        padding: 5px 10px;
+        display: flex;
+        align-items: center;
+        /* Начальная ширина под текст "EN" */
+        width: 40px;
+        justify-content: center;
+        white-space: nowrap;
+    }
+
+    .lang-slider.expanded {
+        /* Ширина раскрытого состояния */
+        width: 140px;
+        background: rgba(255, 255, 255, 0.1);
+        border-color: var(--color-gold);
+        justify-content: space-between; /* Распределяем RU / DE / EN */
+    }
+
+    .lang-visible {
+        font-family: 'JetBrains Mono';
+        font-weight: bold;
+        color: var(--color-ivory);
+    }
+
+    /* Скрытая часть (RU / DE) */
+    .lang-hidden {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        opacity: 0;
+        width: 0;
+        transition: opacity 0.2s;
+        pointer-events: none; /* Чтобы не кликать, пока закрыто */
+    }
+
+    .lang-slider.expanded .lang-hidden {
+        opacity: 1;
+        width: auto;
+        pointer-events: auto;
+        margin-right: 10px; /* Отступ от EN */
+        order: -1; /* Ставим перед EN */
+    }
+
+    .lang-hidden span { cursor: pointer; color: var(--color-ghost); }
+    .lang-hidden span:hover { color: var(--color-gold); }
+
+    /* VISIBILITY UTILITIES */
+    .desktop-only { display: none !important; }
+    .mobile-only { display: block !important; }
+
+    /* FIX: Allow bottom drawer on mobile */
+    .bottom-drawer { display: block !important; }
+
+    /* --- SYSTEM HUB & CONTACTS ADAPTATION (MOBILE) --- */
+
+    /* Hub Grid: 1 Column */
+    .hub-grid {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+
+    .hub-col {
+        gap: 10px !important;
+    }
+
+    .hub-link.main-link {
+        font-size: 1.2rem !important;
+    }
+
+    /* Contact Card: 1 Column */
+    .contact-card-layout {
+        grid-template-columns: 1fr !important;
+        gap: 25px !important;
+    }
+
+    /* Hide QR on mobile */
+    .contact-qr { display: none !important; }
+
+    /* Links Grid: 1 Column */
+    .contact-links-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .contact-btn {
+        padding: 15px !important; /* Bigger touch area */
+    }
+
+    .profile-avatar {
+        width: 60px !important;
+        height: 60px !important;
+    }
+}
+
+/* --- УЗКИЕ ТЕЛЕФОНЫ (< 425px) --- */
+@media (max-width: 425px) {
+    /* FIX: Increased logo size slightly */
+    #brand-logo {
+        font-size: 1.1rem !important;
+    }
+
+    #brand-slogan {
+        font-size: 0.7rem !important;
+    }
+}

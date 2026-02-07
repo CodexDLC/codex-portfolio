@@ -1,119 +1,92 @@
 /**
- * CodexDLC Experience Page Logic
- * Handles specific slide system with internal scroll support
+ * Experience Page Logic
+ * Handles slide navigation and mobile tabs
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-    // --- CONFIG ---
-    const SLIDE_COOLDOWN = 800; // ms between slide switches
 
-    // --- SLIDE SYSTEM ---
+    // --- SLIDE NAVIGATION ---
     const slides = document.querySelectorAll('.slide');
     let currentSlide = 0;
     let isSliding = false;
+    const SLIDE_COOLDOWN = 800;
     let lastSlideTime = 0;
 
-    /**
-     * Switch to a specific slide
-     * @param {number|string} indexOrDir - Slide index or 'next'/'prev'
-     * @param {string} direction - 'up' or 'down' (visual only)
-     */
-    window.goToExpSlide = function(indexOrDir, direction = 'down') {
-        let index;
-
-        // Handle 'next'/'prev' strings
-        if (indexOrDir === 'next') {
-            index = currentSlide + 1;
-            direction = 'down';
-        } else if (indexOrDir === 'prev') {
-            index = currentSlide - 1;
-            direction = 'up';
-        } else {
-            index = indexOrDir;
-        }
-
-        if (index < 0 || index >= slides.length) return;
-        if (index === currentSlide) return;
-
+    window.goToExpSlide = function(direction) {
         const now = Date.now();
         if (now - lastSlideTime < SLIDE_COOLDOWN) return;
-        lastSlideTime = now;
 
-        isSliding = true;
+        let nextIndex = currentSlide;
+        if (direction === 'next' || direction === 'down') {
+            nextIndex = Math.min(currentSlide + 1, slides.length - 1);
+        } else if (direction === 'prev' || direction === 'up') {
+            nextIndex = Math.max(currentSlide - 1, 0);
+        }
 
-        // Update slide classes
-        slides.forEach((slide, i) => {
-            slide.classList.remove('active', 'hidden-up', 'hidden-down');
-            if (i === index) {
-                slide.classList.add('active');
-            } else if (i < index) {
-                slide.classList.add('hidden-up');
-            } else {
-                slide.classList.add('hidden-down');
-            }
-        });
+        if (nextIndex !== currentSlide) {
+            lastSlideTime = now;
+            isSliding = true;
 
-        currentSlide = index;
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active', 'hidden-up', 'hidden-down');
+                if (i === nextIndex) {
+                    slide.classList.add('active');
+                } else if (i < nextIndex) {
+                    slide.classList.add('hidden-up');
+                } else {
+                    slide.classList.add('hidden-down');
+                }
+            });
 
-        // Reset sliding flag after transition
-        setTimeout(() => {
-            isSliding = false;
-        }, 600);
+            currentSlide = nextIndex;
+            setTimeout(() => isSliding = false, 600);
+        }
     };
 
-    /**
-     * Handle wheel events for slide switching with Internal Scroll Support
-     */
-    function handleWheel(e) {
+    // Wheel event for desktop/tablet
+    document.addEventListener('wheel', (e) => {
+        // Prevent scroll if inside code or logs (unless at boundaries)
+        const target = e.target;
+        if (target.closest('.ide-code') || target.closest('.experience-changelog')) {
+            // Simple check: if scrolling up at top or down at bottom, allow page slide
+            // For now, let's just block global slide if inside scrollable area
+            // return;
+        }
+
         if (isSliding) return;
 
         const delta = e.deltaY;
-        const threshold = 30; // Minimum scroll to trigger
+        if (Math.abs(delta) < 30) return;
 
-        if (Math.abs(delta) < threshold) return;
+        if (delta > 0) goToExpSlide('next');
+        else goToExpSlide('prev');
+    }, { passive: true });
 
-        // Check if we are inside a scrollable content area
-        const scrollable = e.target.closest('.scrollable-content');
 
-        if (scrollable) {
-            // SCROLL DOWN
-            if (delta > 0) {
-                // Calculate if we are at the bottom
-                // Use a small tolerance (2px) for float calculation errors
-                const atBottom = Math.abs(scrollable.scrollHeight - scrollable.scrollTop - scrollable.clientHeight) < 2;
+    // --- MOBILE TABS (CODE | SPECS) ---
+    const tabs = document.querySelectorAll('.exp-tab');
+    const panelCode = document.getElementById('panel-code');
+    const panelSpecs = document.getElementById('panel-specs');
 
-                if (!atBottom) {
-                    // Allow internal scroll, DO NOT switch slide
-                    // We stop propagation to prevent any parent handlers (though main.js ignores .exp-slide)
-                    e.stopPropagation();
-                    return;
+    if (tabs.length > 0 && panelCode && panelSpecs) {
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+
+                const target = tab.getAttribute('data-target');
+
+                // Toggle panels
+                if (target === 'code') {
+                    panelCode.classList.add('active-panel');
+                    panelSpecs.classList.remove('active-panel');
+                } else {
+                    panelCode.classList.remove('active-panel');
+                    panelSpecs.classList.add('active-panel');
                 }
-                // If at bottom, and there is a next slide, switch.
-            }
-            // SCROLL UP
-            else if (delta < 0) {
-                // If we are NOT at the top, allow internal scroll
-                if (scrollable.scrollTop > 0) {
-                    e.stopPropagation();
-                    return;
-                }
-                // If at top (scrollTop === 0), allow slide switch UP
-            }
-        }
-
-        // Standard Slide Logic
-        if (delta > 0 && currentSlide < slides.length - 1) {
-            // Scroll down
-            goToExpSlide(currentSlide + 1, 'down');
-        } else if (delta < 0 && currentSlide > 0) {
-            // Scroll up
-            goToExpSlide(currentSlide - 1, 'up');
-        }
-    }
-
-    // Attach wheel listener
-    if (slides.length > 0) {
-        // Use passive: false if we wanted to preventDefault, but here we just rely on logic
-        document.addEventListener('wheel', handleWheel, { passive: true });
+            });
+        });
     }
 });

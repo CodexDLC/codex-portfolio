@@ -10,11 +10,9 @@
     <meta name="keywords" content="{% block keywords %}django, python, architect{% endblock keywords %}">
     <title>{% block title %}{% trans "My Project" %}{% endblock title %}</title>
 
-    <!-- CSS Order: Components -> Base -> Adaptive (Last one wins) -->
-    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <!-- CSS Order: Components -> Base (Adaptive included in Base) -->
+    <!-- components.css removed as we import components per page or in base -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/base-adaptive.css' %}">
-
 
     {% block extra_head %}{% endblock extra_head %}
 

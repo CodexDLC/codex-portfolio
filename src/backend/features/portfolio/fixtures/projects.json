@@ -1,0 +1,234 @@
+[
+  {
+    "model": "portfolio.project",
+    "pk": 1,
+    "fields": {
+      "category": 1,
+      "title": "Neural Network Platform",
+      "slug": "neural-network",
+      "description": "A scalable AI infrastructure designed for processing petabytes of data in real-time with predictive analytics.",
+      "content": "# Full Description\nHere goes the full markdown content...",
+      "style_visual": 10,
+      "tags": [1, 30],
+      "status": "prod",
+      "project_type": "enterprise",
+      "views_count": 1000,
+      "likes_count": 500,
+      "is_featured": true,
+      "is_active": true,
+      "order": 10,
+      "created_at": "2023-01-01T12:00:00Z",
+      "updated_at": "2023-01-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 2,
+    "fields": {
+      "category": 1,
+      "title": "Payment Gateway API",
+      "slug": "payment-gateway",
+      "description": "Secure transaction processing system with fraud detection and multi-currency support.",
+      "style_visual": 11,
+      "tags": [1],
+      "status": "prod",
+      "project_type": "commercial",
+      "views_count": 800,
+      "likes_count": 300,
+      "is_featured": false,
+      "is_active": true,
+      "order": 9,
+      "created_at": "2023-02-01T12:00:00Z",
+      "updated_at": "2023-02-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 3,
+    "fields": {
+      "category": 3,
+      "title": "Docker Orchestrator",
+      "slug": "docker-orch",
+      "description": "Automated container deployment pipeline with self-healing capabilities.",
+      "style_visual": 12,
+      "tags": [30],
+      "status": "dev",
+      "project_type": "opensource",
+      "views_count": 600,
+      "likes_count": 200,
+      "is_featured": false,
+      "is_active": true,
+      "order": 8,
+      "created_at": "2023-03-01T12:00:00Z",
+      "updated_at": "2023-03-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 4,
+    "fields": {
+      "category": 1,
+      "title": "Async Data Parser",
+      "slug": "async-parser",
+      "description": "High-performance asynchronous web scraper built on top of aiohttp.",
+      "style_visual": 13,
+      "tags": [1, 7],
+      "status": "prod",
+      "project_type": "pet",
+      "views_count": 500,
+      "likes_count": 150,
+      "is_featured": false,
+      "is_active": true,
+      "order": 7,
+      "created_at": "2023-04-01T12:00:00Z",
+      "updated_at": "2023-04-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 5,
+    "fields": {
+      "category": 5,
+      "title": "Nginx Hardened",
+      "slug": "nginx-config",
+      "description": "Security-focused Nginx configuration boilerplate.",
+      "style_visual": 14,
+      "tags": [32],
+      "status": "prod",
+      "project_type": "opensource",
+      "views_count": 400,
+      "likes_count": 100,
+      "is_featured": false,
+      "is_active": true,
+      "order": 6,
+      "created_at": "2023-05-01T12:00:00Z",
+      "updated_at": "2023-05-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 6,
+    "fields": {
+      "category": 4,
+      "title": "Backup Bot",
+      "slug": "backup-bot",
+      "description": "Automated database backup utility to S3.",
+      "style_visual": 14,
+      "tags": [1, 30],
+      "status": "prod",
+      "project_type": "pet",
+      "views_count": 300,
+      "likes_count": 50,
+      "is_featured": false,
+      "is_active": true,
+      "order": 5,
+      "created_at": "2023-06-01T12:00:00Z",
+      "updated_at": "2023-06-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 7,
+    "fields": {
+      "category": 2,
+      "title": "Frontend Dashboard",
+      "slug": "frontend-dash",
+      "description": "React-based dashboard for monitoring system metrics.",
+      "style_visual": 11,
+      "tags": [25],
+      "status": "dev",
+      "project_type": "pet",
+      "views_count": 100,
+      "likes_count": 10,
+      "is_featured": false,
+      "is_active": true,
+      "order": 4,
+      "created_at": "2023-07-01T12:00:00Z",
+      "updated_at": "2023-07-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 8,
+    "fields": {
+      "category": 1,
+      "title": "Microservice Auth",
+      "slug": "auth-service",
+      "description": "JWT-based authentication service for microservices architecture.",
+      "style_visual": 10,
+      "tags": [1, 2],
+      "status": "prod",
+      "project_type": "commercial",
+      "views_count": 200,
+      "likes_count": 50,
+      "is_featured": false,
+      "is_active": true,
+      "order": 3,
+      "created_at": "2023-08-01T12:00:00Z",
+      "updated_at": "2023-08-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 9,
+    "fields": {
+      "category": 1,
+      "title": "Redis Cache Layer",
+      "slug": "redis-cache",
+      "description": "High-performance caching layer for high-load API.",
+      "style_visual": 11,
+      "tags": [11],
+      "status": "prod",
+      "project_type": "commercial",
+      "views_count": 150,
+      "likes_count": 40,
+      "is_featured": false,
+      "is_active": true,
+      "order": 2,
+      "created_at": "2023-09-01T12:00:00Z",
+      "updated_at": "2023-09-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 10,
+    "fields": {
+      "category": 1,
+      "title": "Log Aggregator",
+      "slug": "log-aggregator",
+      "description": "Centralized logging system using ELK stack.",
+      "style_visual": 12,
+      "tags": [1],
+      "status": "dev",
+      "project_type": "pet",
+      "views_count": 50,
+      "likes_count": 5,
+      "is_featured": false,
+      "is_active": true,
+      "order": 1,
+      "created_at": "2023-10-01T12:00:00Z",
+      "updated_at": "2023-10-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 11,
+    "fields": {
+      "category": 1,
+      "title": "Pagination Test Project",
+      "slug": "pagination-test",
+      "description": "This project should appear on the second page.",
+      "style_visual": 13,
+      "tags": [1],
+      "status": "dev",
+      "project_type": "pet",
+      "views_count": 10,
+      "likes_count": 1,
+      "is_featured": false,
+      "is_active": true,
+      "order": 0,
+      "created_at": "2023-11-01T12:00:00Z",
+      "updated_at": "2023-11-01T12:00:00Z"
+    }
+  }
+]

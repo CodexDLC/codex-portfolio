@@ -1,0 +1,292 @@
+/* PORTFOLIO NAVIGATION BAR (Folder Tabs) */
+
+.folder-tabs-bar {
+    --panel-bg: rgba(40, 40, 55, 0.85);
+    --panel-border: rgba(255, 255, 255, 0.08);
+    --panel-glow: var(--color-gold);
+
+    width: 100%;
+    /* FIX: Reduced height for hierarchy (was 55px) */
+    height: 40px;
+
+    background: var(--panel-bg);
+    border-bottom: 2px solid var(--panel-glow);
+
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.3),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset,
+        0 0 30px rgba(212, 175, 55, 0.05);
+
+    position: sticky;
+    top: 0;
+    z-index: 300;
+
+    /* FIX: Removed margin-bottom to reduce gap (was 25px) */
+    margin-bottom: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1),
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+/* Кнопка переключения стороны (скрыта на десктопе) */
+.side-switcher {
+    display: none;
+}
+
+/* Кнопки управления слайдами (скрыты на десктопе) */
+.mobile-slide-controls {
+    display: none;
+}
+
+.folder-tabs-bar.slide-down {
+    transform: translateY(0);
+}
+
+/* DNA-driven panel accent colors */
+.folder-tabs-bar[data-active-dna="business"] {
+    --panel-glow: var(--color-gold);
+    border-bottom-color: var(--color-gold);
+}
+.folder-tabs-bar[data-active-dna="ecosystem"] {
+    --panel-glow: var(--color-blue);
+    border-bottom-color: var(--color-blue);
+}
+.folder-tabs-bar[data-active-dna="rnd"] {
+    --panel-glow: var(--color-green);
+    border-bottom-color: var(--color-green);
+}
+
+/* Grid Container for Tabs */
+.tabs-inner-container {
+    width: 100%;
+    height: 100%;
+    /* FIX: Reduced padding (was 0 25px) */
+    padding: 0 15px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(15px, 2vw, 25px);
+    align-items: center;
+}
+
+/* Breadcrumb Path */
+.folder-path {
+    grid-column: span 2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--color-ghost);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.folder-path .path-active {
+    color: var(--panel-glow, var(--color-gold));
+    font-weight: 700;
+}
+
+/* Tab Item Layout Override */
+.file-tab {
+    grid-column: span 2;
+    width: 100%;
+    justify-content: center;
+}
+
+/* --- RESPONSIVE ADAPTATION --- */
+
+/* TABLET LANDSCAPE (1024px - 1279px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .folder-tabs-bar { height: 40px; } /* Ensure consistency */
+}
+
+/* MOBILE & TABLET PORTRAIT (< 1023px) */
+@media (max-width: 1023px) {
+    /* Vertical Bar on Right Side */
+    .folder-tabs-bar {
+        grid-column: 2;
+        grid-row: 1;
+        /* FIX: Keep width slightly larger for touch targets on mobile? Or reduce? */
+        /* Let's keep 55px width for touch, but height is now 100% */
+        width: 55px;
+        height: 100%;
+
+        /* FIX: Убираем sticky и transform, так как теперь это часть Flex-row */
+        position: relative;
+        top: auto;
+        right: auto;
+
+        /* FIX: Убираем отступ снизу, так как панель сбоку */
+        margin-bottom: 0;
+
+        flex-direction: column;
+        /* FIX: Center everything vertically */
+        justify-content: center;
+        padding: 10px 0 20px 0;
+        gap: 15px; /* Increased gap between groups */
+
+        border-bottom: none;
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+
+        /* FIX: Убираем скрытие */
+        transform: none;
+        transition: none;
+    }
+
+    .folder-tabs-bar.slide-down {
+        transform: none;
+    }
+
+    /* Показываем кнопку переключения */
+    .side-switcher {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        justify-content: center;
+        align-items: center;
+
+        /* FIX: Enhanced visibility */
+        background: rgba(30, 30, 47, 0.6); /* Darker bg */
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+        border-radius: 50%;
+        color: var(--color-ghost);
+        cursor: pointer;
+        flex-shrink: 0;
+        /* FIX: Removed margin-bottom: auto */
+    }
+
+    .side-switcher:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--color-ivory);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Показываем кнопки управления слайдами */
+    .mobile-slide-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        /* FIX: Removed margin-bottom: auto */
+        width: 100%;
+        align-items: center;
+    }
+
+    .control-tab {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 10px;
+
+        /* FIX: Enhanced visibility */
+        background: rgba(30, 30, 47, 0.6); /* Darker bg */
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+        color: var(--color-ghost);
+        cursor: pointer;
+    }
+
+    .control-tab:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--color-ivory);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .control-tab:active {
+        transform: scale(0.95);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .tabs-inner-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto; /* Auto height to hug content */
+        padding: 0;
+        gap: 12px;
+        align-items: center;
+        /* FIX: Removed margin-top: auto */
+    }
+
+    /* Hide Path & Text on mobile */
+    .folder-path { display: none; }
+
+    /* --- VERTICAL TABS STYLING (Mobile/Tablet) --- */
+
+    /* Скрываем текст на узких экранах */
+    .tab .tab-name { display: none; }
+
+    /* Делаем табы квадратными иконками */
+    .tab.file-tab {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 10px;
+
+        /* FIX: Added visibility for inactive tabs */
+        background: rgba(30, 30, 47, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    .tab.file-tab:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .tab.file-tab.active {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: var(--panel-glow, rgba(255, 255, 255, 0.15));
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+    }
+
+    .tab .tab-icon {
+        font-size: 1.1rem;
+        margin: 0;
+        background: none; /* Убираем фон иконки, если он мешает */
+        padding: 0;
+    }
+}
+
+/* --- MOBILE COMPACT MODE (< 768px) --- */
+@media (max-width: 767px) {
+    /* Reduce sidebar width */
+    .folder-tabs-bar {
+        width: 45px;
+    }
+
+    /* Reduce button sizes */
+    .side-switcher,
+    .control-tab,
+    .tab.file-tab {
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+    }
+
+    /* Reduce icon size */
+    .tab .tab-icon {
+        font-size: 0.9rem;
+    }
+
+    /* Adjust gap */
+    .folder-tabs-bar {
+        gap: 10px;
+    }
+
+    .tabs-inner-container {
+        gap: 8px;
+    }
+}

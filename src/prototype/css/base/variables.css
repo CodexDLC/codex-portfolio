@@ -1,0 +1,27 @@
+/* src/prototype/css/base/variables.css */
+/* GLOBAL VARIABLES & SETTINGS */
+
+:root {
+    /* Цветовая палитра "IDE Night" */
+    --color-void:   #0F0F1A;
+    --color-monolith: #1E1E2F; /* Space Navy */
+    --color-ivory:  #FAF9F6;
+    --color-ghost:  rgba(255, 255, 255, 0.6);
+    --color-gold:   #FFD43B;
+    --color-blue:   #306998;
+    --color-green:  #27C93F;
+    --border-line:  1px solid rgba(255, 255, 255, 0.08);
+
+    /* Цвета вкладок */
+    --tab-bg-active: #1E1E2F;
+    --tab-bg-inactive: #151520;
+
+    /* Геометрия (Base Desktop > 1920px) */
+    --max-width:    1600px;
+    --header-total-h: 10vh;
+    --footer-h:     5vh;
+
+    /* Цвета Python (для удобства) */
+    --py-blue: #306998;
+    --py-gold: #FFD43B;
+}

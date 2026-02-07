@@ -1,50 +1,57 @@
 [
   {
-    "name": "Bento 1x1 (Standard)",
-    "css_class": "bento-card--1x1",
-    "target_area": "portfolio",
-    "attr_type": "layout"
+    "model": "system.styleattribute",
+    "pk": 1,
+    "fields": { "name": "Bento Small (1x1)", "css_class": "size-s", "target_area": "portfolio", "attr_type": "layout" }
   },
   {
-    "name": "Bento 2x2 (Large)",
-    "css_class": "bento-card--2x2",
-    "target_area": "portfolio",
-    "attr_type": "layout"
+    "model": "system.styleattribute",
+    "pk": 2,
+    "fields": { "name": "Bento Medium (1x1)", "css_class": "size-m", "target_area": "portfolio", "attr_type": "layout" }
   },
   {
-    "name": "Bento 2x1 (Wide)",
-    "css_class": "bento-card--2x1",
-    "target_area": "portfolio",
-    "attr_type": "layout"
+    "model": "system.styleattribute",
+    "pk": 3,
+    "fields": { "name": "Bento Large (2x1)", "css_class": "size-l", "target_area": "portfolio", "attr_type": "layout" }
   },
   {
-    "name": "Glass Effect (Стекло)",
-    "css_class": "glass-panel",
-    "target_area": "all",
-    "attr_type": "visual"
+    "model": "system.styleattribute",
+    "pk": 4,
+    "fields": { "name": "Bento Extra Large (2x2)", "css_class": "size-xl", "target_area": "portfolio", "attr_type": "layout" }
   },
   {
-    "name": "Dark Theme Accent",
-    "css_class": "theme-dark-accent",
-    "target_area": "all",
-    "attr_type": "visual"
+    "model": "system.styleattribute",
+    "pk": 5,
+    "fields": { "name": "Glass Effect", "css_class": "glass-panel", "target_area": "all", "attr_type": "visual" }
   },
   {
-    "name": "Timeline: Active Job",
-    "css_class": "timeline-item--active",
-    "target_area": "experience",
-    "attr_type": "state"
+    "model": "system.styleattribute",
+    "pk": 6,
+    "fields": { "name": "Dark Theme Accent", "css_class": "theme-dark-accent", "target_area": "all", "attr_type": "visual" }
   },
   {
-    "name": "Timeline: Completed",
-    "css_class": "timeline-item--completed",
-    "target_area": "experience",
-    "attr_type": "state"
+    "model": "system.styleattribute",
+    "pk": 10,
+    "fields": { "name": "Gold Theme", "attr_type": "visual", "css_class": "visual-theme-gold", "target_area": "portfolio" }
   },
   {
-    "name": "Text: Truncate (3 lines)",
-    "css_class": "line-clamp-3",
-    "target_area": "all",
-    "attr_type": "typography"
+    "model": "system.styleattribute",
+    "pk": 11,
+    "fields": { "name": "Blue Theme", "attr_type": "visual", "css_class": "visual-theme-blue", "target_area": "portfolio" }
+  },
+  {
+    "model": "system.styleattribute",
+    "pk": 12,
+    "fields": { "name": "Green Theme", "attr_type": "visual", "css_class": "visual-theme-green", "target_area": "portfolio" }
+  },
+  {
+    "model": "system.styleattribute",
+    "pk": 13,
+    "fields": { "name": "Purple Theme", "attr_type": "visual", "css_class": "visual-theme-purple", "target_area": "portfolio" }
+  },
+  {
+    "model": "system.styleattribute",
+    "pk": 14,
+    "fields": { "name": "Ghost Theme", "attr_type": "visual", "css_class": "visual-theme-ghost", "target_area": "portfolio" }
   }
 ]

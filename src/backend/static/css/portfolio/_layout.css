@@ -1,0 +1,331 @@
+/* PORTFOLIO LAYOUT & SECTIONS */
+
+/* 1. PAGE LAYOUT OVERRIDES */
+/* We rely on base layout-main (fixed, top: 76px). No overrides here. */
+
+/* 1.1. PAGE WRAPPER (Flex Column) */
+.portfolio-page-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevent double scroll */
+    /* FIX: Added bottom spacing as requested */
+    padding-bottom: 10px;
+}
+
+/* 2. INNER CONTAINER (Flex Wrapper) */
+.portfolio-container {
+    position: relative;
+    width: 100%;
+    /* height: 100%; <-- Removed, let flex-grow handle it */
+    flex-grow: 1;    /* Fill remaining space after tabs */
+    height: 0;       /* Flex hack */
+
+    /* Flexbox to manage Header vs Slides */
+    display: flex;
+    flex-direction: column;
+
+    /* Padding */
+    padding: 15px; /* Base padding */
+    padding-bottom: 0; /* Remove bottom padding to let slides touch footer if needed */
+
+    /* Center content */
+    max-width: 1920px;
+    margin: 0 auto;
+
+    overflow: hidden; /* Prevent container scroll, slides handle it */
+}
+
+/* 2.1. PORTFOLIO HEADER (Adaptive) */
+.portfolio-header-block {
+    margin-bottom: 15px;
+    text-align: left; /* Align left */
+    flex-shrink: 0;
+
+    /* Desktop default offset (matches grid margin+padding) */
+    padding-left: 50px;
+}
+
+.portfolio-main-title {
+    font-size: clamp(1.2rem, 2.5cqw, 1.8rem);
+    font-weight: 700;
+    margin-bottom: 4px;
+    line-height: 1;
+    color: var(--color-ivory);
+}
+
+/* 3. SLIDES CONTAINER (Grow to fill space) */
+/* This targets both #debug-slides and #portfolio-grid (if it becomes a slider) */
+.slides-container,
+.islands-wrapper {
+    flex-grow: 1;
+    height: 0; /* Flex hack: allows container to shrink/grow properly */
+    position: relative;
+    width: 100%;
+    min-height: 0;
+}
+
+/* 4. SLIDE / SECTION */
+.slide,
+.island-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Flex to center content or stretch it */
+    display: flex;
+    flex-direction: column;
+
+    /* Transition */
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.slide.active,
+.island-section.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    z-index: 10;
+}
+
+/* 5. SLIDE CONTENT WRAPPER */
+/* Inside the slide, we have padding and the grid */
+.slide-content-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px; /* Space for footer/bottom */
+}
+
+/* 6. SECTION HEADER */
+.island-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+
+    /* Desktop default offset */
+    padding-left: 50px;
+    padding-right: 50px;
+
+    flex-shrink: 0; /* Don't shrink header */
+}
+
+.island-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-ivory);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.island-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--color-ghost);
+    background: rgba(255,255,255,0.04);
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+/* Theme Colors for Headers */
+.theme-gold .island-title span:first-child { color: var(--color-gold); }
+.theme-blue .island-title span:first-child { color: var(--color-blue); }
+.theme-rnd .island-title span:first-child { color: var(--color-green); }
+.theme-proto .island-title span:first-child { color: #c678dd; }
+.theme-config .island-title span:first-child { color: var(--color-ghost); }
+
+
+/* --- RESPONSIVE ADAPTATION --- */
+
+/* LAPTOP & TABLET LANDSCAPE (1024px - 1440px) */
+@media (min-width: 1024px) and (max-width: 1440px) {
+    /* Compact Headers for short screens */
+    .portfolio-header-block {
+        margin-bottom: 5px;
+        /* Align with grid content: 40px margin + 15px padding = 55px */
+        padding-left: 55px;
+    }
+
+    .portfolio-main-title {
+        /* Reduced size as requested */
+        font-size: 1.1rem;
+    }
+
+    .portfolio-header-block p {
+        font-size: 0.75rem;
+    }
+
+    .island-header {
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        /* Align with grid content */
+        padding-left: 55px;
+        padding-right: 55px;
+    }
+
+    .island-title {
+        font-size: 0.85rem;
+    }
+}
+
+/* MOBILE & TABLET PORTRAIT (< 1023px) */
+@media (max-width: 1023px) {
+    /* Меняем направление главной обертки на горизонтальное */
+    .portfolio-page-wrapper {
+        flex-direction: row; /* Контент | Табы */
+
+        /* FIX: Ограничиваем высоту враппера */
+        height: 100%;
+        max-height: 100%;
+        overflow: hidden;
+    }
+
+    /* --- DEFAULT: RIGHT SIDE (Tabs on Right) --- */
+    /* Табы (идут первыми в HTML) -> ставим в конец (справа) */
+    .portfolio-page-wrapper > .folder-tabs-bar {
+        order: 2;
+        width: 55px; /* Фиксированная ширина */
+        flex-shrink: 0;
+        height: 100%; /* На всю высоту */
+
+        /* Граница слева */
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+        border-right: none;
+
+        overflow: hidden;
+    }
+
+    /* Контент (идет вторым) -> ставим в начало (слева) */
+    .portfolio-page-wrapper > .portfolio-container {
+        order: 1;
+        flex-grow: 1;
+        width: auto; /* Занимает остальное место */
+
+        padding: 15px;
+        padding-top: 15px;
+
+        /* FIX: Возвращаем скрытие скролла (вписываем в экран) */
+        overflow: hidden;
+        height: 100%;
+    }
+
+    /* --- LEFT SIDE MODE (Tabs on Left) --- */
+    .portfolio-page-wrapper.layout-left > .folder-tabs-bar {
+        order: 0; /* Ставим в начало */
+
+        /* Граница справа */
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        border-left: none;
+    }
+
+    .portfolio-page-wrapper.layout-left > .portfolio-container {
+        order: 1; /* Ставим после табов */
+    }
+
+    /* Page Title */
+    .portfolio-container > div:first-child {
+        margin-top: 0;
+        margin-bottom: 10px; /* Even smaller on mobile */
+
+        /* FIX: Reset padding on mobile */
+        padding-left: 0;
+    }
+
+    .island-header {
+        margin-bottom: 8px;
+        padding-bottom: 4px;
+
+        /* FIX: Reset padding on mobile */
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .island-title { font-size: 0.95rem; }
+
+    /* FIX: Возвращаем поведение слайдера (высота 100%) */
+    .slides-container,
+    .islands-wrapper {
+        height: 100%;
+        min-height: 0;
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    .slide,
+    .island-section {
+        /* Возвращаем absolute или relative+height:100% */
+        position: relative;
+        height: 100%;
+        top: auto;
+        left: auto;
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+
+        display: none;
+
+        padding-bottom: 0;
+    }
+
+    .slide.active,
+    .island-section.active {
+        display: block;
+    }
+}
+
+/* --- MOBILE COMPACT (< 768px) --- */
+@media (max-width: 767px) {
+    /* Reduce sidebar width override */
+    .portfolio-page-wrapper > .folder-tabs-bar {
+        width: 45px;
+    }
+
+    /* Remove bottom padding on mobile */
+    .portfolio-page-wrapper {
+        padding-bottom: 0;
+    }
+
+    /* Reduce container padding */
+    .portfolio-page-wrapper > .portfolio-container {
+        padding: 5px;
+        padding-top: 5px;
+    }
+
+    /* Reduce slide content padding */
+    .slide-content-wrapper {
+        padding-bottom: 5px;
+    }
+
+    /* Hide Main Page Title to save space */
+    .portfolio-header-block {
+        display: none;
+    }
+
+    /* Compact Section Header */
+    .island-header {
+        margin-bottom: 5px;
+        padding-bottom: 2px;
+    }
+
+    .island-title {
+        font-size: 0.8rem;
+    }
+
+    .island-counter {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+    }
+}

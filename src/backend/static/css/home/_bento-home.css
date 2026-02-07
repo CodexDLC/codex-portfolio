@@ -1,0 +1,61 @@
+/* HOME PAGE BENTO OVERRIDES */
+/* Specific styles for the Bento section on the main page */
+
+/* 1. Grid Layout (Wider, No Border) */
+.island-grid.home-mode {
+    border: none !important;
+    box-shadow: none !important;
+    background: none !important;
+
+    /* Custom spacing for Home: 0 padding because parent wrapper has 20px */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    /* Bigger gap for airy look on Home */
+    gap: 20px;
+}
+
+.island-grid.home-mode:hover {
+    border-color: transparent;
+    box-shadow: none;
+    background: none;
+}
+
+/* 2. Modules Bar Alignment */
+/* Align the bar with the grid content */
+.hero-modules-bar.home-mode-bar {
+    padding: 0; /* Parent wrapper has 20px */
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Space between bar and grid */
+
+    /* FIX: Remove top border inherited from Hero */
+    border-top: none;
+}
+
+/* 3. Link Card (View All) */
+.bento-card.link-card {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    border: 1px dashed var(--bento-border);
+}
+
+.bento-card.link-card:hover {
+    border-color: var(--color-gold);
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.bento-card.link-card .bento-header {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: auto;
+}
+
+.bento-card.link-card .bento-title {
+    font-size: 1.5rem;
+    margin: 0;
+}

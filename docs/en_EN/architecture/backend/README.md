@@ -12,6 +12,7 @@ We organize documentation exactly like the code to avoid chaos.
 | Logic Module | Documentation Path | Description |
 | :--- | :--- | :--- |
 | **Core** | [`core/settings.md`](core/settings.md) | Settings, Env, Static Files strategy. |
+| **System** | [`apps/system/data_schema.md`](apps/system/data_schema.md) | **TechTags**, **StyleAttributes** (Design System). |
 | **Portfolio** | [`apps/portfolio/`](apps/portfolio/data_schema.md) | The main logic (Projects, Categories, HTMX). |
 | **Templates** | [`templates/`](templates/README.md) | HTML/CSS/JS architecture. |
 

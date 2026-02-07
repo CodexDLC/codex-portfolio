@@ -143,7 +143,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (separator) {
             const textSpan = separator.querySelector('.bento-status');
             if (textSpan) {
-                textSpan.innerHTML = '// SYSTEM_READY';
+                // FIX: Inject HTML with color class to keep styling
+                textSpan.innerHTML = '<span class="text-green">//</span> SYSTEM_READY';
             }
             separator.classList.add('separator-success');
         }

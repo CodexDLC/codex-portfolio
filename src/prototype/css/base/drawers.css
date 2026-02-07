@@ -1,0 +1,477 @@
+/* src/prototype/css/base/drawers.css */
+/* DRAWERS & OVERLAYS (Hub, Contacts, Mobile Menu) */
+
+/* 1. DESKTOP DRAWER (Layout Drawer) */
+.layout-drawer {
+    bottom: var(--footer-h); /* Над футером */
+    height: 0;
+    overflow: hidden;
+    background-color: #151520;
+    border-top: 1px solid var(--color-gold);
+    transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 190;
+    box-shadow: inset 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.layout-drawer.open { height: 320px; }
+
+.drawer-section {
+    display: none;
+    height: 100%;
+    padding: 40px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    flex-direction: column;
+}
+
+.drawer-section.active { display: flex; opacity: 1; }
+
+/* 2. MOBILE DRAWER (Bottom Drawer) */
+.bottom-drawer {
+    position: fixed;
+    bottom: -100%; /* Hidden by default */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100% !important;
+    max-width: var(--max-width);
+    background-color: #151520;
+    border-top: 2px solid var(--color-gold);
+    z-index: 1000; /* Поверх всего */
+    transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 30px 40px;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.bottom-drawer.active {
+    bottom: 0; /* Выезжает снизу */
+}
+
+/* Hub Header */
+.hub-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 15px;
+}
+
+.hub-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: var(--color-gold);
+    letter-spacing: 1px;
+}
+
+.hub-close, .drawer-close {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--color-ghost);
+    transition: color 0.2s;
+}
+.hub-close:hover, .drawer-close:hover { color: var(--color-ivory); }
+
+/* Hub Grid */
+.hub-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    width: 100%;
+}
+
+.hub-col {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.hub-col-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--color-ghost);
+    margin-bottom: 10px;
+    opacity: 0.7;
+}
+
+/* Hub Links */
+.hub-link {
+    text-decoration: none;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hub-link.main-link {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-ivory);
+    font-family: 'Inter', sans-serif;
+}
+.hub-link.main-link:hover { color: var(--color-blue); transform: translateX(5px); }
+.hub-link.main-link.active { color: var(--color-blue); }
+
+.hub-link.sub-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--color-ghost);
+}
+.hub-link.sub-link:hover { color: var(--color-ivory); }
+
+.hub-link.meta-link {
+    font-size: 0.85rem;
+    color: #666;
+}
+.hub-link.meta-link:hover { color: var(--color-ghost); }
+
+/* Dots */
+.dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+.dot.gold { background: var(--color-gold); }
+.dot.blue { background: var(--color-blue); }
+.dot.green { background: var(--color-green); }
+.dot.purple { background: #c678dd; }
+.dot.ghost { background: var(--color-ghost); }
+
+/* Hub Footer Meta */
+.hub-footer-meta {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #555;
+}
+
+/* --- CONTACT DRAWER STYLES (Business Card) --- */
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: 'JetBrains Mono';
+    color: var(--color-ghost);
+    width: 100%;
+}
+
+.contact-card-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* Avatar | Links | QR */
+    gap: 30px;
+    align-items: center;
+    padding: 10px 0;
+    width: 100%;
+}
+
+/* Profile */
+.contact-profile {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-placeholder {
+    font-family: 'JetBrains Mono';
+    font-size: 1.5rem;
+    color: var(--color-gold);
+    font-weight: bold;
+}
+
+.profile-info h3 {
+    font-size: 1.2rem;
+    color: var(--color-ivory);
+    margin-bottom: 5px;
+}
+
+.profile-role {
+    font-family: 'JetBrains Mono';
+    font-size: 0.8rem;
+    color: var(--color-blue);
+    margin-bottom: 10px;
+}
+
+.profile-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    color: var(--color-ghost);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-green);
+    box-shadow: 0 0 5px rgba(39, 201, 63, 0.5);
+}
+
+/* Links Grid */
+.contact-links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.contact-btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: var(--color-gold);
+    transform: translateY(-2px);
+}
+
+.contact-btn .icon {
+    font-size: 1.2rem;
+    color: var(--color-ghost);
+}
+
+.contact-btn .label {
+    font-family: 'JetBrains Mono';
+    font-size: 0.7rem;
+    color: var(--color-ghost);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.contact-btn .value {
+    font-size: 0.9rem;
+    color: var(--color-ivory);
+    font-weight: 500;
+}
+
+/* QR Code */
+.contact-qr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.qr-box {
+    width: 100px;
+    height: 100px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-text {
+    font-family: 'JetBrains Mono';
+    font-size: 0.6rem;
+    color: black;
+    font-weight: bold;
+}
+
+.qr-label {
+    font-family: 'JetBrains Mono';
+    font-size: 0.7rem;
+    color: var(--color-ghost);
+}
+
+/* ============================================
+   GLOBAL OVERLAY MENU STYLES (Available everywhere)
+   ============================================ */
+.glass-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(15, 15, 26, 0.6); /* Полупрозрачный фон */
+    backdrop-filter: blur(15px); /* Эффект стекла */
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.glass-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.overlay-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    font-size: 2rem;
+    color: var(--color-gold);
+    cursor: pointer;
+}
+
+/* --- СТИЛИ ДЛЯ МЕНЮ (DESKTOP LOOK) --- */
+.overlay-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Выравнивание по левому краю (как код) */
+    gap: 25px;
+    padding-left: 20px; /* Небольшой отступ слева */
+}
+
+.overlay-btn {
+    font-family: 'JetBrains Mono', monospace; /* Шрифт IDE */
+    font-size: 2rem; /* Крупно для пальца */
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--color-ivory);
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Отступ между значком и текстом */
+    transition: transform 0.2s;
+}
+
+.overlay-btn:active {
+    transform: scale(0.95); /* Эффект нажатия */
+}
+
+/* Цвета скобочек (Как в IDE) */
+.overlay-btn .sym { font-weight: normal; opacity: 0.9; }
+.overlay-btn .sym.red   { color: #ff5f56; } /* Красный */
+.overlay-btn .sym.gold  { color: var(--color-gold); } /* Желтый */
+.overlay-btn .sym.blue  { color: var(--color-blue); } /* Синий */
+.overlay-btn .sym.green { color: #2ecc71; } /* Зеленый */
+
+.overlay-btn .txt {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- IDE TREE STYLE (Mobile Menu) --- */
+.overlay-nav.ide-tree {
+    align-items: stretch;
+    gap: 5px;
+    padding-left: 0;
+    width: 100%;
+    max-width: 280px;
+}
+
+/* Папка (раскрывающаяся) */
+.nav-folder-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.overlay-folder {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.overlay-folder:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.overlay-folder .folder-icon {
+    font-size: 1.2rem;
+}
+
+.overlay-folder .folder-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--color-ivory);
+    flex: 1;
+}
+
+.overlay-folder .folder-arrow {
+    font-size: 0.8rem;
+    color: var(--color-ghost);
+    transition: transform 0.2s;
+}
+
+/* Папка открыта */
+.nav-folder-group.open .overlay-folder .folder-arrow {
+    transform: rotate(90deg);
+}
+
+/* Дочерние файлы (скрыты по умолчанию) */
+.folder-children {
+    display: none;
+    flex-direction: column;
+    padding-left: 25px;
+    margin-top: 5px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    margin-left: 20px;
+}
+
+.nav-folder-group.open .folder-children {
+    display: flex;
+}
+
+/* Файл в меню */
+.overlay-file {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.overlay-file:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.overlay-file:active {
+    transform: scale(0.98);
+}
+
+.overlay-file.active {
+    background: rgba(48, 105, 152, 0.2);
+    border-left: 2px solid var(--color-blue);
+}
+
+.overlay-file .file-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.overlay-file .file-icon.blue { color: #61AFEF; }
+.overlay-file .file-icon.gold { color: var(--color-gold); }
+.overlay-file .file-icon.green { color: var(--color-green); }
+.overlay-file .file-icon.ghost { color: var(--color-ghost); }
+
+.overlay-file .file-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: var(--color-ivory);
+}

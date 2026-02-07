@@ -1,0 +1,431 @@
+/* HERO: FINAL PHASE (Text + Logo) */
+
+/* FIX: Layout structure for Hero Main Content (Global Base) */
+.hero-main-content {
+    flex: 1; /* Take all available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    min-height: 0; /* Allow shrinking */
+    width: 100%;
+}
+
+.final-hero-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* FIX: Fluid height by default */
+    min-height: 0;
+    height: auto;
+    align-items: center;
+    padding: 0;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    margin: 0 auto;
+    isolation: isolate;
+    overflow: hidden;
+
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+/* Diagonal Background */
+.hero-diagonal-bg {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 60%;
+    background: linear-gradient(135deg, rgba(48, 105, 152, 0.15) 0%, rgba(30, 30, 47, 0) 100%);
+    clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+    z-index: -1;
+    pointer-events: none;
+    border-left: 1px solid rgba(48, 105, 152, 0.2);
+}
+
+/* Text Side */
+.final-text-side {
+    justify-self: start;
+    text-align: left;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+    border-right: none;
+}
+
+.hero-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 40px;
+}
+
+.hero-line {
+    font-family: 'JetBrains Mono';
+    font-size: clamp(2rem, 4vw, 3.5rem) !important;
+    line-height: 1.0;
+    color: var(--ivory);
+    margin: 0;
+    white-space: nowrap;
+}
+
+.hero-desc-group {
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-left: 2px solid var(--py-blue);
+    padding-left: 20px;
+}
+
+.hero-desc-p {
+    font-family: 'JetBrains Mono';
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    color: var(--color-ghost);
+    margin: 0;
+    white-space: nowrap;
+}
+
+.hero-desc-p::before {
+    content: "> ";
+    color: var(--py-gold);
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* Visual Side */
+.final-visual-side {
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: 40px;
+}
+
+#python-wireframe {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.floating-python-logo {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    opacity: 1;
+    filter: none;
+    animation: floatingLogo 6s ease-in-out infinite;
+}
+
+@keyframes floatingLogo {
+    0%, 100% { transform: translateY(0) rotate(0deg) scaleX(-1); }
+    50% { transform: translateY(-20px) rotate(2deg) scaleX(-1); }
+}
+
+/* Modules Bar (Tabs) */
+.hero-modules-bar {
+    width: 100%;
+    /* FIX: Removed margin-top, layout handled by flex parent */
+    margin-top: 0;
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    flex-shrink: 0; /* Don't shrink */
+}
+
+.modules-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--color-ghost);
+    white-space: nowrap;
+    display: flex;
+    flex-shrink: 0;
+    transition: color 0.3s ease;
+}
+/* FIX: Added !important to force green color */
+.modules-status.status-ready { color: var(--color-green) !important; text-shadow: 0 0 10px rgba(39, 201, 63, 0.5); }
+
+.modules-line {
+    flex-grow: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    animation: pulseLine 3s infinite ease-in-out;
+}
+.modules-line.line-ready { background: var(--color-green); opacity: 0.3; animation: none; }
+
+.modules-tabs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.module-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--color-ivory);
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.4s ease;
+}
+.module-tab.visible { opacity: 1; transform: translateY(0); }
+.module-tab:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.2); }
+.module-tab:active { transform: translateY(0) scale(0.98); }
+
+/* Tab Icons */
+.module-tab .tab-icon { font-size: 0.7rem; font-weight: 700; padding: 2px 4px; border-radius: 2px; text-transform: uppercase; }
+.module-tab .tab-icon.gold { color: var(--color-gold); background: rgba(212, 175, 55, 0.15); }
+.module-tab .tab-icon.blue { color: var(--color-blue); background: rgba(48, 105, 152, 0.15); }
+.module-tab .tab-icon.ghost { color: var(--color-ghost); background: rgba(255, 255, 255, 0.05); }
+.module-tab .tab-icon.green { color: var(--color-green); background: rgba(39, 201, 63, 0.15); }
+.module-tab .tab-name { color: var(--color-ghost); }
+
+/* --- RESPONSIVE --- */
+
+/* 1280px+ (Laptop & Desktop) - Fluid Layout */
+@media (min-width: 1280px) {
+    .final-hero-layout {
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        padding: 20px 0;
+    }
+
+    /* FIX: Increased to 3.2rem (approx 80% of 4.0rem) */
+    .hero-line { font-size: 3.2rem !important; }
+    .final-text-side { padding: 0 20px; }
+    .final-visual-side { padding: 0 20px; }
+    .hero-desc-p { font-size: 0.9rem; }
+    .hero-title-group { margin-bottom: 20px; }
+
+    #python-wireframe { max-width: 400px; }
+}
+
+/* 1440px+ (Large Desktop) - Adjusted size */
+@media (min-width: 1441px) {
+    /* FIX: Reduced font size to 4.0rem (was 4.7) */
+    .hero-line { font-size: 4.0rem !important; }
+    /* FIX: Reduced desc size to 1.0rem (was 1.1) */
+    .hero-desc-p { font-size: 1.0rem; }
+    #python-wireframe { max-width: 550px; }
+}
+
+/* 1921px+ (Ultra Wide / 2K) - Massive size */
+@media (min-width: 1921px) {
+    /* FIX: Reduced from 6.0 to 5.2rem (-15%) */
+    .hero-line { font-size: 5.2rem !important; }
+    .hero-desc-p { font-size: 1.4rem; }
+    /* FIX: Removed explicit image size increase, let it be */
+}
+
+/* Tablet Landscape */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .final-hero-layout { height: auto; min-height: 0; max-height: none; flex: 1; }
+    .hero-line { font-size: 2.4rem !important; }
+    .hero-desc-p { font-size: 0.75rem; line-height: 1.3; }
+}
+
+/* Tablet Portrait (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .final-hero-layout {
+        grid-template-columns: 1fr; /* Single column */
+        height: auto;
+        padding-bottom: 20px;
+        gap: 20px;
+    }
+
+    .final-text-side {
+        padding: 20px;
+        /* FIX: Align text to left */
+        align-items: flex-start;
+        text-align: left;
+        padding-left: 40px; /* Extra padding from left edge */
+    }
+
+    .hero-title-group { align-items: flex-start; } /* Align title group left */
+    .hero-line { text-align: left; font-size: 3rem !important; }
+
+    /* Align description left */
+    .hero-desc-group {
+        align-items: flex-start;
+        border-left: 2px solid var(--py-blue); /* Restore left border */
+        border-right: none;
+        padding-left: 20px;
+        padding-right: 0;
+    }
+
+    /* FIX: Show image below text, aligned right */
+    .final-visual-side {
+        display: flex;
+        justify-content: flex-end; /* Align right */
+        padding: 0 20px;
+        padding-right: 40px; /* Extra padding from right edge */
+    }
+
+    #python-wireframe { max-width: 300px; }
+
+    /* FIX: Shift background to the right (less blue) */
+    .hero-diagonal-bg {
+        width: 100%;
+        /* FIX: 30% from right top (70%), 30% from left bottom (30%) */
+        clip-path: polygon(70% 0, 100% 0, 100% 100%, 30% 100%);
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .final-hero-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        min-height: auto !important;
+        max-height: calc(100vh - 200px) !important;
+        padding: 15px 20px !important;
+        margin: 0 !important;
+        width: 100% !important;
+        background: transparent !important;
+
+        /* FIX: Make it fluid to fill space */
+        flex: 1;
+    }
+
+    /* FIX: Align text left */
+    .final-text-side {
+        text-align: left;
+        align-items: flex-start;
+        padding: 0;
+        width: 100%;
+    }
+
+    .hero-title-group { align-items: flex-start; margin-bottom: 15px; }
+
+    /* FIX: Increased H1 size for mobile */
+    .hero-line {
+        text-align: left;
+        font-size: clamp(2.0rem, 8vw, 3.0rem) !important;
+    }
+
+    /* FIX: Align desc left and reduce size */
+    .hero-desc-group {
+        align-items: flex-start;
+        border-left: 2px solid var(--py-blue);
+        padding-left: 15px;
+        gap: 4px;
+    }
+    .hero-desc-p {
+        text-align: left;
+        font-size: 0.6rem; /* Fixed small size */
+    }
+
+    /* FIX: Reduced margin for prefix */
+    .hero-desc-p::before {
+        content: "> " !important;
+        margin-right: 4px;
+    }
+
+    /* FIX: Show image on mobile, aligned right */
+    .final-visual-side {
+        display: flex !important;
+        justify-content: flex-end; /* Align right */
+        padding: 10px 0;
+        height: auto;
+        width: 100%;
+    }
+
+    #python-wireframe { max-width: 200px; } /* Small image for mobile */
+
+    /* FIX: Restore background */
+    .hero-diagonal-bg {
+        display: block !important;
+        width: 100%;
+        clip-path: polygon(70% 0, 100% 0, 100% 100%, 30% 100%); /* Same angle as tablet */
+    }
+
+    /* FIX: Show modules bar on mobile (without tabs) */
+    .hero-modules-bar {
+        display: flex !important;
+        padding: 10px 0;
+        margin-top: 10px;
+    }
+
+    .modules-tabs { display: none !important; } /* Hide tabs */
+    .modules-status { font-size: 0.7rem; } /* Smaller status text */
+
+    /* Mobile Portals Stack (Buttons) */
+    .mobile-portals-stack { display: none !important; flex-direction: column; gap: 10px; margin-top: 10px; width: 100%; flex-shrink: 0; }
+    .mobile-portals-stack.show-buttons { display: flex !important; }
+
+    .portal-card {
+        position: relative; width: 100%; min-height: 70px; border-radius: 12px; overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1); text-decoration: none; padding: 15px;
+        display: flex; flex-direction: column; justify-content: center;
+        background: linear-gradient(135deg, rgba(30, 30, 47, 0.8) 0%, rgba(15, 15, 26, 1) 100%);
+        opacity: 0;
+    }
+    .mobile-portals-stack.show-buttons .portal-card { animation-duration: 0.6s; animation-fill-mode: forwards; }
+    .mobile-portals-stack.show-buttons .p-biz { animation-name: slideInLeft; animation-delay: 0.1s; }
+    .mobile-portals-stack.show-buttons .p-eco { animation-name: slideInBottom; animation-delay: 0.3s; }
+    .mobile-portals-stack.show-buttons .p-rnd { animation-name: slideInRight; animation-delay: 0.5s; }
+
+    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideInBottom { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+
+    .portal-card span { font-family: 'JetBrains Mono', monospace; color: var(--color-gold); font-size: 0.6rem; letter-spacing: 2px; margin-bottom: 3px; }
+    .portal-card h2 { color: white; font-size: 1.2rem; margin: 0; }
+    .p-biz { border-left: 4px solid var(--color-gold); }
+    .p-eco { border-left: 4px solid var(--color-blue); }
+    .p-rnd { border-left: 4px solid var(--color-ghost); }
+
+    /* Mobile Loading Visual */
+    .mobile-loading-visual { display: flex !important; justify-content: center; align-items: center; padding: 20px; flex-grow: 1; transition: opacity 0.5s ease; }
+    .mobile-loading-visual.hidden { display: none !important; }
+    .mobile-loading-visual .loading-tree-img { width: 100%; height: auto; opacity: 0.7; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3)); animation: floatTree 3s ease-in-out infinite; }
+    @keyframes floatTree { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+    /* FIX: Hide scroll indicator as it's redundant */
+    .mobile-scroll-indicator { display: none !important; }
+}
+
+/* FIX: Large Mobile / Small Tablet (Portrait) Override */
+@media (min-width: 400px) and (max-width: 767px) and (min-height: 800px) {
+    .hero-line {
+        font-size: 2.8rem !important; /* Reduced from 3.0 */
+    }
+
+    .hero-desc-p {
+        font-size: 0.7rem; /* Reduced from 0.8 */
+    }
+
+    #python-wireframe {
+        max-width: 280px; /* Increased from 240 */
+    }
+}

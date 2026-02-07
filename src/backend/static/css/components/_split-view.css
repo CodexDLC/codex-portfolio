@@ -1,0 +1,56 @@
+/* SPLIT VIEW LAYOUT (Dual Pane) */
+/* Used in: Contact, Experience */
+
+.split-view-container {
+    display: grid;
+    /* Default: Left panel slightly wider */
+    grid-template-columns: 1.5fr 1fr;
+    gap: 24px;
+    width: 100%;
+    height: 100%;
+    /* Ensure it fills the parent but respects padding */
+    min-height: 0;
+}
+
+.split-view-left {
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Prevent grid blowout */
+    overflow: hidden;
+}
+
+.split-view-right {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* --- RESPONSIVE --- */
+
+/* Tablet (<= 1024px) */
+@media (max-width: 1024px) {
+    .split-view-container {
+        gap: 18px;
+        /* Equal width on tablet usually looks better */
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Mobile (<= 768px) */
+@media (max-width: 768px) {
+    .split-view-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        height: auto; /* Allow scrolling */
+        overflow-y: visible;
+    }
+
+    .split-view-left,
+    .split-view-right {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+    }
+}

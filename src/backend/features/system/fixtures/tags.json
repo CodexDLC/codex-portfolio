@@ -71,6 +71,11 @@
   },
   {
     "model": "system.techtag",
+    "pk": 25,
+    "fields": { "name": "React", "slug": "react", "category": "frontend", "icon_class": "devicon-react-original", "order": 25 }
+  },
+  {
+    "model": "system.techtag",
     "pk": 30,
     "fields": { "name": "Docker", "slug": "docker", "category": "devops", "icon_class": "devicon-docker-plain", "order": 10 }
   },

@@ -1,0 +1,57 @@
+/* src/prototype/css/base/adaptive/tablet-landscape.css */
+/* TABLET LANDSCAPE / SMALL LAPTOP: 1024px - 1279px */
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+    :root {
+        --max-width: 100%;
+        --header-total-h: 10vh; /* Will be limited by min-height */
+        --footer-h: 5vh;
+    }
+
+    /* Header: Ultra Compact */
+    .layout-header {
+        min-height: 60px; /* Very compact */
+    }
+
+    .layout-header-top {
+        height: 20px;
+        min-height: 20px;
+        padding: 0 15px;
+        font-size: 0.6rem;
+    }
+
+    .header-inner {
+        padding: 0 10px;
+        gap: 15px;
+    }
+
+    /* Logo: Significantly smaller */
+    #brand-logo {
+        font-size: 1.2rem;
+    }
+
+    #brand-slogan {
+        font-size: 0.8rem;
+        margin-left: 8px;
+    }
+
+    /* Tabs: Compact */
+    .nav-link {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+
+    .code-icon {
+        font-size: 0.7rem;
+    }
+
+    /* Footer: Ultra Compact */
+    .layout-footer {
+        min-height: 35px !important;
+        padding: 0 10px;
+        font-size: 0.65rem;
+    }
+
+    .btn-icon { font-size: 1rem; }
+    .btn-label { font-size: 0.6rem; }
+}

@@ -11,7 +11,7 @@
                 <div class="hub-col">
                     <h4 class="hub-col-title">01 // {% trans "NAVIGATION" %}</h4>
                     <a href="{% url 'home' %}" class="hub-link main-link active">MAIN.PY</a>
-                    <a href="{% url 'portfolio' %}" class="hub-link main-link">PORTFOLIO/</a>
+                    <a href="{% url 'portfolio:portfolio' %}" class="hub-link main-link">PORTFOLIO/</a>
                     <a href="{% url 'experience' %}" class="hub-link main-link">EXPERIENCE.LOG</a>
                     <a href="{% url 'contact' %}" class="hub-link main-link">CONTACT.SH</a>
                 </div>
@@ -19,11 +19,11 @@
                 <!-- COL 2: PORTFOLIO INDEX -->
                 <div class="hub-col">
                     <h4 class="hub-col-title">02 // {% trans "PORTFOLIO INDEX" %}</h4>
-                    <a href="{% url 'portfolio' %}#clients" class="hub-link sub-link"><span class="dot gold"></span> {% trans "Clients" %}</a>
-                    <a href="{% url 'portfolio' %}#products" class="hub-link sub-link"><span class="dot blue"></span> {% trans "Products" %}</a>
-                    <a href="{% url 'portfolio' %}#opensource" class="hub-link sub-link"><span class="dot green"></span> {% trans "Open Source" %}</a>
-                    <a href="{% url 'portfolio' %}#prototypes" class="hub-link sub-link"><span class="dot purple"></span> {% trans "Prototypes" %}</a>
-                    <a href="{% url 'portfolio' %}#configs" class="hub-link sub-link"><span class="dot ghost"></span> {% trans "Configs" %}</a>
+                    <a href="{% url 'portfolio:portfolio' %}#clients" class="hub-link sub-link"><span class="dot gold"></span> {% trans "Clients" %}</a>
+                    <a href="{% url 'portfolio:portfolio' %}#products" class="hub-link sub-link"><span class="dot blue"></span> {% trans "Products" %}</a>
+                    <a href="{% url 'portfolio:portfolio' %}#opensource" class="hub-link sub-link"><span class="dot green"></span> {% trans "Open Source" %}</a>
+                    <a href="{% url 'portfolio:portfolio' %}#prototypes" class="hub-link sub-link"><span class="dot purple"></span> {% trans "Prototypes" %}</a>
+                    <a href="{% url 'portfolio:portfolio' %}#configs" class="hub-link sub-link"><span class="dot ghost"></span> {% trans "Configs" %}</a>
                 </div>
 
                 <!-- COL 3: SYSTEM & META -->
@@ -54,7 +54,7 @@
             <div class="hub-col">
                 <h4 class="hub-col-title">01 // {% trans "NAVIGATION" %}</h4>
                 <a href="{% url 'home' %}" class="hub-link main-link active">MAIN.PY</a>
-                <a href="{% url 'portfolio' %}" class="hub-link main-link">PORTFOLIO/</a>
+                <a href="{% url 'portfolio:portfolio' %}" class="hub-link main-link">PORTFOLIO/</a>
                 <a href="{% url 'experience' %}" class="hub-link main-link">EXPERIENCE.LOG</a>
                 <a href="{% url 'contact' %}" class="hub-link main-link">CONTACT.SH</a>
             </div>
@@ -62,11 +62,11 @@
             <!-- COL 2: PORTFOLIO INDEX -->
             <div class="hub-col">
                 <h4 class="hub-col-title">02 // {% trans "PORTFOLIO INDEX" %}</h4>
-                <a href="{% url 'portfolio' %}#clients" class="hub-link sub-link"><span class="dot gold"></span> {% trans "Clients" %}</a>
-                <a href="{% url 'portfolio' %}#products" class="hub-link sub-link"><span class="dot blue"></span> {% trans "Products" %}</a>
-                <a href="{% url 'portfolio' %}#opensource" class="hub-link sub-link"><span class="dot green"></span> {% trans "Open Source" %}</a>
-                <a href="{% url 'portfolio' %}#prototypes" class="hub-link sub-link"><span class="dot purple"></span> {% trans "Prototypes" %}</a>
-                <a href="{% url 'portfolio' %}#configs" class="hub-link sub-link"><span class="dot ghost"></span> {% trans "Configs" %}</a>
+                <a href="{% url 'portfolio:portfolio' %}#clients" class="hub-link sub-link"><span class="dot gold"></span> {% trans "Clients" %}</a>
+                <a href="{% url 'portfolio:portfolio' %}#products" class="hub-link sub-link"><span class="dot blue"></span> {% trans "Products" %}</a>
+                <a href="{% url 'portfolio:portfolio' %}#opensource" class="hub-link sub-link"><span class="dot green"></span> {% trans "Open Source" %}</a>
+                <a href="{% url 'portfolio:portfolio' %}#prototypes" class="hub-link sub-link"><span class="dot purple"></span> {% trans "Prototypes" %}</a>
+                <a href="{% url 'portfolio:portfolio' %}#configs" class="hub-link sub-link"><span class="dot ghost"></span> {% trans "Configs" %}</a>
             </div>
 
             <!-- COL 3: SYSTEM & META -->
@@ -206,23 +206,23 @@
                         <span class="folder-arrow">▶</span>
                     </div>
                     <div class="folder-children">
-                        <a href="{% url 'portfolio' %}#clients" class="overlay-file">
+                        <a href="{% url 'portfolio:portfolio' %}#clients" class="overlay-file">
                             <span class="file-icon gold">PY</span>
                             <span class="file-name">clients.py</span>
                         </a>
-                        <a href="{% url 'portfolio' %}#products" class="overlay-file">
+                        <a href="{% url 'portfolio:portfolio' %}#products" class="overlay-file">
                             <span class="file-icon blue">PY</span>
                             <span class="file-name">products.py</span>
                         </a>
-                        <a href="{% url 'portfolio' %}#opensource" class="overlay-file">
+                        <a href="{% url 'portfolio:portfolio' %}#opensource" class="overlay-file">
                             <span class="file-icon ghost">PY</span>
                             <span class="file-name">opensource.py</span>
                         </a>
-                        <a href="{% url 'portfolio' %}#prototypes" class="overlay-file">
+                        <a href="{% url 'portfolio:portfolio' %}#prototypes" class="overlay-file">
                             <span class="file-icon purple">PY</span>
                             <span class="file-name">prototypes.py</span>
                         </a>
-                        <a href="{% url 'portfolio' %}#configs" class="overlay-file">
+                        <a href="{% url 'portfolio:portfolio' %}#configs" class="overlay-file">
                             <span class="file-icon ghost">YML</span>
                             <span class="file-name">config.yaml</span>
                         </a>

@@ -1,61 +1,42 @@
-# 📋 Django Templates & Components Architecture
+# 🎨 Django Templates & Frontend Architecture
 
 [⬅️ Back](../README.md) | [🏠 Docs Root](../../../../README.md)
 
-## Overview
+> **STACK:** Django Templates + HTMX + Redis Cache.
+> **PHILOSOPHY:** No React/Vue. Server-Side Rendering (SSR) with partial updates.
 
-This section documents the **Prototype → Django Migration** strategy. All components from `src/prototype/` are documented here with:
+## 1. Core Concepts
 
-- **DJANGO comments** (`<!-- DJANGO: ... -->`) indicating optimization opportunities
-- **i18n markers** (`<!-- i18n: key -->`) for internationalization
-- **Inheritance patterns** showing how components will be refactored into Django template blocks
+### A. Bento Grid Layout
+We abandoned complex layouts ("Triple Split", "Slides") in favor of a unified **Adaptive Bento Grid**.
+*   **Desktop:** Multi-column mosaic.
+*   **Mobile:** Single column stack.
+*   **Logic:** Card sizes are calculated by `LayoutService` based on project weight.
 
-## 📁 Structure
+### B. HTMX & Partials
+We do not reload full pages.
+*   **Partials:** Templates starting with `_` (e.g., `_project_card.html`) are designed for HTMX responses.
+*   **Interactions:** Filtering, pagination, and tab switching happen via AJAX replacement of HTML fragments.
 
-### [CSS/](CSS/README.md)
+### C. Redis Caching
+High performance is achieved by caching rendered HTML fragments.
+*   See [Caching Strategy](caching.md).
 
-CSS variables, component structure, and responsive design patterns from `src/prototype/css/`
+## 2. Directory Structure
 
-| File | Purpose |
-|------|---------|
-| [variables.md](CSS/variables.md) | All `:root` variables (colors, sizes, breakpoints) |
-| [components.md](CSS/components.md) | Component structure (layout, header, slides, bento-grid) |
+```text
+templates/
+├── base.html             # Global wrapper (SEO, CSS, JS)
+├── includes/             # Reusable components (Header, Footer)
+├── portfolio/            # Portfolio App
+│   ├── index.html        # Main entry point
+│   ├── _grid.html        # HTMX partial for the grid
+│   └── _card.html        # Single project card
+└── system/               # System pages (404, 500)
+```
 
-### [JavaScript/](JavaScript/README.md)
+## 3. Key Rules
 
-Vanilla JS modules with DOMContentLoaded patterns, state management, and i18n integration
-
-| File | Purpose |
-|------|---------|
-| [base-module.md](JavaScript/base-module.md) | Header animation, logo typing, mobile menu |
-| [slides-module.md](JavaScript/slides-module.md) | Slide system, goToSlide() logic, cooldown mechanism |
-
-### [HTML/](HTML/README.md)
-
-Django template hierarchy and inheritance patterns
-
-| File | Purpose |
-|------|---------|
-| [migration.md](HTML/migration.md) | Migration strategy |
-
-## 🌍 Internationalization
-
-| File | Purpose |
-|------|---------|
-| [I18N_KEYS.md](I18N_KEYS.md) | Master list of all translation keys (EN/RU/DE) |
-| [I18N_BEST_PRACTICE.md](I18N_BEST_PRACTICE.md) | Django gettext + JSON i18n architecture |
-
-## 🔄 Migration Path
-
-1. **CSS/JS** → Copy to Django `static/css/` and `static/js/`
-2. **HTML** → Refactor to Django templates with `{% raw %}{% extends "base.html" %}{% endraw %}`
-3. **Text** → Extract to i18n keys (`.po` files and JSON)
-4. **Data** → Replace hardcoded with Django context variables
-
-## 📌 Prototyping Note
-
-`src/prototype/` is the **development sandbox**:
-
-- Deploys to GitHub Pages (`prototype.codexdlc.github.io`) as reference
-- This documentation is generated from prototype code
-- Not a final product—for experimentation and Django template design
+1.  **No Business Logic:** Templates should only display data provided by the View/Context.
+2.  **Strict Namespacing:** App templates must be inside `templates/<app_name>/`.
+3.  **I18N:** All text must be wrapped in `{% trans %}`.

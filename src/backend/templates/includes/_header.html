@@ -29,7 +29,7 @@
                     <span class="file-name">main.py</span>
                     <span class="tab-close">x</span>
                 </a>
-                <a href="{% url 'portfolio' %}" class="nav-link nav-folder {% if request.resolver_match.url_name == 'portfolio' %}active{% endif %}">
+                <a href="{% url 'portfolio:portfolio' %}" class="nav-link nav-folder {% if 'portfolio' in request.resolver_match.app_names %}active{% endif %}">
                     <span class="code-icon folder">📁</span>
                     <span class="file-name">portfolio/</span>
                     <span class="tab-close">x</span>

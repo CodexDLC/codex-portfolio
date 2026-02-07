@@ -5,10 +5,12 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 12px;
+    /* FIX: Reduced padding for compact bar (was 6px 12px) */
+    padding: 4px 10px;
 
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
+    /* FIX: Reduced font size (was 0.8rem) */
+    font-size: 0.75rem;
     color: var(--color-ghost);
     text-decoration: none;
 
