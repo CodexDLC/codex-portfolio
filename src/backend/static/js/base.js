@@ -1,256 +1,317 @@
 /**
  * CodexDLC Base Logic
- * Handles Header, Footer, Navigation, and Global Animations
+ * Global namespace, Header, Footer, Drawers, Action Dispatcher
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("CodexDLC Base: Initialized");
-    initMobileMenu();
-});
+/* ============================================
+   0. NAMESPACE INIT
+   ============================================ */
+window.Codex = window.Codex || {};
 
-/* --- HEADER: LOGO ANIMATION (LOOPED CLEAN) --- */
-let sloganAnimationStarted = false;
 
-function typeSlogan() {
-    if (sloganAnimationStarted) return;
-    sloganAnimationStarted = true;
+/* ============================================
+   1. HEADER: Logo Animation, Mobile Menu, Nav Folders
+   ============================================ */
+Codex.header = (function () {
+    var sloganAnimationStarted = false;
 
-    const sloganEl = document.getElementById('brand-slogan');
-    const brandText = document.getElementById('brand-logo');
+    function typeSlogan() {
+        if (sloganAnimationStarted) return;
+        sloganAnimationStarted = true;
 
-    if (!sloganEl || !brandText) return;
+        var sloganEl = document.getElementById('brand-slogan');
+        var brandText = document.getElementById('brand-logo');
 
-    const isMobile = window.innerWidth <= 767;
+        if (!sloganEl || !brandText) return;
 
-    // MOBILE OPTIMIZATION: No animation, just static logo
-    if (isMobile) {
-        brandText.style.display = 'inline-block';
-        brandText.style.opacity = '1';
-        sloganEl.style.display = 'none';
-        return; // Exit function, no typing loop
-    }
+        var isMobile = window.innerWidth <= 767;
 
-    const charSpeed = 60;
-    const backspaceSpeed = 30;
-    const pauseBeforeReset = 5000; // Пауза перед возвратом к логотипу
+        // Mobile: static logo, no animation
+        if (isMobile) {
+            brandText.style.display = 'inline-block';
+            brandText.style.opacity = '1';
+            sloganEl.style.display = 'none';
+            return;
+        }
 
-    // Курсор
-    const cursor = document.createElement('span');
-    cursor.textContent = '|';
-    cursor.style.color = 'var(--color-gold)';
-    cursor.style.animation = 'blink 1s step-end infinite';
+        var charSpeed = 60;
+        var backspaceSpeed = 30;
+        var pauseBeforeReset = 5000;
 
-    // Добавляем стиль для мигания курсора, если его нет
-    if (!document.getElementById('cursor-style')) {
-        const style = document.createElement('style');
-        style.id = 'cursor-style';
-        style.textContent = `
-            @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        `;
-        document.head.appendChild(style);
-    }
+        // Blinking cursor
+        var cursor = document.createElement('span');
+        cursor.textContent = '|';
+        cursor.style.color = 'var(--color-gold)';
+        cursor.style.animation = 'blink 1s step-end infinite';
 
-    // Функция для печати текста
-    function typeText(text, color, callback) {
-        const span = document.createElement('span');
-        span.style.color = color;
-        sloganEl.insertBefore(span, cursor);
+        if (!document.getElementById('cursor-style')) {
+            var style = document.createElement('style');
+            style.id = 'cursor-style';
+            style.textContent = '@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }';
+            document.head.appendChild(style);
+        }
 
-        let i = 0;
-        const interval = setInterval(() => {
-            if (i < text.length) {
-                span.textContent += text.charAt(i);
-                i++;
-            } else {
-                clearInterval(interval);
-                if (callback) callback();
-            }
-        }, charSpeed);
-    }
+        function typeText(text, color, callback) {
+            var span = document.createElement('span');
+            span.style.color = color;
+            sloganEl.insertBefore(span, cursor);
 
-    // Функция для стирания всего текста
-    function backspaceAll(callback) {
-        const interval = setInterval(() => {
-            const lastSpan = sloganEl.querySelector('span:not(:last-child)'); // Игнорируем курсор
-            if (lastSpan) {
-                if (lastSpan.textContent.length > 0) {
-                    lastSpan.textContent = lastSpan.textContent.slice(0, -1);
+            var i = 0;
+            var interval = setInterval(function () {
+                if (i < text.length) {
+                    span.textContent += text.charAt(i);
+                    i++;
                 } else {
-                    lastSpan.remove();
+                    clearInterval(interval);
+                    if (callback) callback();
                 }
-            } else {
-                clearInterval(interval);
-                if (callback) callback();
-            }
-        }, backspaceSpeed);
-    }
+            }, charSpeed);
+        }
 
-    // Сценарий анимации
-    function runSequence() {
-        // 1. Скрываем лого, показываем слоган
-        brandText.style.opacity = '0';
-        setTimeout(() => {
-            brandText.style.display = 'none';
-            sloganEl.style.display = 'inline-block';
-            sloganEl.innerHTML = ''; // Очистка
-            sloganEl.appendChild(cursor);
+        function backspaceAll(callback) {
+            var interval = setInterval(function () {
+                var lastSpan = sloganEl.querySelector('span:not(:last-child)');
+                if (lastSpan) {
+                    if (lastSpan.textContent.length > 0) {
+                        lastSpan.textContent = lastSpan.textContent.slice(0, -1);
+                    } else {
+                        lastSpan.remove();
+                    }
+                } else {
+                    clearInterval(interval);
+                    if (callback) callback();
+                }
+            }, backspaceSpeed);
+        }
 
-            // 2. Печатаем: [ Developer's Life Cycle ]
-            typeText("[ ", "var(--color-ghost)", () => {
-                typeText("Developer's", "var(--color-gold)", () => {
-                    typeText(" ", "transparent", () => {
-                        typeText("Life", "var(--color-ivory)", () => {
-                            typeText(" ", "transparent", () => {
-                                typeText("Cycle", "var(--color-blue)", () => {
-                                    typeText(" ]", "var(--color-ghost)", () => {
+        function runSequence() {
+            brandText.style.opacity = '0';
+            setTimeout(function () {
+                brandText.style.display = 'none';
+                sloganEl.style.display = 'inline-block';
+                sloganEl.innerHTML = '';
+                sloganEl.appendChild(cursor);
 
-                                        // 3. Финальная пауза и сброс
-                                        setTimeout(() => {
-                                            // Стираем перед возвратом логотипа (опционально, можно просто переключить)
-                                            backspaceAll(() => {
-                                                sloganEl.style.display = 'none';
-                                                brandText.style.display = 'inline-block';
-                                                setTimeout(() => {
-                                                    brandText.style.opacity = '1';
-
-                                                    // 4. Рестарт цикла через паузу
-                                                    setTimeout(runSequence, 3000);
-                                                }, 100);
-                                            });
-                                        }, pauseBeforeReset);
+                // Type: [ Developer's Life Cycle ]
+                typeText("[ ", "var(--color-ghost)", function () {
+                    typeText("Developer's", "var(--color-gold)", function () {
+                        typeText(" ", "transparent", function () {
+                            typeText("Life", "var(--color-ivory)", function () {
+                                typeText(" ", "transparent", function () {
+                                    typeText("Cycle", "var(--color-blue)", function () {
+                                        typeText(" ]", "var(--color-ghost)", function () {
+                                            setTimeout(function () {
+                                                backspaceAll(function () {
+                                                    sloganEl.style.display = 'none';
+                                                    brandText.style.display = 'inline-block';
+                                                    setTimeout(function () {
+                                                        brandText.style.opacity = '1';
+                                                        setTimeout(runSequence, 3000);
+                                                    }, 100);
+                                                });
+                                            }, pauseBeforeReset);
+                                        });
                                     });
                                 });
                             });
                         });
                     });
                 });
-            });
-        }, 500);
+            }, 500);
+        }
+
+        // Start with initial delay
+        setTimeout(runSequence, 3000);
     }
 
-    // Запуск (первый раз с задержкой)
-    setTimeout(runSequence, 3000);
-}
+    function toggleMainMenu() {
+        var overlay = document.getElementById('main-menu-overlay');
+        if (!overlay) return;
+        overlay.classList.toggle('active');
+    }
 
-/* --- HEADER: MOBILE MENU OVERLAY --- */
-function toggleMainMenu() {
-    const overlay = document.getElementById('main-menu-overlay');
-    if (!overlay) return;
-    overlay.classList.toggle('active');
-}
+    function toggleNavFolder(element) {
+        if (!element) return;
+        var folderGroup = element.closest('.nav-folder-group');
+        if (!folderGroup) return;
+        folderGroup.classList.toggle('open');
+    }
 
-function initMobileMenu() {
-    const overlay = document.getElementById('main-menu-overlay');
-    if (overlay) {
-        overlay.addEventListener('click', (e) => {
+    function initMobileMenu() {
+        var overlay = document.getElementById('main-menu-overlay');
+        if (!overlay) return;
+        overlay.addEventListener('click', function (e) {
             if (e.target.tagName === 'A' || e.target.closest('a')) {
                 toggleMainMenu();
             }
         });
     }
-}
 
-function toggleNavFolder(element) {
-    const folderGroup = element.closest('.nav-folder-group');
-    if (folderGroup) {
-        folderGroup.classList.toggle('open');
-    }
-}
+    return {
+        typeSlogan: typeSlogan,
+        toggleMainMenu: toggleMainMenu,
+        toggleNavFolder: toggleNavFolder,
+        initMobileMenu: initMobileMenu
+    };
+})();
 
-/* --- FOOTER: LANGUAGE SLIDER --- */
-function toggleLangSlider(element) {
-    element.classList.toggle('expanded');
-}
 
-document.addEventListener('click', function(event) {
-    const slider = document.getElementById('lang-slider');
-    if (slider && !slider.contains(event.target)) {
-        slider.classList.remove('expanded');
-    }
-});
+/* ============================================
+   2. FOOTER: Language Switcher
+   ============================================ */
+Codex.footer = (function () {
 
-/* --- FOOTER: SYSTEM HUB & CONTACTS --- */
-
-// Unified Toggle for System Hub (Desktop & Mobile)
-function toggleSystemHub() {
-    const isMobile = window.innerWidth <= 767;
-
-    // Determine which hub to toggle
-    const hub = isMobile
-        ? document.getElementById('hub-mobile')
-        : document.getElementById('hub-desktop');
-
-    // Determine which contacts to close
-    const contacts = isMobile
-        ? document.getElementById('contact-mobile')
-        : document.getElementById('contact-desktop');
-
-    if (!hub) return;
-
-    // Close contacts if open
-    if (contacts) {
-        if (isMobile && contacts.classList.contains('active')) {
-            contacts.classList.remove('active');
-        } else if (!isMobile && contacts.classList.contains('open')) {
-            contacts.classList.remove('open');
-        }
+    function toggleLangSlider(element) {
+        if (!element) return;
+        element.classList.toggle('expanded');
     }
 
-    // Toggle class based on type
-    if (isMobile) {
-        hub.classList.toggle('active');
-    } else {
-        hub.classList.toggle('open');
-    }
-}
-
-// Unified Toggle for Contacts (Desktop & Mobile)
-function toggleContactDrawer() {
-    const isMobile = window.innerWidth <= 767;
-
-    // Determine which contacts to toggle
-    const contacts = isMobile
-        ? document.getElementById('contact-mobile')
-        : document.getElementById('contact-desktop');
-
-    // Determine which hub to close
-    const hub = isMobile
-        ? document.getElementById('hub-mobile')
-        : document.getElementById('hub-desktop');
-
-    if (!contacts) return;
-
-    // Close hub if open
-    if (hub) {
-        if (isMobile && hub.classList.contains('active')) {
-            hub.classList.remove('active');
-        } else if (!isMobile && hub.classList.contains('open')) {
-            hub.classList.remove('open');
-        }
-    }
-
-    // Toggle class based on type
-    if (isMobile) {
-        contacts.classList.toggle('active');
-    } else {
-        contacts.classList.toggle('open');
-    }
-}
-
-// Deprecated functions (kept for compatibility if needed, but redirected)
-function toggleNavDrawer() { toggleSystemHub(); }
-
-/* --- I18N FORM SUBMITTER --- */
-function submitLanguage(langCode) {
-    // Prevent event bubbling if clicked inside slider
-    event.stopPropagation();
-
-    const form = document.getElementById('language-form');
-    if (!form) return;
-
-    const input = form.querySelector('input[name="language"]');
-    if (input) {
+    function submitLanguage(langCode) {
+        var form = document.getElementById('language-form');
+        if (!form) return;
+        var input = form.querySelector('input[name="language"]');
+        if (!input) return;
         input.value = langCode;
         form.submit();
     }
-}
+
+    function initOutsideClick() {
+        document.addEventListener('click', function (event) {
+            var slider = document.getElementById('lang-slider');
+            if (slider && !slider.contains(event.target)) {
+                slider.classList.remove('expanded');
+            }
+        });
+    }
+
+    return {
+        toggleLangSlider: toggleLangSlider,
+        submitLanguage: submitLanguage,
+        initOutsideClick: initOutsideClick
+    };
+})();
+
+
+/* ============================================
+   3. DRAWERS: System Hub & Contact Panels
+   ============================================ */
+Codex.drawers = (function () {
+
+    function toggleSystemHub() {
+        var isMobile = window.innerWidth <= 767;
+
+        var hub = isMobile
+            ? document.getElementById('hub-mobile')
+            : document.getElementById('hub-desktop');
+
+        var contacts = isMobile
+            ? document.getElementById('contact-mobile')
+            : document.getElementById('contact-desktop');
+
+        if (!hub) return;
+
+        // Close contacts if open
+        if (contacts) {
+            if (isMobile && contacts.classList.contains('active')) {
+                contacts.classList.remove('active');
+            } else if (!isMobile && contacts.classList.contains('open')) {
+                contacts.classList.remove('open');
+            }
+        }
+
+        if (isMobile) {
+            hub.classList.toggle('active');
+        } else {
+            hub.classList.toggle('open');
+        }
+    }
+
+    function toggleContactDrawer() {
+        var isMobile = window.innerWidth <= 767;
+
+        var contacts = isMobile
+            ? document.getElementById('contact-mobile')
+            : document.getElementById('contact-desktop');
+
+        var hub = isMobile
+            ? document.getElementById('hub-mobile')
+            : document.getElementById('hub-desktop');
+
+        if (!contacts) return;
+
+        // Close hub if open
+        if (hub) {
+            if (isMobile && hub.classList.contains('active')) {
+                hub.classList.remove('active');
+            } else if (!isMobile && hub.classList.contains('open')) {
+                hub.classList.remove('open');
+            }
+        }
+
+        if (isMobile) {
+            contacts.classList.toggle('active');
+        } else {
+            contacts.classList.toggle('open');
+        }
+    }
+
+    return {
+        toggleSystemHub: toggleSystemHub,
+        toggleContactDrawer: toggleContactDrawer
+    };
+})();
+
+
+/* ============================================
+   4. ACTION DISPATCHER (replaces all onclick)
+   ============================================ */
+document.addEventListener('click', function (e) {
+    var target = e.target.closest('[data-action]');
+    if (!target) return;
+
+    var action = target.dataset.action;
+
+    switch (action) {
+        // Header
+        case 'toggle-main-menu':
+            Codex.header.toggleMainMenu();
+            break;
+        case 'toggle-nav-folder':
+            Codex.header.toggleNavFolder(target);
+            break;
+
+        // Footer
+        case 'toggle-lang-slider':
+            Codex.footer.toggleLangSlider(target);
+            break;
+        case 'submit-language':
+            e.stopPropagation();
+            Codex.footer.submitLanguage(target.dataset.lang);
+            break;
+
+        // Drawers
+        case 'toggle-system-hub':
+            Codex.drawers.toggleSystemHub();
+            break;
+        case 'toggle-contact-drawer':
+            Codex.drawers.toggleContactDrawer();
+            break;
+
+        // Page-specific (only work if page JS loaded)
+        case 'go-to-slide':
+            if (Codex.home) Codex.home.goToSlide(Number(target.dataset.index), target.dataset.dir || 'down');
+            break;
+        case 'go-to-exp-slide':
+            if (Codex.experience) Codex.experience.goToExpSlide(target.dataset.direction);
+            break;
+    }
+});
+
+
+/* ============================================
+   5. INIT
+   ============================================ */
+document.addEventListener('DOMContentLoaded', function () {
+    Codex.header.initMobileMenu();
+    Codex.footer.initOutsideClick();
+});

@@ -153,7 +153,7 @@ me = <span class="term-type">Student</span>()
                 </div>
 
                 <!-- Scroll Hint (Clickable) -->
-                <div class="scroll-hint" onclick="goToExpSlide('next')">
+                <div class="scroll-hint" data-action="go-to-exp-slide" data-direction="next">
                     <span class="scroll-text">{% trans "SCROLL_FOR_LOGS" %}</span>
                     <div class="scroll-arrow">↓</div>
                 </div>
@@ -174,7 +174,7 @@ me = <span class="term-type">Student</span>()
                             <span class="widget-meta">Latest updates</span>
                         </div>
                         <div class="widget-controls">
-                            <button class="btn-back-top" onclick="goToExpSlide('prev')">
+                            <button class="btn-back-top" data-action="go-to-exp-slide" data-direction="prev">
                                 ↑ {% trans "BACK_TO_IDE" %}
                             </button>
                         </div>

@@ -1,9 +1,54 @@
 from django.db import models
+from django.db.models import F, Case, When, Value, IntegerField
 from django.utils.translation import gettext_lazy as _
 
 from .category import Category
 from ...system.models import StyleAttribute, TechTag
 from ...system.models.mixins import TimeStampedMixin
+
+
+class ProjectQuerySet(models.QuerySet):
+    def with_weight(self, include_order=True):
+        """
+        Аннотирует выборку вычисляемым полем `weight`.
+        Формула: Просмотры + (Статус) + (Демо) + (Избранное)
+        """
+        
+        # 1. Очки за статус (Prod круче всех)
+        status_score = Case(
+            When(status='prod', then=Value(500)),
+            When(status='support', then=Value(400)),
+            When(status='dev', then=Value(200)),
+            default=Value(0),
+            output_field=IntegerField(),
+        )
+
+        # 2. Очки за наличие Демо-ссылки (не пустая строка)
+        demo_score = Case(
+            When(link_demo__gt='', then=Value(300)), 
+            default=Value(0),
+            output_field=IntegerField(),
+        )
+
+        # 3. Очки за Избранное
+        featured_score = Case(
+            When(is_featured=True, then=Value(1000)),
+            default=Value(0),
+            output_field=IntegerField(),
+        )
+
+        # Собираем всё вместе
+        expression = F('views_count') + status_score + demo_score + featured_score
+
+        if include_order:
+            # Ручная сортировка всё равно главнее всех автоматических
+            # Умножаем на 2000, чтобы перебить любые бонусы
+            expression = expression + (F('order') * 2000)
+
+        return self.annotate(weight=expression)
+
+    def active(self):
+        return self.filter(is_active=True)
 
 
 class Project(TimeStampedMixin):
@@ -79,6 +124,8 @@ class Project(TimeStampedMixin):
     
     # created_at и updated_at наследуются от TimeStampedMixin
 
+    objects = ProjectQuerySet.as_manager()
+
     class Meta:
         verbose_name = _("Проект")
         verbose_name_plural = _("Проекты")
@@ -86,3 +133,29 @@ class Project(TimeStampedMixin):
 
     def __str__(self):
         return self.title
+
+    @property
+    def popularity_score(self):
+        """
+        Возвращает вычисляемый вес для сортировки в Python (без запросов к БД).
+        Дублирует логику ProjectQuerySet.with_weight, но для одного объекта.
+        """
+        score = self.views_count
+        
+        # 1. Статус
+        if self.status == 'prod':
+            score += 500
+        elif self.status == 'support':
+            score += 400
+        elif self.status == 'dev':
+            score += 200
+            
+        # 2. Демо
+        if self.link_demo:
+            score += 300
+            
+        # 3. Избранное
+        if self.is_featured:
+            score += 1000
+            
+        return score

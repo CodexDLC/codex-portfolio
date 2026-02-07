@@ -31,7 +31,7 @@ DEBUG = env("DEBUG")
 # Application definition
 
 INSTALLED_APPS = [
-    "modeltranslation", # Должно быть ПЕРЕД django.contrib.admin
+    "modeltranslation",  # Must be before django.contrib.admin
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 ]
 
 INSTALLED_APPS += [
-    # Добавьте здесь ваши приложения
     "features.main",
     "features.portfolio",
     'features.system',
@@ -116,7 +115,6 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 
 USE_I18N = True
-USE_L10N = True
 
 LANGUAGES = [
     ('en', _('English')),
@@ -139,10 +137,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-# Статика (CSS/JS)
 STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"  # Сюда Django соберет всё для прода
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# Медиа (Картинки для портфолио)
+
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"

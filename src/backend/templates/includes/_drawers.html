@@ -46,7 +46,7 @@
     <div id="hub-mobile" class="bottom-drawer mobile-only">
         <div class="hub-header">
             <span class="hub-title">// {% trans "SYSTEM_MAP" %}</span>
-            <div class="hub-close" onclick="toggleSystemHub()">×</div>
+            <div class="hub-close" data-action="toggle-system-hub">×</div>
         </div>
 
         <div class="hub-grid">
@@ -89,7 +89,7 @@
         <div class="drawer-section active">
             <div class="drawer-header">
                 <span>// {% trans "CONTACT_UPLINK" %}</span>
-                <div class="drawer-close" onclick="toggleContactDrawer()">×</div>
+                <div class="drawer-close" data-action="toggle-contact-drawer">×</div>
             </div>
 
             <div class="contact-card-layout">
@@ -147,7 +147,7 @@
     <div id="contact-mobile" class="bottom-drawer mobile-only">
         <div class="drawer-header">
             <span>// {% trans "CONTACT_UPLINK" %}</span>
-            <div class="drawer-close" onclick="toggleContactDrawer()">×</div>
+            <div class="drawer-close" data-action="toggle-contact-drawer">×</div>
         </div>
 
         <div class="contact-card-layout">
@@ -195,12 +195,12 @@
     <!-- MAIN MENU OVERLAY (Mobile) -->
     <div id="main-menu-overlay" class="glass-overlay">
         <div class="overlay-content">
-            <div class="overlay-close" onclick="toggleMainMenu()">×</div>
+            <div class="overlay-close" data-action="toggle-main-menu">×</div>
 
             <nav class="overlay-nav ide-tree">
                 <!-- Папка portfolio (раскрывается) -->
                 <div class="nav-folder-group">
-                    <div class="overlay-folder" onclick="toggleNavFolder(this)">
+                    <div class="overlay-folder" data-action="toggle-nav-folder">
                         <span class="folder-icon">📁</span>
                         <span class="folder-name">portfolio/</span>
                         <span class="folder-arrow">▶</span>

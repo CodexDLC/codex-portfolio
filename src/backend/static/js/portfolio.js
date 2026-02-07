@@ -33,9 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let btnId = direction === 'next' ? 'slide-next-btn' : 'slide-prev-btn';
         const btn = document.getElementById(btnId);
 
-        // Проверяем, существует ли кнопка и активна ли она
+        // Check if button exists and is not disabled
         if (btn && !btn.hasAttribute('disabled')) {
-            console.log(`[PortfolioJS] Triggering ${direction} page...`);
             isNavigating = true;
 
             // FIX: Use htmx.trigger instead of btn.click() for hidden elements
@@ -48,8 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 isNavigating = false;
             }, NAV_COOLDOWN);
-        } else {
-            console.log(`[PortfolioJS] Cannot go ${direction}: button disabled or missing`);
         }
     }
 

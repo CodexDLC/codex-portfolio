@@ -1,5 +1,4 @@
 from django.views.generic import TemplateView
-from django.db.models import F
 from ...portfolio.models import Category, Project
 
 class MainView(TemplateView):
@@ -15,20 +14,18 @@ class MainView(TemplateView):
         
         # 2. Берем топ-1 из каждой категории
         for cat in categories:
-            project = Project.objects.filter(
-                category=cat, 
-                is_active=True
-            ).annotate(
-                weight=F('views_count') + F('likes_count') * 5
-            ).order_by('-weight').first()
+            # Используем новый менеджер with_weight
+            # include_order=False, чтобы на главной работала "честная" популярность
+            project = Project.objects.active().filter(
+                category=cat
+            ).with_weight(include_order=False).order_by('-weight').first()
             
             if project:
-                # Сохраняем вес для сортировки
-                project._weight = project.views_count + project.likes_count * 5
                 top_projects.append(project)
                 
         # 3. Сортируем эти проекты между собой по весу (самый крутой -> XL)
-        top_projects.sort(key=lambda p: getattr(p, '_weight', 0), reverse=True)
+        # Используем новое property popularity_score
+        top_projects.sort(key=lambda p: p.popularity_score, reverse=True)
         
         # Ограничиваем 5 штуками (оставляем место для ссылки)
         top_projects = top_projects[:5]
